@@ -1,71 +1,103 @@
+<!--导航条-->
 <template>
     <div class="nav">
         <nav class="nav__top">
             <a class="nav__item" href="#">
                 <i class="fa fa-home fa-fw fa-lg"></i>
+                <span class="visible-hg">logo</span>
+            </a>
+            <a class="nav__item" v-link="{ path: '/index' }">
+                <i class="fa fa-home fa-fw fa-lg"></i>
+                <span class="visible-hg">首页</span>
             </a>
             <a class="nav__item">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
+                <span class="visible-hg">博客</span>
+            </a>
+            <a class="nav__item">
+                <i class="fa fa-map-signs fa-fw fa-lg"></i>
+                <span class="visible-hg">Me</span>
             </a>
         </nav>
         <nav class="nav__bottom">
             <a class="nav__item">
-                <i class="fa fa-user fa-lg"></i>
+                <i class="fa fa-user fa-lg"></i> <span class="visible-hg">资料</span>
             </a>
             <a class="nav__item">
-                <i class="fa fa-tag fa-lg"></i>
+                <i class="fa fa-tag fa-lg"></i> <span class="visible-hg">标签</span>
             </a>
             <a class="nav__item">
-                <i class="fa fa-list fa-lg"></i>
+                <i class="fa fa-list fa-lg"></i> <span class="visible-hg">文章</span>
+
             </a>
             <a class="nav__item">
-                <i class="fa fa-comments fa-lg"></i>
+                <i class="fa fa-comments fa-lg"></i> <span class="visible-hg">评论</span>
             </a>
             <a class="nav__item">
-                <i class="fa fa-sign-out fa-lg"></i>
+                <i class="fa fa-sign-out fa-lg"></i> <span class="visible-hg">退出</span>
             </a>
             <a class="nav__item">
-                <i class="fa fa-sign-in fa-lg"></i>
+                <i class="fa fa-sign-in fa-lg"></i> <span class="visible-hg">登录</span>
             </a>
         </nav>
     </div>
 </template>
 <style lang="scss">
-    $base-theme-color: #38b7ea;
+    //base
+    @import "../theme/theme.scss";
+
+    //default for desktop
     .nav {
         display: flex;
         flex-direction: column;
         justify-content: space-between;;
         align-items: center;
-        height: 100%;
-        width: 45px;
-
         position: fixed;
         left: 0;
         top: 0;
+        z-index: 10;
+        transition: background-color ease 400ms;
+
+        background-color: rgba(0, 0, 0, 0.37);
+        &:hover {
+            color: rgba(256, 256, 256, 0.8);
+            background-color: rgba(0, 0, 0, 0.35);
+            text-shadow: 0px 1px 1px #3b3b3b;
+        }
         /*导航上面结构*/
         .nav__top {
         }
         /*导航下面结构*/
         .nav__bottom {
         }
-
         a {
+            color: rgba(256, 256, 256, 0.4);
             cursor: pointer;
-            width: 45px;
-            height: 45px;
             display: inline-block;
             text-decoration: none;
         }
         .nav__item {
             text-align: center;
-            display: inline-block;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;;
             width: 100%;
             height: 45px;
             line-height: 45px;
             float: left;
             cursor: pointer;
-            transition: all ease 300ms;
+            i {
+                width: 45px;
+                height: 45px;
+                display: flex;
+                justify-content: center;
+                align-items: center;;
+            }
+            span{
+                display: none;
+                width:55px;
+                text-align: left;
+            }
             .nav__item--active {
                 color: $base-theme-color !important;
             }
@@ -76,6 +108,33 @@
 
     }
 
+    /*响应式*/
+    @include media("<=desktop_small") {
+        .nav {
+            width: 100%;
+            height: 45px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;;
+            .nav__item {
+                width:45px;
+            }
+        }
+    }
+
+    @include media(">desktop_small", "<=desktop_large") {
+        .nav {
+            width: 45px;
+            height: 100%;
+        }
+    }
+
+    @include media(">desktop_large") {
+        .nav {
+            width: 100px;
+            height: 100%;
+        }
+    }
 
 </style>
 <script>

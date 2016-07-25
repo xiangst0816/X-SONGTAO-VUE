@@ -1,0 +1,78 @@
+@charset "UTF-8";
+//bootscript的响应式grid
+//@import "_include-media.scss";
+
+// ----------------------
+// hidden
+// ----------------------
+@include media("<phone") {
+  .hidden-phone {
+    display: none !important
+  }
+  .visible-phone {
+    display: block !important
+  }
+}
+
+@include media(">=phone","<tablet") {
+  .hidden-xs {
+    display: none !important
+  }
+  .visible-xs {
+    display: block !important
+  }
+}
+
+@include media(">=tablet","<desktop_small") {
+  .hidden-sm {
+    display: none !important
+  }
+  .visible-sm {
+    display: block !important
+  }
+}
+
+@include media(">=desktop_small","<desktop") {
+  .hidden-md {
+    display: none !important
+  }
+  .visible-md {
+    display: block !important
+  }
+}
+
+@include media(">=desktop","<desktop_large") {
+  .hidden-lg {
+    display: none !important
+  }
+  .visible-lg {
+    display: block !important
+  }
+}
+@include media(">=desktop_large") {
+  .hidden-hg {
+    display: none !important
+  }
+  .visible-hg {
+    display: block !important
+  }
+}
+// ----------------------
+// visible
+// ----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

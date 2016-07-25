@@ -1,28 +1,31 @@
 'use strict';
-
 import Vue from "vue";
-// import App from "./App";
 import "font-awesome/css/font-awesome.min.css";
 
-// import Mint from 'mint-ui';
-
-
+/**
+ * views & components
+ * */
 import blogNav from "./views/nav.vue";
+import App from "./App";
+
+
+
+
+
+
+
+
+
+// import Mint from 'mint-ui';
 
 
 /* eslint-disable no-new */
 new Vue({
     el: 'body',
-    data: {
-    },
-    methods: {
-    },
-    components: {blogNav}
+    data: {},
+    methods: {},
+    components: {blogNav, App}
 })
-
-
-
-
 
 
 // var MyComponent = Vue.extend({
@@ -31,7 +34,6 @@ new Vue({
 // })
 
 // Vue.component('my-component', MyComponent)
-
 
 
 // new Vue({

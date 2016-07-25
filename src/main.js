@@ -1,6 +1,14 @@
+'use strict';
+
 import Vue from "vue";
 // import App from "./App";
-import blogNav from "./blogNav";
+import "font-awesome/css/font-awesome.min.css";
+
+// import Mint from 'mint-ui';
+
+
+import blogNav from "./views/nav.vue";
+
 
 /* eslint-disable no-new */
 new Vue({

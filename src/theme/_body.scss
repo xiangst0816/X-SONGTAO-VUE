@@ -1,0 +1,34 @@
+//base
+@import "include-media";
+
+html {
+  height: 100%;
+  padding: 0;
+
+}
+
+body {
+  padding: 0;
+  margin: 0;
+
+  height: 100%;
+  //background-color: rgba(0, 138, 224, 0.31);
+}
+
+@include media(">desktop_large") {
+  body {
+    margin-left: 100px;
+  }
+}
+
+@include media(">desktop_small", "<=desktop_large") {
+  body {
+    margin-left: 45px;
+  }
+}
+@include media("<desktop_small") {
+  body {
+    padding-top: 45px;
+    box-sizing: border-box;
+  }
+}

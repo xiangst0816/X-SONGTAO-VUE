@@ -1,59 +1,36 @@
 <!--内容区-->
 <template>
-    <div id="app">
+    <div class="blog__content">
+        <!--导航条-->
+        <blog-nav></blog-nav>
+        <!-- 路由外链 -->
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import Hello from './components/Hello'
-
-    export default {
+    import blogNav from "./views/blog.nav";
+    module.exports = {
+        replace: false,
+        data: function () {
+            return {
+//            authenticating: false,
+//            isIndex:true
+            }
+        },
         components: {
-            Hello
+            blogNav
         }
     }
-
-
-
-
-
-
-
-
-
-
 </script>
 
 <style lang="scss">
-    //base
     @import "./theme/theme.scss";
 
-    html {
+    /*内容区*/
+    .blog__content {
+        width: 100%;
         height: 100%;
-        padding: 0;
-
-    }
-
-    body {
-        padding: 0;
-        margin: 0;
-
-        height: 100%;
-        background-color: #c7ffd6;
-    }
-
-
-
-    @include media(">desktop_large") {
-        body {
-            margin-left: 100px;
-        }
-    }
-
-    @include media(">desktop_small","<=desktop_large") {
-        body {
-            margin-left: 45px;
-        }
+        background: #7c7c7c;
     }
 </style>

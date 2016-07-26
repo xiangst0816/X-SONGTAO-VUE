@@ -65,25 +65,132 @@
     content: ".";
   }
 }
-
-.full-image {
-  width: 100%;
+//-----------------------------
+// 文字对其方式
+//-----------------------------
+.pull-left{
+  float: left;
+}
+.pull-right{
+  float:right;
+}
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+.text-left{
+  text-align: left;
+}
+.center-block{
+  display: block!important;
+  margin-right: auto;
+  margin-left: auto;
 }
 
+//-----------------------------
+// 动画类(from animate.css)
+//-----------------------------
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
+
+//-----------------------------
+// 清除浮动
+//-----------------------------
 .clearfix {
   *zoom: 1;
   &:before,
   &:after {
     display: table;
     content: "";
-    // Fixes Opera/contenteditable bug:
-    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
     line-height: 0;
   }
   &:after {
     clear: both;
   }
 }
+
+//-----------------------------
+// 显示隐藏
+//-----------------------------
+.hidden{
+  display: none !important;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+// Hide visually and from screen readers, but maintain layout 
+.invisible {
+  visibility: hidden;
+}
+
+//-----------------------------
+// 文字
+//-----------------------------
+.word-line {
+  //display: block; //如果是块儿级元素可以不用加
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+//-----------------------------
+// 其他
+//-----------------------------
+
+.full-image {
+  width: 100%;
+}
+
+
 
 //全屏
 .bigScreen {
@@ -102,18 +209,7 @@
   padding-right: 15px;
 }
 /*overflow*/
-.text-overflow {
-  overflow: hidden;
-  -ms-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.wordLine {
-  display: block; //如果是块儿级元素可以不用加
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 .lockScreen{
   overflow: hidden!important;
 }

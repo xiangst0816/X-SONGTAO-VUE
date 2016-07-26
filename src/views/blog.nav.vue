@@ -2,20 +2,20 @@
 <template>
     <div class="nav">
         <nav class="nav__top">
-            <a class="nav__item" href="#">
-                <i class="fa fa-home fa-fw fa-lg"></i>
+            <a class="nav__item">
+                <!--<i class="fa fa-home fa-fw fa-lg"></i>-->
                 <span class="visible-hg">logo</span>
             </a>
-            <a class="nav__item" v-link="{ path: '/index' }">
+            <a class="nav__item" external v-link="{ name: 'index',activeClass: 'active'}">
                 <i class="fa fa-home fa-fw fa-lg"></i>
                 <span class="visible-hg">首页</span>
             </a>
-            <a class="nav__item">
+            <a class="nav__item" external v-link="{ name: 'blog',activeClass: 'active'}">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
                 <span class="visible-hg">博客</span>
             </a>
             <a class="nav__item">
-                <i class="fa fa-map-signs fa-fw fa-lg"></i>
+                <i class="fa fa-users fa-fw fa-lg"></i>
                 <span class="visible-hg">Me</span>
             </a>
         </nav>
@@ -42,7 +42,7 @@
         </nav>
     </div>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
 
@@ -93,12 +93,12 @@
                 justify-content: center;
                 align-items: center;;
             }
-            span{
+            span {
                 display: none;
-                width:55px;
+                width: 55px;
                 text-align: left;
             }
-            .nav__item--active {
+            &.active {
                 color: $base-theme-color !important;
             }
             &:hover {
@@ -117,7 +117,7 @@
             flex-direction: row;
             justify-content: space-between;;
             .nav__item {
-                width:45px;
+                width: 45px;
             }
         }
     }
@@ -138,17 +138,15 @@
 
 </style>
 <script>
-    //    import HeaderComponent from './components/header.vue'
-    //    import OtherComponent from './components/other.vue'
+
+
     export default{
-        data(){
-            return {
-                msg: 'hello vue'
-            }
-        },
-//        components:{
-//            'other-component':OtherComponent,
-//            HeaderComponent,
+//        data(){
+//            return {
+//                msg: 'hello vue'
+//            }
 //        }
     }
+
+
 </script>

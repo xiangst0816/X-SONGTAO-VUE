@@ -30,7 +30,17 @@ export default function () {
         },
         '/blog': {
             name: 'blog',
-            component: require('./views/blog.vue')
+            component: require('./views/blog.vue'),
+            subRoutes: {
+                '/art-list': {
+                    name: 'artList',
+                    component: require('./views/blog.articleList.vue')
+                },
+                '/his-list': {
+                    name: 'historyList',
+                    component: require('./views/blog.historyList.vue')
+                }
+            }
         }
     });
 

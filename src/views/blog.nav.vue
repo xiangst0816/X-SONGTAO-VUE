@@ -10,13 +10,9 @@
                 <i class="fa fa-home fa-fw fa-lg"></i>
                 <span class="visible-hg">首页</span>
             </a>
-            <a class="nav__item" external v-link="{ name: 'blog',activeClass: 'active'}">
+            <a class="nav__item" external v-link="{ name: 'artList',activeClass: 'active'}">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
                 <span class="visible-hg">博客</span>
-            </a>
-            <a class="nav__item">
-                <i class="fa fa-users fa-fw fa-lg"></i>
-                <span class="visible-hg">Me</span>
             </a>
         </nav>
         <nav class="nav__bottom">
@@ -28,7 +24,6 @@
             </a>
             <a class="nav__item">
                 <i class="fa fa-list fa-lg"></i> <span class="visible-hg">文章</span>
-
             </a>
             <a class="nav__item">
                 <i class="fa fa-comments fa-lg"></i> <span class="visible-hg">评论</span>
@@ -58,10 +53,10 @@
         z-index: 10;
         transition: background-color ease 400ms;
 
-        background-color: rgba(0, 0, 0, 0.37);
+        background-color: rgba(0,0,0,.8);
         &:hover {
             color: rgba(256, 256, 256, 0.8);
-            background-color: rgba(0, 0, 0, 0.35);
+            background-color: rgba(0,0,0,.9);
             text-shadow: 0px 1px 1px #3b3b3b;
         }
         /*导航上面结构*/
@@ -86,7 +81,9 @@
             line-height: 45px;
             float: left;
             cursor: pointer;
+
             i {
+                font-size: 24px;
                 width: 45px;
                 height: 45px;
                 display: flex;
@@ -97,6 +94,7 @@
                 display: none;
                 width: 55px;
                 text-align: left;
+                font-size: 16px;
             }
             &.active {
                 color: $base-theme-color !important;

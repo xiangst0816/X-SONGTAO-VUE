@@ -6,14 +6,12 @@
             <div class="head-wrap">
                 <h3 class="text-center services">前端工程师 - Nodejs工程师</h3>
                 <div id="headlines">
-                    --{{now}}--
-                    <h1 v-if="now==1" class="text-center textItem current">我是<span class="blue">X-SONGTAO</span></h1>
-                    <h1 class="text-center textItem">既然喜欢那就<span class="blue">行动吧</span>, 不然以后就真没机会了!</h1>
-                    <h1 class="text-center textItem">不忘<span class="blue">初心</span> 方得始终</h1>
-                    <h1 class="text-center textItem"><span class="blue">行动吧, </span>骚年!</h1>
-                    <h1 class="text-center textItem"><span class="blue">坚持</span>才是捷径!</h1>
-                    <h1 class="text-center textItem">我还在上道的<span class="blue">路上</span>,求带!</h1>
-                    <!--<h1 class="text-center textItem">别犹豫,收了<span class="blue">我</span>吧!</h1>-->
+                    <h1 :class="{'current': now==1}" class="text-center textItem">我是<span class="blue">X-SONGTAO</span></h1>
+                    <h1 :class="{'current': now==2}" class="text-center textItem">既然喜欢那就<span class="blue">行动吧</span>, 不然以后就真没机会了!</h1>
+                    <h1 :class="{'current': now==3}" class="text-center textItem">不忘<span class="blue">初心</span> 方得始终</h1>
+                    <h1 :class="{'current': now==4}" class="text-center textItem"><span class="blue">行动吧, </span>骚年!</h1>
+                    <h1 :class="{'current': now==5}" class="text-center textItem"><span class="blue">坚持</span>才是捷径!</h1>
+                    <h1 :class="{'current': now==6}" class="text-center textItem">我还在上道的<span class="blue">路上</span>,求带!</h1>
                 </div>
                 <div class="text-center cat">一个记录时光的博客</div>
             </div>
@@ -22,7 +20,7 @@
             <div class="index-btnBox-each text-center">我的博客</div>
             <div class="index-btnBox-each text-center hidden">照片墙</div>
         </section>
-        <section class="index-bottom-info text-center text-overflow" ng-include="'web/tpl/copyright.footer.tpl.html'"></section>
+        <copyright></copyright>
     </div>
 
 
@@ -32,7 +30,7 @@
     @import "../theme/theme.scss";
     //首次进入页面,主页展示切换文字
     /*index的内容*/
-    .indexBox{
+    .indexBox {
         .index-content {
             user-select: none;
             -webkit-user-select: none;
@@ -88,7 +86,7 @@
                         margin: 10px 0 !important;
                         text-overflow: ellipsis;
                         overflow: hidden;
-                        white-space:nowrap;
+                        white-space: nowrap;
                         box-sizing: border-box;
                         padding: 0 10px;
                         .blue {
@@ -107,7 +105,6 @@
             //底部的两个按钮
 
         }
-
         .index-btnBox {
             user-select: none;
             -webkit-user-select: none;
@@ -139,68 +136,34 @@
                 }
             }
         }
-
-
     }
-    //下面的底部的版权说明
-    .index-bottom-info {
-        user-select: none;
-        -webkit-user-select: none;
-        position: absolute;
-        width: 100%;
-        bottom: 1%;
-        left: 50%;
-        color: #eee;
-        font-size: 12px;
-        transform: translate3d(-50%, 0, 0);
-        p{
-            overflow: hidden;
-            //margin: 0 51px 10px;
-        }
-    }
-
-
-
 </style>
 <script>
     import Vue from "vue";
-    //    import HeaderComponent from './components/header.vue'
-    //    import OtherComponent from './components/other.vue'
+    import copyright from '../components/copyright.vue'
     module.exports = {
-        data: function(){
+        data: function () {
             return {
-                now: 1
+                now: 1,
+                clearInterval: ''
             }
         },
         ready: function () {
-            console.log("home-dom准备完毕") // -> 'foo'
-//            $(".swiper-container").swiper();
-            console.log(this.now)
-
-            setInterval(function (this) {
-                this.now++;
-                console.log(this.now)
-            },1000,this);
-
+            let self = this;
+            self.clearInterval = setInterval(function () {
+                self.now >= 6 ? self.now = 1 : self.now++;
+                console.log(self.now)
+            }, 2000);
+        },
+        destroyed: function () {
+            console.log('destroyed')
+            clearInterval(this.clearInterval)
+        },
+        components: {
+            copyright
         }
     }
 
-//    Vue.directive('word-fade-in', {
-//        bind: function () {
-//            var a = document.getElementById('headlines');
-//            console.log(a)
-//            // 准备工作
-//            // 例如，添加事件处理器或只需要运行一次的高耗任务
-//        },
-//        update: function (newValue, oldValue) {
-//            // 值更新时的工作
-//            // 也会以初始值为参数调用一次
-//        },
-//        unbind: function () {
-//            // 清理工作
-//            // 例如，删除 bind() 添加的事件监听器
-//        }
-//    })
 </script>
 
 

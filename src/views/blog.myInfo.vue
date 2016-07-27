@@ -28,7 +28,7 @@
             <section class="detail__2">
                 <section class="detail__nav">
                     <ul class="tabs text-shadow">
-                        <li><a  v-link="{ name: 'artList',activeClass: 'active'}">最近更新</a></li>
+                        <li><a  v-link="{ name: 'artList',activeClass: 'active'}">文章列表</a></li>
                         <li><a  v-link="{ name: 'historyList',activeClass: 'active'}">时光机</a></li>
                         <li><a  v-link="{ name: 'tagList',activeClass: 'active'}">标签库</a></li>
                     </ul>
@@ -105,14 +105,14 @@
                         width: 100%;
                         font-size: 14px;
                         line-height: 100%;
-                        margin: 20px 0;
+                        margin: 10px 0;
                     }
                     .motto {
                         font-size: 14px;
                         color: #fff;
                         width: 100%;
-                        line-height: 100%;
-                        margin: 20px 0 0;
+                        line-height: 230%;
+                        margin: 0 0;
                     }
                 }
             }
@@ -260,7 +260,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: row;
-            position: absolute;
+            position: fixed;
             transition: width ease 500ms;
             .detail {
                 width: 350px;
@@ -288,7 +288,7 @@
                     .detail__nav {
                         width: 100%;
                         .tabs {
-                            margin: 25px 0;
+                            margin: 15px 0 25px;
                         }
                     }
                     .detail__sns {

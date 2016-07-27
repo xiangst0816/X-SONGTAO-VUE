@@ -6,13 +6,12 @@
 <!--内容区-->
 <template>
     <div class="blog animated fadeIn">
-        <!--<div class="blog__info">-->
-            <my-info></my-info>
-        <!--</div>-->
-
+        <my-info></my-info>
         <!-- 路由外链 -->
         <div class="blog__content">
-            <router-view></router-view>
+            <div class="blog__content--inner">
+                <router-view></router-view>
+            </div>
         </div>
 
     </div>
@@ -21,22 +20,32 @@
     //base
     @import "../theme/theme.scss";
 
-    .blog{
-        .blog__content{
-
+    .blog {
+        /*height: 100%;*/
+        /*overflow-y: scroll;*/
+        .blog__content {
+            display: flex;
+            justify-content:center;
+            align-items: flex-start;
+            .blog__content--inner{
+                width:780px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                overflow: hidden;
+                padding-top:35px;
+            }
         }
     }
 
     @include media(">desktop") {
-        .blog{
-            .blog__info{
-                z-index: 3;
-            }
-            .blog__content{
+        .blog {
+            width:100%;
+
+            .blog__content {
                 z-index: 2;
                 width: 66.67%;
-                height:100px;
-                padding-left:33.33%;
+                padding-left: 33.33%;
                 position: relative;
             }
         }

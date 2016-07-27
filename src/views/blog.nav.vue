@@ -4,35 +4,41 @@
         <nav class="nav__top">
             <a class="nav__item">
                 <!--<i class="fa fa-home fa-fw fa-lg"></i>-->
-                <span class="visible-hg">logo</span>
+                <!--<span class="visible-hg">logo</span>-->
             </a>
             <a class="nav__item" external v-link="{ name: 'index',activeClass: 'active'}">
                 <i class="fa fa-home fa-fw fa-lg"></i>
-                <span class="visible-hg">首页</span>
+                <!--<span class="visible-hg">首页</span>-->
             </a>
             <a class="nav__item" external v-link="{ name: 'artList',activeClass: 'active'}">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
-                <span class="visible-hg">博客</span>
+                <!--<span class="visible-hg">博客</span>-->
             </a>
         </nav>
         <nav class="nav__bottom">
             <a class="nav__item">
-                <i class="fa fa-user fa-lg"></i> <span class="visible-hg">资料</span>
+                <i class="fa fa-user fa-lg"></i>
+                <!--<span class="visible-hg">资料</span>-->
             </a>
             <a class="nav__item">
-                <i class="fa fa-tag fa-lg"></i> <span class="visible-hg">标签</span>
+                <i class="fa fa-tag fa-lg"></i>
+                <!--<span class="visible-hg">标签</span>-->
             </a>
             <a class="nav__item">
-                <i class="fa fa-list fa-lg"></i> <span class="visible-hg">文章</span>
+                <i class="fa fa-list fa-lg"></i>
+                <!--<span class="visible-hg">文章</span>-->
             </a>
             <a class="nav__item">
-                <i class="fa fa-comments fa-lg"></i> <span class="visible-hg">评论</span>
+                <i class="fa fa-comments fa-lg"></i>
+                <!--<span class="visible-hg">评论</span>-->
             </a>
             <a class="nav__item">
-                <i class="fa fa-sign-out fa-lg"></i> <span class="visible-hg">退出</span>
+                <i class="fa fa-sign-out fa-lg"></i>
+                <!--<span class="visible-hg">退出</span>-->
             </a>
             <a class="nav__item">
-                <i class="fa fa-sign-in fa-lg"></i> <span class="visible-hg">登录</span>
+                <i class="fa fa-sign-in fa-lg"></i>
+                <!--<span class="visible-hg">登录</span>-->
             </a>
         </nav>
     </div>
@@ -120,7 +126,7 @@
         }
     }
 
-    @include media(">desktop_small", "<=desktop_large") {
+    @include media(">desktop_small") {
         .nav {
             width: 45px;
             height: 100%;
@@ -129,7 +135,7 @@
 
     @include media(">desktop_large") {
         .nav {
-            width: 100px;
+            /*width: 100px;*/
             height: 100%;
         }
     }

@@ -38,14 +38,14 @@ body {
   }
 }
 
-@include media(">desktop_small", "<=desktop_large") {
+@include media(">desktop_small") {
   body {
     margin-left: 45px;
   }
 }
 @include media("<desktop_small") {
   body {
-    padding-top: 45px;
-    box-sizing: border-box;
+    //padding-top: 45px;
+    //box-sizing: border-box;
   }
 }

@@ -12,10 +12,10 @@
 |    nav 组件    |      07/26       |     已完成    |
 |    index 组件    |       07/26      |     已完成    |
 |    blog-myinfo 组件    |       07/27      |     已完成    |
-|    blog-content 组件    |       07/27      |    0%    |
-
-
-
+|    blog-content 组件    |       07/27      |    已完成    |
+|    blog-lastest 组件    |       07/27      |    0%     |
+|    blog-history 组件    |       07/27      |     0%    |
+|    blog-tagList 组件    |       07/27      |     0%    |
 
 ## Build Setup
 

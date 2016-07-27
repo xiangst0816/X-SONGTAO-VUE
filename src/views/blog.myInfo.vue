@@ -6,36 +6,45 @@
     <div class="myinfo" :class="{ 'active': isShowMyWords}">
         <!--我的信息列表-->
         <section class="detail text-center">
-            <div class="imgBox" @click="isShowMyWords=!isShowMyWords">
-                <img class="img-circle" src="http://xiangsongtao.com/uploads/1468162904000.jpg">
-            </div>
-            <p class="name text-shadow">
-                X-SONGTAO
-            </p>
-            <p class="job text-shadow">
-                前端工程师&&Nodejs工程师
-            </p>
-            <p class="address text-shadow">
-                <span class="fa fa-map-marker"></span> <span>江苏-苏州</span>
-            </p>
-            <p class="motto text-shadow">
-                <i class="fa fa-coffee"></i> <span>全栈开发这个博客不简单好不好~</span>
-            </p>
-            <ul class="tabs text-shadow">
-                <li class="active">最近更新</li>
-                <li>时光机</li>
-                <li>标签库</li>
-            </ul>
-            <div class="follow text-shadow">
-                Follow
-            </div>
-
-            <ul class="SNS">
-                <li><i class="fa fa-qq hidden-xs"></i></li>
-                <li><i class="fa fa-weixin hidden-xs"></i></li>
-                <li><i class="fa fa-weibo hidden-xs"></i></li>
-                <li><i class="fa fa-tencent-weibo hidden-xs"></i></li>
-            </ul>
+            <section class="detail__1">
+                <section class="detail__imgBox" @click="isShowMyWords=!isShowMyWords">
+                    <img class="img-circle" src="http://xiangsongtao.com/uploads/1468162904000.jpg">
+                </section>
+                <section class="detail__info">
+                    <p class="name text-shadow">
+                        X-SONGTAO
+                    </p>
+                    <p class="job text-shadow">
+                        前端工程师&&Nodejs工程师
+                    </p>
+                    <p class="address text-shadow">
+                        <span class="fa fa-map-marker"></span> <span>江苏-苏州</span>
+                    </p>
+                    <p class="motto text-shadow">
+                        <i class="fa fa-coffee"></i> <span>全栈开发这个博客不简单好不好~</span>
+                    </p>
+                </section>
+            </section>
+            <section class="detail__2">
+                <section class="detail__nav">
+                    <ul class="tabs text-shadow">
+                        <li class="active">最近更新</li>
+                        <li>时光机</li>
+                        <li>标签库</li>
+                    </ul>
+                </section>
+                <section class="detail__sns">
+                    <div class="github text-shadow">
+                        Follow
+                    </div>
+                    <ul class="SNS">
+                        <li><i class="fa fa-qq"></i></li>
+                        <li><i class="fa fa-weixin"></i></li>
+                        <li><i class="fa fa-weibo"></i></li>
+                        <li><i class="fa fa-tencent-weibo"></i></li>
+                    </ul>
+                </section>
+            </section>
         </section>
         <!--我的称述-->
         <section class="mywords visuallyhidden">
@@ -57,136 +66,134 @@
     @import "../theme/theme.scss";
 
     .myinfo {
-        width: 33.33%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-        height: 100%;
-        position: absolute;
+
         background-color: rgba(0, 0, 0, 0.5);
         color: #fff;
         transition: width ease 500ms;
         .detail {
-            width: 350px;;
-            .imgBox {
-                width: 160px;
-                height: 160px;
-                margin: 0 auto;
-                img {
-                    width: 100%;
-                    height: 100%;
-                    box-shadow: 0 3px 12px #000;
-                }
-            }
-            .name {
-                color: #fff;
-                margin: 20px 0;
-                width: 100%;
-                font-size: 30px;
-                line-height: 100%;
-                font-weight: bold;
-            }
-            .job {
-                color: #fff;
-                width: 100%;
-                font-size: 18px;
-                line-height: 100%;
-                margin: 20px 0;
-            }
-            .address {
-                color: #fff;
-                width: 100%;
-                font-size: 14px;
-                line-height: 100%;
-                margin: 20px 0;
-            }
-            .motto {
-                /*line-height: 170%;*/
-                font-size: 14px;
-                color: #fff;
-                width: 100%;
-                line-height: 100%;
-                margin: 20px 0;
-            }
-            .tabs {
-                margin: 25px 0;
-                padding: 0;
-                list-style: none;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                & > li {
-                    padding: 5px 0;
-                    font-size: 14px;
-                    /*margin: 0 3px;*/
-                    text-align: center;
-                    width: 68px;
-                    position: relative;
-                    line-height: 100%;
-                    cursor: pointer;
-                    box-sizing: border-box;
-                    transition: .2s ease;
-                }
-                & > .active {
-                    border: 1px solid #38b7ea;
-                    background: transparent;
-                    color: #38b7ea;
-
-                    border-radius: 5px;
-                }
-                & :hover {
-                    color: #38b7ea;
-                }
-            }
-            .follow {
-                background: #38b7ea;
-                color: #fff;
-                text-decoration: none;
-                width: 160px;
-                margin: 15px auto 10px;
-                background: #38b7ea;
-                color: #fff;
-                border-radius: 20px;
-                text-decoration: none;
-                height: 40px;
-                font-size: 16px;
-                line-height: 40px;
-                transition: .2s ease;
-                display: block;
-                cursor: pointer;
-                text-align: center;
-                &:hover {
-                    text-decoration: none;
-                    background: #49c8fb !important;
-                    color: #fff;
-                }
-
-            }
-            .SNS {
-                margin: 0;
-                list-style: none;
-                display: flex;
-                font-size: 20px;
-                width: 100%;
-                padding: 5px 0 0 0;
-                justify-content: center;
-                align-items: center;
-
-                & > li {
-                    margin: 0 8px;
-                    cursor: pointer;
-                    transition: .2s ease;
-                    &:hover {
-                        color: #38b7ea;
+            .detail__1 {
+                .detail__imgBox {
+                    width: 160px;
+                    height: 160px;
+                    margin: 0 auto;
+                    img {
+                        width: 160px;
+                        height: 160px;
+                        box-shadow: 0 3px 12px #000;
                     }
                 }
-
+                .detail__info {
+                    overflow: hidden;
+                    .name {
+                        color: #fff;
+                        margin: 20px 0;
+                        width: 100%;
+                        font-size: 30px;
+                        line-height: 100%;
+                        font-weight: bold;
+                    }
+                    .job {
+                        color: #fff;
+                        width: 100%;
+                        font-size: 18px;
+                        line-height: 100%;
+                        margin: 20px 0;
+                    }
+                    .address {
+                        color: #fff;
+                        width: 100%;
+                        font-size: 14px;
+                        line-height: 100%;
+                        margin: 20px 0;
+                    }
+                    .motto {
+                        font-size: 14px;
+                        color: #fff;
+                        width: 100%;
+                        line-height: 100%;
+                        margin: 20px 0 0;
+                    }
+                }
             }
+            .detail__2 {
+                .detail__nav {
+                    .tabs {
 
+                        padding: 0;
+                        list-style: none;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        & > li {
+                            padding: 5px 0;
+                            font-size: 14px;
+                            /*margin: 0 3px;*/
+                            text-align: center;
+                            width: 68px;
+                            position: relative;
+                            line-height: 100%;
+                            cursor: pointer;
+                            box-sizing: border-box;
+                            transition: .2s ease;
+                        }
+                        & > .active {
+                            border: 1px solid #38b7ea;
+                            background: transparent;
+                            color: #38b7ea;
+
+                            border-radius: 5px;
+                        }
+                        & :hover {
+                            color: #38b7ea;
+                        }
+                    }
+                }
+                .detail__sns {
+                    .github {
+                        background: #38b7ea;
+                        color: #fff;
+                        text-decoration: none;
+                        width: 160px;
+
+                        background: #38b7ea;
+                        color: #fff;
+                        border-radius: 20px;
+                        text-decoration: none;
+                        height: 40px;
+                        font-size: 16px;
+                        line-height: 40px;
+                        transition: .2s ease;
+                        display: block;
+                        cursor: pointer;
+                        text-align: center;
+                        &:hover {
+                            text-decoration: none;
+                            background: #49c8fb !important;
+                            color: #fff;
+                        }
+                    }
+                    .SNS {
+                        margin: 0;
+                        list-style: none;
+                        display: flex;
+                        font-size: 20px;
+                        width: 100%;
+                        justify-content: center;
+                        align-items: center;
+                        & > li {
+                            margin: 0 8px;
+                            cursor: pointer;
+                            transition: .2s ease;
+                            &:hover {
+                                color: #38b7ea;
+                            }
+                        }
+
+                    }
+                }
+            }
         }
         .mywords {
-
             align-items: center;
             width: 0;
             opacity: 0;
@@ -209,7 +216,6 @@
         }
         &.active {
             width: 100%;
-
             @include media(">desktop") {
                 .mywords {
                     width: 720px;
@@ -218,11 +224,138 @@
                     transition: width .5s ease, opacity .2s ease .5s;
                 }
             }
+        }
+    }
+
+    /*响应式处理*/
+    @include media(">desktop") {
+        .myinfo {
+            width: 33.33%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            position: absolute;
+            .detail {
+                width: 350px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .detail__1{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .detail__imgBox{
+                        width:100%;
+                    }
+                    .detail__info{
+                        width:100%;
+                    }
+                }
+                .detail__2{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .detail__nav{
+                        width:100%;
+                        .tabs{
+                            margin: 25px 0;
+                        }
+                    }
+                    .detail__sns{
+                        width:265px;
+                    }
+                    .detail__sns{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        .github{
+                            margin: 0 auto 15px;
+                        }
+                        .SNS{
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include media("<=desktop") {
+        .myinfo {
+            width: 100%;
+            height: 270px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            .detail {
+                width: 720px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                .detail__1{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    .detail__imgBox{
+                        width:225px;
+                    }
+                    .detail__info{
+                        width:265px;
+                    }
+                }
+                .detail__2{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    margin:25px 0 0;
+                    .detail__nav{
+                        width:225px;
+                        .tabs{
+                            margin:0;
+                        }
+                    }
+                    .detail__sns{
+                        width:265px;
+                    }
+                    .detail__sns{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        .github{
+                            margin: 0;
+                            display: none;
+                        }
+                        .SNS{
+                            padding: 0;
+                        }
+                    }
+                }
+            }
 
         }
     }
 
-    /*内容区*/
+    @include media("<=desktop_small"){
+.myinfo{
+    margin-top:45px;
+}
+    }
+
 
 
 </style>

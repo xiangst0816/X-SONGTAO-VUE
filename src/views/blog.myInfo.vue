@@ -28,9 +28,9 @@
             <section class="detail__2">
                 <section class="detail__nav">
                     <ul class="tabs text-shadow">
-                        <li class="active">最近更新</li>
-                        <li>时光机</li>
-                        <li>标签库</li>
+                        <li><a  v-link="{ name: 'artList',activeClass: 'active'}">最近更新</a></li>
+                        <li><a  v-link="{ name: 'historyList',activeClass: 'active'}">时光机</a></li>
+                        <li><a  v-link="{ name: 'tagList',activeClass: 'active'}">标签库</a></li>
                     </ul>
                 </section>
                 <section class="detail__sns">
@@ -69,7 +69,8 @@
 
         background-color: rgba(0, 0, 0, 0.5);
         color: #fff;
-        transition: width ease 500ms;
+
+
         .detail {
             .detail__1 {
                 .detail__imgBox {
@@ -125,24 +126,37 @@
                         justify-content: center;
                         align-items: center;
                         & > li {
-                            padding: 5px 0;
-                            font-size: 14px;
+
+
                             /*margin: 0 3px;*/
-                            text-align: center;
+
                             width: 68px;
                             position: relative;
-                            line-height: 100%;
-                            cursor: pointer;
-                            box-sizing: border-box;
-                            transition: .2s ease;
-                        }
-                        & > .active {
-                            border: 1px solid #38b7ea;
-                            background: transparent;
-                            color: #38b7ea;
 
-                            border-radius: 5px;
+                            cursor: pointer;
+
+                            box-sizing: border-box;
+                            a{
+                                display: block;
+                                width: 68px;
+                                line-height: 100%;
+                                box-sizing: border-box;
+                                transition: .2s ease;
+                                text-align: center;
+                                font-size: 14px;
+                                padding: 5px 0;
+                                text-decoration: none;
+                                color:inherit;
+                                border: 1px solid transparent;
+                            }
+                            & > .active {
+                                border: 1px solid #38b7ea;
+                                background: transparent;
+                                color: #38b7ea;
+                                border-radius: 5px;
+                            }
                         }
+
                         & :hover {
                             color: #38b7ea;
                         }
@@ -195,12 +209,8 @@
         }
         .mywords {
             align-items: center;
-            width: 0;
-            opacity: 0;
-            transition: width .5s ease, opacity .2s ease;
             transform: translate3d(0, 0, 0);
             display: flex;
-            align-items: center;
             justify-content: center;
             overflow: visible;
             text-align: left;
@@ -208,20 +218,33 @@
             line-height: 22px;
             max-width: 720px;
             color: #fff;
-            opacity: 0;
             user-select: none;
             -webkit-user-select: none;
             position: relative;
             box-sizing: border-box;
         }
         &.active {
-            width: 100%;
+
             @include media(">desktop") {
+                width: 100%;
                 .mywords {
                     width: 720px;
                     opacity: 1;
                     overflow: inherit;
                     transition: width .5s ease, opacity .2s ease .5s;
+                }
+            }
+            @include media("<=desktop") {
+                height: 700px;
+                position: relative;
+                .detail{
+                }
+                .mywords {
+                    height: 300px;
+                    width: 100%;
+                    overflow: inherit;
+                    opacity: 1;
+                    transition: height .5s ease,opacity .2s ease .5s;
                 }
             }
         }
@@ -231,57 +254,65 @@
     @include media(">desktop") {
         .myinfo {
             width: 33.33%;
+            z-index: 10;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: row;
             position: absolute;
+            transition: width ease 500ms;
             .detail {
                 width: 350px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                .detail__1{
+                .detail__1 {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    .detail__imgBox{
-                        width:100%;
+                    .detail__imgBox {
+                        width: 100%;
                     }
-                    .detail__info{
-                        width:100%;
+                    .detail__info {
+                        width: 100%;
                     }
                 }
-                .detail__2{
+                .detail__2 {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    .detail__nav{
-                        width:100%;
-                        .tabs{
+                    .detail__nav {
+                        width: 100%;
+                        .tabs {
                             margin: 25px 0;
                         }
                     }
-                    .detail__sns{
-                        width:265px;
+                    .detail__sns {
+                        width: 265px;
                     }
-                    .detail__sns{
+                    .detail__sns {
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
-                        .github{
+                        .github {
                             margin: 0 auto 15px;
                         }
-                        .SNS{
+                        .SNS {
                             padding: 0;
                         }
                     }
                 }
+            }
+            .mywords{
+                width: 0;
+                align-items: center;
+                opacity: 0;
+                transition: width .5s ease, opacity .2s ease;
             }
         }
     }
@@ -296,71 +327,81 @@
             align-items: center;
             flex-direction: column;
             position: relative;
+
+            transition: height ease 500ms;
             .detail {
                 width: 720px;
-                height: 100%;
+                height: 270px;
                 display: flex;
                 flex-direction: column;
                 flex-wrap: wrap;
                 justify-content: center;
                 align-items: center;
-                .detail__1{
+                .detail__1 {
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
-                    .detail__imgBox{
-                        width:225px;
+                    .detail__imgBox {
+                        width: 225px;
                     }
-                    .detail__info{
-                        width:265px;
+                    .detail__info {
+                        width: 265px;
                     }
                 }
-                .detail__2{
+                .detail__2 {
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
-                    margin:25px 0 0;
-                    .detail__nav{
-                        width:225px;
-                        .tabs{
-                            margin:0;
+                    margin: 25px 0 0;
+                    .detail__nav {
+                        width: 225px;
+                        .tabs {
+                            margin: 0;
                         }
                     }
-                    .detail__sns{
-                        width:265px;
+                    .detail__sns {
+                        width: 265px;
                     }
-                    .detail__sns{
+                    .detail__sns {
                         display: flex;
                         flex-direction: row;
                         justify-content: center;
                         align-items: center;
-                        .github{
+                        .github {
                             margin: 0;
                             display: none;
                         }
-                        .SNS{
+                        .SNS {
                             padding: 0;
                         }
                     }
                 }
             }
+            .mywords{
+                align-items: flex-start;
+                height: 0;
+                overflow: hidden;
+                width: 720px;
+                opacity: 0;
+                transition: height .5s ease,opacity .2s ease;
+            }
 
         }
     }
 
-    @include media("<=desktop_small"){
-.myinfo{
-    margin-top:45px;
-}
+    @include media("<=desktop_small") {
+        .myinfo {
+            margin-top: 45px;
+        }
     }
-
 
 
 </style>
 <script>
     module.exports = {
+        replace: true,
         data: function () {
             return {
                 isShowMyWords: false

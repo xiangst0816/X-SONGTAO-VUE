@@ -4,7 +4,7 @@
  */
 <template>
  <div>
-  <span>blog.historyList.vue</span>
+  <span>blog.tagList.vue</span>
  </div>
 </template>
 <style scoped lang="scss">

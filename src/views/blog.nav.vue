@@ -6,11 +6,11 @@
                 <!--<i class="fa fa-home fa-fw fa-lg"></i>-->
                 <!--<span class="visible-hg">logo</span>-->
             </a>
-            <a class="nav__item" external v-link="{ name: 'index',activeClass: 'active'}">
+            <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}">
                 <i class="fa fa-home fa-fw fa-lg"></i>
                 <!--<span class="visible-hg">首页</span>-->
             </a>
-            <a class="nav__item" external v-link="{ name: 'artList',activeClass: 'active'}">
+            <a class="nav__item" v-link="{ name: 'blog',activeClass: 'active'}">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
                 <!--<span class="visible-hg">博客</span>-->
             </a>

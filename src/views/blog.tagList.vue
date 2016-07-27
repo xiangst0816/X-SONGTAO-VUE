@@ -6,8 +6,6 @@
     <div class="historyList">
         <div class="cataBox card-shadow" ng-repeat="cataBox in historyLists track by $index">
             <h3 class="cataBox__title">
-                <!--<i class="fa fa-calendar"></i>-->
-                <!--&ensp;-->
                 <span class="main" ng-bind="cataBox.year">Tags</span>
                 <span class="tag">标签库</span>
             </h3>
@@ -105,8 +103,6 @@
                         </li>
                     </ul>
                 </div>
-
-
             </div>
         </div>
 
@@ -120,36 +116,26 @@
         @import "../theme/cataBox";
         .itemBox__content {
             flex: 1;
-            /*padding-left: 32px;*/
-            /*height: 100%;*/
             border-left: 1px solid #ddd;
             list-style: none;
-            padding:0;
-
+            padding:0 0 0 20px;
             display: flex;
             justify-content:flex-start;
             flex-wrap: wrap;
             align-items: center;
-            padding-left:20px;
             .itemBox__content__item {
                 padding:0 10px;
                 list-style-type: none;
-
-
-
                 height: 28px;
                 line-height: 28px;
                 font-size: 16px;
                 color: $base-word-color;
                 cursor: pointer;
-
                 margin:10px 0;
-
                 .itemBox__content__item-title {
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
-
                 }
                 span {
                     vertical-align: middle;

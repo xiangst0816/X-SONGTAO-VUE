@@ -14,6 +14,10 @@
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
                 <!--<span class="visible-hg">博客</span>-->
             </a>
+            <a class="nav__item" v-link="{ name: 'article',activeClass: 'active'}">
+                <i class="fa fa-bold fa-fw fa-lg"></i>
+                <!--<span class="visible-hg">博客</span>-->
+            </a>
         </nav>
         <nav class="nav__bottom">
             <a class="nav__item">

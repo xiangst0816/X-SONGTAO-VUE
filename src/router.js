@@ -45,7 +45,11 @@ export default function () {
                     component: require('./views/blog.tagList.vue')
                 }
             }
-        }
+        },
+        '/article': {
+            name: 'article',
+            component: require('./views/blog.article.vue')
+        },
     });
 
     //路由切换前

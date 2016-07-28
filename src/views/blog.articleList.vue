@@ -38,6 +38,9 @@
             </div>
         </article>
     </div>
+    <nodata></nodata>
+
+    
 </template>
 <style scoped lang="scss">
     @import "../theme/theme.scss";
@@ -148,6 +151,7 @@
 </style>
 <script>
     import API from "../config.js"
+    import nodata from "../components/nodata.vue"
     export default{
         replace: true,
         data: function () {
@@ -191,6 +195,9 @@
 
         },
         destroyed: function () {
+        },
+        components:{
+            nodata
         }
     }
 </script>

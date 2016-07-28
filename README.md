@@ -14,9 +14,9 @@
 |    blog-myinfo 组件    |       07/27      |     已完成    |
 |    blog-content 组件    |       07/27      |    已完成    |
 |    blog-lastest 组件    |       07/28      |    已完成    |
-|    blog-history 组件    |       07/27      |     50%    |
-|    blog-tagList 组件    |       07/27      |     50%    |
-|    blog-article 组件    |       07/27      |     50%    |
+|    blog-history 组件    |          |     50%    |
+|    blog-tagList 组件    |            |     50%    |
+|    blog-article 组件    |            |     50%    |
 |    blog-login 组件    |              |     0%    |
 |    admin-myinfo 组件    |            |     0%    |
 |    admin-articleList 组件    |           |     0%    |

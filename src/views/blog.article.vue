@@ -3,7 +3,7 @@
 * Description:
 */
 <template>
-    <div class="article-detail">
+    <div class="article-detail animated fadeIn">
         <div class="paper" ng-class="{true:'loaded',false:'loading'}[!!article]">
 
 
@@ -534,7 +534,18 @@
             // GET /someUrl
             console.log('API.getMyInfo')
             console.log(API.getMyInfo)
-            this.$http.get(API.getArticleById.replace('id', "57826e945c21c1dd04b4ad4d")).then((response) => {
+
+
+            console.log('---------------------')
+            console.log()
+//            let arti            // GET /someUrl
+            console.log('API.getMyInfo')
+            console.log(API.getMyInfo)
+
+
+
+            let articleId = this.$route.params.articleId;
+            this.$http.get(API.getArticleById.replace('id', articleId)).then((response) => {
                 // success callback
                 let result = response.data;
                 if (parseInt(result.code) === 1) {
@@ -564,8 +575,6 @@
                 console.log('response2')
                 console.log(response)
             });
-
-
         },
         destroyed: function () {
         }

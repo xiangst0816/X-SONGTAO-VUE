@@ -17,7 +17,7 @@
                         <p ng-bind="itemBox.month | toEnMonth | uppercase">{{monthBox.month}}</p>
                     </div>
                     <ul class="itemBox__content">
-                        <li class="itemBox__content__item"  v-for="article in monthBox.data">
+                        <li class="itemBox__content__item"  v-for="article in monthBox.data" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
                             <span class="itemBox__content__item-title" ng-bind="article.title">{{article.title}}</span>&ensp;
                             <span> <span>(阅读数:</span><span ng-bind="article.read_num">{{article.read_num}}</span>
                            <span> ,评论数:</span><span ng-bind="article.comment_num">{{article.comment_num}}</span><span>)</span></span>

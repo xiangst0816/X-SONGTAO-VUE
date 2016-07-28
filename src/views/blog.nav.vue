@@ -10,11 +10,11 @@
                 <i class="fa fa-home fa-fw fa-lg"></i>
                 <!--<span class="visible-hg">首页</span>-->
             </a>
-            <a class="nav__item" v-link="{ name: 'blog',activeClass: 'active'}">
+            <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
                 <!--<span class="visible-hg">博客</span>-->
             </a>
-            <a class="nav__item" v-link="{ name: 'article',activeClass: 'active'}">
+            <a class="nav__item" v-link="{ name: 'article',params: { articleId: '57826e945c21c1dd04b4ad4d' },activeClass: 'active'}">
                 <i class="fa fa-bold fa-fw fa-lg"></i>
                 <!--<span class="visible-hg">博客</span>-->
             </a>

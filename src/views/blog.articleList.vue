@@ -4,11 +4,11 @@
 */
 <template>
     <div class="aritcleList animated fadeIn">
-        <article class="article" v-for="article of articleList">
+        <article class="article" v-for="article of articleList" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
             <div class="article__header">
                 <h2 class="article__header--title">{{article.title}}</h2>
                 <div class="article__header--content">
-            {{article.content}}
+                    {{article.content}}
                 </div>
             </div>
             <div class="article__infobox">
@@ -74,10 +74,11 @@
                 .article__header--title {
                     text-align: right;
                     color: #333;
-                    transition: color ease 200ms; position: relative;
-                    padding-bottom:20px;
-                    margin:0;
-                    font-size:30px;
+                    transition: color ease 200ms;
+                    position: relative;
+                    padding-bottom: 20px;
+                    margin: 0;
+                    font-size: 30px;
                     font-weight: 500;
                     line-height: 1.2;
                     &:after {
@@ -86,7 +87,7 @@
                         position: absolute;
                         bottom: 10px;
                         right: 0;
-                        height:0;
+                        height: 0;
                         border-top: 3px solid $base-theme-color;
                         border-top-right-radius: 3px;
                         border-bottom-right-radius: 3px;
@@ -155,14 +156,23 @@
             }
         },
         methods: {},
-        ready: function () {
+        created: function () {
 
-            // GET /someUrl
-            console.log('API.newUpdateArticle')
-
-
-            let url = API.newUpdateArticle.replace("from", API.ArticleFrom).replace("to", API.ArticleTo);
-
+            /**
+             * 文章列表会根据
+             * "最新-latest"、"标签筛选-tagList"进行区分,
+             * 不同的type进行不同的url搜索
+             * */
+            let listType = this.$route.params.listType;
+            let url;
+            switch (listType) {
+                case 'latest':
+                    url = API.newUpdateArticle.replace("from", API.ArticleFrom).replace("to", API.ArticleTo);
+                    break;
+                case 'tagList':
+                    url = API.getArticlesWithTagId.replace('id', this.$route.params.tagId);
+                    break;
+            }
 
 
             this.$http.get(url).then((response) => {

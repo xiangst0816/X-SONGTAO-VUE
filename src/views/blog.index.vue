@@ -152,8 +152,8 @@
             let self = this;
             self.clearInterval = setInterval(function () {
                 self.now >= 6 ? self.now = 1 : self.now++;
-                console.log(self.now)
-            }, 2000);
+//                console.log(self.now)
+            }, 4000);
         },
         destroyed: function () {
             console.log('destroyed')

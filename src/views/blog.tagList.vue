@@ -15,7 +15,7 @@
                         <p ng-bind="itemBox.month | toEnMonth | uppercase">{{cata.name}}</p>
                     </div>
                     <ul class="itemBox__content">
-                        <li class="itemBox__content__item" v-for="tag in cata.data">
+                        <li class="itemBox__content__item" v-for="tag in cata.data" v-link="{ name: 'artList',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}">
                             <a class="ui tag label">{{tag.name}}</a>
                         </li>
                     </ul>

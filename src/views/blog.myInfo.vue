@@ -24,7 +24,7 @@
             <section class="detail__2">
                 <section class="detail__nav">
                     <ul class="tabs text-shadow">
-                        <li><a v-link="{ name: 'artList',params: { listType: 'latest' },activeClass: 'active'}">文章列表</a></li>
+                        <li><a v-link="{ name: 'artList',query: { listType: 'latest' },activeClass: 'active'}">文章列表</a></li>
                         <li><a v-link="{ name: 'historyList',activeClass: 'active'}">时光机</a></li>
                         <li><a v-link="{ name: 'tagList',activeClass: 'active'}">标签库</a></li>
                     </ul>

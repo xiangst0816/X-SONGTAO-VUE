@@ -31,9 +31,8 @@ export default function () {
             name: 'blog',
             component: require('./views/blog.vue'),
             subRoutes: {
-                '/art-list/:listType': {
+                '/art-list': {
                     name: 'artList',
-
                     component: require('./views/blog.articleList.vue')
                 },
                 '/his-list': {
@@ -55,7 +54,7 @@ export default function () {
     //路由重定向
     router.redirect({
         '/': '/index',
-        '/blog': '/blog/art-list/latest',
+        '/blog': '/blog/art-list/?listType=latest',
     });
 
 

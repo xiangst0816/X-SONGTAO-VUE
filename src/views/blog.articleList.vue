@@ -163,25 +163,23 @@
              * "最新-latest"、"标签筛选-tagList"进行区分,
              * 不同的type进行不同的url搜索
              * */
-            let listType = this.$route.params.listType;
+            let listType = this.$route.query.listType;
             let url;
             switch (listType) {
                 case 'latest':
                     url = API.newUpdateArticle.replace("from", API.ArticleFrom).replace("to", API.ArticleTo);
                     break;
                 case 'tagList':
-                    url = API.getArticlesWithTagId.replace('id', this.$route.params.tagId);
+                    url = API.getArticlesWithTagId.replace('id', this.$route.query.tagId);
                     break;
             }
-
-
             this.$http.get(url).then((response) => {
                 // success callback
                 let result = response.data;
                 if (parseInt(result.code) === 1) {
                     this.articleList = result.data;
-                    console.log(this.articleList)
-                    console.log("API.newUpdateArticle-请求成功")
+//                    console.log(this.articleList)
+//                    console.log("API.newUpdateArticle-请求成功")
                 } else {
                     alert("请求失败!")
                 }

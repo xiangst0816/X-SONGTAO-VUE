@@ -18,67 +18,53 @@
                 </div>
 
 
-                <h1 ng-bind="article.title">IONIC开发IONIC开发IONIC开发</h1>
+                <h1 ng-bind="article.title">{{article.title}}</h1>
             </section>
             <section class="paper__info">
                 <div class="paper__info--span">
                     <i class="fa fa-calendar"></i>
-                    <span am-time-ago="article.publish_time">三天前</span>
+                    <span am-time-ago="article.publish_time">{{article.publish_time}}</span>
                 </div>
                 <div class="paper__info--span">
                     <i class="fa fa-book"></i>
                     阅读数
-                    <span ng-bind="article.read_num">23</span>
+                    <span ng-bind="article.read_num">{{article.read_num}}</span>
                 </div>
                 <div class="paper__info--span">
                     <i class="fa fa-comments"></i>
                     评论数
-                    <span ng-bind="article.comment_num">223</span>
+                    <span ng-bind="article.comment_num">{{article.comment_num}}</span>
                 </div>
-                <div class="paper__info--span hidden-xs" ng-repeat="tag in article.tags">
-                    <i class="fa fa-tag"></i> <span ng-bind="tag">标签1</span>
-                </div>
-                <div class="paper__info--span hidden-xs" ng-repeat="tag in article.tags">
-                    <i class="fa fa-tag"></i> <span ng-bind="tag">标签1</span>
-                </div>
-                <div class="paper__info--span hidden-xs" ng-repeat="tag in article.tags">
-                    <i class="fa fa-tag"></i> <span ng-bind="tag">标签1</span>
+
+                <div class="paper__info--span hidden-xs" v-for="tag of article.tags">
+                    <i class="fa fa-tag"></i> <span>{{tag}}</span>
                 </div>
             </section>
             <section class="paper__content">
-                <div class="paper__content--inner markdown-body" ng-bind-html="article.content | toTrusted"></div>
+                <div class="paper__content--inner markdown-body" ng-bind-html="article.content | toTrusted">
+                    {{{article.content}}}
+
+                </div>
                 <!--page-->
             </section>
             <!--the end-->
-            <!--<section class="paper__navBox">-->
-            <!--<div class="paper__navBox__inner">-->
-            <!--&lt;!&ndash;<div>-&#45;&#45; The End -&#45;&#45;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="pager-prev">&ndash;&gt;-->
-            <!--&lt;!&ndash;<span>上一篇</span>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="pager-next">&ndash;&gt;-->
-            <!--&lt;!&ndash;<span>下一篇</span>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--</div>-->
-            <!--</section>-->
         </div>
         <section class="commentbox">
 
             <!--标题-->
             <div class="commentbox__header">
-                <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count" ng-bind="article.comment_num">0</span></h3>
+                <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{article.comment_num}}</span></h3>
             </div>
 
             <!--提问题-->
-            <div class="commentBox__question  hidden-xs" ng-class="{true:'',false:'active'}[canComment]">
+            <div class="commentBox__question  hidden-xs active" :class="{true:'',false:'active'}[canComment]">
                 <!--问题盒子-->
                 <div class="commentBox__questionBox">
-                    <input ng-focus="chain.selectId=''" class="commentBox__questionBox--input" type="text" placeholder="我要说几句" ng-model="commentContent">
-                    <button class="btn commentBox__questionBox--reply" ng-click="commentBtn(article,commentContent);commentContent=''"
-                            ng-disabled="!commentContent || !commentInfo.username || !commentInfo.email">
-                        <i class="fa fa-fw"
-                           ng-class="{'default':'fa-comments','going':'fa-spinner fa-spin','success':'fa-check','error':'fa-close','email':'fa-envelope','clock':'fa-clock-o'}[chain.main_state]"></i>
-                    </button>
+
+                    <div class="ui action input fluid commentBox__questionBox">
+                        <input class="commentBox__questionBox--input" type="text" placeholder="我要说几句...">
+                        <button class="ui button commentBox__questionBox--reply">提交</button>
+                    </div>
                 </div>
                 <!--个人信息-->
                 <div class="commentBox__info">
@@ -96,29 +82,28 @@
             <!--问题盒子-->
 
             <div class="commentbox__inner">
-                <div class="comments" ng-repeat="comment in commentList track by $index" ng-init="toggle=false">
+                <div class="comments" v-for="comment of commentList">
                     <!--{{comment._id}}{{'&#45;&#45;'}}{{chain.selectId ==comment._id}}{{'&#45;&#45;'}}{{toggle}}{{'&#45;&#45;'}}{{chain.selectId}}-->
                     <div class="comments__ask">
                         <div class="comments__ask__header">
                             <!--<span class="name" ng-bind="comment.name"></span>&ensp;·&ensp;<span am-time-ago="comment.time" ></span>&ensp;·&ensp;<span class="reply" ng-click="commentToComemntBtn($event)">回复</span>-->
-                            <span class="name" ng-bind="comment.name"></span>&ensp;·&ensp;<span am-time-ago="comment.time"></span><span class="hidden-xs">&ensp;·&ensp;<span class="reply"
-                                                                                                                                                                             ng-click="chain.selectId=comment._id;toggle=!toggle;">回复</span></span>
+                            <span class="name">{{comment.name}}</span>&ensp;·&ensp;<span am-time-ago="comment.time">{{comment.time}}</span><span class="hidden-xs">&ensp;·&ensp;<span class="reply"
+                                                                                                                                                                                      @click="reply(comment._id)">回复</span>{{selectId}}--{{toggle}}</span>
                         </div>
                         <div class="comments__ask__content">
-                            <span ng-bind="comment.content"></span>
+                            <span>{{comment.content}}</span>
                         </div>
                     </div>
-                    <div class="comments__reply" ng-class="{true:'active',false:''}[(chain.selectId ==comment._id  && toggle) || (toggle = false)]">
+                    <div class="comments__reply" :class="{'active':a}">
                         <!--提问题-->
-                        <div class="commentBox__question" ng-class="{true:'',false:'active'}[canComment]">
+                        <div class="commentBox__question active" :class="{true:'',false:'active'}[canComment]">
                             <!--问题盒子-->
                             <div class="commentBox__questionBox">
-                                <input class="commentBox__questionBox--input" type="text" placeholder="我要说几句" ng-model="commentContent">
-                                <button class="btn commentBox__questionBox--reply" ng-click="commentBtn(comment,commentContent);commentContent='';"
-                                        ng-disabled="!commentContent || !commentInfo.username || !commentInfo.email">
-                                    <i class="fa fa-fw"
-                                       ng-class="{'default':'fa-comments','going':'fa-spinner fa-spin','success':'fa-check','error':'fa-close','email':'fa-envelope','clock':'fa-clock-o'}[chain.sub_state]"></i>
-                                </button>
+
+                                <div class="ui action input fluid commentBox__questionBox">
+                                    <input class="commentBox__questionBox--input" type="text" placeholder="我要说几句...">
+                                    <button class="ui button commentBox__questionBox--reply">提交</button>
+                                </div>
                             </div>
                             <!--个人信息-->
                             <div class="commentBox__info">
@@ -133,12 +118,12 @@
                             </div>
                         </div>
 
-                        <div class="comments__reply__each" ng-repeat="reply in comment.next_id track by $index">
+                        <div class="comments__reply__each" v-for="reply of comment.next_id">
                             <div class="comments__reply__header">
-                                <span class="name" ng-bind="reply.name"></span>&ensp;·&ensp;<span am-time-ago="reply.time"></span>
+                                <span class="name">{{reply.name}}</span>&ensp;·&ensp;<span am-time-ago="reply.time">{{reply.time}}</span>
                             </div>
                             <div class="comments__reply__content">
-                                <span ng-bind="reply.content"></span>
+                                <span ng-bind="reply.content">{{reply.content}}</span>
                             </div>
                         </div>
                     </div>
@@ -192,6 +177,9 @@
                 padding: 35px 35px 0;
                 background: #fff;
                 text-align: right;
+                a {
+                    text-decoration: none;
+                }
                 h1 {
                     min-height: 52px;
                     width: 100%;
@@ -199,7 +187,7 @@
                     font-size: 36px;
                     font-weight: 500;
                     line-height: 1.2;
-                    margin:20px 0 10px;
+                    margin: 20px 0 10px;
                 }
             }
             .paper__info {
@@ -271,7 +259,7 @@
             position: relative;
             overflow: hidden;
             &::after {
-                content: '';
+                /*content: '';*/
                 position: absolute;
                 top: 0;
                 right: 0;
@@ -299,10 +287,9 @@
                         margin-right: 10px;
                     }
                     .commentbox__header--count {
-                        top: 6px;
+                        top: 2px;
                         background: $base-theme-color;
                         font-size: 20px;
-                        background: $base-theme-color;
                         color: #fff;
                         border-radius: 5px;
                         padding: 3px 6px;
@@ -311,7 +298,9 @@
                         vertical-align: baseline;
                         min-width: 30px;
                         min-height: 30px;
-                        text-align: center;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
                     }
                 }
             }
@@ -338,36 +327,15 @@
                     height: 50px;
                     z-index: 10;
                     .commentBox__questionBox--input {
-                        width: 100%;
-                        border-radius: 5px;
                         border: 1px solid $base-theme-color;
-                        height: 100%;
-                        padding-left: 20px;
-                        padding-right: 78px;
+                        font-size: 16px;
                         &::-webkit-input-placeholder {
                             color: #a8a8a8;
                         }
                     }
                     .commentBox__questionBox--reply {
-
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        height: 50px;
-                        box-sizing: border-box;
-                        border-bottom-right-radius: 5px;
-                        border-top-right-radius: 5px;
-
                         background: $base-theme-color;
                         color: #fff;
-                        //height: 100%;
-                        padding: 0 18px;
-                        @include display-flex;
-                        @include justify-content(center);
-                        @include align-items(center);
-                        font-size: 20px;
-
-                        transition: all ease 200ms;
                         &:active,
                         &.activated {
                             background: darken($base-theme-color, 10%);
@@ -386,11 +354,13 @@
                     z-index: 1;
                     transition: all ease 200ms;
                     opacity: 0;
+                    margin: 5px 0;
                     .commentBox__info--input {
-                        flex: 1;
+                        /*flex: 1;*/
                         @include display-flex;
                         @include justify-content(center);
                         @include align-items(center);
+                        margin: 0 10px;
                         color: #eee;
 
                         label {
@@ -401,9 +371,10 @@
                             border-radius: 5px;
                             border: 1px solid $base-theme-color;
                             height: 32px;
-                            width: 255px;
+                            width: 220px;
                             color: #464642;
                             padding: 0 10px;
+                            font-size: 14px;
                             &::-webkit-input-placeholder {
                                 color: #a8a8a8;
                             }
@@ -531,11 +502,72 @@
 
 </style>
 <script>
-    export default{
-        data(){
+    //"57826e945c21c1dd04b4ad4d"
+    import API from "../config.js"
+    module.exports = {
+        replace: true,
+        data: function () {
             return {
-                msg: 'hello vue'
+                article: {},
+                commentList: [],
+                toggle: true,
+                selectId: '',
             }
+        },
+        methods: {
+            reply:function (id) {
+                this.selectId=id;
+                console.log("before:"+this.toggle)
+                this.toggle=!this.toggle;
+                console.log("after:"+this.toggle)
+            }
+        },
+        computed:{
+            a:function (thisId) {
+//                return ((this.selectId ==thisId  && this.toggle) || (this.toggle = false));
+                return true;
+            }
+
+        },
+        ready: function () {
+
+            // GET /someUrl
+            console.log('API.getMyInfo')
+            console.log(API.getMyInfo)
+            this.$http.get(API.getArticleById.replace('id', "57826e945c21c1dd04b4ad4d")).then((response) => {
+                // success callback
+                let result = response.data;
+                if (parseInt(result.code) === 1) {
+                    this.article = result.data;
+                    console.log("API.article-请求成功")
+                    console.log(this.article)
+
+
+                    this.$http.get(API.getArticlesComments.replace('article_id', this.article._id)).then((response) => {
+                        let result = response.data;
+                        if (parseInt(result.code) === 1) {
+                            this.commentList = result.data;
+                            console.log('this.commentList')
+                            console.log(this.commentList)
+                        }
+
+                    }, (response) => {
+                        console.log('response2')
+                        console.log(response)
+                    });
+
+
+                } else {
+                    alert("请求失败!")
+                }
+            }, (response) => {
+                console.log('response2')
+                console.log(response)
+            });
+
+
+        },
+        destroyed: function () {
         }
     }
 </script>

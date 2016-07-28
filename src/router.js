@@ -21,7 +21,6 @@ var router = new VueRouter({
 
 export default function () {
 
-
     //定义路由规则
     router.map({
         '/index': {
@@ -51,6 +50,14 @@ export default function () {
             component: require('./views/blog.article.vue')
         },
     });
+
+    //路由重定向
+    router.redirect({
+        '/': '/index',
+        '/blog': '/blog/art-list',
+    });
+
+
 
     //路由切换前
     router.beforeEach(({to, from, next}) => {

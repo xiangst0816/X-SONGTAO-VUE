@@ -20,6 +20,8 @@
     "sass-loader": "^4.0.0",
     "scss-loader": "^0.0.1",
     "semantic-ui-breadcrumb": "^2.2.2",
+    "semantic-ui-button": "^2.2.2",
+    "semantic-ui-input": "^2.2.1",
     "semantic-ui-label": "^2.2.1",
     "semantic-ui-popup": "^2.2.1",
     "vue": "^1.0.26",

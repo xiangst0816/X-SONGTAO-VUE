@@ -3,305 +3,32 @@
 * Description:
 */
 <template>
-    <div class="aritcleList">
-        <article class="article">
+    <div class="aritcleList animated fadeIn">
+        <article class="article" v-for="article of articleList">
             <div class="article__header">
-                <h2 class="article__header--title">IONIC开发——综述</h2>
+                <h2 class="article__header--title">{{article.title}}</h2>
                 <div class="article__header--content">
-                    这个项目使用IONIC1.x构建，适用于微信app+IOS+Android项目，该项目主要进行会员管理、活动展示、客服、地图、导航、店铺展示、积分礼品卡券等数据展示，故使用WebApp的方式构建能实现快速开发。到目前为止未引用IONIC之外的组件库，自身已完全够用，考虑到项目整体大小，能使用到jQuery的地方都使用原生js实现；需要组件的能自己写的不引入额外库。关于显示效果及兼容性：
-                    IOS手机微信及APP显示效果极佳，能媲美原生应用；安卓微信则会有些卡顿，针对安卓我将进行降级处理，关闭动画及动效。一年内新出的安卓机能在微信中流程运行。
+            {{article.content}}
                 </div>
             </div>
             <div class="article__infobox">
                 <div class="article__info">
                     <div class="article__info--each">
                         <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">三天前</span>
+                        <span am-time-ago="article.publish_time">{{article.publish_time}}</span>
                     </div>
                     <div class="article__info--each">
                         <i class="fa fa-book"></i>
                         阅读数
-                        <span class="article-readnum">223</span>
+                        <span class="article-readnum">{{article.read_num}}</span>
                     </div>
                     <div class="article__info--each">
-                        <i class="fa fa-comments"></i>
-                        评论数
-                        <span class="article-comment">23</span>
+                        <i class="fa fa-comments"></i>评论数
+                        <span class="article-comment">{{article.comment_num}}</span>
                     </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签1</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签2</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签3</span>
-                    </div>
-                </div>
 
-                <div class="arrticle__readmore hidden-xs">
-                    <span>阅读更多</span>
-                </div>
-            </div>
-        </article>
-        <article class="article">
-            <div class="article__header">
-                <h2 class="article__header--title">IONIC开发——综述</h2>
-                <div class="article__header--content">
-                    这个项目使用IONIC1.x构建，适用于微信app+IOS+Android项目，该项目主要进行会员管理、活动展示、客服、地图、导航、店铺展示、积分礼品卡券等数据展示，故使用WebApp的方式构建能实现快速开发。到目前为止未引用IONIC之外的组件库，自身已完全够用，考虑到项目整体大小，能使用到jQuery的地方都使用原生js实现；需要组件的能自己写的不引入额外库。关于显示效果及兼容性：
-                    IOS手机微信及APP显示效果极佳，能媲美原生应用；安卓微信则会有些卡顿，针对安卓我将进行降级处理，关闭动画及动效。一年内新出的安卓机能在微信中流程运行。
-
-
-                </div>
-            </div>
-            <div class="article__infobox">
-                <div class="article__info">
-                    <div class="article__info--each">
-                        <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">三天前</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-book"></i>
-                        阅读数
-                        <span class="article-readnum">223</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-comments"></i>
-                        评论数
-                        <span class="article-comment">23</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签1</span>
-                        <i class="fa fa-tag"></i> <span>标签2</span>
-                        <i class="fa fa-tag"></i> <span>标签3</span>
-                    </div>
-                </div>
-
-                <div class="arrticle__readmore hidden-xs">
-                    <span>阅读更多</span>
-                </div>
-            </div>
-        </article>
-        <article class="article">
-            <div class="article__header">
-                <h2 class="article__header--title">IONIC开发——综述</h2>
-                <div class="article__header--content">
-                    这个项目使用IONIC1.x构建，适用于微信app+IOS+Android项目，该项目主要进行会员管理、活动展示、客服、地图、导航、店铺展示、积分礼品卡券等数据展示，故使用WebApp的方式构建能实现快速开发。到目前为止未引用IONIC之外的组件库，自身已完全够用，考虑到项目整体大小，能使用到jQuery的地方都使用原生js实现；需要组件的能自己写的不引入额外库。关于显示效果及兼容性：
-                    IOS手机微信及APP显示效果极佳，能媲美原生应用；安卓微信则会有些卡顿，针对安卓我将进行降级处理，关闭动画及动效。一年内新出的安卓机能在微信中流程运行。
-
-
-                </div>
-            </div>
-            <div class="article__infobox">
-                <div class="article__info">
-                    <div class="article__info--each">
-                        <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">三天前</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-book"></i>
-                        阅读数
-                        <span class="article-readnum">223</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-comments"></i>
-                        评论数
-                        <span class="article-comment">23</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签1</span>
-                        <i class="fa fa-tag"></i> <span>标签2</span>
-                        <i class="fa fa-tag"></i> <span>标签3</span>
-                    </div>
-                </div>
-
-                <div class="arrticle__readmore hidden-xs">
-                    <span>阅读更多</span>
-                </div>
-            </div>
-        </article>
-        <article class="article">
-            <div class="article__header">
-                <h2 class="article__header--title">IONIC开发——综述</h2>
-                <div class="article__header--content">
-                    这个项目使用IONIC1.x构建，适用于微信app+IOS+Android项目，该项目主要进行会员管理、活动展示、客服、地图、导航、店铺展示、积分礼品卡券等数据展示，故使用WebApp的方式构建能实现快速开发。到目前为止未引用IONIC之外的组件库，自身已完全够用，考虑到项目整体大小，能使用到jQuery的地方都使用原生js实现；需要组件的能自己写的不引入额外库。关于显示效果及兼容性：
-                    IOS手机微信及APP显示效果极佳，能媲美原生应用；安卓微信则会有些卡顿，针对安卓我将进行降级处理，关闭动画及动效。一年内新出的安卓机能在微信中流程运行。
-
-
-                </div>
-            </div>
-            <div class="article__infobox">
-                <div class="article__info">
-                    <div class="article__info--each">
-                        <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">三天前</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-book"></i>
-                        阅读数
-                        <span class="article-readnum">223</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-comments"></i>
-                        评论数
-                        <span class="article-comment">23</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签1</span>
-                        <i class="fa fa-tag"></i> <span>标签2</span>
-                        <i class="fa fa-tag"></i> <span>标签3</span>
-                    </div>
-                </div>
-
-                <div class="arrticle__readmore hidden-xs">
-                    <span>阅读更多</span>
-                </div>
-            </div>
-        </article>
-        <article class="article">
-            <div class="article__header">
-                <h2 class="article__header--title">IONIC开发——综述</h2>
-                <div class="article__header--content">
-                    这个项目使用IONIC1.x构建，适用于微信app+IOS+Android项目，该项目主要进行会员管理、活动展示、客服、地图、导航、店铺展示、积分礼品卡券等数据展示，故使用WebApp的方式构建能实现快速开发。到目前为止未引用IONIC之外的组件库，自身已完全够用，考虑到项目整体大小，能使用到jQuery的地方都使用原生js实现；需要组件的能自己写的不引入额外库。关于显示效果及兼容性：
-                    IOS手机微信及APP显示效果极佳，能媲美原生应用；安卓微信则会有些卡顿，针对安卓我将进行降级处理，关闭动画及动效。一年内新出的安卓机能在微信中流程运行。
-
-
-                </div>
-            </div>
-            <div class="article__infobox">
-                <div class="article__info">
-                    <div class="article__info--each">
-                        <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">三天前</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-book"></i>
-                        阅读数
-                        <span class="article-readnum">223</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-comments"></i>
-                        评论数
-                        <span class="article-comment">23</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签1</span>
-                        <i class="fa fa-tag"></i> <span>标签2</span>
-                        <i class="fa fa-tag"></i> <span>标签3</span>
-                    </div>
-                </div>
-
-                <div class="arrticle__readmore hidden-xs">
-                    <span>阅读更多</span>
-                </div>
-            </div>
-        </article>
-        <article class="article">
-            <div class="article__header">
-                <h2 class="article__header--title">IONIC开发——综述</h2>
-                <div class="article__header--content">
-                    这个项目使用IONIC1.x构建，适用于微信app+IOS+Android项目，该项目主要进行会员管理、活动展示、客服、地图、导航、店铺展示、积分礼品卡券等数据展示，故使用WebApp的方式构建能实现快速开发。到目前为止未引用IONIC之外的组件库，自身已完全够用，考虑到项目整体大小，能使用到jQuery的地方都使用原生js实现；需要组件的能自己写的不引入额外库。关于显示效果及兼容性：
-                    IOS手机微信及APP显示效果极佳，能媲美原生应用；安卓微信则会有些卡顿，针对安卓我将进行降级处理，关闭动画及动效。一年内新出的安卓机能在微信中流程运行。
-
-
-                </div>
-            </div>
-            <div class="article__infobox">
-                <div class="article__info">
-                    <div class="article__info--each">
-                        <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">三天前</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-book"></i>
-                        阅读数
-                        <span class="article-readnum">223</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-comments"></i>
-                        评论数
-                        <span class="article-comment">23</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签1</span>
-                        <i class="fa fa-tag"></i> <span>标签2</span>
-                        <i class="fa fa-tag"></i> <span>标签3</span>
-                    </div>
-                </div>
-
-                <div class="arrticle__readmore hidden-xs">
-                    <span>阅读更多</span>
-                </div>
-            </div>
-        </article>
-        <article class="article">
-            <div class="article__header">
-                <h2 class="article__header--title">IONIC开发——综述</h2>
-                <div class="article__header--content">
-                    这个项目使用IONIC1.x构建，适用于微信app+IOS+Android项目，该项目主要进行会员管理、活动展示、客服、地图、导航、店铺展示、积分礼品卡券等数据展示，故使用WebApp的方式构建能实现快速开发。到目前为止未引用IONIC之外的组件库，自身已完全够用，考虑到项目整体大小，能使用到jQuery的地方都使用原生js实现；需要组件的能自己写的不引入额外库。关于显示效果及兼容性：
-                    IOS手机微信及APP显示效果极佳，能媲美原生应用；安卓微信则会有些卡顿，针对安卓我将进行降级处理，关闭动画及动效。一年内新出的安卓机能在微信中流程运行。
-
-
-                </div>
-            </div>
-            <div class="article__infobox">
-                <div class="article__info">
-                    <div class="article__info--each">
-                        <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">三天前</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-book"></i>
-                        阅读数
-                        <span class="article-readnum">223</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-comments"></i>
-                        评论数
-                        <span class="article-comment">23</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签1</span>
-                        <i class="fa fa-tag"></i> <span>标签2</span>
-                        <i class="fa fa-tag"></i> <span>标签3</span>
-                    </div>
-                </div>
-
-                <div class="arrticle__readmore hidden-xs">
-                    <span>阅读更多</span>
-                </div>
-            </div>
-        </article>
-        <article class="article">
-            <div class="article__header">
-                <h2 class="article__header--title">IONIC开发——综述</h2>
-                <div class="article__header--content">
-                    这个项目使用IONIC1.x构建，适用于微信app+IOS+Android项目，该项目主要进行会员管理、活动展示、客服、地图、导航、店铺展示、积分礼品卡券等数据展示，故使用WebApp的方式构建能实现快速开发。到目前为止未引用IONIC之外的组件库，自身已完全够用，考虑到项目整体大小，能使用到jQuery的地方都使用原生js实现；需要组件的能自己写的不引入额外库。关于显示效果及兼容性：
-                    IOS手机微信及APP显示效果极佳，能媲美原生应用；安卓微信则会有些卡顿，针对安卓我将进行降级处理，关闭动画及动效。一年内新出的安卓机能在微信中流程运行。
-
-
-                </div>
-            </div>
-            <div class="article__infobox">
-                <div class="article__info">
-                    <div class="article__info--each">
-                        <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">三天前</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-book"></i>
-                        阅读数
-                        <span class="article-readnum">223</span>
-                    </div>
-                    <div class="article__info--each">
-                        <i class="fa fa-comments"></i>
-                        评论数
-                        <span class="article-comment">23</span>
-                    </div>
-                    <div class="article__info--each hidden-xs">
-                        <i class="fa fa-tag"></i> <span>标签1</span>
-                        <i class="fa fa-tag"></i> <span>标签2</span>
-                        <i class="fa fa-tag"></i> <span>标签3</span>
+                    <div class="article__info--each hidden-xs" v-for="tag of article.tags">
+                        <i class="fa fa-tag"></i> <span>{{tag}}</span>
                     </div>
                 </div>
 
@@ -343,17 +70,6 @@
                 line-height: 28px;
                 background: #fff;
                 position: relative;
-                //&:after {
-                //  content: '';
-                //  position: absolute;
-                //  top: 0;
-                //  right: 0;
-                //  height:0;
-                //  border-top: 2px solid $base-theme-color;border-top-right-radius: 3px;
-                //
-                //  background: $base-theme-color;
-                //  width: 40%;
-                //}
                 //title
                 .article__header--title {
                     text-align: right;
@@ -430,11 +146,43 @@
 
 </style>
 <script>
+    import API from "../config.js"
     export default{
-        data(){
+        replace: true,
+        data: function () {
             return {
-                msg: 'hello vue'
+                articleList: []
             }
+        },
+        methods: {},
+        ready: function () {
+
+            // GET /someUrl
+            console.log('API.newUpdateArticle')
+
+
+            let url = API.newUpdateArticle.replace("from", API.ArticleFrom).replace("to", API.ArticleTo);
+
+
+
+            this.$http.get(url).then((response) => {
+                // success callback
+                let result = response.data;
+                if (parseInt(result.code) === 1) {
+                    this.articleList = result.data;
+                    console.log(this.articleList)
+                    console.log("API.newUpdateArticle-请求成功")
+                } else {
+                    alert("请求失败!")
+                }
+            }, (response) => {
+                console.log('response2')
+                console.log(response)
+            });
+
+
+        },
+        destroyed: function () {
         }
     }
 </script>

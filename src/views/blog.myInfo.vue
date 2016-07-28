@@ -8,29 +8,25 @@
         <section class="detail text-center">
             <section class="detail__1">
                 <section class="detail__imgBox" @click="isShowMyWords=!isShowMyWords">
-                    <img class="img-circle" src="http://xiangsongtao.com/uploads/1468162904000.jpg">
+                    <img class="img-circle" :src="myinfo.img_url | addImgPrefix">
                 </section>
                 <section class="detail__info">
-                    <p class="name text-shadow">
-                        X-SONGTAO
-                    </p>
-                    <p class="job text-shadow">
-                        前端工程师&&Nodejs工程师
-                    </p>
+                    <p class="name text-shadow"> {{myinfo.full_name}}</p>
+                    <p class="job text-shadow"> {{myinfo.position}}</p>
                     <p class="address text-shadow">
-                        <span class="fa fa-map-marker"></span> <span>江苏-苏州</span>
+                        <span class="fa fa-map-marker"></span> <span>{{myinfo.address}}</span>
                     </p>
                     <p class="motto text-shadow">
-                        <i class="fa fa-coffee"></i> <span>全栈开发这个博客不简单好不好~</span>
+                        <i class="fa fa-coffee"></i> <span>{{myinfo.motto}}</span>
                     </p>
                 </section>
             </section>
             <section class="detail__2">
                 <section class="detail__nav">
                     <ul class="tabs text-shadow">
-                        <li><a  v-link="{ name: 'artList',activeClass: 'active'}">文章列表</a></li>
-                        <li><a  v-link="{ name: 'historyList',activeClass: 'active'}">时光机</a></li>
-                        <li><a  v-link="{ name: 'tagList',activeClass: 'active'}">标签库</a></li>
+                        <li><a v-link="{ name: 'artList',activeClass: 'active'}">文章列表</a></li>
+                        <li><a v-link="{ name: 'historyList',activeClass: 'active'}">时光机</a></li>
+                        <li><a v-link="{ name: 'tagList',activeClass: 'active'}">标签库</a></li>
                     </ul>
                 </section>
                 <section class="detail__sns">
@@ -49,15 +45,7 @@
         <!--我的称述-->
         <section class="mywords visuallyhidden">
             <article>
-                <p>我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述
-                    我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述
-                    我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述</p>
-                <p>我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述
-                    我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述
-                    我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述</p>
-                <p>我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述
-                    我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述
-                    我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述我的称述</p>
+                {{{myinfo.personal_state}}}
             </article>
         </section>
     </div>
@@ -69,7 +57,6 @@
 
         background-color: rgba(0, 0, 0, 0.5);
         color: #fff;
-
 
         .detail {
             .detail__1 {
@@ -127,8 +114,7 @@
                         align-items: center;
                         & > li {
 
-
-                            /*margin: 0 3px;*/
+                            margin: 0 3px;
 
                             width: 68px;
                             position: relative;
@@ -136,7 +122,7 @@
                             cursor: pointer;
 
                             box-sizing: border-box;
-                            a{
+                            a {
                                 display: block;
                                 width: 68px;
                                 line-height: 100%;
@@ -146,7 +132,7 @@
                                 font-size: 14px;
                                 padding: 5px 0;
                                 text-decoration: none;
-                                color:inherit;
+                                color: inherit;
                                 border: 1px solid transparent;
                             }
                             & > .active {
@@ -237,14 +223,14 @@
             @include media("<=desktop") {
                 height: 700px;
                 position: relative;
-                .detail{
+                .detail {
                 }
                 .mywords {
                     height: 300px;
                     width: 100%;
                     overflow: inherit;
                     opacity: 1;
-                    transition: height .5s ease,opacity .2s ease .5s;
+                    transition: height .5s ease, opacity .2s ease .5s;
                 }
             }
         }
@@ -308,7 +294,7 @@
                     }
                 }
             }
-            .mywords{
+            .mywords {
                 width: 0;
                 align-items: center;
                 opacity: 0;
@@ -379,13 +365,13 @@
                     }
                 }
             }
-            .mywords{
+            .mywords {
                 align-items: flex-start;
                 height: 0;
                 overflow: hidden;
                 width: 720px;
                 opacity: 0;
-                transition: height .5s ease,opacity .2s ease;
+                transition: height .5s ease, opacity .2s ease;
             }
 
         }
@@ -400,15 +386,49 @@
 
 </style>
 <script>
+    import API from "../config.js"
+    import Vue from "vue";
+    Vue.filter('addImgPrefix', function (imgName) {
+        if (!!imgName && imgName.indexOf('http') === -1) {
+            //正确的时间戳
+            return `${API.imgResource}${imgName}`;
+        } else if (!imgName) {
+            return false;
+        } else {
+            return imgName;
+        }
+    });
+
     module.exports = {
         replace: true,
         data: function () {
             return {
+                myinfo: {},
                 isShowMyWords: false
             }
         },
         methods: {},
         ready: function () {
+
+            // GET /someUrl
+            console.log('API.getMyInfo')
+            console.log(API.getMyInfo)
+            this.$http.get(API.getMyInfo).then((response) => {
+                // success callback
+                let result = response.data;
+                if (parseInt(result.code) === 1) {
+                    this.myinfo = result.data;
+                    console.log(this.myinfo)
+                    console.log("API.getMyInfo-请求成功")
+                } else {
+                    alert("请求失败!")
+                }
+            }, (response) => {
+                console.log('response2')
+                console.log(response)
+            });
+
+
         },
         destroyed: function () {
         }

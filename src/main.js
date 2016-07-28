@@ -5,38 +5,47 @@
 
 'use strict';
 import Vue from "vue";
+/**
+ * 路由相关 路由规则配置
+ * */
+import routerConfig from "./router.js";
+routerConfig();
 
+/**
+ * views & components
+ * */
+import app from "./App.vue";
+import blogNav from "./views/blog.nav";
 /**
  * 组件--基于semantic.UI
  * */
-import "font-awesome/css/font-awesome.min.css";//icon字体
-import "semantic-ui-breadcrumb/breadcrumb.min.css";//面包屑
-import "semantic-ui-label/label.min.css";//标签
-
-
-import app from "./App.vue";
-import blogNav from "./views/blog.nav";
-import routerConfig from "./router.js";
+import "font-awesome/css/font-awesome.min.css";
+import "semantic-ui-breadcrumb/breadcrumb.min.css";
+import "semantic-ui-label/label.min.css";
+import "semantic-ui-input/input.min.css";
+import "semantic-ui-button/button.min.css";
 
 
 // import VueRouter from "vue-router";
 
 
-/**
- * 路由相关
- * */
-//路由规则配置
-routerConfig();
 
 
 /**
- * views & components
+ * vue-resource 配置
  * */
+var VueResource = require('vue-resource');
+Vue.use(VueResource);
+Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
+// import API from "./config.js" Access-Control-Allow-Origin
 
-// module.exports = {
-//
-//
-// }
+// console.log(API)
+
+//icon字体
+//面包屑
+//标签
+//输入框
+//按钮
 
 new Vue({
     el: '#app',

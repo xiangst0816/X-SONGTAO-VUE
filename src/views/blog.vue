@@ -44,7 +44,7 @@
 
             .blog__content {
                 z-index: 2;
-                width: 66.67%;
+                width: 68%;
                 padding-left: 33.33%;
                 position: relative;
             }

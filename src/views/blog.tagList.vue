@@ -3,7 +3,7 @@
 * Description:
 */
 <template>
-    <div class="historyList">
+    <div class="historyList  animated fadeIn">
         <div class="cataBox card-shadow" ng-repeat="cataBox in historyLists track by $index">
             <h3 class="cataBox__title">
                 <span class="main" ng-bind="cataBox.year">Tags</span>

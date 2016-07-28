@@ -31,16 +31,13 @@
                         <i class="fa fa-tag"></i> <span>{{tag}}</span>
                     </div>
                 </div>
-
                 <div class="arrticle__readmore hidden-xs">
                     <span>阅读更多</span>
                 </div>
             </div>
         </article>
     </div>
-    <nodata></nodata>
-
-    
+    <no-data v-if="hasData"></no-data>
 </template>
 <style scoped lang="scss">
     @import "../theme/theme.scss";
@@ -151,12 +148,14 @@
 </style>
 <script>
     import API from "../config.js"
-    import nodata from "../components/nodata.vue"
+    import noData from "../components/nodata.vue"
     export default{
         replace: true,
         data: function () {
             return {
-                articleList: []
+                hasData:true,
+                isLoading:false,
+                articleList: [],
             }
         },
         methods: {},
@@ -196,8 +195,8 @@
         },
         destroyed: function () {
         },
-        components:{
-            nodata
+        components: {
+            noData
         }
     }
 </script>

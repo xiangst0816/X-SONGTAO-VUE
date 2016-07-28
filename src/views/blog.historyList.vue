@@ -4,355 +4,23 @@
 */
 <template>
     <div class="historyList  animated fadeIn">
-        <div class="cataBox card-shadow" ng-repeat="cataBox in historyLists track by $index">
+        <div class="cataBox card-shadow" v-for="cataBox of historyList">
             <h3 class="cataBox__title">
                 <!--<i class="fa fa-calendar"></i>-->
                 <!--&ensp;-->
-                <span class="main" ng-bind="cataBox.year">2016</span>
+                <span class="main">{{cataBox.year}}</span>
                 <span class="tag">时光机</span>
             </h3>
             <div class="cataBox__content">
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
+                <div class="itemBox" v-for="monthBox in cataBox.data">
                     <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
+                        <p ng-bind="itemBox.month | toEnMonth | uppercase">{{monthBox.month}}</p>
                     </div>
                     <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="cataBox card-shadow" ng-repeat="cataBox in historyLists track by $index">
-            <h3 class="cataBox__title">
-                <!--<i class="fa fa-calendar"></i>-->
-                <!--&ensp;-->
-                <span class="main" ng-bind="cataBox.year">2016</span>
-                <span class="tag">时光机</span>
-            </h3>
-            <div class="cataBox__content">
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="cataBox card-shadow" ng-repeat="cataBox in historyLists track by $index">
-            <h3 class="cataBox__title">
-                <!--<i class="fa fa-calendar"></i>-->
-                <!--&ensp;-->
-                <span class="main" ng-bind="cataBox.year">2016</span>
-                <span class="tag">时光机</span>
-            </h3>
-            <div class="cataBox__content">
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">MAT</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">新年好新年好新年好</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">123</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">221</span><span>)</span></span>
+                        <li class="itemBox__content__item"  v-for="article in monthBox.data">
+                            <span class="itemBox__content__item-title" ng-bind="article.title">{{article.title}}</span>&ensp;
+                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">{{article.read_num}}</span>
+                           <span> ,评论数:</span><span ng-bind="article.comment_num">{{article.comment_num}}</span><span>)</span></span>
                         </li>
                     </ul>
                 </div>
@@ -423,11 +91,38 @@
 
 </style>
 <script>
+    import API from "../config.js"
     export default{
-        data(){
+        replace: true,
+        data: function () {
             return {
-                msg: 'hello vue'
+                historyList: []
             }
+        },
+        methods: {},
+        created: function () {
+
+            // GET /someUrl
+            console.log('API.newUpdateArticle')
+
+            this.$http.get(API.getArticleHistoryWithStructure).then((response) => {
+                // success callback
+                let result = response.data;
+                if (parseInt(result.code) === 1) {
+                    this.historyList = result.data;
+                    console.log(this.historyList)
+                    console.log("API.historyList-请求成功")
+                } else {
+                    alert("请求失败!")
+                }
+            }, (response) => {
+                console.log('response2')
+                console.log(response)
+            });
+
+
+        },
+        destroyed: function () {
         }
     }
 </script>

@@ -376,14 +376,6 @@
 
         }
     }
-
-    @include media("<=desktop_small") {
-        .myinfo {
-            margin-top: 45px;
-        }
-    }
-
-
 </style>
 <script>
     import API from "../config.js"
@@ -408,23 +400,18 @@
             }
         },
         methods: {},
-        ready: function () {
-
+        created: function () {
             // GET /someUrl
-            console.log('API.getMyInfo')
-            console.log(API.getMyInfo)
             this.$http.get(API.getMyInfo).then((response) => {
                 // success callback
                 let result = response.data;
                 if (parseInt(result.code) === 1) {
                     this.myinfo = result.data;
-                    console.log(this.myinfo)
-                    console.log("API.getMyInfo-请求成功")
                 } else {
                     alert("请求失败!")
                 }
             }, (response) => {
-                console.log('response2')
+                console.log('GetMyInfo err')
                 console.log(response)
             });
 

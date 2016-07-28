@@ -10,6 +10,7 @@
 
 <script>
     import blogNav from "./views/blog.nav";
+
     //    import "../assets/demo-13.jpg";
     module.exports = {
         replace: false,
@@ -62,6 +63,11 @@
     @include media(">desktop_small") {
         body {
             padding-left: 45px;
+        }
+    }
+    @include media("<=desktop_small") {
+        body {
+            margin-top: 45px;
         }
     }
 

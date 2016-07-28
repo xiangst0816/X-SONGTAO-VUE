@@ -4,102 +4,19 @@
 */
 <template>
     <div class="historyList  animated fadeIn">
-        <div class="cataBox card-shadow" ng-repeat="cataBox in historyLists track by $index">
+        <div class="cataBox card-shadow">
             <h3 class="cataBox__title">
-                <span class="main" ng-bind="cataBox.year">Tags</span>
+                <span class="main">Tags</span>
                 <span class="tag">标签库</span>
             </h3>
             <div class="cataBox__content">
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
+                <div class="itemBox" v-for="cata in tagList">
                     <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">苏州小生活</p>
+                        <p ng-bind="itemBox.month | toEnMonth | uppercase">{{cata.name}}</p>
                     </div>
                     <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">苏州小生活</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="itemBox" ng-repeat="itemBox in cataBox.data track by $index">
-                    <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">苏州小生活</p>
-                    </div>
-                    <ul class="itemBox__content">
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label blue">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
-                        </li>
-                        <li class="itemBox__content__item">
-                            <a class="ui tag label">标签1</a>
+                        <li class="itemBox__content__item" v-for="tag in cata.data">
+                            <a class="ui tag label">{{tag.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -153,11 +70,38 @@
 
 </style>
 <script>
+    import API from "../config.js"
     export default{
-        data(){
+        replace: true,
+        data: function () {
             return {
-                msg: 'hello vue'
+                tagList: []
             }
+        },
+        methods: {},
+        created: function () {
+
+            // GET /someUrl
+            console.log('API.tagList')
+
+            this.$http.get(API.getTagsListWithStructure).then((response) => {
+                // success callback
+                let result = response.data;
+                if (parseInt(result.code) === 1) {
+                    this.tagList = result.data;
+                    console.log(this.tagList)
+                    console.log("API.tagList-请求成功")
+                } else {
+                    alert("请求失败!")
+                }
+            }, (response) => {
+                console.log('response2')
+                console.log(response)
+            });
+
+
+        },
+        destroyed: function () {
         }
     }
 </script>

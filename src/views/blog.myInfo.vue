@@ -398,8 +398,8 @@
                 myinfo: ({m_myinfo}) => m_myinfo.get
             },
             actions: {
-                getMyInfo,
-                setMyWordStatus
+                getMyInfo,//get my info
+                setMyWordStatus,//toggle我的个人称述显影状态,因为其他组件可能需要这个信息
             }
         },
         created: function () {

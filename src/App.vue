@@ -10,7 +10,7 @@
 
 <script>
     import blogNav from "./views/blog.nav";
-
+    import store from './vuex/store'
     //    import "../assets/demo-13.jpg";
     module.exports = {
         replace: false,
@@ -22,7 +22,8 @@
         },
         components: {
             blogNav
-        }
+        },
+        store
     }
 </script>
 

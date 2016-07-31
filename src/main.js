@@ -58,7 +58,8 @@ new Vue({
     },
     components: {
         blogNav, app
-    }
+    },
+
 })
 
 

@@ -37,6 +37,10 @@
             </div>
         </article>
     </div>
+    <!--<div>-->
+        <!--<button @click='increment'>Increment +1</button>-->
+        <!--<h3>Count is {{ counterValue }}</h3>-->
+    <!--</div>-->
     <no-data v-if="hasData"></no-data>
 </template>
 <style scoped lang="scss">
@@ -149,6 +153,9 @@
 <script>
     import API from "../config.js"
     import noData from "../components/nodata.vue"
+    import store from '../vuex/store' // import 我们刚刚创建的 store
+    import { incrementCounter } from '../vuex/actions'
+    import { getCount } from '../vuex/getters'
     export default{
         replace: true,
         data: function () {
@@ -197,6 +204,16 @@
         },
         components: {
             noData
-        }
+        },
+//        vuex: {
+//            actions: {
+//                increment: incrementCounter
+//            },
+////            getters,从store的state中获取整个状态对象作为其唯一参数
+//            getters: {
+//                // 注意在这里你需要 `getCount` 函数本身而不是它的执行结果 'getCount()'
+//                counterValue: getCount
+//            }
+//        }
     }
 </script>

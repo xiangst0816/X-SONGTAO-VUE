@@ -7,7 +7,7 @@
         <!--我的信息列表-->
         <section class="detail text-center">
             <section class="detail__1">
-                <section class="detail__imgBox" @click="isShowMyWords=!isShowMyWords">
+                <section class="detail__imgBox" @click="setMyWordStatus">
                     <img class="img-circle" :src="myinfo.img_url | addImgPrefix">
                 </section>
                 <section class="detail__info">
@@ -378,44 +378,32 @@
     }
 </style>
 <script>
-    import API from "../config.js"
+
     import Vue from "vue";
-    Vue.filter('addImgPrefix', function (imgName) {
-        if (!!imgName && imgName.indexOf('http') === -1) {
-            //正确的时间戳
-            return `${API.imgResource}${imgName}`;
-        } else if (!imgName) {
-            return false;
-        } else {
-            return imgName;
-        }
-    });
+    import myinfo from "../api/myinfo.js";
+    import {getMyInfo,setMyWordStatus} from '../vuex/actions'
+    import {addImgPrefix} from "../utils/filters.js";
+    Vue.filter('addImgPrefix', addImgPrefix);
 
     module.exports = {
         replace: true,
         data: function () {
             return {
-                myinfo: {},
-                isShowMyWords: false
+//                isShowMyWords: false
             }
         },
-        methods: {},
+        vuex: {
+            getters: {
+                isShowMyWords: state=>state.isShowMyWords,
+                myinfo: ({m_myinfo}) => m_myinfo.get
+            },
+            actions: {
+                getMyInfo,
+                setMyWordStatus
+            }
+        },
         created: function () {
-            // GET /someUrl
-            this.$http.get(API.getMyInfo).then((response) => {
-                // success callback
-                let result = response.data;
-                if (parseInt(result.code) === 1) {
-                    this.myinfo = result.data;
-                } else {
-                    alert("请求失败!")
-                }
-            }, (response) => {
-                console.log('GetMyInfo err')
-                console.log(response)
-            });
-
-
+            this.getMyInfo()
         },
         destroyed: function () {
         }

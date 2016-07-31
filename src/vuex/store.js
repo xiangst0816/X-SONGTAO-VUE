@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import mod_myinfo from "./modules/mod_myinfo";
 import mod_article from "./modules/mod_article";
+import mod_tag from "./modules/mod_tag";
 import {
     SET_SHOWMYWORD_STATUS
 } from './mutation-types'
@@ -28,5 +29,6 @@ export default new Vuex.Store({
     modules: {
         mod_myinfo,//我的信息
         mod_article,//文章列表
+        mod_tag,//文章列表
     }
 })

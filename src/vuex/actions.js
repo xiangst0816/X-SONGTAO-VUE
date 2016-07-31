@@ -5,6 +5,7 @@
 
 import api_myinfo from "./api/api_myinfo";
 import api_article from "./api/api_article";
+import api_tag from "./api/api_tag";
 import * as types from "./mutation-types";
 
 /**
@@ -48,7 +49,7 @@ export const getHistoryList = function ({dispatch}) {
  * 获取具有标签结构的记录(标签库)
  * */
 export const getTagsListWithStructure = function ({dispatch}) {
-    api_article.getHistoryList((data)=> {
-        dispatch(types.GET_HISTORYLIST, data)
+    api_tag.getTagsListWithStructure((data)=> {
+        dispatch(types.GET_TAGSWITHSTRUCTURE, data)
     });
 };

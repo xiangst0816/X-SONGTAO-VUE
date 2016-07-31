@@ -3,26 +3,19 @@
  * Description:
  */
 import {
-    GET_ARTICLELIST,GET_HISTORYLIST
+    GET_TAGSWITHSTRUCTURE
 } from '../mutation-types'
 
 // 保存我的个人信息
 const state = {
-    getTagsListWithStructure: [],//存放文章列表
-    historyList: [],//存放文章列表
+    tagsListWithStructure: [],//存放具有标签结构的记录(标签库)
 };
 
 // mutations
 const mutations = {
-    [GET_ARTICLELIST] (state, articleList) {
-        state.articleList = articleList
-    },
-    [GET_HISTORYLIST] (state, historyList) {
-        state.historyList = historyList
-    },
-
-
-
+    [GET_TAGSWITHSTRUCTURE] (state, tagsListWithStructure) {
+        state.tagsListWithStructure = tagsListWithStructure
+    }
 }
 
 export default {

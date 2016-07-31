@@ -77,7 +77,7 @@
         replace: true,
         data: function () {
             return {
-                tagList: []
+//                tagList: []
             }
         },
         methods: {},
@@ -89,7 +89,8 @@
         created: function () {
 
             // GET /someUrl
-            console.log('API.tagList')
+            console.log('API.tagList');
+            this.getTagsListWithStructure();
 
 //            this.$http.get(API.getTagsListWithStructure).then((response) => {
 //                // success callback
@@ -110,7 +111,7 @@
         },
         vuex: {
             getters: {
-                tagList: ({mod_tag}) =>mod_tag.tagList
+                tagList: ({mod_tag}) =>mod_tag.tagsListWithStructure
             },
             actions: {
                 getTagsListWithStructure

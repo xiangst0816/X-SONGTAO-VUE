@@ -40,6 +40,22 @@ export default {
             console.log(response)
         });
     },
+    getArticleById (articleId,cb) {
+        // cb("success");
+        Vue.http.get(CONFIG.getArticleById.replace('id', articleId)).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                cb(result.data);
+                // this.myinfo = result.data;
+            } else {
+                alert("请求失败!")
+            }
+        }, (response) => {
+            console.log('GetMyInfo err')
+            console.log(response)
+        });
+    },
 }
 
 

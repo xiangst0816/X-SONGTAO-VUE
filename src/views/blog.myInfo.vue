@@ -34,8 +34,8 @@
                         Follow
                     </div>
                     <ul class="SNS">
-                        <li><i class="fa fa-qq"></i></li>
-                        <li><i class="fa fa-weixin"></i></li>
+                        <li @click="showSocialImg('../assets/qq-addme.jpg')"><i class="fa fa-qq"></i></li>
+                        <li @click="showSocialImg('../assets/weixin-addme.jpg')"><i class="fa fa-weixin"></i></li>
                         <li><i class="fa fa-weibo"></i></li>
                         <li><i class="fa fa-tencent-weibo"></i></li>
                     </ul>
@@ -380,16 +380,29 @@
 <script>
 
     import Vue from "vue";
-    import myinfo from "../api/myinfo.js";
-    import {getMyInfo, setMyWordStatus} from '../vuex/actions'
+    import $ from "jquery/dist/jquery.slim.min";
+    import {getMyInfo, setMyWordStatus,setSocialImgUrl} from '../vuex/actions'
     import {addImgPrefix} from "../utils/filters.js";
-    Vue.filter('addImgPrefix', addImgPrefix);
+    import "semantic-ui-modal/modal.min.css";
+    import "semantic-ui-modal/modal.min.js";
 
+
+
+    Vue.filter('addImgPrefix', addImgPrefix);
     module.exports = {
         replace: true,
         data: function () {
             return {
 //                isShowMyWords: false
+            }
+        },
+        methods:{
+            showSocialImg:function (url) {
+                console.log($('.ui.modal')).modal('show')
+//                $('.ui.modal')
+//                        .modal('show')
+//                ;
+                this.setSocialImgUrl(url)
             }
         },
         vuex: {
@@ -401,6 +414,7 @@
                 // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
                 getMyInfo,//获取我的信息
                 setMyWordStatus,//toggle我的个人称述显影状态,因为其他组件可能需要这个信息
+                setSocialImgUrl,//更改社交的二维码图片
             }
         },
         created: function () {

@@ -1,6 +1,6 @@
 /**
  * Created by xiangsongtao on 16/7/30.
- * Description:
+ * Description: 我的信息 相关的store
  */
 
 import {

@@ -5,13 +5,15 @@
         <blog-nav></blog-nav>
         <!-- 路由外链 -->
         <router-view></router-view>
+        <!--qq,微信弹出层-->
+        <social-info></social-info>
     </div>
 </template>
 
 <script>
     import blogNav from "./views/blog.nav";
+    import socialInfo from "./components/socialInfo.vue";
     import store from './vuex/store'
-    //    import "../assets/demo-13.jpg";
     module.exports = {
         replace: false,
         data: function () {
@@ -21,7 +23,7 @@
             }
         },
         components: {
-            blogNav
+            blogNav,socialInfo
         },
         store
     }
@@ -48,7 +50,8 @@
         width: 100%;
         box-sizing: border-box;
         font-family: $font-family-sans-serif;
-        background: url(./assets/demo-13.jpg) no-repeat center center/cover;
+        //background: url(./assets/demo-10.jpg) no-repeat center center/cover;
+        background-color:#fff;
         background-attachment: fixed;
         //background: transparent radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
         &.isLogin {

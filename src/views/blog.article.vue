@@ -504,79 +504,49 @@
 <script>
     //"57826e945c21c1dd04b4ad4d"
     import API from "../config.js"
+    import {getArticleById,getArticleComments} from '../vuex/actions'
     module.exports = {
         replace: true,
         data: function () {
             return {
-                article: {},
-                commentList: [],
+//                article: {},
+//                commentList: [],
                 toggle: true,
                 selectId: '',
             }
         },
         methods: {
-            reply:function (id) {
-                this.selectId=id;
-                console.log("before:"+this.toggle)
-                this.toggle=!this.toggle;
-                console.log("after:"+this.toggle)
+            reply: function (id) {
+                this.selectId = id;
+                console.log("before:" + this.toggle)
+                this.toggle = !this.toggle;
+                console.log("after:" + this.toggle)
             }
         },
-        computed:{
-            a:function (thisId) {
+        computed: {
+            a: function (thisId) {
 //                return ((this.selectId ==thisId  && this.toggle) || (this.toggle = false));
                 return true;
             }
 
         },
         ready: function () {
-
-            // GET /someUrl
-            console.log('API.getMyInfo')
-            console.log(API.getMyInfo)
-
-
-            console.log('---------------------')
-            console.log()
-//            let arti            // GET /someUrl
-            console.log('API.getMyInfo')
-            console.log(API.getMyInfo)
-
-
-
             let articleId = this.$route.params.articleId;
-            this.$http.get(API.getArticleById.replace('id', articleId)).then((response) => {
-                // success callback
-                let result = response.data;
-                if (parseInt(result.code) === 1) {
-                    this.article = result.data;
-                    console.log("API.article-请求成功")
-                    console.log(this.article)
-
-
-                    this.$http.get(API.getArticlesComments.replace('article_id', this.article._id)).then((response) => {
-                        let result = response.data;
-                        if (parseInt(result.code) === 1) {
-                            this.commentList = result.data;
-                            console.log('this.commentList')
-                            console.log(this.commentList)
-                        }
-
-                    }, (response) => {
-                        console.log('response2')
-                        console.log(response)
-                    });
-
-
-                } else {
-                    alert("请求失败!")
-                }
-            }, (response) => {
-                console.log('response2')
-                console.log(response)
-            });
+            this.getArticleById(articleId);//获取文章详情
+            this.getArticleComments(articleId);//获取文章详情
         },
         destroyed: function () {
-        }
+        },
+        vuex: {
+            getters: {
+                article: ({mod_article}) =>mod_article.article,
+                commentList: ({mod_comment}) =>mod_comment.articleComments,
+            },
+            actions: {
+                getArticleById,
+                getArticleComments
+            },
+
+        },
     }
 </script>

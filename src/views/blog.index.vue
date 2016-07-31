@@ -17,7 +17,7 @@
             </div>
         </div>
         <section class="index-btnBox">
-            <div class="index-btnBox-each text-center">我的博客</div>
+            <div class="index-btnBox-each text-center" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">我的博客</div>
             <div class="index-btnBox-each text-center hidden">照片墙</div>
         </section>
         <copyright></copyright>

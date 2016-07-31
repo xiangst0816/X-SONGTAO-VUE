@@ -19,11 +19,18 @@ import blogNav from "./views/blog.nav";
 /**
  * 组件--基于semantic.UI
  * */
+// import jQuery from "jquery/dist/jquery.slim.min.js";//去掉ajax的版本
+import $ from 'jquery'
+// import jQuery from 'jquery'
 import "font-awesome/css/font-awesome.min.css";
 import "semantic-ui-breadcrumb/breadcrumb.min.css";
 import "semantic-ui-label/label.min.css";
 import "semantic-ui-input/input.min.css";
 import "semantic-ui-button/button.min.css";
+import "semantic-ui-popup/popup.min.css";
+import "semantic-ui-popup/popup.min.js";
+
+
 
 
 // import VueRouter from "vue-router";

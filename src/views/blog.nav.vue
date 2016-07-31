@@ -6,18 +6,16 @@
                 <!--<i class="fa fa-home fa-fw fa-lg"></i>-->
                 <!--<span class="visible-hg">logo</span>-->
             </a>
-            <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}">
+            <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-variation="tiny" data-inverted=""  data-position="right center" data-tooltip="首页">
                 <i class="fa fa-home fa-fw fa-lg"></i>
-                <!--<span class="visible-hg">首页</span>-->
             </a>
-            <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">
+            <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}" data-variation="tiny" data-inverted="" data-position="right center" data-tooltip="博客">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
-                <!--<span class="visible-hg">博客</span>-->
             </a>
-            <a class="nav__item" v-link="{ name: 'article',params: { articleId: '57826e945c21c1dd04b4ad4d' },activeClass: 'active'}">
-                <i class="fa fa-bold fa-fw fa-lg"></i>
-                <!--<span class="visible-hg">博客</span>-->
-            </a>
+            <!--<a class="nav__item" v-link="{ name: 'article',params: { articleId: '57826e945c21c1dd04b4ad4d' },activeClass: 'active'}">-->
+                <!--<i class="fa fa-bold fa-fw fa-lg"></i>-->
+                <!--&lt;!&ndash;<span class="visible-hg">博客</span>&ndash;&gt;-->
+            <!--</a>-->
         </nav>
         <nav class="nav__bottom">
             <a class="nav__item">

@@ -1,6 +1,7 @@
 /**
  * Created by xiangsongtao on 16/7/30.
- * Description:
+ * Description: 标签相关的api
+ * 只由actions.js调用,返回成功的结果,否则返回空,错误由自己处理显示
  */
 import CONFIG from "../../config.js"
 import Vue from "vue";

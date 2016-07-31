@@ -3,11 +3,29 @@
  * Description: action 是一种专门用来被 component 调用的函数。
  */
 
-import api_myinfo from "./api/api_myinfo";
 import api_article from "./api/api_article";
+import api_comment from "./api/api_comment";
+import api_myinfo from "./api/api_myinfo";
 import api_tag from "./api/api_tag";
 import * as types from "./mutation-types";
 
+//-------------------------全局---------------------------
+/**
+ * 更改我的称述显示状态
+ * */
+export const setMyWordStatus = function ({dispatch}) {
+    dispatch(types.SET_SHOWMYWORD_STATUS)
+};
+/**
+ * 更改社交的二维码图片
+ * */
+export const setSocialImgUrl = function ({dispatch},url) {
+    dispatch(types.SET_SOCIALIMG,url)
+};
+
+
+
+//-------------------------我的信息---------------------------
 /**
  * 获取我的信息
  * */
@@ -21,13 +39,8 @@ export const getMyInfo = function ({dispatch}) {
         dispatch(types.GET_MYINFO, data)//『当 INCREMENT 事件被触发时，调用这个 handler』
     })
 };
-/**
- * 更改我的称述显示状态
- * */
-export const setMyWordStatus = function ({dispatch}) {
-    dispatch(types.SET_SHOWMYWORD_STATUS)
-};
 
+//-------------------------文章---------------------------
 /**
  * 获取文章列表
  * */
@@ -44,12 +57,30 @@ export const getHistoryList = function ({dispatch}) {
         dispatch(types.GET_HISTORYLIST, data)
     });
 };
-
+/**
+ * 根据文章id获取文章详情(前台)
+ * */
+export const getArticleById = function ({dispatch},articleId) {
+    api_article.getArticleById(articleId,(data)=> {
+        dispatch(types.GET_ARTICLE, data)
+    });
+};
+//-------------------------标签---------------------------
 /**
  * 获取具有标签结构的记录(标签库)
  * */
 export const getTagsListWithStructure = function ({dispatch}) {
     api_tag.getTagsListWithStructure((data)=> {
         dispatch(types.GET_TAGSWITHSTRUCTURE, data)
+    });
+};
+
+//-------------------------评论---------------------------
+/**
+ * 根据文章id获取该文章的评论信息
+ * */
+export const getArticleComments = function ({dispatch},articleId) {
+    api_comment.getArticleComments(articleId,(data)=> {
+        dispatch(types.GET_ARTICLECOMMENTS, data)
     });
 };

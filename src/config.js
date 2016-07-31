@@ -82,7 +82,7 @@ module.exports = {
     /**
      * 获取评论
      * */
-    getArticlesComments: `${url}/api/article/comments/article_id`,
+    getArticleComments: `${url}/api/article/comments/article_id`,
     changeCommentState: `${url}/api/changeCommentState`,
     getCommentToArticleList: `${url}/api/commentToArticleList`,
     postComment: `${url}/api/comment`,

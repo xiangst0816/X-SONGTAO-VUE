@@ -1,15 +1,16 @@
 /**
  * Created by xiangsongtao on 16/7/30.
- * Description:
+ * Description: 获取更新我的个人信息的api,
+ * 只由actions.js调用,返回成功的结果,否则返回空,错误由自己处理显示
  */
 
 
-import API from "../../config.js"
+import CONFIG from "../../config.js"
 import Vue from "vue";
 export default {
     get (cb) {
         // cb("success");
-        Vue.http.get(API.getMyInfo).then((response) => {
+        Vue.http.get(CONFIG.getMyInfo).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {

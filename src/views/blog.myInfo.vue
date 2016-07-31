@@ -381,7 +381,7 @@
 
     import Vue from "vue";
     import myinfo from "../api/myinfo.js";
-    import {getMyInfo,setMyWordStatus} from '../vuex/actions'
+    import {getMyInfo, setMyWordStatus} from '../vuex/actions'
     import {addImgPrefix} from "../utils/filters.js";
     Vue.filter('addImgPrefix', addImgPrefix);
 
@@ -395,15 +395,17 @@
         vuex: {
             getters: {
                 isShowMyWords: state=>state.isShowMyWords,
-                myinfo: ({m_myinfo}) => m_myinfo.get
+                myinfo: ({mod_myinfo}) => mod_myinfo.get
             },
             actions: {
-                getMyInfo,//get my info
+                // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
+                getMyInfo,//获取我的信息
                 setMyWordStatus,//toggle我的个人称述显影状态,因为其他组件可能需要这个信息
             }
         },
         created: function () {
-            this.getMyInfo()
+//            执行获取函数
+            this.getMyInfo();
         },
         destroyed: function () {
         }

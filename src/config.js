@@ -2,7 +2,7 @@
  * Created by xiangsongtao on 16/7/27.
  * Description:
  */
-var CONFIG = {
+const CONFIG = {
     url: "http://xiangsongtao.com",
     // url: "http://127.0.0.1:8080",
     // url: "http://172.16.6.55:8080",

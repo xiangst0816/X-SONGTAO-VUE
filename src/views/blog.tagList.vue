@@ -24,6 +24,7 @@
         </div>
 
     </div>
+    <no-data v-if="!hasData"></no-data>
 </template>
 <style scoped lang="scss">
     //base
@@ -70,7 +71,8 @@
 
 </style>
 <script>
-    import API from "../config.js"
+    import noData from "../components/nodata.vue"
+    import {getTagsListWithStructure} from '../vuex/actions'
     export default{
         replace: true,
         data: function () {
@@ -79,29 +81,44 @@
             }
         },
         methods: {},
+        computed: {
+            hasData () {
+                return this.tagList.length !== 0;
+            }
+        },
         created: function () {
 
             // GET /someUrl
             console.log('API.tagList')
 
-            this.$http.get(API.getTagsListWithStructure).then((response) => {
-                // success callback
-                let result = response.data;
-                if (parseInt(result.code) === 1) {
-                    this.tagList = result.data;
-                    console.log(this.tagList)
-                    console.log("API.tagList-请求成功")
-                } else {
-                    alert("请求失败!")
-                }
-            }, (response) => {
-                console.log('response2')
-                console.log(response)
-            });
-
-
+//            this.$http.get(API.getTagsListWithStructure).then((response) => {
+//                // success callback
+//                let result = response.data;
+//                if (parseInt(result.code) === 1) {
+//                    this.tagList = result.data;
+//                    console.log(this.tagList)
+//                    console.log("API.tagList-请求成功")
+//                } else {
+//                    alert("请求失败!")
+//                }
+//            }, (response) => {
+//                console.log('response2')
+//                console.log(response)
+//            });
         },
         destroyed: function () {
+        },
+        vuex: {
+            getters: {
+                tagList: ({mod_tag}) =>mod_tag.tagList
+            },
+            actions: {
+                getTagsListWithStructure
+            },
+
+        },
+        components: {
+            noData
         }
     }
 </script>

@@ -37,11 +37,7 @@
             </div>
         </article>
     </div>
-    <!--<div>-->
-        <!--<button @click='increment'>Increment +1</button>-->
-        <!--<h3>Count is {{ counterValue }}</h3>-->
-    <!--</div>-->
-    <no-data v-if="hasData"></no-data>
+    <no-data v-if="!hasData"></no-data>
 </template>
 <style scoped lang="scss">
     @import "../theme/theme.scss";
@@ -151,23 +147,22 @@
 
 </style>
 <script>
-    import API from "../config.js"
+    import CONFIG from "../config.js"
     import noData from "../components/nodata.vue"
-    import store from '../vuex/store' // import 我们刚刚创建的 store
-    import { incrementCounter } from '../vuex/actions'
-    import { getCount } from '../vuex/getters'
+    import { getArticleList } from '../vuex/actions'
     export default{
         replace: true,
         data: function () {
             return {
-                hasData:true,
-                isLoading:false,
-                articleList: [],
             }
         },
         methods: {},
+        computed: {
+            hasData () {
+                return this.articleList.length !== 0;
+            }
+        },
         created: function () {
-
             /**
              * 文章列表会根据
              * "最新-latest"、"标签筛选-tagList"进行区分,
@@ -177,27 +172,14 @@
             let url;
             switch (listType) {
                 case 'latest':
-                    url = API.newUpdateArticle.replace("from", API.ArticleFrom).replace("to", API.ArticleTo);
+                    url = CONFIG.newUpdateArticle.replace("from", CONFIG.ArticleFrom).replace("to", CONFIG.ArticleTo);
                     break;
                 case 'tagList':
-                    url = API.getArticlesWithTagId.replace('id', this.$route.query.tagId);
+                    url = CONFIG.getArticlesWithTagId.replace('id', this.$route.query.tagId);
                     break;
             }
-            this.$http.get(url).then((response) => {
-                // success callback
-                let result = response.data;
-                if (parseInt(result.code) === 1) {
-                    this.articleList = result.data;
-//                    console.log(this.articleList)
-//                    console.log("API.newUpdateArticle-请求成功")
-                } else {
-                    alert("请求失败!")
-                }
-            }, (response) => {
-                console.log('response2')
-                console.log(response)
-            });
-
+            // 数据请求根据url参数会发生改变,故get时传入url
+            this.getArticleList(url);
 
         },
         destroyed: function () {
@@ -205,15 +187,14 @@
         components: {
             noData
         },
-//        vuex: {
-//            actions: {
-//                increment: incrementCounter
-//            },
-////            getters,从store的state中获取整个状态对象作为其唯一参数
-//            getters: {
-//                // 注意在这里你需要 `getCount` 函数本身而不是它的执行结果 'getCount()'
-//                counterValue: getCount
-//            }
-//        }
+        vuex: {
+            getters: {
+                articleList: ({mod_article}) =>mod_article.articleList
+            },
+            actions: {
+                getArticleList
+            },
+
+        }
     }
 </script>

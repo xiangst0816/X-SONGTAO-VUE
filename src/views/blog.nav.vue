@@ -1,32 +1,37 @@
 <!--导航条-->
 <template>
-    <div class="nav">
+    <div class="blogNav">
         <nav class="nav__top">
             <a class="nav__item">
                 <!--<i class="fa fa-home fa-fw fa-lg"></i>-->
                 <!--<span class="visible-hg">logo</span>-->
+                <!--data-toggle="tooltip" data-placement="left" title="Tooltip on left"-->
             </a>
-            <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-variation="tiny" data-inverted=""  data-position="right center" data-tooltip="首页">
+
+
+
+
+            <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="首页">
                 <i class="fa fa-home fa-fw fa-lg"></i>
             </a>
-            <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}" data-variation="tiny" data-inverted="" data-position="right center" data-tooltip="博客">
+            <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}"  data-toggle="tooltip" data-placement="right" title="博客">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
             </a>
             <!--<a class="nav__item" v-link="{ name: 'article',params: { articleId: '57826e945c21c1dd04b4ad4d' },activeClass: 'active'}">-->
-                <!--<i class="fa fa-bold fa-fw fa-lg"></i>-->
-                <!--&lt;!&ndash;<span class="visible-hg">博客</span>&ndash;&gt;-->
+            <!--<i class="fa fa-bold fa-fw fa-lg"></i>-->
+            <!--&lt;!&ndash;<span class="visible-hg">博客</span>&ndash;&gt;-->
             <!--</a>-->
         </nav>
-        <nav class="nav__bottom">
-            <a class="nav__item">
+        <nav class="nav__bottom" >
+            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="资料">
                 <i class="fa fa-user fa-lg"></i>
                 <!--<span class="visible-hg">资料</span>-->
             </a>
-            <a class="nav__item">
+            <a class="nav__item"  data-toggle="tooltip" data-placement="right" title="标签">
                 <i class="fa fa-tag fa-lg"></i>
                 <!--<span class="visible-hg">标签</span>-->
             </a>
-            <a class="nav__item">
+            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="文章">
                 <i class="fa fa-list fa-lg"></i>
                 <!--<span class="visible-hg">文章</span>-->
             </a>
@@ -50,7 +55,7 @@
     @import "../theme/theme.scss";
 
     //default for desktop
-    .nav {
+    .blogNav {
         display: flex;
         flex-direction: column;
         justify-content: space-between;;
@@ -61,10 +66,10 @@
         z-index: 10;
         transition: background-color ease 400ms;
 
-        background-color: rgba(0,0,0,.8);
+        background-color: rgba(0, 0, 0, .8);
         &:hover {
             color: rgba(256, 256, 256, 0.8);
-            background-color: rgba(0,0,0,.9);
+            background-color: rgba(0, 0, 0, .9);
             text-shadow: 0px 1px 1px #3b3b3b;
         }
         /*导航上面结构*/
@@ -116,7 +121,7 @@
 
     /*响应式*/
     @include media("<=desktop_small") {
-        .nav {
+        .blogNav {
             width: 100%;
             height: 45px;
             display: flex;
@@ -129,14 +134,14 @@
     }
 
     @include media(">desktop_small") {
-        .nav {
+        .blogNav {
             width: 45px;
             height: 100%;
         }
     }
 
     @include media(">desktop_large") {
-        .nav {
+        .blogNav {
             /*width: 100px;*/
             height: 100%;
         }
@@ -145,13 +150,39 @@
 </style>
 <script>
 
-
+//    import 'bootstrap/js/tooltip.js'
+//    require("imports?$=jquery!bootstrap/js/tooltip.js")
     export default{
 //        data(){
 //            return {
 //                msg: 'hello vue'
 //            }
 //        }
+        ready: function () {
+            tooltip();
+            function tooltip() {
+                let clientWidth = parseInt(document.documentElement.clientWidth);
+                if (clientWidth < 768) {
+
+                } else if (clientWidth < 991 && clientWidth > 768) {
+                    $('[data-toggle="tooltip"]').tooltip({
+                        trigger: 'hover',
+                        placement: 'bottom'
+                    });
+                    return true;
+                } else {
+                    $('[data-toggle="tooltip"]').tooltip({
+                        trigger: 'hover',
+                        placement: 'right'
+                    });
+                    return true;
+                }
+
+            }
+        },
+        components: {
+//            tooltip
+        }
     }
 
 

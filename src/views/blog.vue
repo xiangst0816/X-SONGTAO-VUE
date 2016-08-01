@@ -27,6 +27,7 @@
             display: flex;
             justify-content:center;
             align-items: flex-start;
+            box-sizing: content-box;
             .blog__content--inner{
                 width:780px;
                 -webkit-box-sizing: border-box;

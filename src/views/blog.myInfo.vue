@@ -380,7 +380,7 @@
 <script>
 
     import Vue from "vue";
-    import $ from "jquery/dist/jquery.slim.min";
+//    import $ from "jquery/dist/jquery.slim.min";
     import {getMyInfo, setMyWordStatus,setSocialImgUrl} from '../vuex/actions'
     import {addImgPrefix} from "../utils/filters.js";
     import "semantic-ui-modal/modal.min.css";
@@ -398,7 +398,9 @@
         },
         methods:{
             showSocialImg:function (url) {
-                console.log($('.ui.modal')).modal('show')
+//                console.log($('.ui.modal'));
+
+//                $('.ui.modal').modal('show')
 //                $('.ui.modal')
 //                        .modal('show')
 //                ;

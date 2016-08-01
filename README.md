@@ -14,6 +14,8 @@
 |    blog-myinfo 组件    |       07/27      |     已完成    |
 |    blog-content 组件    |       07/27      |    已完成    |
 |    blog-lastest 组件    |       07/28      |    已完成    |
+|    vuex接入    |       07/30      |    已完成    |
+|    jquery插件引入    |             |    0%    |
 |    blog-history 组件    |          |     50%    |
 |    blog-tagList 组件    |            |     50%    |
 |    blog-article 组件    |            |     50%    |

@@ -49,9 +49,9 @@
         min-height: 100%;
         width: 100%;
         box-sizing: border-box;
-        font-family: $font-family-sans-serif;
+        font-family: $font-family-sans-serif !important;
         //background: url(./assets/demo-10.jpg) no-repeat center center/cover;
-        background-color:#fff;
+        background-color:#eee;
         background-attachment: fixed;
         //background: transparent radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
         &.isLogin {

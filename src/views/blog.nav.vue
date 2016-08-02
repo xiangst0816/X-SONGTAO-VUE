@@ -9,12 +9,10 @@
             </a>
 
 
-
-
             <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="首页">
                 <i class="fa fa-home fa-fw fa-lg"></i>
             </a>
-            <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}"  data-toggle="tooltip" data-placement="right" title="博客">
+            <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="博客">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
             </a>
             <!--<a class="nav__item" v-link="{ name: 'article',params: { articleId: '57826e945c21c1dd04b4ad4d' },activeClass: 'active'}">-->
@@ -22,12 +20,12 @@
             <!--&lt;!&ndash;<span class="visible-hg">博客</span>&ndash;&gt;-->
             <!--</a>-->
         </nav>
-        <nav class="nav__bottom" >
+        <nav class="nav__bottom">
             <a class="nav__item" data-toggle="tooltip" data-placement="right" title="资料">
                 <i class="fa fa-user fa-lg"></i>
                 <!--<span class="visible-hg">资料</span>-->
             </a>
-            <a class="nav__item"  data-toggle="tooltip" data-placement="right" title="标签">
+            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="标签">
                 <i class="fa fa-tag fa-lg"></i>
                 <!--<span class="visible-hg">标签</span>-->
             </a>
@@ -150,8 +148,8 @@
 </style>
 <script>
 
-//    import 'bootstrap/js/tooltip.js'
-//    require("imports?$=jquery!bootstrap/js/tooltip.js")
+    import 'bootstrap/js/tooltip.js'
+
     export default{
 //        data(){
 //            return {

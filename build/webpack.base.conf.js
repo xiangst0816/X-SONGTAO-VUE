@@ -2,6 +2,7 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
+
 var webpack = require("webpack")
 module.exports = {
     entry: {
@@ -19,8 +20,9 @@ module.exports = {
             'src': path.resolve(__dirname, '../src'),
             'assets': path.resolve(__dirname, '../src/assets'),
             'components': path.resolve(__dirname, '../src/components'),
-            // "jquery": "jquery/dist/jquery.slim.min.js",
-            // "bootstrapjs": "bootstrap/dist/js/bootstrap.min.js",
+            "jquery": path.resolve(__dirname, '../node_modules/jquery/dist/jquery.slim.min.js'),
+            //插件位置
+            "bootstrap": path.resolve(__dirname, '../src/plugin/bootstrap')
         }
     },
     resolveLoader: {
@@ -76,12 +78,6 @@ module.exports = {
                     name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
                 }
             },
-            // {test: require.resolve('jquery'), loader: 'expose?jQuery'},
-            // {
-            //     test: /bootstrap\/.+\.(jsx|js)$/,
-            //     loader: 'imports?jQuery=jquery,$=jquery,this=>window'
-            // }
-            // {test: require.resolve('jquery'), loader: 'expose?jQuery'}
         ]
     },
     eslint: {
@@ -90,12 +86,13 @@ module.exports = {
     vue: {
         loaders: utils.cssLoaders()
     },
-    // plugins: [
-    //     new webpack.optimize.CommonsChunkPlugin('common.js'),
-    //     new webpack.ProvidePlugin({
-    //         $: "jquery",
-    //         jQuery: "jquery",
-    //         "window.jQuery": "jquery"
-    //     })
-    // ]
+    plugins: [
+        // new webpack.optimize.CommonsChunkPlugin('common.js'),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            jquery: "jquery",
+            "window.jQuery": "jquery",
+        })
+    ]
 }

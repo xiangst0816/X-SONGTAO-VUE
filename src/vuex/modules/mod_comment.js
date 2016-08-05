@@ -3,7 +3,7 @@
  * Description: 评论相关的store
  */
 import {
-    GET_ARTICLECOMMENTS
+    GET_ARTICLECOMMENTS,
 } from '../mutation-types'
 
 // 保存我的个人信息

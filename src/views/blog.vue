@@ -68,6 +68,11 @@
             }
         }
     }
+    @include media("<desktop_small") {
+        .blog {
+            padding-top:45px;
+        }
+    }
 </style>
 <script>
     import Vue from "vue";

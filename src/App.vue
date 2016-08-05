@@ -7,6 +7,8 @@
         <router-view></router-view>
         <!--qq,微信弹出层-->
         <social-info></social-info>
+        <!--退出弹层-->
+        <do-logout></do-logout>
     </div>
 </template>
 
@@ -14,14 +16,15 @@
     import Vue from "vue";
     import blogNav from "./views/blog.nav";
     import socialInfo from "./components/socialInfo.vue";
+    import doLogout from "./components/doLogout.vue";
     import store from './vuex/store'
 
     /**
      * 设置本地存储
      * */
     import vStorage from './utils/vStorage.js'
-    Vue.use(vStorage,{
-        storageKeyPrefix:'xst-'
+    Vue.use(vStorage, {
+        storageKeyPrefix: 'xst-'
     });
 
     /**
@@ -38,11 +41,10 @@
     var VueResource = require('vue-resource');
     Vue.use(VueResource);
     Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
-
-
-
+    import {setLoginState} from './vuex/actions'
 
     module.exports = {
+        store,
         replace: false,
         data: function () {
             return {
@@ -50,10 +52,40 @@
 //            isIndex:true
             }
         },
-        components: {
-            blogNav,socialInfo
+        ready: function () {
+            console.log('ready')
+            const scope = this;
+            /**
+             * 进入检查是否有token,是否能直接登录
+             * */
+            if (!!scope.$localStorage.authorization) {
+                let time = parseInt(scope.$localStorage.authorization.time);
+                if ((new Date().getTime() - time) < 1000 * 60 * 60 * 2) {
+                    //token有效,能进入
+                    scope.setLoginState(true)
+                }
+            }
+
+
+
+
+
+
+
+
+
         },
-        store
+        components: {
+            blogNav, socialInfo, doLogout
+        },
+
+        vuex: {
+            actions: {
+                // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
+                setLoginState,//设置登录否
+            }
+        },
+
     }
 </script>
 
@@ -79,7 +111,7 @@
         box-sizing: border-box;
         font-family: $font-family-sans-serif !important;
         background: url(./assets/demo-13.jpg) no-repeat center center/cover;
-        background-color:#eee;
+        background-color: #eee;
         background-attachment: fixed;
         //background: transparent radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
         &.isLogin {
@@ -97,6 +129,7 @@
             padding-left: 45px;
         }
     }
+
     @include media("<=desktop_small") {
         body {
             margin-top: 45px;

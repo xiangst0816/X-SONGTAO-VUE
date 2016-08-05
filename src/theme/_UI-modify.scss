@@ -7,3 +7,12 @@
   white-space: nowrap;
   font-size: 14px;
 }
+
+//删除的模态框将margin去掉
+.modal-body{
+  .deleteConfirmText{
+    margin:10px;
+  }
+}
+
+

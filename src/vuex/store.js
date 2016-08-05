@@ -7,6 +7,7 @@ import mod_tag from "./modules/mod_tag";
 import {
     SET_SHOWMYWORD_STATUS,
     SET_SOCIALIMG,
+    SET_LOGIN_STATUS
 } from './mutation-types'
 //vuex模块
 // 告诉 vue “使用” vuex
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     //全局state状态
     state: {
         isShowMyWords: false,
+        isLogin: false,
         socialImgUrl:'',
     },
     //全局突变事件处理
@@ -31,6 +33,10 @@ export default new Vuex.Store({
         //设置我的社交弹出组件的img
         [SET_SOCIALIMG] (state,url) {
             state.socialImgUrl = url;
+        },
+        //设置我的社交弹出组件的img
+        [SET_LOGIN_STATUS] (state,status) {
+            state.isLogin = !!status;
         },
     },
     modules: {

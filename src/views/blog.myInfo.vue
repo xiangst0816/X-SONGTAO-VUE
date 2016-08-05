@@ -380,12 +380,10 @@
 <script>
 
     import Vue from "vue";
-//    import $ from "jquery/dist/jquery.slim.min";
-    import {getMyInfo, setMyWordStatus,setSocialImgUrl} from '../vuex/actions'
+    import {setMyWordStatus, setSocialImgUrl} from '../vuex/actions'
     import {addImgPrefix} from "../utils/filters.js";
-    import "semantic-ui-modal/modal.min.css";
-    import "semantic-ui-modal/modal.min.js";
 
+    import {GetMyInfo} from '../api/api_myinfo'
 
 
     Vue.filter('addImgPrefix', addImgPrefix);
@@ -393,37 +391,29 @@
         replace: true,
         data: function () {
             return {
-//                isShowMyWords: false
+                myinfo: {},
             }
         },
-        methods:{
-            showSocialImg:function (url) {
-//                console.log($('.ui.modal'));
-
-//                $('.ui.modal').modal('show')
-//                $('.ui.modal')
-//                        .modal('show')
-//                ;
+        methods: {
+            showSocialImg: function (url) {
                 this.setSocialImgUrl(url)
             }
         },
         vuex: {
             getters: {
                 isShowMyWords: state=>state.isShowMyWords,
-                myinfo: ({mod_myinfo}) => mod_myinfo.get
             },
             actions: {
                 // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
-                getMyInfo,//获取我的信息
                 setMyWordStatus,//toggle我的个人称述显影状态,因为其他组件可能需要这个信息
                 setSocialImgUrl,//更改社交的二维码图片
             }
         },
         created: function () {
-//            执行获取函数
-            this.getMyInfo();
+            const scope = this;
+            GetMyInfo().then((data)=> {
+                scope.myinfo = data;
+            });
         },
-        destroyed: function () {
-        }
     }
 </script>

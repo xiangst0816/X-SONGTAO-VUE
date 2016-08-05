@@ -5,7 +5,7 @@
             <input ng-focus="chain.selectId=''" class="commentBox__questionBox--input" type="text" placeholder="我要说几句" v-model="content">
 
             <button class="btn commentBox__questionBox--reply" @click="submit()">
-                <span>提交{{hasNickName}}  {{content}}</span>
+                <span>提交</span>
             </button>
         </div>
         <!--个人信息-->
@@ -33,7 +33,7 @@
         transition: all ease 200ms;
         z-index: 1;
         margin: 0;
-        padding: 0 35px;
+        /*padding: 0 35px;*/
         .commentBox__questionBox {
             position: relative;
             height: 50px;
@@ -142,6 +142,11 @@
         ],
         methods: {
             submit: function () {
+
+                if(!this.content){
+                    alert("请输入评论内容!");
+                    return;
+                }
                 this.$dispatch('replyThisComment', {
                     content: this.content,
                     name: this.name,
@@ -153,6 +158,18 @@
         },
         ready: function () {
 
+        },
+        events:{
+            'Submitting':function () {
+                console.log("Submitting")
+            },
+            'SubmitSuccess':function () {
+                this.content='';
+                console.log("SubmitSuccess")
+            },
+            'SubmitFailure':function () {
+                console.log("SubmitFailure")
+            },
         }
     }
 </script>

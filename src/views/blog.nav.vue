@@ -21,29 +21,23 @@
             <!--</a>-->
         </nav>
         <nav class="nav__bottom">
-            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="资料">
+            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-myinfo',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="我的资料">
                 <i class="fa fa-user fa-lg"></i>
-                <!--<span class="visible-hg">资料</span>-->
             </a>
-            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="标签">
+            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-tag',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="标签管理">
                 <i class="fa fa-tag fa-lg"></i>
-                <!--<span class="visible-hg">标签</span>-->
             </a>
-            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="文章">
+            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-articleList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章管理">
                 <i class="fa fa-list fa-lg"></i>
-                <!--<span class="visible-hg">文章</span>-->
             </a>
-            <a class="nav__item">
+            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章评论">
                 <i class="fa fa-comments fa-lg"></i>
-                <!--<span class="visible-hg">评论</span>-->
             </a>
-            <a class="nav__item">
+            <a v-if="isLogin" class="nav__item" data-toggle="tooltip" data-placement="right" title="退出" @click="doLoginout()">
                 <i class="fa fa-sign-out fa-lg"></i>
-                <!--<span class="visible-hg">退出</span>-->
             </a>
-            <a class="nav__item">
+            <a v-if="!isLogin" class="nav__item" v-link="{ name: 'login',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="登录">
                 <i class="fa fa-sign-in fa-lg"></i>
-                <!--<span class="visible-hg">登录</span>-->
             </a>
         </nav>
     </div>
@@ -147,16 +141,33 @@
 
 </style>
 <script>
-
     import 'bootstrap/js/tooltip.js'
-
+    import {setLoginState} from '../vuex/actions'
     export default{
 //        data(){
 //            return {
 //                msg: 'hello vue'
 //            }
 //        }
+        methods: {
+            doLoginout:function () {
+                $('#logout').modal()
+
+//                $rootScope.confirmLogout = function () {
+//                    $timeout(function () {
+//                        $localStorage.$reset();
+//                        $rootScope.isLogin = false;
+//                        $location.url('/home');
+//                        //开启tooltip
+//                        $rootScope.tooltip();
+//                    }, 200, true);
+//                };
+
+            }
+        },
         ready: function () {
+            console.log('isLogin')
+            console.log(this.isLogin)
             tooltip();
             function tooltip() {
                 let clientWidth = parseInt(document.documentElement.clientWidth);
@@ -178,69 +189,14 @@
 
             }
 
-//
-            console.log('--new Vue()----')
-
-            console.log(this)
-            console.log(this.$localStorage)
-//            console.log(this.$localStorage.$set({
-//                'set':{
-//                    a:'12123123',
-//                    b:2
-//                },
-//                'set1':{
-//                    a:'11',
-//                    b:2
-//                },
-//                'set2':{
-//                    a:'22',
-//                    b:2
-//                },
-//                'set3':{
-//                    a:'33',
-//                    b:2
-//                }
-//            })) ;
-//            console.log(this.$localStorage.set)
-//            console.log(this.$localStorage.set1)
-//            console.log(this.$localStorage.set2)
-//            console.log(this.$localStorage.set3)
-//
-//
-//            this.$localStorage.$delete('set3');
-//            console.log(this.$localStorage);
-//            console.log(this.$localStorage);
-//
-//            console.log(this.$sessionStorage.$set({
-//                'set$sessionStorage':{
-//                    a:'12123123',
-//                    b:2
-//                },
-//                'set1$sessionStorage':{
-//                    a:'11',
-//                    b:2
-//                },
-//                'set2$sessionStorage':{
-//                    a:'22',
-//                    b:2
-//                },
-//                'set3$sessionStorage':{
-//                    a:'33',
-//                    b:2
-//                }
-//            })) ;
-//
-//            this.$sessionStorage.$delete('set$sessionStorage');
-//
-//            console.log(this.$sessionStorage);
-
-
-
-
-
         },
         components: {
 //            tooltip
+        },
+        vuex: {
+            getters: {
+                isLogin: state=>state.isLogin,
+            }
         }
     }
 

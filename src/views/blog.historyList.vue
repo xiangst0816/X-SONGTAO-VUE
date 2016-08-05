@@ -14,7 +14,7 @@
             <div class="cataBox__content">
                 <div class="itemBox" v-for="monthBox in cataBox.data">
                     <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">{{monthBox.month  | num2MMM  | uppercase}}</p>
+                        <p ng-bind="itemBox.month | toEnMonth | uppercase">{{monthBox.month | num2MMM | uppercase}}</p>
                     </div>
                     <ul class="itemBox__content">
                         <li class="itemBox__content__item" v-for="article in monthBox.data" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
@@ -32,10 +32,11 @@
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
+
     .historyList {
         @import "../theme/cataBox";
-        width:780px;
-        margin:0 auto;
+        width: 780px;
+        margin: 0 auto;
         .itemBox {
             @include display-flex;
             @include justify-content(flex-start);
@@ -127,7 +128,7 @@
 <script>
     import Vue from "vue"
     import noData from "../components/nodata.vue"
-    import {getHistoryList} from '../vuex/actions'
+    import {GetHistoryList} from "../api/api_article"
 
     import {num2MMM} from "../utils/filters.js";
 
@@ -137,29 +138,21 @@
         replace: true,
         data: function () {
             return {
-//                historyList: []
+                historyList: [],
+//                isLoading: true,
+                hasData: true,
             }
         },
         methods: {},
-        computed: {
-            hasData () {
-                return this.historyList.length !== 0;
-            }
-        },
         created: function () {
+            const scope = this;
             // 获取文章历史列表
-            this.getHistoryList();
-        },
-        destroyed: function () {
-        },
-        vuex: {
-            getters: {
-                historyList: ({mod_article}) =>mod_article.historyList
-            },
-            actions: {
-                getHistoryList
-            },
-
+            GetHistoryList().then((data)=> {
+                scope.historyList = data;
+                scope.hasData=(data.length !== 0);
+            },()=>{
+                scope.hasData=false;
+            });
         },
         components: {
             noData

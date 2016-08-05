@@ -26,6 +26,13 @@ const EMAIL = CONFIG.EMAIL;
 
 module.exports = {
     /**
+     * 通用状态码
+     * */
+
+    SYS_ERR:'SYS_ERR',//api请求系统错误
+
+
+    /**
      * 用户、登录相关
      * */
     MY_INFO_ID: MY_INFO_ID,

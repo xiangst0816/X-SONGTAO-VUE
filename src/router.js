@@ -27,6 +27,10 @@ export default function () {
             name: 'index',
             component: require('./views/blog.index.vue')
         },
+        '/login': {
+            name: 'login',
+            component: require('./views/blog.login.vue')
+        },
         '/blog': {
             name: 'blog',
             component: require('./views/blog.vue'),
@@ -46,6 +50,33 @@ export default function () {
                 '/article/:articleId': {
                     name: 'article',
                     component: require('./views/blog.article.vue')
+                },
+            }
+        },
+        '/admin': {
+            name: 'admin',
+            component: require('./views/admin.vue'),
+            auth: true,
+            subRoutes:{
+                '/admin-myinfo': {
+                    name: 'admin-myinfo',
+                    component: require('./views/admin.myInfo.vue'),
+                    auth: true,
+                },
+                '/admin-tag': {
+                    name: 'admin-tag',
+                    component: require('./views/admin.tagList.vue'),
+                    auth: true,
+                },
+                '/admin-articleList': {
+                    name: 'admin-articleList',
+                    component: require('./views/admin.articleList.vue'),
+                    auth: true,
+                },
+                '/admin-commentList': {
+                    name: 'admin-commentList',
+                    component: require('./views/admin.commentList.vue'),
+                    auth: true,
                 },
             }
         },

@@ -1,6 +1,6 @@
 /**
 * Created by xiangsongtao on 16/7/24.
-* Description:
+* Description: 文章列表
 */
 <template>
     <div class="aritcleList animated fadeIn">
@@ -44,7 +44,7 @@
 
     /*内容区*/
     .aritcleList {
-        width:780px;
+        width: 780px;
         margin: 0 auto;
         position: relative;
 
@@ -64,7 +64,7 @@
                 }
             }
             &:hover .article__infobox .arrticle__readmore span {
-              background-color: $base-theme-color;
+                background-color: $base-theme-color;
             }
             //标题
             .article__header {
@@ -149,59 +149,54 @@
     }
 
 
-
 </style>
 <script>
-    import CONFIG from "../config.js"
+    import API from "../config.js"
     import noData from "../components/nodata.vue"
     import copyright from '../components/copyright.vue'
-    import { getArticleList } from '../vuex/actions'
+
+    import {GetArticleList} from "../api/api_article"
+
+
     export default{
         replace: true,
         data: function () {
             return {
+                isLoading:true,
+                articleList: [],
+                hasData:true,
             }
         },
         methods: {},
-        computed: {
-            hasData () {
-                return this.articleList.length !== 0;
-            }
-        },
         created: function () {
+            const scope = this;
             /**
              * 文章列表会根据
              * "最新-latest"、"标签筛选-tagList"进行区分,
              * 不同的type进行不同的url搜索
              * */
-            let listType = this.$route.query.listType;
+            let listType = scope.$route.query.listType;
             let url;
             switch (listType) {
                 case 'latest':
-                    url = CONFIG.newUpdateArticle.replace("from", CONFIG.ArticleFrom).replace("to", CONFIG.ArticleTo);
+                    url = API.newUpdateArticle.replace("from", API.ArticleFrom).replace("to", API.ArticleTo);
                     break;
                 case 'tagList':
-                    url = CONFIG.getArticlesWithTagId.replace('id', this.$route.query.tagId);
+                    url = API.getArticlesWithTagId.replace('id', scope.$route.query.tagId);
                     break;
             }
             // 数据请求根据url参数会发生改变,故get时传入url
-            this.getArticleList(url);
-
+            GetArticleList(url).then((data)=> {
+                scope.articleList = data;
+                scope.hasData=(data.length !== 0);
+            },()=>{
+                scope.hasData=false;
+            })
         },
         destroyed: function () {
         },
         components: {
-            noData,copyright
+            noData, copyright
         },
-        vuex: {
-            getters: {
-                articleList: ({mod_article}) =>mod_article.articleList,
-                isShowMyWords: state=>state.isShowMyWords,
-            },
-            actions: {
-                getArticleList
-            },
-
-        }
     }
 </script>

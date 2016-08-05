@@ -42,13 +42,14 @@ export default function () {
                 '/tag-list': {
                     name: 'tagList',
                     component: require('./views/blog.tagList.vue')
-                }
+                },
+                '/article/:articleId': {
+                    name: 'article',
+                    component: require('./views/blog.article.vue')
+                },
             }
         },
-        '/article/:articleId': {
-            name: 'article',
-            component: require('./views/blog.article.vue')
-        },
+
     });
 
     //路由重定向

@@ -5,22 +5,14 @@
 
 'use strict';
 import Vue from "vue";
-/**
- * 路由相关 路由规则配置
- * */
-import routerConfig from "./router.js";
-routerConfig();
+
 
 /**
  * views & components
  * */
 import app from "./App.vue";
 import blogNav from "./views/blog.nav";
-/**
- * 组件--基于semantic.UI
- * */
-// import $ from "jquery";//去掉ajax的版本
-// import jQuery from 'jquery'
+
 
 import "font-awesome/css/font-awesome.min.css";
 // import "semantic-ui-breadcrumb/breadcrumb.min.css";
@@ -33,21 +25,7 @@ import 'bootstrap/scss/bootstrap.slim.scss'
 
 
 
-/**
- * vue-resource 配置
- * */
-var VueResource = require('vue-resource');
-Vue.use(VueResource);
-Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
-// import API from "./config.js" Access-Control-Allow-Origin
 
-// console.log(API)
-
-//icon字体
-//面包屑
-//标签
-//输入框
-//按钮
 
 new Vue({
     el: '#app',
@@ -61,6 +39,10 @@ new Vue({
     components: {
         blogNav, app
     },
+    ready:function () {
+
+
+    }
 
 })
 

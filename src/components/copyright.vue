@@ -7,13 +7,13 @@
     .index-bottom-info {
         user-select: none;
         -webkit-user-select: none;
-        position: absolute;
-        width: 100%;
-        bottom: 1%;
-        left: 50%;
+        position: relative;
+        width: auto;
+        /*bottom: 1%;*/
+        /*left: 50%;*/
         color: #eee;
         font-size: 12px;
-        transform: translate3d(-50%, 0, 0);
+        //transform: translate3d(-50%, 0, 0);
         p {
             overflow: hidden;
         }

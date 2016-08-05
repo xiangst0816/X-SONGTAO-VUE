@@ -33,6 +33,7 @@
     "semantic-ui-modal": "^2.2.1",
     "semantic-ui-popup": "^2.2.1",
     "vue": "^1.0.26",
+    "vue-moment": "^2.0.1",
     "vue-resource": "^0.9.3",
     "vue-router": "^0.7.13",
     "vue-strap": "^1.0.11",

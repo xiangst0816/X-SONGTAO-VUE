@@ -177,6 +177,67 @@
                 }
 
             }
+
+//
+            console.log('--new Vue()----')
+
+            console.log(this)
+            console.log(this.$localStorage)
+//            console.log(this.$localStorage.$set({
+//                'set':{
+//                    a:'12123123',
+//                    b:2
+//                },
+//                'set1':{
+//                    a:'11',
+//                    b:2
+//                },
+//                'set2':{
+//                    a:'22',
+//                    b:2
+//                },
+//                'set3':{
+//                    a:'33',
+//                    b:2
+//                }
+//            })) ;
+//            console.log(this.$localStorage.set)
+//            console.log(this.$localStorage.set1)
+//            console.log(this.$localStorage.set2)
+//            console.log(this.$localStorage.set3)
+//
+//
+//            this.$localStorage.$delete('set3');
+//            console.log(this.$localStorage);
+//            console.log(this.$localStorage);
+//
+//            console.log(this.$sessionStorage.$set({
+//                'set$sessionStorage':{
+//                    a:'12123123',
+//                    b:2
+//                },
+//                'set1$sessionStorage':{
+//                    a:'11',
+//                    b:2
+//                },
+//                'set2$sessionStorage':{
+//                    a:'22',
+//                    b:2
+//                },
+//                'set3$sessionStorage':{
+//                    a:'33',
+//                    b:2
+//                }
+//            })) ;
+//
+//            this.$sessionStorage.$delete('set$sessionStorage');
+//
+//            console.log(this.$sessionStorage);
+
+
+
+
+
         },
         components: {
 //            tooltip

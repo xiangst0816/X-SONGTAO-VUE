@@ -11,9 +11,41 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import blogNav from "./views/blog.nav";
     import socialInfo from "./components/socialInfo.vue";
     import store from './vuex/store'
+
+    /**
+     * 设置本地存储
+     * */
+    import vStorage from './utils/vStorage.js'
+    Vue.use(vStorage,{
+        storageKeyPrefix:'xst-'
+    });
+
+    /**
+     * 时间格式化插件-过滤器
+     * */
+    var vueMoment = require('vue-moment');
+    var moment = require('moment');
+    moment.locale('zh-cn')
+    Vue.use(vueMoment);
+
+    /**
+     * vue-resource 配置
+     * */
+    var VueResource = require('vue-resource');
+    Vue.use(VueResource);
+    Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
+
+    /**
+     * 路由相关 路由规则配置
+     * */
+    import routerConfig from "./router.js";
+    routerConfig();
+
+
     module.exports = {
         replace: false,
         data: function () {
@@ -50,7 +82,7 @@
         width: 100%;
         box-sizing: border-box;
         font-family: $font-family-sans-serif !important;
-        //background: url(./assets/demo-10.jpg) no-repeat center center/cover;
+        background: url(./assets/demo-13.jpg) no-repeat center center/cover;
         background-color:#eee;
         background-attachment: fixed;
         //background: transparent radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);

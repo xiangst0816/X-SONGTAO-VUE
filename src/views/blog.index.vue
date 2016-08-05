@@ -20,7 +20,9 @@
             <div class="index-btnBox-each text-center" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">我的博客</div>
             <div class="index-btnBox-each text-center hidden">照片墙</div>
         </section>
-        <copyright></copyright>
+        <section class="index-copyright">
+            <copyright></copyright>
+        </section>
     </div>
 
 
@@ -135,6 +137,13 @@
                     background: #49c8fb;
                 }
             }
+        }
+        .index-copyright {
+            position: absolute;
+            bottom: 1%;
+            text-align: center;
+            width: 100%;
+            left: 0;
         }
     }
 </style>

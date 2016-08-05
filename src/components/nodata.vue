@@ -11,7 +11,9 @@
 <style lang="scss">
     @import "../theme/theme.scss";
     .nodata {
+        width:780px;
         padding: 20px;
+        margin:0 auto;
         @include display-flex;
         @include justify-content(flex-end);
         @include align-items(center);

@@ -6,6 +6,7 @@ import {
     GET_ARTICLELIST,
     GET_HISTORYLIST,
     GET_ARTICLE,
+    CLEAR_ARTICLE,
 } from '../mutation-types'
 
 // 保存我的个人信息
@@ -26,7 +27,9 @@ const mutations = {
     [GET_ARTICLE] (state, article) {
         state.article = article
     },
-
+    [CLEAR_ARTICLE] (state) {
+        state.article = {}
+    },
 
 
 }

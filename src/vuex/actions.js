@@ -19,10 +19,9 @@ export const setMyWordStatus = function ({dispatch}) {
 /**
  * 更改社交的二维码图片
  * */
-export const setSocialImgUrl = function ({dispatch},url) {
-    dispatch(types.SET_SOCIALIMG,url)
+export const setSocialImgUrl = function ({dispatch}, url) {
+    dispatch(types.SET_SOCIALIMG, url)
 };
-
 
 
 //-------------------------我的信息---------------------------
@@ -47,6 +46,7 @@ export const getMyInfo = function ({dispatch}) {
 export const getArticleList = function ({dispatch}, url) {
     api_article.getArticleList(url, (data)=> {
         dispatch(types.GET_ARTICLELIST, data)
+
     });
 };
 /**
@@ -60,10 +60,17 @@ export const getHistoryList = function ({dispatch}) {
 /**
  * 根据文章id获取文章详情(前台)
  * */
-export const getArticleById = function ({dispatch},articleId) {
-    api_article.getArticleById(articleId,(data)=> {
+export const getArticleById = function ({dispatch}, articleId) {
+    api_article.getArticleById(articleId, (data)=> {
         dispatch(types.GET_ARTICLE, data)
+        console.log(data)
     });
+};
+/**
+ * 清除文章记录(清楚缓存)
+ * */
+export const clearArticle = function ({dispatch}) {
+    dispatch(types.CLEAR_ARTICLE)
 };
 //-------------------------标签---------------------------
 /**
@@ -79,8 +86,8 @@ export const getTagsListWithStructure = function ({dispatch}) {
 /**
  * 根据文章id获取该文章的评论信息
  * */
-export const getArticleComments = function ({dispatch},articleId) {
-    api_comment.getArticleComments(articleId,(data)=> {
+export const getArticleComments = function ({dispatch}, articleId) {
+    api_comment.getArticleComments(articleId, (data)=> {
         dispatch(types.GET_ARTICLECOMMENTS, data)
     });
 };

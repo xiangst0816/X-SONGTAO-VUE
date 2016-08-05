@@ -12,6 +12,10 @@ export const GET_MYINFO = 'GET_MYINFO';//获取我的个人信息
 
 export const GET_ARTICLELIST = 'GET_ARTICLELIST';//获取文章列表
 export const GET_HISTORYLIST = 'GET_HISTORYLIST';//获取文章历史记录列表
+export const CLEAR_ARTICLE = 'CLEAR_ARTICLE';//获取文章历史记录列表
+
+
+
 export const GET_TAGSWITHSTRUCTURE = 'GET_TAGSWITHSTRUCTURE';//获取具有结构的标签列表
 export const GET_ARTICLE = 'GET_ARTICLE';//根据文章id获取文章详情(前台)
 export const GET_ARTICLECOMMENTS = 'GET_ARTICLECOMMENTS';//根据文章id获取该文章的评论列表

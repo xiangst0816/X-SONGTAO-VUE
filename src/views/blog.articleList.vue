@@ -15,7 +15,7 @@
                 <div class="article__info">
                     <div class="article__info--each">
                         <i class="fa fa-calendar"></i>
-                        <span am-time-ago="article.publish_time">{{article.publish_time}}</span>
+                        <span>{{article.publish_time  | moment "from" "now"}}</span>
                     </div>
                     <div class="article__info--each">
                         <i class="fa fa-book"></i>
@@ -44,13 +44,17 @@
 
     /*内容区*/
     .aritcleList {
+        width:780px;
+        margin: 0 auto;
+        position: relative;
+
         .article {
             user-select: none;
             -webkit-user-select: none;
             box-sizing: border-box;
             margin-bottom: 30px;
             cursor: pointer;
-            border-radius: 4px;
+            /*border-radius: 4px;*/
             overflow: hidden;
 
             &:hover .article__header .article__header--title {
@@ -59,9 +63,9 @@
                     border-top: 3px solid $base-theme-color;
                 }
             }
-            //&:hover .article__infobox .arrticle__readmore span {
-            //  background-color: $base-theme-color;
-            //}
+            &:hover .article__infobox .arrticle__readmore span {
+              background-color: $base-theme-color;
+            }
             //标题
             .article__header {
                 padding: 35px;
@@ -145,10 +149,12 @@
     }
 
 
+
 </style>
 <script>
     import CONFIG from "../config.js"
     import noData from "../components/nodata.vue"
+    import copyright from '../components/copyright.vue'
     import { getArticleList } from '../vuex/actions'
     export default{
         replace: true,
@@ -185,11 +191,12 @@
         destroyed: function () {
         },
         components: {
-            noData
+            noData,copyright
         },
         vuex: {
             getters: {
-                articleList: ({mod_article}) =>mod_article.articleList
+                articleList: ({mod_article}) =>mod_article.articleList,
+                isShowMyWords: state=>state.isShowMyWords,
             },
             actions: {
                 getArticleList

@@ -5,7 +5,11 @@
 
 'use strict';
 import Vue from "vue";
-
+/**
+ * 路由相关 路由规则配置
+ * */
+import routerConfig from "./router.js";
+routerConfig();
 
 /**
  * views & components
@@ -15,10 +19,6 @@ import blogNav from "./views/blog.nav";
 
 
 import "font-awesome/css/font-awesome.min.css";
-// import "semantic-ui-breadcrumb/breadcrumb.min.css";
-// import "semantic-ui-label/label.min.css";
-// import "semantic-ui-input/input.min.css";
-// import "semantic-ui-button/button.min.css";
 
 //精简版的scss,只选用需要的部分
 import 'bootstrap/scss/bootstrap.slim.scss'
@@ -32,8 +32,6 @@ new Vue({
     replace: false,
     data: function () {
         return {
-//            authenticating: false,
-//            isIndex:true
         }
     },
     components: {

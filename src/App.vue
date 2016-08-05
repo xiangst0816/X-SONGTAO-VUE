@@ -39,11 +39,7 @@
     Vue.use(VueResource);
     Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
 
-    /**
-     * 路由相关 路由规则配置
-     * */
-    import routerConfig from "./router.js";
-    routerConfig();
+
 
 
     module.exports = {

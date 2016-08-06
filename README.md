@@ -15,7 +15,7 @@
 |    blog-content 组件    |       07/27      |    已完成    |
 |    blog-lastest 组件    |       07/28      |    已完成    |
 |    vuex接入    |       07/30      |    已完成    |
-|    jquery插件引入    |             |    0%    |
+|    jquery插件引入    |      08/03       |    已完成    |
 |    blog-history 组件    |      07/30     |     已完成   |
 |    blog-tagList 组件    |      07/30       |     已完成    |
 |    blog-article 组件    |       07/30      |     已完成    |
@@ -25,6 +25,10 @@
 |    admin-tagList 组件    |     08/06       |     80%    |
 |    admin-commentList 组件    |       08/06     |     80%    |
 |    admin-article-add/edit 组件    |    08/06        |     50%    |
+|    联调    |             |          |
+|    优化    |             |          |
+
+
 
 ## Build Setup
 

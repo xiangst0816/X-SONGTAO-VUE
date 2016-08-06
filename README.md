@@ -19,12 +19,12 @@
 |    blog-history 组件    |      07/30     |     已完成   |
 |    blog-tagList 组件    |      07/30       |     已完成    |
 |    blog-article 组件    |       07/30      |     已完成    |
-|    blog-login 组件    |              |     0%    |
-|    admin-myinfo 组件    |            |     0%    |
-|    admin-articleList 组件    |           |     0%    |
-|    admin-tagList 组件    |           |     0%    |
-|    admin-commentList 组件    |           |     0%    |
-|    admin-article-add/edit 组件    |           |     0%    |
+|    blog-login 组件    |        08/05      |     已完成   |
+|    admin-myinfo 组件    |       08/06     |     90%    |
+|    admin-articleList 组件    |     08/06       |     80%    |
+|    admin-tagList 组件    |     08/06       |     80%    |
+|    admin-commentList 组件    |       08/06     |     80%    |
+|    admin-article-add/edit 组件    |    08/06        |     50%    |
 
 ## Build Setup
 

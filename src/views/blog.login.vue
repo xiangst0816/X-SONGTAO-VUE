@@ -153,6 +153,11 @@
                             "commentEmail": API.EMAIL
                         });
                     }
+                    // 设置请求的token
+                    Vue.http.headers.common['authorization'] = "token " + response.token;
+
+
+
                     console.log('login-success')
 
                     //开启tooltip

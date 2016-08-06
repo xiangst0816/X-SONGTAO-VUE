@@ -39,3 +39,19 @@ export const GetMyInfoWithOriginal = function () {
         });
     })
 };
+
+export const ChangePassword = function (params) {
+    return new Promise(function (resolve, reject) {
+        Vue.http.post(API.changePassword,params).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result);
+            } else {
+                reject(parseInt(result.code));
+            }
+        }, () => {
+            reject(API.SYS_ERR)
+        });
+    })
+};

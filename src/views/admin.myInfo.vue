@@ -18,35 +18,31 @@
                     <div class="inputGroup clearfix">
                         <label class="col-sm-12" for="name">昵称/Nickname</label>
                         <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" ng-click="setThis(myinfo.full_name)" ng-blur="save(myinfo.full_name)" class="form-control input-sm col-sm-12 inputContent" id="name" name="name"
-                                   placeholder="姓名/Name" ng-model="myinfo.full_name">
+                            <input type="text" @click="setThis(myinfo.full_name)" v-on:blur="save(myinfo.full_name)" class="form-control input-sm col-sm-12 inputContent" id="name" name="name"
+                                   placeholder="姓名/Name" v-model="myinfo.full_name">
                             <!--<span class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>-->
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
                         <label class="col-sm-12 " for="position">职位/Position</label>
                         <div class="col-sm-12 infoDetail__inputGroup">
-                            <!--<p class="form-control-static inputContentStatic" ng-click="setInput($event)" ng-bind="myinfo.position"></p>-->
-                            <input type="text" ng-click="setThis(myinfo.position)" ng-blur="save(myinfo.position)" class="form-control input-sm col-sm-12 inputContent" id="position" name="position"
-                                   placeholder="职位/Position" ng-model="myinfo.position">
-                            <!--<span class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>-->
+                            <input type="text" @click="setThis(myinfo.position)" v-on:blur="save(myinfo.position)" class="form-control input-sm col-sm-12 inputContent" id="position" name="position"
+                                   placeholder="职位/Position" v-model="myinfo.position">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
                         <label class="col-sm-12 " for="address">地址/Address</label>
                         <div class="col-sm-12 infoDetail__inputGroup">
-                            <!--<p class="form-control-static inputContentStatic" ng-click="setInput($event)" ng-bind="myinfo.address"></p>-->
-                            <input type="text" ng-click="setThis(myinfo.address)" ng-blur="save(myinfo.address)" class="form-control input-sm col-sm-12 inputContent" id="address" name="address"
-                                   placeholder="地址/Address" ng-model="myinfo.address">
-                            <!--<span class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>-->
+                            <input type="text" @click="setThis(myinfo.address)" v-on:blur="save(myinfo.address)" class="form-control input-sm col-sm-12 inputContent" id="address" name="address"
+                                   placeholder="地址/Address" v-model="myinfo.address">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
                         <label class="col-sm-12" for="mood">心情/Motto</label>
                         <div class="col-sm-12 infoDetail__inputGroup">
                             <input type="text" class="form-control input-sm col-sm-6 inputContent" id="mood" name="mood"
-                                   ng-click="setThis(myinfo.motto)" ng-blur="save(myinfo.motto)"
-                                   placeholder="心情/Mood" ng-model="myinfo.motto">
+                                   @click="setThis(myinfo.motto)" v-on:blur="save(myinfo.motto)"
+                                   placeholder="心情/Mood" v-model="myinfo.motto">
                         </div>
                     </div>
                 </div>
@@ -58,43 +54,43 @@
                         <form id="imgUpload" action="" class="dropzone" method="post" enctype="multipart/form-data">
                             <div class="dz-default dz-message"></div>
                         </form>
-                        <img width="100%" ng-src=" " alt="我的头像">
+                        <img class="img-circle" :src="myinfo.img_url | addImgPrefix">
                     </div>
                 </div>
 
                 <!--我的陈述-->
                 <div class="personalState">
-                    <label>我的介绍/MyIntroduce(Markdown)</label>
+                    <label for="personalState__textarea">我的介绍/MyIntroduce(Markdown)</label>
                     <div class="personalState__textarea">
                     <textarea
-                            ng-click="setThis(myinfo.personal_state)" ng-blur="save(myinfo.personal_state)" id="personalState__textarea"
-                            ng-model="myinfo.personal_state" placeholder="请填写我的介绍...."></textarea>
+                            @click="setThis(myinfo.personal_state)" v-on:blur="save(myinfo.personal_state)" id="personalState__textarea"
+                            v-model="myinfo.personal_state" placeholder="请填写我的介绍...."></textarea>
                     </div>
                 </div>
-
                 <!--修改用户名密码-->
                 <div class="authorizationBox">
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12" for="name">登录验证信息/Authorization</label>
-                        <form class="inputBox" name="auths">
-                            <div class="col-sm-12" ng-class="{true:'has-error',false:''}[auths.username.$error.required]">
+                        <label class="col-sm-12" for="new_password">登录验证信息/Authorization</label>
+                        <form class="inputBox">
+                            <div class="col-sm-12" :class="{'has-error':!myinfo.username}">
                                 <input type="text" class="form-control input-sm col-sm-12 inputContent"
-                                       placeholder="用户名/Username" name="username" ng-model="myinfo.username" required>
+                                       placeholder="用户名/Username" name="username" v-model="myinfo.username" required>
                                 <label>用户名/Username</label>
                             </div>
-                            <div class="col-sm-12" ng-class="{true:'has-error',false:''}[auths.password.$error.required]">
+                            <div class="col-sm-12" :class="{'has-error':!myinfo.password}">
                                 <input type="password" class="form-control input-sm col-sm-12 inputContent"
-                                       placeholder="旧密码/Old Password" name="password" ng-model="myinfo.password" required>
+                                       placeholder="旧密码/Old Password" name="password" v-model="myinfo.password" required>
                                 <label>旧密码/Old Password</label>
                             </div>
-                            <div class="col-sm-12" ng-class="{true:'has-error',false:''}[auths.new_password.$error.required]">
-                                <input type="password" class="form-control input-sm col-sm-12 inputContent"
-                                       placeholder="新密码/New Password" name="new_password" ng-model="myinfo.new_password" required>
+                            <div class="col-sm-12" :class="{'has-error':!myinfo.new_password}">
+                                <input type="password" class="form-control input-sm col-sm-12 inputContent" id="new_password"
+                                       placeholder="新密码/New Password" name="new_password" v-model="myinfo.new_password" required>
                                 <label>新密码/New Password</label>
                             </div>
-                            <div class="buttonBox" ng-init="textState = 'Submit'" data-toggle="modal" data-target="#logoutBox">
-                                <button ng-disabled="!auths.$valid || !!submitText" class="btn btn-danger">确认</button>
-                                <span class="stateText" ng-bind="textState">Submit</span>
+                            <div class="buttonBox" data-toggle="modal" data-target="#logoutBox">
+                                <button v-if="!!myinfo.username&&!!myinfo.password&&!!myinfo.new_password" class="btn btn-danger" @click.prevent="changeAuthorizationInfo()">确认</button>
+                                <button v-else disabled="disabled" class="btn btn-danger">确认</button>
+                                <span class="stateText">{{textState}}</span>
                             </div>
                         </form>
                     </div>
@@ -112,10 +108,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in myinfo.login_info  | orderBy:'login_time':true| limitTo:15">
-                            <td ng-bind="$index+1"></td>
-                            <td ng-bind="item.login_ip"></td>
-                            <td ng-bind="item.login_time | date:'yyyy/MM/dd HH:mm:ss a'">登录时间</td>
+                        <tr v-for="item in myinfo.login_info | orderBy 'login_time' -1 | limitBy 15">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.login_ip}}</td>
+                            <td>{{item.login_time}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -345,34 +341,140 @@
 </style>
 <script>
     import Vue from "vue";
-    import {GetMyInfoWithOriginal} from '../api/api_myinfo'
+    import {
+            GetMyInfoWithOriginal,
+            PostMyInfo,
+    } from '../api/api_myinfo'
+
+    import API from '../config'
+    import Dropzone from '../plugin/dropzone'
+
+    import {ChangePassword} from '../api/api_auth'
     import copyright from '../components/copyright.vue'
+    import {addImgPrefix} from "../utils/filters.js";
+    import {setLoginState} from '../vuex/actions'
     module.exports = {
         data: function () {
             return {
                 myinfo: {},
+                changedValue: '',
+                textState: 'Submit',
             }
+        },
+        methods: {
+            setThis: function (value) {
+                this.changedValue = value;
+            },
+            save: function (value) {
+                const scope = this;
+                if (this.changedValue !== value) {
+                    let params = {
+                        _id: scope.myinfo._id,
+                        full_name: scope.myinfo.full_name,
+                        position: scope.myinfo.position,
+                        address: scope.myinfo.address,
+                        motto: scope.myinfo.motto,
+                        personal_state: scope.myinfo.personal_state,
+                        img_url: scope.myinfo.img_url
+                    };
+                    PostMyInfo(params).then((data)=> {
+                       alert('修改成功')
+                        console.log(data)
+                    }, (err)=> {
+                        alert('修改失败')
+                        console.log(err)
+                    })
+                }
+            },
+            //修改登录信息
+            changeAuthorizationInfo: function () {
+                const scope = this;
+                if (!scope.myinfo.username) {
+                    alert('用户名无效');
+                    return false;
+                }
+                if (!scope.myinfo.password) {
+                    alert('旧密码无效');
+                    return false;
+                }
+                if (!scope.myinfo.new_password) {
+                    alert('新密码无效');
+                    return false;
+                }
+
+                let params = {
+                    _id: scope.myinfo._id,
+                    username: scope.myinfo.username,
+                    password: scope.myinfo.password,
+                    new_password: scope.myinfo.new_password,
+                };
+                ChangePassword(params).then((data)=> {
+                    console.log(data)
+                    scope.textState = '成功!';
+                    //密码修改成功,需要提示用户重新登录,自动退出!
+                    alert("给出提示,xxs后请从新登陆")
+                    setTimeout(function () {
+                        scope.$localStorage.$reset();
+                        scope.setLoginState(false);//设置全局登录状态
+                        scope.$router.go({
+                            name:'login'
+                        });//跳转
+
+                    }, 1200, true);
+                }, ()=> {
+                    scope.textState = '失败!';
+                })
+            },
+
+
         },
         created: function () {
             const scope = this;
+            /**
+             * 获取原始个人信息
+             * */
             GetMyInfoWithOriginal().then((data)=> {
                 scope.myinfo = data;
-            },(err)=>{
-                console.log('code:'+err)
+                console.log(data)
+            }, (err)=> {
+                console.log('code:' + err)
             })
 
+            /**
+             * imgUpload 配置
+             * */
+            let config = {
+                url: API.imgUpload,
+                maxFilesize: 1000,
+                paramName: "uploadImg",
+                maxThumbnailFilesize: 10,
+                parallelUploads: 1,
+                //自动上传
+                autoProcessQueue: true
+            };
+//            let dropzone = new Dropzone(document.getElementById('imgUpload'), config);
+//            dropzone.on('success', function (file, response) {
+//                if (parseInt(response.code) === 1) {
+//                    scope.myinfo.img_url = response.data;
+//                    scope.changedValue = false;
+//                    scope.save(true);
+//                }
+//            });
 
         },
-        destroyed: function () {
-        },
+        destroyed: function () {},
         components: {
             copyright
         },
-//        vuex: {
-//            getters: {
+        vuex: {
+            getters: {
 //                isShowMyWords: state=>state.isShowMyWords,
-//            }
-//
-//        }
+            },
+            actions: {
+                // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
+                setLoginState,//设置登录否
+            }
+
+        }
     }
 </script>

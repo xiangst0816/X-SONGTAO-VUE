@@ -155,7 +155,7 @@
     import noData from "../components/nodata.vue"
     import copyright from '../components/copyright.vue'
 
-    import {GetArticleList} from "../api/api_article"
+    import {GetArticleListForFrontEnd} from "../api/api_article"
 
 
     export default{
@@ -186,7 +186,7 @@
                     break;
             }
             // 数据请求根据url参数会发生改变,故get时传入url
-            GetArticleList(url).then((data)=> {
+            GetArticleListForFrontEnd(url).then((data)=> {
                 scope.articleList = data;
                 scope.hasData=(data.length !== 0);
             },()=>{

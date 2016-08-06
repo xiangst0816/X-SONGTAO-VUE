@@ -3,10 +3,10 @@
  * Description: action 是一种专门用来被 component 调用的函数。
  */
 
-import api_article from "./api/api_article";
-import api_comment from "./api/api_comment";
-import api_myinfo from "./api/api_myinfo";
-import api_tag from "./api/api_tag";
+// import api_article from "./api/api_article";
+// import api_comment from "./api/api_comment";
+// import api_myinfo from "./api/api_myinfo";
+// import api_tag from "./api/api_tag";
 import * as types from "./mutation-types";
 
 //-------------------------全局---------------------------

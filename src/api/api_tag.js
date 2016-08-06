@@ -21,3 +21,19 @@ export const GetTagsListWithStructure = function () {
         });
     })
 };
+
+export const GetTagsList = function () {
+    return new Promise(function (resolve, reject) {
+        Vue.http.get(API.getTagsList).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result.data);
+            } else {
+                reject(parseInt(result.code));
+            }
+        }, () => {
+            reject(API.SYS_ERR)
+        });
+    })
+};

@@ -5,7 +5,7 @@
  */
 import API from "../config.js";
 import Vue from "vue";
-
+//获取文章详情-for 前端 渲染后的详情
 export const GetArticleById = function (articleId) {
     return new Promise(function (resolve, reject) {
         Vue.http.get(API.getArticleById.replace('id', articleId)).then((response) => {
@@ -21,8 +21,8 @@ export const GetArticleById = function (articleId) {
         });
     });
 };
-
-export const GetArticleList = function (url) {
+//获取文章列表-for 最近更新
+export const GetArticleListForFrontEnd = function (url) {
     return new Promise(function (resolve, reject) {
         Vue.http.get(url).then((response) => {
             // success callback
@@ -38,6 +38,7 @@ export const GetArticleList = function (url) {
     })
 };
 
+//获取文章历史记录-for 时光机
 export const GetHistoryList = function () {
     return new Promise(function (resolve, reject) {
         Vue.http.get(API.getArticleHistoryWithStructure).then((response) => {
@@ -53,5 +54,23 @@ export const GetHistoryList = function () {
         });
     })
 };
+
+//获取文章列表-for 后台列表
+export const GetArticleList = function () {
+    return new Promise(function (resolve, reject) {
+        Vue.http.get(API.getArticleList).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result.data);
+            } else {
+                reject(parseInt(result.code))
+            }
+        }, () => {
+            reject(API.SYS_ERR);
+        });
+    })
+};
+
 
 

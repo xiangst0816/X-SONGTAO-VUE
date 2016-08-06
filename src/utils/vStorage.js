@@ -59,7 +59,7 @@ module.exports = {
                         for (var k in _store) {
                             '$' === k[0] || (delete _store[k] && _webStorage.removeItem(storageKeyPrefix + k));
                         }
-                        return _store.$default(items);
+                        return _store.$set(items);
                     },
                     //数据拉取(web本地storage->$storage内部)
                     $fetch: function () {

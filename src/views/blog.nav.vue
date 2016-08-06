@@ -153,15 +153,7 @@
             doLoginout:function () {
                 $('#logout').modal()
 
-//                $rootScope.confirmLogout = function () {
-//                    $timeout(function () {
-//                        $localStorage.$reset();
-//                        $rootScope.isLogin = false;
-//                        $location.url('/home');
-//                        //开启tooltip
-//                        $rootScope.tooltip();
-//                    }, 200, true);
-//                };
+
 
             }
         },

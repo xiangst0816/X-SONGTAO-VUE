@@ -26,7 +26,9 @@ export const GetMyInfo = function () {
 
 export const GetMyInfoWithOriginal = function () {
     return new Promise(function (resolve, reject) {
-        Vue.http.post(API.getMyInfoWithOriginal).then((response) => {
+        Vue.http.post(API.getMyInfoWithOriginal,{
+            _id: API.MY_INFO_ID
+        }).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {
@@ -39,3 +41,21 @@ export const GetMyInfoWithOriginal = function () {
         });
     })
 };
+
+
+export const PostMyInfo = function (params) {
+    return new Promise(function (resolve, reject) {
+        Vue.http.put(API.postMyInfo,params).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result);
+            } else {
+                reject(parseInt(result.code));
+            }
+        }, () => {
+            reject(API.SYS_ERR)
+        });
+    })
+};
+

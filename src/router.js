@@ -11,7 +11,6 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 // 路由器需要一个根组件,App.vue为根组件。就是挂载路由的地方。
-// var App = Vue.extend(require('./App.vue'));
 var App = Vue.extend(require('./App.vue'));
 // 路由配置参数
 var router = new VueRouter({

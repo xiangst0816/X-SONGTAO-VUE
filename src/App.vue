@@ -41,6 +41,8 @@
     var VueResource = require('vue-resource');
     Vue.use(VueResource);
     Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
+    Vue.http.headers.common['Content-Type'] = 'application/json; charset=utf-8';
+
     import {setLoginState} from './vuex/actions'
 
     module.exports = {
@@ -59,10 +61,13 @@
              * 进入检查是否有token,是否能直接登录
              * */
             if (!!scope.$localStorage.authorization) {
-                let time = parseInt(scope.$localStorage.authorization.time);
+                let authorization = scope.$localStorage.authorization;
+                let time = parseInt(authorization.time);
                 if ((new Date().getTime() - time) < 1000 * 60 * 60 * 2) {
                     //token有效,能进入
-                    scope.setLoginState(true)
+                    scope.setLoginState(true);
+                    // 设置请求的token
+                    Vue.http.headers.common['authorization'] = "token " + authorization.token;
                 }
             }
 

@@ -22,6 +22,7 @@
 </style>
 <script>
     import 'bootstrap/js/modal.js'
+    import {setLoginState} from '../vuex/actions'
     export default{
         data(){
             return {
@@ -30,12 +31,30 @@
         },
         methods: {
             confirmLogout: function () {
-                alert('confirmLogout')
+//                alert('confirmLogout')
+                const scope = this;
+
+                setTimeout(function () {
+                    console.log(scope)
+                    scope.$localStorage.$reset();
+                    scope.setLoginState(false);
+                    scope.$router.go({
+                        name: 'index'
+                    });
+                    //开启tooltip
+//                    $rootScope.tooltip();
+                }, 200);
             },
         },
         components: {},
-        created:function () {
+        created: function () {
             console.log('')
-        }
+        },
+        vuex: {
+            actions: {
+                // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
+                setLoginState,//设置登录否
+            }
+        },
     }
 </script>

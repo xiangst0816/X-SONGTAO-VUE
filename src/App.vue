@@ -9,6 +9,13 @@
         <social-info></social-info>
         <!--退出弹层-->
         <do-logout></do-logout>
+
+        <!--admin-->
+        <!--增加评论 modal-->
+        <admin-add-comment></admin-add-comment>
+        <!--删除评论 modal-->
+
+
     </div>
 </template>
 
@@ -17,6 +24,7 @@
     import blogNav from "./views/blog.nav";
     import socialInfo from "./components/socialInfo.vue";
     import doLogout from "./components/doLogout.vue";
+    import adminAddComment from './components/adminAddComment.vue'
     import store from './vuex/store'
 
     /**
@@ -72,16 +80,13 @@
             }
 
 
-
-
-
-
-
-
-
         },
         components: {
-            blogNav, socialInfo, doLogout
+//            小组件挂载集中挂载
+            blogNav,
+            socialInfo,
+            doLogout,
+            'admin-add-comment':adminAddComment
         },
 
         vuex: {

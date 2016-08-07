@@ -122,6 +122,9 @@
             <!--</div>-->
 
         </section>
+
+
+
     </div>
 </template>
 <style scoped lang="scss">
@@ -271,9 +274,10 @@
             ChangeCommentAuthState,
     } from "../api/api_comment";
 
-    import "bootstrap/js/dropdown"
+//    import "bootstrap/js/dropdown"
 
     import copyright from '../components/copyright.vue'
+
 
     module.exports = {
         data: function () {
@@ -285,6 +289,8 @@
                 Condition_reply: 0,
                 btn_filter_auth: '全部',
                 Condition_auth: 0,
+
+                replyBox:{},
             }
         },
         computed: {
@@ -359,6 +365,7 @@
             }
         },
         methods: {
+            //改变评论状态
             changeAuthState: function (_id) {
                 ChangeCommentAuthState({
                     _id: _id
@@ -367,7 +374,15 @@
                 }, (error)=> {
                     console.log("状态改变" + error)
                 })
+            },
+            //打开回复评论弹层
+            comment:function (item) {
+                this.replyBox = item;
             }
+
+
+
+
         },
         created: function () {
             const scope = this;
@@ -391,7 +406,8 @@
         destroyed: function () {
         },
         components: {
-            copyright
+            copyright,
+//            'admin-add-comment':adminAddComment
         },
 //        vuex: {
 //            getters: {

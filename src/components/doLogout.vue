@@ -21,7 +21,7 @@
 
 </style>
 <script>
-    import 'bootstrap/js/modal.js'
+//    import 'bootstrap/js/modal.js'
     import {setLoginState} from '../vuex/actions'
     export default{
         data(){

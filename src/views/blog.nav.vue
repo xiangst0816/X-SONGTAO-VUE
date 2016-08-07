@@ -141,7 +141,7 @@
 
 </style>
 <script>
-    import 'bootstrap/js/tooltip.js'
+//    import 'bootstrap/js/tooltip.js'
     import {setLoginState} from '../vuex/actions'
     export default{
 //        data(){

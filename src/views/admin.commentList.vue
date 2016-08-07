@@ -10,123 +10,119 @@
             <i class="fa fa-fw fa-lg fa-comments"></i> 评论管理 / <span class="blue">COMMENTS</span>
         </h3>
         <!--增加-->
-        <section class="commentList" ng-init="">
+        <section class="commentList">
 
             <!--筛选-->
             <section class="commentList--dropdown">
                 <div class="commentList--dropdown-e">
                     <label class="commentList--dropdown-label">子主评论筛选: </label>
                     <div class="dropdown commentList--dropdown-div">
-                        <button ng-init="btn_filter_name_1='全部';Condition_1=0;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                            {{btn_filter_name_1}}
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                            {{btn_filter_mainComm}}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li ng-click="Condition_1=0;btn_filter_name_1='全部'"><a>全部</a></li>
-                            <li ng-click="Condition_1=1;btn_filter_name_1='主评论'"><a>主评论</a></li>
-                            <li ng-click="Condition_1=2;btn_filter_name_1='子评论'"><a>子评论</a></li>
+                            <li @click="Condition_main=0,btn_filter_mainComm='全部'"><a>全部</a></li>
+                            <li @click="Condition_main=1,btn_filter_mainComm='主评论'"><a>主评论</a></li>
+                            <li @click="Condition_main=2,btn_filter_mainComm='子评论'"><a>子评论</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="commentList--dropdown-e">
                     <label class="commentList--dropdown-label">回复筛选: </label>
                     <div class="dropdown commentList--dropdown-div">
-                        <button ng-init="btn_filter_name_2='全部';Condition_2=0;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                            {{btn_filter_name_2}}
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                            {{btn_filter_reply}}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li ng-click="Condition_2=0;btn_filter_name_2='全部'"><a>全部</a></li>
-                            <li ng-click="Condition_2=1;btn_filter_name_2='未回复'"><a>未回复</a></li>
-                            <li ng-click="Condition_2=2;btn_filter_name_2='已回复'"><a>已回复</a></li>
+                            <li @click="Condition_reply=0,btn_filter_reply='全部'"><a>全部</a></li>
+                            <li @click="Condition_reply=1,btn_filter_reply='未回复'"><a>未回复</a></li>
+                            <li @click="Condition_reply=2,btn_filter_reply='已回复'"><a>已回复</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="commentList--dropdown-e">
                     <label class="commentList--dropdown-label">审核筛选: </label>
                     <div class="dropdown commentList--dropdown-div">
-                        <button ng-init="btn_filter_name_3='全部';Condition_3=0;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                            {{btn_filter_name_3}}
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                            {{btn_filter_auth}}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li ng-click="Condition_3=0;btn_filter_name_3='全部'"><a>全部</a></li>
-                            <li ng-click="Condition_3=1;btn_filter_name_3='未审核'"><a>未审核</a></li>
-                            <li ng-click="Condition_3=2;btn_filter_name_3='已审核'"><a>已审核</a></li>
+                            <li @click="Condition_auth=0,btn_filter_auth='全部'"><a>全部</a></li>
+                            <li @click="Condition_auth=1,btn_filter_auth='未审核'"><a>未审核</a></li>
+                            <li @click="Condition_auth=2,btn_filter_auth='已审核'"><a>已审核</a></li>
                         </ul>
                     </div>
                 </div>
-                <button class="btn btn-info" ng-click="Condition_1=0;Condition_2=0;Condition_3=0;btn_filter_name_1=btn_filter_name_2=btn_filter_name_3='全部'">
+                <button class="btn btn-info" @click="Condition_main=0,Condition_reply=0,Condition_auth=0,btn_filter_mainComm=btn_filter_reply=btn_filter_auth='全部'">
                     <i class="fa fa-refresh"></i>
                 </button>
             </section>
 
-
             <!--评论-->
             <div class="comments__ask animated fadeIn"
-                 ng-repeat="item in (commentArr = (commentList  | filter:ConditionFilter_1 | filter:ConditionFilter_2 | filter:ConditionFilter_3 | orderBy:'time':true)) track by $index">
+                 v-for="item in resultList" track-by="$index">
                 <div class="comments__ask__title">
-                    <h3 ui-sref="blog.detail({id:item.article_id._id})"><span>原文: </span><span ng-bind="item.article_id.title"></span></h3>
+                    <h3 v-link="{ name: 'article',params: { articleId: item.article_id._id },activeClass: 'active'}"><span>原文: </span><span>{{item.article_id.title}}</span></h3>
                     <div class="comments__ask__title--btns">
-                        <button ng-click="changeAuthState(item._id);item.state=!item.state;" class="btn btn-default btn-sm" ng-class="{true:'btn-success',false:'btn-warning'}[!item.state]">
-                            <i class="fa" ng-class="{true:'fa-circle-o',false:'fa-ban'}[!item.state]"></i>
+                        <button @click="changeAuthState(item._id),item.state=!item.state;" class="btn btn-default btn-sm" :class="{true:'btn-success',false:'btn-warning'}[!item.state]">
+                            <i class="fa" :class="{true:'fa-circle-o',false:'fa-ban'}[!item.state]"></i>
                         </button>
-                        <button ng-if="!item.isIReplied" class="btn btn-default btn-sm" ng-click="comment(item)" data-toggle="modal" data-target="#addComm">
+                        <button v-if="!item.isIReplied" class="btn btn-default btn-sm" @click="comment(item)" data-toggle="modal" data-target="#addComm">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button class="btn btn-default btn-sm btn-danger" ng-click="delbtn(item)" data-toggle="modal" data-target="#delComm">
+                        <button class="btn btn-default btn-sm btn-danger" @click="delbtn(item)" data-toggle="modal" data-target="#delComm">
                             <i class="fa fa-bitbucket"></i>
                         </button>
                     </div>
                 </div>
                 <div class="comments__ask__header">
-                    <span class="name" ng-bind="item.name"></span>
+                    <span class="name">{{item.name}}</span>
                     &ensp;·&ensp;
-                    <span am-time-ago="item.time"></span>
+                    <span>{{item.time}}</span>
                     &ensp;·&ensp;
                     <span>
                      <a href="mailto:{{item.email}}">{{item.email}}</a>
                 </span>
                     &ensp;·&ensp;
-                    <span ng-if="item.article_id._id.toString() === item.pre_id.toString()" class="alreadyReplied">主评论</span>
-                    <span ng-if="item.article_id._id.toString() !== item.pre_id.toString()" class="alreadyReplied">子评论</span>
-                    <span ng-if="!item.isIReplied">&ensp;·&ensp; <span class="reply">未回复</span></span>
-                    <span ng-if="!!item.isIReplied">&ensp;·&ensp; <span class="alreadyReplied">已回复</span></span>
+                    <span v-if="item.article_id._id.toString() === item.pre_id.toString()" class="alreadyReplied">主评论</span>
+                    <span v-if="item.article_id._id.toString() !== item.pre_id.toString()" class="alreadyReplied">子评论</span>
+                    <span v-if="!item.isIReplied">&ensp;·&ensp; <span class="reply">未回复</span></span>
+                    <span v-if="!!item.isIReplied">&ensp;·&ensp; <span class="alreadyReplied">已回复</span></span>
 
                     &ensp;·&ensp;
-                    <span ng-if="!item.state" class="no-check">审核未通过</span>
-                    <span ng-if="!!item.state" class="checked">审核通过</span>
+                    <span v-if="!item.state" class="no-check">审核未通过</span>
+                    <span v-if="!!item.state" class="checked">审核通过</span>
                 </div>
                 <div class="comments__ask__content">
-                    <span ng-bind="item.content"></span>
+                    <span>{{item.content}}</span>
                 </div>
             </div>
 
             <!--无数据提示-->
-            <!--<div class="nodata  animated fadeIn" ng-if="!commentArr.length && isLoaded">-->
-                <!--<div class="logo-left-box">-->
-                    <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
-                    <!--<h3 class="blue notice">提示!</h3>-->
-                    <!--<p class="white">没有找到数据,~~~~(>_<)~~~~</p>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
+            <!--<div class="nodata  animated fadeIn" v-if="!commentArr.length && isLoaded">-->
+            <!--<div class="logo-left-box">-->
+            <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
+            <!--<h3 class="blue notice">提示!</h3>-->
+            <!--<p class="white">没有找到数据,~~~~(>_<)~~~~</p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
             <!--</div>-->
 
             <!--加载提示-->
-            <!--<div class="nodata  animated fadeIn" ng-if="!isLoaded">-->
-                <!--<div class="logo-left-box">-->
-                    <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
-                    <!--<h3 class="blue notice">提示!</h3>-->
-                    <!--<p class="white">正在加载,O(∩_∩)O稍等~</p>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
+            <!--<div class="nodata  animated fadeIn" v-if="!isLoaded">-->
+            <!--<div class="logo-left-box">-->
+            <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
+            <!--<h3 class="blue notice">提示!</h3>-->
+            <!--<p class="white">正在加载,O(∩_∩)O稍等~</p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
             <!--</div>-->
 
         </section>
-
-
     </div>
-
 </template>
 <style scoped lang="scss">
     //base
@@ -269,13 +265,128 @@
 </style>
 <script>
     import Vue from "vue";
+    import API from "../config";
+    import {
+            GetCommentToArticleList,
+            ChangeCommentAuthState,
+    } from "../api/api_comment";
+
+    import "bootstrap/js/dropdown"
 
     import copyright from '../components/copyright.vue'
+
     module.exports = {
         data: function () {
-            return {}
+            return {
+                commentList: [],
+                btn_filter_mainComm: '全部',
+                Condition_main: 0,
+                btn_filter_reply: '全部',
+                Condition_reply: 0,
+                btn_filter_auth: '全部',
+                Condition_auth: 0,
+            }
         },
-        ready: function () {
+        computed: {
+            resultList: function () {
+                const scope = this;
+                let _tmp = [];
+                let source = scope.commentList;
+
+                for (let data of source) {
+                    (filter_main(data) && filter_reply(data) && filter_auth(data)) && _tmp.push(data);
+                }
+
+                //子主评论筛选
+                function filter_main(data) {
+                    switch (parseInt(scope.Condition_main)) {
+                        case 0:
+                            return true;
+                            break;
+                            //主评论
+                        case 1:
+                            return data.article_id._id.toString() === data.pre_id.toString();
+                            break;
+                            //子评论
+                        case 2:
+                            return data.article_id._id.toString() !== data.pre_id.toString();
+                            break;
+                        default:
+                            return true;
+                            break;
+                    }
+                }
+                //是否回复筛选
+                function filter_reply(data) {
+                    switch (parseInt(scope.Condition_reply)) {
+                        case 0:
+                            return true;
+                            break;
+                            //主评论
+                        case 1:
+                            return !data.isIReplied;
+                            break;
+                            //子评论
+                        case 2:
+                            return !!data.isIReplied;
+                            break;
+                        default:
+                            return true;
+                            break;
+                    }
+                }
+                //是否审核筛选
+                function filter_auth(data) {
+                    switch (parseInt(scope.Condition_auth)) {
+                        case 0:
+                            return true;
+                            break;
+                            //主评论
+                        case 1:
+                            return !data.state;
+                            break;
+                            //子评论
+                        case 2:
+                            return !!data.state;
+                            break;
+                        default:
+                            return true;
+                            break;
+                    }
+                }
+
+                return _tmp;
+            }
+        },
+        methods: {
+            changeAuthState: function (_id) {
+                ChangeCommentAuthState({
+                    _id: _id
+                }).then((data)=> {
+                    console.log("状态改变成功")
+                }, (error)=> {
+                    console.log("状态改变" + error)
+                })
+            }
+        },
+        created: function () {
+            const scope = this;
+
+            /**
+             * 获得评论列表
+             * */
+            GetCommentToArticleList().then((data)=> {
+                scope.commentList = data;
+                console.log(data)
+            }, (err)=> {
+                alert(err)
+            });
+
+
+
+
+
+
         },
         destroyed: function () {
         },

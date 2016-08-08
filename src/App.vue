@@ -10,10 +10,7 @@
         <!--退出弹层-->
         <do-logout></do-logout>
 
-        <!--admin-->
-        <!--增加评论 modal-->
-        <admin-add-comment></admin-add-comment>
-        <!--删除评论 modal-->
+
 
 
     </div>
@@ -24,7 +21,7 @@
     import blogNav from "./views/blog.nav";
     import socialInfo from "./components/socialInfo.vue";
     import doLogout from "./components/doLogout.vue";
-    import adminAddComment from './components/adminAddComment.vue'
+
     import store from './vuex/store'
 
     /**
@@ -50,6 +47,7 @@
     Vue.use(VueResource);
     Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
     Vue.http.headers.common['Content-Type'] = 'application/json; charset=utf-8';
+
 
     import {setLoginState} from './vuex/actions'
 
@@ -86,7 +84,7 @@
             blogNav,
             socialInfo,
             doLogout,
-            'admin-add-comment':adminAddComment
+//            'admin-add-comment':adminAddComment
         },
 
         vuex: {

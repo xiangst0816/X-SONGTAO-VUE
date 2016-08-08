@@ -28,7 +28,12 @@ export const setSocialImgUrl = function ({dispatch}, url) {
 export const setLoginState = function ({dispatch}, status) {
     dispatch(types.SET_LOGIN_STATUS, status)
 };
-
+/**
+ * 更改后台管理页面是否展开显示
+ * */
+export const setShowBigAdminStatus = function ({dispatch},status) {
+    dispatch(types.SET_SHOW_BIGADMIN_STATUS,status)
+};
 
 
 //-------------------------我的信息---------------------------

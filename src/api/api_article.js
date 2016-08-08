@@ -5,6 +5,9 @@
  */
 import API from "../config.js";
 import Vue from "vue";
+
+
+
 //获取文章详情-for 前端 渲染后的详情
 export const GetArticleById = function (articleId) {
     return new Promise(function (resolve, reject) {
@@ -55,7 +58,9 @@ export const GetHistoryList = function () {
     })
 };
 
-//获取文章列表-for 后台列表
+/**
+ * 获取文章列表-for 后台列表
+ * */
 export const GetArticleList = function () {
     return new Promise(function (resolve, reject) {
         Vue.http.get(API.getArticleList).then((response) => {
@@ -71,6 +76,47 @@ export const GetArticleList = function () {
         });
     })
 };
+
+
+/**
+ * 获取文章原始信息
+ * */
+export const GetRawArticleById = function (id) {
+    return new Promise(function (resolve, reject) {
+        Vue.http.get(API.getRawArticleById.replace('id', id)).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result.data);
+            } else {
+                reject(parseInt(result.code))
+            }
+        }, () => {
+            reject(API.SYS_ERR);
+        });
+    })
+};
+
+/**
+ * 文章保存
+ * */
+export const SaveArticle = function (params) {
+    return new Promise(function (resolve, reject) {
+        Vue.http.post(API.postArt,params).then((response) => {
+            // success callback
+            console.log(response)
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result);
+            } else {
+                reject(parseInt(result.code))
+            }
+        }, () => {
+            reject(API.SYS_ERR);
+        });
+    })
+};
+
 
 
 

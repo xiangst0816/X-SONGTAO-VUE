@@ -10,7 +10,7 @@
             <i class="fa fa-fw fa-lg fa-list"></i> 文章列表 / <span class="blue">ARTICLE</span>
         </h3>
         <div class="text-right">
-            <button ui-sref="admin.articleManager.article" class="btn btn-success">
+            <button v-link="{ name: 'admin-article',params: { articleId: 0 },activeClass: 'active'}"  class="btn btn-success">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -56,7 +56,7 @@
             <tr v-for="article in articleLists | orderBy predicate reverse " track-by="$index" class="animated fadeIn">
                 <td>{{$index+1}}</td>
                 <td>{{article.title}}</td>
-                <td>{{article.publish_time | moment 'YYY/MM/DD'}}</td>
+                <td>{{article.publish_time | moment 'YYYY/MM/DD'}}</td>
                 <td>{{article.read_num}}</td>
                 <td>{{article.comment_num}}</td>
                 <td>
@@ -64,7 +64,7 @@
                     <span v-else>草稿</span>
                 </td>
                 <td>
-                    <button ui-sref="admin.articleManager.article({_id:article._id})"
+                    <button v-link="{ name: 'admin-article',params: { articleId: article._id },activeClass: 'active'}"
                             class="btn btn-default btn-sm">
                         <i class="fa fa-pencil"></i>
                     </button>

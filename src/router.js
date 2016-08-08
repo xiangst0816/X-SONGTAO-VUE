@@ -67,11 +67,28 @@ export default function () {
                     component: require('./views/admin.tagList.vue'),
                     auth: true,
                 },
-                '/admin-articleList': {
-                    name: 'admin-articleList',
-                    component: require('./views/admin.articleList.vue'),
+                '/admin-articleManager': {
+                    name: 'admin-articleManager',
+                    component: {
+                        template:'<router-view></router-view>'
+                    },
                     auth: true,
+                    subRoutes:{
+                        '/admin-articleList': {
+                            name: 'admin-articleList',
+                            component: require('./views/admin.articleList.vue'),
+                            auth: true,
+                        },
+                        '/admin-article/:articleId': {
+                            name: 'admin-article',
+                            component: require('./views/admin.article.vue'),
+                            auth: true,
+                        },
+                    }
                 },
+
+
+
                 '/admin-commentList': {
                     name: 'admin-commentList',
                     component: require('./views/admin.commentList.vue'),
@@ -86,6 +103,7 @@ export default function () {
     router.redirect({
         '/': '/index',
         '/blog': '/blog/art-list/?listType=latest',
+        '/admin/admin-articleManager': '/admin/admin-articleManager/admin-articleList',
     });
 
 

@@ -100,6 +100,6 @@ module.exports = {
     //删除评论 delete
     delComment: `${url}/api/comment/id`,
     //新增评论
-    newComment: `${url}/api/comment`,
+    // newComment: `${url}/api/comment`,
 
 }

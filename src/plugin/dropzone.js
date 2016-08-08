@@ -421,6 +421,7 @@
         this.element = document.querySelector(this.element);
       }
       if (!(this.element && (this.element.nodeType != null))) {
+        debugger;
         throw new Error("Invalid dropzone element.");
       }
       if (this.element.dropzone) {

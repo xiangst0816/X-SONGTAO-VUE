@@ -1,7 +1,7 @@
 <template>
     <div class="adminBox">
         <!--<section class="adminBox-footer text-center text-overflow"  ng-include="'web/tpl/copyright.footer.tpl.html'"></section>-->
-        <div class="adminBox-content" id="adminBox-content">
+        <div class="adminBox-content" :class="{'preview':isShowBigAdmin}" id="adminBox-content">
             <div class="adminBox-content-header">
                 <h1 class="text-right textItem"><span class="blue">X</span>-SONGTAO
                     <small class="blue">后台管理</small>
@@ -75,7 +75,11 @@
     .textItem {
         color: #fff;
     }
-
+    .adminBox-content {
+        &.preview {
+            width: 1530px;
+        }
+    }
 
 </style>
 <script>
@@ -89,6 +93,11 @@
         },
         components:{
 
+        },
+        vuex: {
+            getters: {
+                isShowBigAdmin: state=>state.isShowBigAdmin,
+            },
         }
     }
 </script>

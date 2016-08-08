@@ -63,7 +63,7 @@
 
             <!--评论-->
             <div class="comments__ask animated fadeIn"
-                 v-for="item in resultList" track-by="$index">
+                 v-for="item in resultList | orderBy 'time' -1" track-by="$index">
                 <div class="comments__ask__title">
                     <h3 v-link="{ name: 'article',params: { articleId: item.article_id._id },activeClass: 'active'}"><span>原文: </span><span>{{item.article_id.title}}</span></h3>
                     <div class="comments__ask__title--btns">
@@ -81,7 +81,7 @@
                 <div class="comments__ask__header">
                     <span class="name">{{item.name}}</span>
                     &ensp;·&ensp;
-                    <span>{{item.time}}</span>
+                    <span>{{item.time   | moment "from" "now"}}</span>
                     &ensp;·&ensp;
                     <span>
                      <a href="mailto:{{item.email}}">{{item.email}}</a>
@@ -120,12 +120,54 @@
             <!--</div>-->
             <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
             <!--</div>-->
-
         </section>
-
-
-
     </div>
+    <!--增加评论 modal-->
+    <div class="modal fade comment--replyBox" id="addComm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-comments"></i> 进行评论/ADDCOMMENT</h4>
+                </div>
+                <div class="modal-body comment--replyBox-body">
+                    <div class="comment--replyBox--textarea">
+                        <label for="comment--replyBox--textarea">回复 <span>{{replyBox.name}}</span>: </label>
+                        <textarea autofocus v-model="replyContent" rows="6" id="comment--replyBox--textarea" class="form-control" placeholder="请输入评论内容..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="submitText">{{submitText}}</span>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button ng-disabled="!!submitText" type="button" data-dismiss="modal" @click="confirmAddComment(replyBox)" class="btn btn-success">
+                        评论
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除评论 modal-->
+    <div class="modal fade" id="delComm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-bitbucket"></i> 删除评论/DELCOMMENT</h4>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center deleteConfirmText">确认删除此评论?</h3>
+                </div>
+                <div class="modal-footer">
+                    <span class="submitText" ng-bind="submitText"></span>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button ng-disabled="!!submitText" type="button" data-dismiss="modal" @click="confirmDelCommBtn(delBox)" class="btn btn-danger">
+                        删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 <style scoped lang="scss">
     //base
@@ -272,12 +314,15 @@
     import {
             GetCommentToArticleList,
             ChangeCommentAuthState,
+            DeleteComment,
+            ChangeCommentReplyState,
     } from "../api/api_comment";
 
-//    import "bootstrap/js/dropdown"
+    //    import "bootstrap/js/dropdown"
 
     import copyright from '../components/copyright.vue'
-
+    import adminAddComment from '../components/adminAddComment.vue'
+    import {SendComment} from '../api/api_comment'
 
     module.exports = {
         data: function () {
@@ -290,7 +335,11 @@
                 btn_filter_auth: '全部',
                 Condition_auth: 0,
 
-                replyBox:{},
+                replyBox: {},
+                delBox: {},
+
+                replyContent: '',
+
             }
         },
         computed: {
@@ -322,6 +371,7 @@
                             break;
                     }
                 }
+
                 //是否回复筛选
                 function filter_reply(data) {
                     switch (parseInt(scope.Condition_reply)) {
@@ -341,6 +391,7 @@
                             break;
                     }
                 }
+
                 //是否审核筛选
                 function filter_auth(data) {
                     switch (parseInt(scope.Condition_auth)) {
@@ -365,6 +416,15 @@
             }
         },
         methods: {
+            //获得列表
+            getList:function () {
+                const scope = this;
+                GetCommentToArticleList().then((data)=> {
+                    scope.commentList = data;
+                }, (err)=> {
+                    alert(err)
+                });
+            },
             //改变评论状态
             changeAuthState: function (_id) {
                 ChangeCommentAuthState({
@@ -376,13 +436,68 @@
                 })
             },
             //打开回复评论弹层
-            comment:function (item) {
+            comment: function (item) {
+                //发送数据
+                console.log(item)
                 this.replyBox = item;
-            }
+            },
+            confirmAddComment: function (item) {
+                const scope = this;
+                if (!scope.replyContent) {
+                    alert('输入评论内容')
+                    return
+                }
 
+                let params = {
+                    article_id: item.article_id._id,
+                    pre_id: item._id,
+                    next_id: [],
+                    name: API.MY,
+                    email: API.EMAIL,
+                    time: new Date(),
+                    content: scope.replyContent,
+                    //这里是增加对主评论的子评论,
+                    // 既然是我的评论那我没有道理继续评论的理由,
+                    // 故对自评论显示我已评论,我的评论,审核状态为true
+                    // 但是主评论需要手动设置
+                    isIReplied: true,
+                    state: true
+                };
+                console.log(params)
+                //如果对用户的文章评论进行了评论,则标记此评论为已阅读
+                //此接口只对我有效
+                ChangeCommentReplyState({
+                    _id: item._id
+                }).then(function () {
+                    SendComment(params).then((data)=> {
+                        console.log('comment success');
+                        console.log(data);
+                        scope.replyContent = '';
+                    }, (error)=> {
+                        alert(error)
+                    }).then(function () {
+                        scope.getList()
+                    });
+                });
+            },
+            // 删除评论
+            delbtn: function (item) {
+                this.delBox = item;
 
-
-
+            },
+            confirmDelCommBtn: function (item) {
+                const scope = this;
+                console.log(item)
+                DeleteComment(item._id).then((data)=> {
+                    console.log(data)
+                },(err)=>{
+                    console.log('err')
+                    console.log(err)
+                }).then(function () {
+                    //刷新文章列表
+                    scope.getList()
+                })
+            },
         },
         created: function () {
             const scope = this;
@@ -390,30 +505,25 @@
             /**
              * 获得评论列表
              * */
-            GetCommentToArticleList().then((data)=> {
-                scope.commentList = data;
-                console.log(data)
-            }, (err)=> {
-                alert(err)
-            });
+            scope.getList()
 
 
 
-
-
-
-        },
+        }
+        ,
         destroyed: function () {
-        },
+        }
+        ,
         components: {
             copyright,
-//            'admin-add-comment':adminAddComment
-        },
-//        vuex: {
-//            getters: {
-//                isShowMyWords: state=>state.isShowMyWords,
-//            }
-//
-//        }
+            'admin-add-comment': adminAddComment
+        }
+        ,
+        //        vuex: {
+        //            getters: {
+        //                isShowMyWords: state=>state.isShowMyWords,
+        //            }
+        //
+        //        }
     }
 </script>

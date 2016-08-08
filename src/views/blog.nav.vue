@@ -2,13 +2,9 @@
 <template>
     <div class="blogNav">
         <nav class="nav__top">
-            <a class="nav__item">
-                <!--<i class="fa fa-home fa-fw fa-lg"></i>-->
-                <!--<span class="visible-hg">logo</span>-->
-                <!--data-toggle="tooltip" data-placement="left" title="Tooltip on left"-->
+            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="X-SONGTAO">
+                <span class="siteLogo"></span>
             </a>
-
-
             <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="首页">
                 <i class="fa fa-home fa-fw fa-lg"></i>
             </a>
@@ -27,7 +23,7 @@
             <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-tag',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="标签管理">
                 <i class="fa fa-tag fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-articleList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章管理">
+            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-articleManager',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章管理">
                 <i class="fa fa-list fa-lg"></i>
             </a>
             <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章评论">
@@ -86,6 +82,14 @@
             line-height: 45px;
             float: left;
             cursor: pointer;
+            .siteLogo{
+                display: inline-block;
+                height: 45px;
+                width: 45px;
+                line-height: 45px;
+                font-size: 30px;
+                background: rgba(0, 0, 0, 0.9) url(../assets/pleasehole-img.png) no-repeat center center/30px auto;
+            }
 
             i {
                 font-size: 24px;

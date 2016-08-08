@@ -12,7 +12,7 @@
                     <li><a v-link="{ name: 'blog'}">博客</a></li>
                     <li class="active">文章</li>
                 </ol>
-                <h1 ng-bind="article.title">{{article.title}}</h1>
+                <h1>{{article.title}}</h1>
             </section>
             <section class="paper__info">
                 <div class="paper__info--span">
@@ -427,6 +427,7 @@
              * */
             $(window).scrollTop(0);// 滚到顶部
             let articleId = this.$route.params.articleId;
+
 
 
             /**

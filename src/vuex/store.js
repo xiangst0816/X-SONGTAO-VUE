@@ -7,7 +7,8 @@ import mod_tag from "./modules/mod_tag";
 import {
     SET_SHOWMYWORD_STATUS,
     SET_SOCIALIMG,
-    SET_LOGIN_STATUS
+    SET_LOGIN_STATUS,
+    SET_SHOW_BIGADMIN_STATUS,
 } from './mutation-types'
 //vuex模块
 // 告诉 vue “使用” vuex
@@ -20,9 +21,10 @@ export default new Vuex.Store({
     strict: process.env.NODE_ENV !== 'production',
     //全局state状态
     state: {
-        isShowMyWords: false,
-        isLogin: false,
-        socialImgUrl:'',
+        isShowMyWords: false,//是否显示我的简介
+        isLogin: false,//是否登录
+        socialImgUrl:'',//显示社交图片
+        isShowBigAdmin:false,//是否展开后台页面->用于文章编辑预览
     },
     //全局突变事件处理
     mutations: {
@@ -37,6 +39,10 @@ export default new Vuex.Store({
         //设置我的社交弹出组件的img
         [SET_LOGIN_STATUS] (state,status) {
             state.isLogin = !!status;
+        },
+        //设置我的社交弹出组件的img
+        [SET_SHOW_BIGADMIN_STATUS] (state,status) {
+            state.isShowBigAdmin = !!status;
         },
     },
     modules: {

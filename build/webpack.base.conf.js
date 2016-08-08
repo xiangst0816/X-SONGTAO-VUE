@@ -22,7 +22,9 @@ module.exports = {
             'components': path.resolve(__dirname, '../src/components'),
             "jquery": path.resolve(__dirname, '../node_modules/jquery/dist/jquery.slim.min.js'),
             //插件位置
-            "bootstrap": path.resolve(__dirname, '../src/plugin/bootstrap')
+            "bootstrap": path.resolve(__dirname, '../src/plugin/bootstrap'),
+            "bootstrap-datetimepicker": path.resolve(__dirname, '../src/plugin/bootstrap-datetimepicker'),
+            "bootstrap-multiselect": path.resolve(__dirname, '../src/plugin/bootstrap-multiselect'),
         }
     },
     resolveLoader: {

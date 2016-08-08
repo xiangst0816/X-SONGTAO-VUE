@@ -54,7 +54,7 @@
                         <form id="imgUpload" action="" class="dropzone" method="post" enctype="multipart/form-data">
                             <div class="dz-default dz-message"></div>
                         </form>
-                        <img class="img-circle" :src="myinfo.img_url | addImgPrefix">
+                        <img class="img-circle headerImg" :src="myinfo.img_url | addImgPrefix">
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
                         <tr v-for="item in myinfo.login_info | orderBy 'login_time' -1 | limitBy 15">
                             <td>{{$index+1}}</td>
                             <td>{{item.login_ip}}</td>
-                            <td>{{item.login_time}}</td>
+                            <td>{{item.login_time | moment "YYYY/MM/DD HH:mm:ss dddd"}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -154,11 +154,14 @@
                         overflow: hidden;
                         cursor: pointer;
                         position: relative;
-                        img {
+
+                        .headerImg{
                             min-width: 100%;
                             min-height: 100%;
                             width: 100%;
                             height: 100%;
+                            /*position: relative;*/
+                            /*z-index: 999;*/
                         }
                         #imgUpload {
                             position: absolute;
@@ -169,23 +172,11 @@
                             border: 0;
                             background-color: transparent;
                         }
-                        .dropzone .dz-preview {
-                            width: 180px;
-                            height: 180px;
-                            padding: 0;
-                            margin: 0;
-                            .dz-image {
-                                width: 180px;
-                                height: 180px;
-                                padding: 0;
-                                margin: 0;
-                                img {
-                                    max-width: 100%;
-                                    max-height: 100%;
-                                    width: 100%;
-                                    height: 100%;
-                                }
-                            }
+                        .dz-default{
+                            display: none;
+                        }
+                        .dz-preview{
+                            display: none!important;
                         }
                     }
                 }
@@ -349,6 +340,7 @@
     import API from '../config'
     import Dropzone from '../plugin/dropzone'
 
+
     import {ChangePassword} from '../api/api_auth'
     import copyright from '../components/copyright.vue'
     import {addImgPrefix} from "../utils/filters.js";
@@ -440,6 +432,11 @@
                 console.log('code:' + err)
             })
 
+        },
+        ready:function () {
+            const scope = this;
+
+
             /**
              * imgUpload 配置
              * */
@@ -450,17 +447,17 @@
                 maxThumbnailFilesize: 10,
                 parallelUploads: 1,
                 //自动上传
-                autoProcessQueue: true
+                autoProcessQueue: true,
+                previewsContainer:false,
             };
-//            let dropzone = new Dropzone(document.getElementById('imgUpload'), config);
-//            dropzone.on('success', function (file, response) {
-//                if (parseInt(response.code) === 1) {
-//                    scope.myinfo.img_url = response.data;
-//                    scope.changedValue = false;
-//                    scope.save(true);
-//                }
-//            });
-
+            let dropzone = new Dropzone('#imgUpload', config);
+            dropzone.on('success', function (file, response) {
+                if (parseInt(response.code) === 1) {
+                    scope.myinfo.img_url = response.data;
+                    scope.changedValue = false;
+                    scope.save(true);
+                }
+            });
         },
         destroyed: function () {},
         components: {

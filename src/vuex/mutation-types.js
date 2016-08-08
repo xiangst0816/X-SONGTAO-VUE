@@ -6,6 +6,7 @@
 export const SET_SHOWMYWORD_STATUS = 'SET_SHOWMYWORD_STATUS';//控制是否显示我的个人称述
 export const SET_SOCIALIMG = 'SET_SOCIALIMG';//设置我的社交弹出组件的img
 export const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';//设置是否登录
+export const SET_SHOW_BIGADMIN_STATUS = 'SET_SHOW_BIGADMIN_STATUS';//设置是否展开大号的admin页面,用于文章编辑预览,受体为admin.vue
 
 
 /**

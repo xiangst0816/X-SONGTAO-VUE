@@ -6,6 +6,9 @@
 import API from "../config.js";
 import Vue from "vue";
 
+/**
+ * 博客的标签库使用到的,带有数据结构的标签列表
+ * */
 export const GetTagsListWithStructure = function () {
     return new Promise(function (resolve, reject) {
         Vue.http.get(API.getTagsListWithStructure).then((response) => {
@@ -22,6 +25,9 @@ export const GetTagsListWithStructure = function () {
     })
 };
 
+/**
+ * 后台列表展示时用的,纯列表
+ * */
 export const GetTagsList = function () {
     return new Promise(function (resolve, reject) {
         Vue.http.get(API.getTagsList).then((response) => {
@@ -29,6 +35,67 @@ export const GetTagsList = function () {
             let result = response.data;
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
+            } else {
+                reject(parseInt(result.code));
+            }
+        }, () => {
+            reject(API.SYS_ERR)
+        });
+    })
+};
+
+/**
+ * 新增标签
+ * */
+export const AddTag = function (params) {
+    console.log('params')
+    console.log(params)
+    return new Promise(function (resolve, reject) {
+        Vue.http.post(API.addTag,params).then((response) => {
+            // success callback
+            console.log('response')
+            console.log(response)
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result.data);
+            } else {
+                reject(parseInt(result.code));
+            }
+        }, () => {
+            reject(API.SYS_ERR)
+        });
+    })
+};
+
+/**
+ * 删除标签
+ * */
+export const DeleteTag = function (id) {
+    return new Promise(function (resolve, reject) {
+        Vue.http.delete(API.deleteTag.replace('id', id)).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result);
+            } else {
+                reject(parseInt(result.code));
+            }
+        }, () => {
+            reject(API.SYS_ERR)
+        });
+    })
+};
+
+/**
+ * 修改标签
+ * */
+export const EditTag = function (params) {
+    return new Promise(function (resolve, reject) {
+        Vue.http.put(API.editTag,params).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result);
             } else {
                 reject(parseInt(result.code));
             }

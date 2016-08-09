@@ -10,9 +10,6 @@
         <!--退出弹层-->
         <do-logout></do-logout>
 
-
-
-
     </div>
 </template>
 
@@ -51,6 +48,8 @@
 
     import {setLoginState} from './vuex/actions'
 
+
+
     module.exports = {
         store,
         replace: false,
@@ -61,7 +60,7 @@
             }
         },
         ready: function () {
-            console.log('ready')
+
             const scope = this;
             /**
              * 进入检查是否有token,是否能直接登录
@@ -77,23 +76,18 @@
                 }
             }
 
-
         },
         components: {
 //            小组件挂载集中挂载
             blogNav,
             socialInfo,
             doLogout,
-//            'admin-add-comment':adminAddComment
         },
-
         vuex: {
             actions: {
-                // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
                 setLoginState,//设置登录否
             }
         },
-
     }
 </script>
 

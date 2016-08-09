@@ -85,6 +85,7 @@
                     justify-content: flex-start;
                     align-items: center;
                     position: relative;
+                    transition: all ease 200ms;
                     &:after {
                         content: '';
                         position: absolute;
@@ -93,6 +94,7 @@
                         background-color: #000;
                         left: -18px;
                         top: 11px;
+                        transition: all ease 200ms;
                     }
                     .itemBox__content__item-title {
                         white-space: nowrap;
@@ -149,9 +151,9 @@
             // 获取文章历史列表
             GetHistoryList().then((data)=> {
                 scope.historyList = data;
-                scope.hasData=(data.length !== 0);
-            },()=>{
-                scope.hasData=false;
+                scope.hasData = (data.length !== 0);
+            }, ()=> {
+                scope.hasData = false;
             });
         },
         components: {

@@ -18,6 +18,9 @@ var router = new VueRouter({
 });
 
 
+import store from "./vuex/store"
+
+
 export default function () {
 
     //定义路由规则
@@ -107,18 +110,12 @@ export default function () {
     });
 
 
-
     //路由切换前
     router.beforeEach(({to, from, next}) => {
-        let toPath = to.path
-        let fromPath = from.path
-        console.log('from: ' + fromPath + ' to: ' + toPath)
-        if (toPath.replace(/[^/]/g, '').length > 1) {
-            router.app.isIndex = false
-        }
-        else {
-            let depath = toPath === '/' || toPath === '/invite' || toPath === '/rank'
-            router.app.isIndex = depath ? 0 : 1
+        if(to.auth && !store.state.isLogin){
+            router.go({
+                name:'login'
+            })
         }
         next()
     })

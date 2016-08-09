@@ -104,7 +104,6 @@ export const SaveArticle = function (params) {
     return new Promise(function (resolve, reject) {
         Vue.http.post(API.postArt,params).then((response) => {
             // success callback
-            console.log(response)
             let result = response.data;
             if (parseInt(result.code) === 1) {
                 resolve(result);
@@ -118,5 +117,22 @@ export const SaveArticle = function (params) {
 };
 
 
-
+/**
+ * 文章删除
+ * */
+export const DeleteArticle = function (_id) {
+    return new Promise(function (resolve, reject) {
+        Vue.http.delete(API.deleteArt.replace('id', _id)).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result);
+            } else {
+                reject(parseInt(result.code))
+            }
+        }, () => {
+            reject(API.SYS_ERR);
+        });
+    })
+};
 

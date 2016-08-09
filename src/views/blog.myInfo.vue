@@ -34,10 +34,10 @@
                         Follow
                     </div>
                     <ul class="SNS">
-                        <li @click="showSocialImg('../assets/qq-addme.jpg')"><i class="fa fa-qq"></i></li>
-                        <li @click="showSocialImg('../assets/weixin-addme.jpg')"><i class="fa fa-weixin"></i></li>
-                        <li><i class="fa fa-weibo"></i></li>
-                        <li><i class="fa fa-tencent-weibo"></i></li>
+                        <li @click="showSocialImg('http://xiangsongtao.com/web/img/qq-addme.jpg')" data-toggle="modal" data-target="#socialContact"><i class="fa fa-qq"></i></li>
+                        <li @click="showSocialImg('http://xiangsongtao.com/web/img/weixin-addme.jpg')"  data-toggle="modal" data-target="#socialContact"><i class="fa fa-weixin"></i></li>
+                        <li><a href="http://weibo.com"><i class="fa fa-weibo"></i></a></li>
+                        <li><a href="http://t.qq.com/hsiang-sootao"><i class="fa fa-tencent-weibo"></i></a></li>
                     </ul>
                 </section>
             </section>
@@ -49,6 +49,7 @@
             </article>
         </section>
     </div>
+
 </template>
 <style lang="scss">
     @import "../theme/theme.scss";
@@ -184,6 +185,9 @@
                             margin: 0 8px;
                             cursor: pointer;
                             transition: .2s ease;
+                            a{
+                                color:inherit;
+                            }
                             &:hover {
                                 color: #38b7ea;
                             }
@@ -382,9 +386,9 @@
     import Vue from "vue";
     import {setMyWordStatus, setSocialImgUrl} from '../vuex/actions'
     import {addImgPrefix} from "../utils/filters.js";
-
     import {GetMyInfo} from '../api/api_myinfo'
 
+    import "../assets/qq-addme.jpg"
 
     Vue.filter('addImgPrefix', addImgPrefix);
     module.exports = {
@@ -392,6 +396,7 @@
         data: function () {
             return {
                 myinfo: {},
+                socialImg: '',
             }
         },
         methods: {

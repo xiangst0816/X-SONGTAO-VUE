@@ -17,9 +17,10 @@
                     </div>
                     <ul class="itemBox__content">
                         <li class="itemBox__content__item" v-for="tag in cata.data">
-                            <a v-if="tag.used_num>0" v-link="{ name: 'artList',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}" class="ui tag label"><span>{{tag.name}}</span>
+                            <a v-if="tag.used_num>0" v-link="{ name: 'artList',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}" class="ui tag label">
+                                <span class="tagName">{{tag.name}}</span>
                                 <span class="badge">{{tag.used_num}}</span></a>
-                            <a v-if="tag.used_num==0" class="ui tag label"><span>{{tag.name}}</span></a>
+                            <a v-if="tag.used_num==0" class="ui tag label"><span class="tagName">{{tag.name}}</span></a>
                         </li>
                     </ul>
                 </div>
@@ -65,15 +66,25 @@
                     cursor: pointer;
                     margin: 10px 0;
                     a {
+                        color:$base-word-color;
                         text-decoration: none;
                     }
                     span {
+                        font-size:16px;
                         vertical-align: middle;
                         display: inline-block;
                         max-width: 360px;
+                        transition: color ease 200ms;
                     }
                     &:hover {
-                        color: $base-theme-color;
+                        .tagName{
+                            color: $base-theme-color;
+                        }
+                        .badge{
+                            background-color:$base-theme-color;
+                            color: #fff;
+                        }
+
                     }
                 }
             }

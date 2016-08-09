@@ -10,7 +10,7 @@
             <i class="fa fa-fw fa-lg fa-list"></i> 文章列表 / <span class="blue">ARTICLE</span>
         </h3>
         <div class="text-right">
-            <button v-link="{ name: 'admin-article',params: { articleId: 0 },activeClass: 'active'}"  class="btn btn-success">
+            <button v-link="{ name: 'admin-article',params: { articleId: 0 },activeClass: 'active'}" class="btn btn-success">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -95,6 +95,26 @@
         <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
         <!--</div>-->
     </div>
+    <!--弹出层-删除-->
+    <div class="modal fade" id="delArticle" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-bitbucket"></i> 删除文章/DELART</h4>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center deleteConfirmText">确定删除这篇文章?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button"  data-dismiss="modal" @click="confirmDelArtBtn()" class="btn btn-danger">
+                        删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 <style scoped lang="scss">
     //base
@@ -135,7 +155,10 @@
 </style>
 <script>
     import Vue from "vue";
-    import {GetArticleList} from "../api/api_article";
+    import {
+            GetArticleList,
+            DeleteArticle,
+    } from "../api/api_article";
 
     import copyright from '../components/copyright.vue'
     module.exports = {
@@ -144,6 +167,7 @@
                 reverse: -1,
                 predicate: 'publish_time',
                 articleLists: [],
+                deleteArticle: {},
             }
         },
         methods: {
@@ -151,6 +175,15 @@
                 this.predicate = name;
                 this.reverse = this.reverse < 0;
                 return !!this.reverse ? (this.reverse = 1) : (this.reverse = -1)
+            },
+            delArtBtn(article){
+                this.deleteArticle = article;
+            },
+            confirmDelArtBtn(){
+                DeleteArticle(this.deleteArticle._id).then(()=>{
+                    //刷新文章列表
+                    this.articleLists.splice(this.articleLists.indexOf(this.deleteArticle), 1);
+                })
             }
         },
         created: function () {
@@ -162,7 +195,6 @@
             }, (err)=> {
                 console.log("文章列表获取失败:" + err)
             })
-
         },
         ready: function () {
         },
@@ -171,11 +203,5 @@
         components: {
             copyright
         },
-//        vuex: {
-//            getters: {
-//                isShowMyWords: state=>state.isShowMyWords,
-//            }
-//
-//        }
     }
 </script>

@@ -36,6 +36,7 @@
 
                 setTimeout(function () {
                     console.log(scope)
+
                     scope.$localStorage.$reset();
                     scope.setLoginState(false);
                     scope.$router.go({
@@ -48,7 +49,10 @@
         },
         components: {},
         created: function () {
-            console.log('')
+
+            this.$root.doLogout=this.confirmLogout;
+
+
         },
         vuex: {
             actions: {

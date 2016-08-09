@@ -8,6 +8,7 @@
         <!--column title-->
         <h3 class="title">
             <i class="fa fa-fw fa-lg fa-list"></i> 文章编辑 / <span class="blue">ARTICLE-EDIT</span>
+            <span>消息提示</span>
         </h3>
         <section class="mainSection">
             <div class="editSection">
@@ -481,7 +482,7 @@
                 scope.isPublishing = true;
                 let params = scope.collectEditedArtInfo();
                 SaveArticle(params).then(function () {
-//                    history.back();
+                    history.back();
                     console.log("保存publishBtn成功")
                     scope.isPublishing = false;
                 }, function () {

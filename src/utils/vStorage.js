@@ -16,10 +16,13 @@ module.exports = {
         var sessionStorage = function () {
             return sessionStorage = _storageProvider('sessionStorage')
         }();
-
+        var storage = function () {
+            return storage = {}
+        }();
 
         Vue.$localStorage = localStorage;
         Vue.$sessionStorage = sessionStorage;
+        Vue.$storage = storage;
         Object.defineProperties(Vue.prototype, {
             $localStorage: {
                 get: function () {
@@ -31,6 +34,11 @@ module.exports = {
                     return sessionStorage;
                 }
             },
+            $storage:{
+                get: function () {
+                    return storage;
+                }
+            }
         });
 
         function _storageProvider(storageType) {

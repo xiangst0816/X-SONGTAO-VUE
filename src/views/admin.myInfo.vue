@@ -31,8 +31,7 @@
                             <i v-if="checkThis==='position'&&!!isSuccess" class="fa fa-check-circle"></i>
                         </label>
                         <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.position,'position')" v-on:blur="save(myinfo.position)" class="form-control input-sm col-sm-12 inputContent" id="position"
-                                   name="position" placeholder="职位/Position" v-model="myinfo.position">
+                            <input type="text" @click="setThis(myinfo.position,'position')" v-on:blur="save(myinfo.position)" class="form-control input-sm col-sm-12 inputContent" id="position" name="position" placeholder="职位/Position" v-model="myinfo.position">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
@@ -41,8 +40,7 @@
                             <i v-if="checkThis==='address'&&!!isSuccess" class="fa fa-check-circle"></i>
                         </label>
                         <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.address,'address')" v-on:blur="save(myinfo.address)" class="form-control input-sm col-sm-12 inputContent" id="address"
-                                   name="address" placeholder="地址/Address" v-model="myinfo.address">
+                            <input type="text" @click="setThis(myinfo.address,'address')" v-on:blur="save(myinfo.address)" class="form-control input-sm col-sm-12 inputContent" id="address" name="address" placeholder="地址/Address" v-model="myinfo.address">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
@@ -52,7 +50,7 @@
                         </label>
                         <div class="col-sm-12 infoDetail__inputGroup">
                             <input type="text" class="form-control input-sm col-sm-6 inputContent" id="mood" name="mood"
-                                   @click="setThis(myinfo.motto),'motto'" v-on:blur="save(myinfo.motto)"
+                                   @click="setThis(myinfo.motto,'motto')" v-on:blur="save(myinfo.motto)"
                                    placeholder="心情/Mood" v-model="myinfo.motto">
                         </div>
                     </div>
@@ -380,9 +378,6 @@
             setThis: function (value, key) {
                 this.checkThis = key;
                 this.changedValue = value;
-
-                console.log(key)
-                console.log(this.isSuccess)
             },
             save: function (value) {
                 const scope = this;
@@ -398,14 +393,9 @@
                     };
                     PostMyInfo(params).then((data)=> {
                         scope.isSuccess = true;
-                        console.log(data)
                         setTimeout(function () {
                             scope.isSuccess = false;
-                            console.log(scope.isSuccess)
-                        },2000);
-                    }, (err)=> {
-                        alert('修改失败')
-                        console.log(err)
+                        },500);
                     })
                 }
             },
@@ -432,7 +422,6 @@
                     new_password: scope.myinfo.new_password,
                 };
                 ChangePassword(params).then((data)=> {
-                    console.log(data)
                     scope.textState = '成功!';
                     //密码修改成功,需要提示用户重新登录,自动退出!
                     alert("给出提示,xxs后请从新登陆")

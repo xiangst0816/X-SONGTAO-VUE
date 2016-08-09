@@ -1,11 +1,10 @@
 /**
 * Created by xiangsongtao on 16/7/24.
-* Description:
+* Description: 后台 标签管理
 */
 <!--内容区-->
 <template>
     <div class="tags animated fadeIn">
-        <!--column title-->
         <h3 class="title">
             <i class="fa fa-fw fa-lg fa-tag"></i> 标签管理 / <span class="blue">TAGS</span>
         </h3>
@@ -47,7 +46,6 @@
                         <th>操作</th>
                     </tr>
                     </thead>
-                    <!--<colgroup></colgroup>-->
                     <tbody>
                     <tr v-for="tag in tagLists | orderBy predicate reverse" track-by="$index">
                         <td>{{$index+1}}</td>
@@ -62,25 +60,6 @@
                     </tr>
                     </tbody>
                 </table>
-                <!--无数据提示-->
-                <!--<div class="nodata  animated fadeIn" v-if="!tagLists.length && isLoaded">-->
-                <!--<div class="logo-left-box">-->
-                <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
-                <!--<h3 class="blue notice">提示!</h3>-->
-                <!--<p class="white">没有找到数据,~~~~(>_<)~~~~</p>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
-                <!--</div>-->
-
-                <!--加载提示-->
-                <!--<div class="nodata  animated fadeIn" v-if="!isLoaded">-->
-                <!--<div class="logo-left-box">-->
-                <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
-                <!--<h3 class="blue notice">提示!</h3>-->
-                <!--<p class="white">正在加载,O(∩_∩)O稍等~</p>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
-                <!--</div>-->
             </div>
 
         </div>
@@ -180,7 +159,6 @@
             text-align: left;
         }
         .btnBox {
-            //text-align: right;
         }
         table {
             color: #fff;
@@ -219,8 +197,6 @@
             DeleteTag,
             EditTag,
     } from "../api/api_tag";
-
-    import copyright from '../components/copyright.vue'
 
 
     module.exports = {
@@ -283,7 +259,6 @@
                     name: scope.newTag.name,
                     catalogue_name: scope.newTag.catalogue_name,
                 };
-                console.log(params)
                 this.submitText = '正在提交...';
                 AddTag(params).then(()=> {
                     // 刷新列表
@@ -372,17 +347,10 @@
             },
         },
         ready: function () {
-            const scope = this;
             /**
              * GetTagsList
              * */
             this.getList();
-        },
-        destroyed: function () {
-
-        },
-        components: {
-            copyright
         },
     }
 </script>

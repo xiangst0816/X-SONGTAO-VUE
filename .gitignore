@@ -6,3 +6,4 @@ node_modules
 backup
 .DS_Store
 .svn
+dist

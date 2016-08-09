@@ -190,10 +190,7 @@
             const scope = this;
             //获取文章列表
             GetArticleList().then((data)=> {
-                console.log('文章列表获取成功')
                 scope.articleLists = data;
-            }, (err)=> {
-                console.log("文章列表获取失败:" + err)
             })
         },
         ready: function () {

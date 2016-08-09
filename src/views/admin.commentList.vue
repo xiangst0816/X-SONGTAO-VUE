@@ -118,9 +118,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <span class="submitText">{{submitText}}</span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button ng-disabled="!!submitText" type="button" data-dismiss="modal" @click="confirmAddComment(replyBox)" class="btn btn-success">
+                    <button v-bind:disabled="!replyContent" type="button" data-dismiss="modal" @click="confirmAddComment(replyBox)" class="btn btn-success">
                         评论
                     </button>
                 </div>
@@ -139,9 +138,8 @@
                     <h3 class="text-center deleteConfirmText">确认删除此评论?</h3>
                 </div>
                 <div class="modal-footer">
-                    <span class="submitText" ng-bind="submitText"></span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button ng-disabled="!!submitText" type="button" data-dismiss="modal" @click="confirmDelCommBtn(delBox)" class="btn btn-danger">
+                    <button type="button" data-dismiss="modal" @click="confirmDelCommBtn(delBox)" class="btn btn-danger">
                         删除
                     </button>
                 </div>
@@ -282,10 +280,8 @@
                     overflow-x: hidden;
                     resize: vertical;
                 }
-
             }
         }
-
     }
 
 </style>
@@ -402,33 +398,21 @@
                 const scope = this;
                 GetCommentToArticleList().then((data)=> {
                     scope.commentList = data;
-                }, (err)=> {
-                    alert(err)
                 });
             },
             //改变评论状态
             changeAuthState: function (_id) {
                 ChangeCommentAuthState({
                     _id: _id
-                }).then((data)=> {
-                    console.log("状态改变成功")
-                }, (error)=> {
-                    console.log("状态改变" + error)
                 })
             },
             //打开回复评论弹层
             comment: function (item) {
                 //发送数据
-                console.log(item)
                 this.replyBox = item;
             },
             confirmAddComment: function (item) {
                 const scope = this;
-                if (!scope.replyContent) {
-                    alert('输入评论内容')
-                    return
-                }
-
                 let params = {
                     article_id: item.article_id._id,
                     pre_id: item._id,
@@ -444,18 +428,13 @@
                     isIReplied: true,
                     state: true
                 };
-                console.log(params)
                 //如果对用户的文章评论进行了评论,则标记此评论为已阅读
                 //此接口只对我有效
                 ChangeCommentReplyState({
                     _id: item._id
                 }).then(function () {
                     SendComment(params).then((data)=> {
-                        console.log('comment success');
-                        console.log(data);
                         scope.replyContent = '';
-                    }, (error)=> {
-                        alert(error)
                     }).then(function () {
                         scope.getList()
                     });
@@ -468,12 +447,7 @@
             },
             confirmDelCommBtn: function (item) {
                 const scope = this;
-                console.log(item)
                 DeleteComment(item._id).then((data)=> {
-                    console.log(data)
-                }, (err)=> {
-                    console.log('err')
-                    console.log(err)
                 }).then(function () {
                     //刷新文章列表
                     scope.getList()

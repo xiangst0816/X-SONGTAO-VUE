@@ -48,13 +48,9 @@ export const GetTagsList = function () {
  * 新增标签
  * */
 export const AddTag = function (params) {
-    console.log('params')
-    console.log(params)
     return new Promise(function (resolve, reject) {
         Vue.http.post(API.addTag,params).then((response) => {
             // success callback
-            console.log('response')
-            console.log(response)
             let result = response.data;
             if (parseInt(result.code) === 1) {
                 resolve(result.data);

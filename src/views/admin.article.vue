@@ -13,17 +13,17 @@
             <div class="editSection">
                 <div class="inputBox">
                     <div class="inputBox__input">
-                        <div class="form-inline" name="titleBox">
+                        <div class="form-inline">
                             <div class="form-group titleBox" :class="{true:'has-error',false:''}[!article.title]">
                                 <label for="artTitle">文章标题</label>
                                 <input type="text" name="title" v-model="article.title" class="form-control" id="artTitle" placeholder="请输入文章标题" required>
                             </div>
                         </div>
-                        <div class="form-inline" name="timeBox">
+                        <div class="form-inline">
                             <div class="form-group publishTime" :class="{true:'has-error',false:''}[!publishTime]">
                                 <label for="publish_time">发布时间</label>
                                 <div class="input-group date" id="datetimepicker">
-                                    <input type="text" class="form-control" v-model="publishTime">
+                                    <input id="publish_time" type="text" class="form-control" v-model="publishTime">
                                     <div class="input-group-addon">
                                         <span class="fa fa-calendar"></span>
                                     </div>
@@ -39,7 +39,7 @@
                                         <span class="fa fa-cloud-upload"></span>
                                     </div>
                                     <input id="uploadImgUrl" type="text" class="form-control" placeholder="图片引用路径" v-model="uploadImgUrl">
-                                    <div class="input-group-addon"  id='copyImgUrl2Clipboard' data-clipboard-target="#uploadImgUrl">
+                                    <div class="input-group-addon" id='copyImgUrl2Clipboard' data-clipboard-target="#uploadImgUrl">
                                         <span class="fa fa-clipboard"></span>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-inline other_form_2" name="titleBox">
                             <div class="form-group tagsBox">
-                                <label for="tags">添加标签</label>
+                                <label>添加标签</label>
                                 <Multiselect key="_id" label="name" id="tags" :searchable="false" :close-on-select="false" :limit="3" :multiple="true"
                                              class="form-control multiselect other_form--input small" placeholder="请选择" :max="3" :max-height="500"
                                              deselect-label="点击移除" select-label="点击选择" selected-label="当前选择"
@@ -56,15 +56,14 @@
                                              :selected="selected" :options="options"></Multiselect>
                             </div>
                             <div class="btn-group" role="group">
-                                <button class="btn btn-info" @click="publishBtn()" ng-disabled="isPublishing || !titleBox.$valid || !timeBox.$valid">
-                                    <i class="fa fa-rocket" ng-class="{true:'fa-spinner fa-spin',false:'fa-rocket'}[isPublishing]"></i> 发布
+                                <button class="btn btn-info" @click="publishBtn()" v-bind:disabled="!article.title || !content_raw">
+                                    <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-rocket'}[isPublishing]"></i> 发布
                                 </button>
-                                <button class="btn btn-default" @click="draftBtn()" ng-disabled="isDrafting || !titleBox.$valid || !timeBox.$valid">
-                                    <i class="fa fa-save" ng-class="{true:'fa-spinner fa-spin',false:'fa-save'}[isDrafting]"></i> 草稿
+                                <button class="btn btn-default" @click="draftBtn()" v-bind:disabled="!article.title || !content_raw">
+                                    <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-save'}[isDrafting]"></i> 草稿
                                 </button>
-
                                 <button @click="previewBtn()" class="btn btn-default showPreview">
-                                    <i class="fa" :class="{true:'fa-angle-double-left',false:'fa-angle-double-right'}[isShowBigAdmin]"></i> 预览
+                                    <i class="fa fa-fw" :class="{true:'fa-angle-double-left',false:'fa-angle-double-right'}[isShowBigAdmin]"></i> 预览
                                 </button>
                             </div>
                         </div>
@@ -74,7 +73,6 @@
                     <label for="textarea">文章详情(MarkDown编辑)</label>
                     <div class="textaresBox textaresBox_input">
                         <textarea id="textarea" v-model="content_raw" debounce="500" class="form-control textarea"></textarea>
-                        <!--<div ng-keyup="refreshContent($event)" ng-bind="article.content" class=textarea id="textarea" contenteditable="true"></div>-->
                     </div>
                 </div>
 
@@ -172,7 +170,7 @@
                                     outline: none;
                                     background: #fff;
                                     z-index: 999999;
-                                    width: 430px;
+                                    width: 410px;
                                     min-height: 34px;
                                     padding: 0;
                                     margin: 0;
@@ -192,14 +190,13 @@
                                     width: 215px;
                                 }
 
-
-                                #imgUpload{
+                                #imgUpload {
                                     position: absolute;
-                                    width:100%;
-                                    height:100%;
-                                    left:0;
-                                    top:0;
-                                    opacity:0;
+                                    width: 100%;
+                                    height: 100%;
+                                    left: 0;
+                                    top: 0;
+                                    opacity: 0;
 
                                 }
 
@@ -419,11 +416,13 @@
             return {
                 article: {},
                 publishTime: '',
-                selected: null,
+                selected: [],
                 options: [],
                 content_raw: '',
                 content_marked: '',
                 uploadImgUrl: '',
+                isPublishing: false,
+                isDrafting: false,
             }
         },
         computed: {},
@@ -468,6 +467,7 @@
                     "state": scope.article.state,
                     "content": scope.content_raw,
                 };
+
                 return params;
             },
             // 点击发布按钮
@@ -477,25 +477,26 @@
                 scope.isPublishing = true;
                 let params = scope.collectEditedArtInfo();
                 SaveArticle(params).then(function () {
-                    history.back();
-                    console.log("保存publishBtn成功")
-                    scope.isPublishing = false;
-                }, function () {
-                    scope.isPublishing = false;
+//                    console.log("保存publishBtn成功")
+                }).then(function () {
+                    setTimeout(function () {
+                        history.back();
+                        scope.isPublishing = false;
+                    }, 500)
                 })
             },
             // 点击草稿按钮
             draftBtn(){
                 const scope = this;
                 scope.article.state = false;
-                scope.isPublishing = true;
+                scope.isDrafting = true;
                 let params = scope.collectEditedArtInfo();
                 SaveArticle(params).then(function () {
-//                    history.back();
-                    console.log("保存draftBtn成功")
-                    scope.isPublishing = false;
-                }, function () {
-                    scope.isPublishing = false;
+//                    console.log("保存draftBtn成功")
+                }).then(function () {
+                    setTimeout(function () {
+                        scope.isDrafting = false;
+                    }, 500)
                 })
             },
             // 设置是否显示预览
@@ -536,12 +537,9 @@
              * 获取文章信息,如果有id的话
              * */
             let articleId = this.$route.params.articleId;
-            console.log(articleId)
-            if(articleId.length!==1){
-                console.log('修改')
+            if (articleId.length !== 1) {
                 scope.getArticle(articleId)
-            }else{
-                console.log('新增')
+            } else {
                 scope.article = {
                     "_id": null,
                     "title": '',
@@ -570,7 +568,7 @@
                 parallelUploads: 1,
                 //自动上传
                 autoProcessQueue: true,
-                previewsContainer:false,
+                previewsContainer: false,
             };
             let dropzone = new Dropzone('#imgUpload', config);
             dropzone.on('success', function (file, response) {

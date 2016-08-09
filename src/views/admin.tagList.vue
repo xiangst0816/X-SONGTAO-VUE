@@ -47,7 +47,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="tag in tagLists | orderBy predicate reverse" track-by="$index">
+                    <tr v-for="tag in tagLists | orderBy predicate reverse">
                         <td>{{$index+1}}</td>
                         <td>{{tag.name}}</td>
                         <td>{{tag.catalogue_name}}</td>
@@ -331,7 +331,7 @@
                 scope.submitText = '正在删除...';
                 DeleteTag(scope.delTag._id).then(()=> {
                     // 刷新列表
-                    this.getList();
+                    scope.getList();
                     //操作提示
                     $('#delTag').modal('hide');
                     setTimeout(function () {

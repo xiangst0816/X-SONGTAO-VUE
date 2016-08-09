@@ -67,6 +67,15 @@
                     Vue.http.headers.common['authorization'] = "token " + authorization.token;
                 }
             }
+            //建立监听,如果有修改state中登录状态,则进行处理
+            $(document).on("ChangeLoginStatus",function (event,params) {
+                console.log('登录状态修改')
+                scope.setLoginState(!!params);
+            })
+
+
+
+
 
         },
         components: {

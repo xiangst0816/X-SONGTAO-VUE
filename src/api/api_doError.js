@@ -5,28 +5,25 @@
  * 其余由api自己处理: 2~5-失败；
  */
 import Vue from "vue";
-
-let vm = new Vue();
 export const doError = function (code) {
     code = parseInt(code);
     switch (code) {
-
         case 8:
-
             history.back();
-
             console.log('数据库查找错误');
             break;
         case 9:
-            history.back();
+            alert("您没有操作权限!")
             console.log('非admin用户');
             break;
         case 10:
             console.log('token错误或超时,再登陆');
-            vm.$storage.doLogout()
+            //清空本地数据
             Vue.$localStorage.$reset();
-            console.log(vm)
-            location.replace('/#')
+            //修改登录状态
+            $(document).trigger("ChangeLoginStatus",false);
+            location.replace('/#');
+            return 10;
             break;
         default:
             return code;

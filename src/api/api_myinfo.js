@@ -7,6 +7,7 @@
 
 import API from "../config.js"
 import Vue from "vue";
+import {doError} from "../api/api_doError";
 
 export const GetMyInfo = function () {
     return new Promise(function (resolve, reject) {
@@ -34,7 +35,7 @@ export const GetMyInfoWithOriginal = function () {
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)
@@ -51,7 +52,7 @@ export const PostMyInfo = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)

@@ -7,7 +7,7 @@
 
 import API from "../config.js"
 import Vue from "vue";
-
+import {doError} from "../api/api_doError";
 export const Login = function (params) {
     return new Promise(function (resolve, reject) {
         Vue.http.post(API.login,params).then((response) => {
@@ -16,7 +16,7 @@ export const Login = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)
@@ -32,7 +32,7 @@ export const GetMyInfoWithOriginal = function () {
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)
@@ -48,7 +48,7 @@ export const ChangePassword = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)

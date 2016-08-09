@@ -5,7 +5,7 @@
  */
 import API from "../config.js";
 import Vue from "vue";
-
+import {doError} from "../api/api_doError";
 /**
  * 博客的标签库使用到的,带有数据结构的标签列表
  * */
@@ -55,7 +55,7 @@ export const AddTag = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)
@@ -74,7 +74,7 @@ export const DeleteTag = function (id) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)
@@ -93,7 +93,7 @@ export const EditTag = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)

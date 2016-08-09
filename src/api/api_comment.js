@@ -5,7 +5,7 @@
  */
 import API from "../config.js";
 import Vue from "vue";
-
+import {doError} from "../api/api_doError";
 /**
  * 根据文章的id查找此文章的评论列表,附带展示结构
  * */
@@ -35,7 +35,7 @@ export const SendComment = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)
@@ -73,7 +73,7 @@ export const ChangeCommentAuthState = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)
@@ -92,7 +92,7 @@ export const DeleteComment = function (id) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)
@@ -112,7 +112,7 @@ export const ChangeCommentReplyState = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve();
             } else {
-                reject(parseInt(result.code));
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR)

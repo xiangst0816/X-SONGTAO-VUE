@@ -5,8 +5,7 @@
  */
 import API from "../config.js";
 import Vue from "vue";
-
-
+import {doError} from "../api/api_doError";
 
 //获取文章详情-for 前端 渲染后的详情
 export const GetArticleById = function (articleId) {
@@ -108,7 +107,7 @@ export const SaveArticle = function (params) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code))
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR);
@@ -128,7 +127,7 @@ export const DeleteArticle = function (_id) {
             if (parseInt(result.code) === 1) {
                 resolve(result);
             } else {
-                reject(parseInt(result.code))
+                reject(doError(parseInt(result.code)));
             }
         }, () => {
             reject(API.SYS_ERR);

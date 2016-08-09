@@ -445,6 +445,8 @@
              * */
             GetMyInfoWithOriginal().then((data)=> {
                 scope.myinfo = data;
+            },(code)=>{
+                console.log("code:"+code)
             })
 
         },

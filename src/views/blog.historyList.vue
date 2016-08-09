@@ -3,7 +3,7 @@
 * Description:
 */
 <template>
-    <div class="historyList  animated fadeIn">
+    <div class="historyList" transition="blogTrans">
         <div class="cataBox card-shadow" v-for="cataBox of historyList">
             <h3 class="cataBox__title">
                 <!--<i class="fa fa-calendar"></i>-->
@@ -26,8 +26,11 @@
                 </div>
             </div>
         </div>
+        <section class="copyright">
+            <copyright></copyright>
+        </section>
     </div>
-    <no-data v-if="!hasData"></no-data>
+    <no-data v-if="!hasData && !isLoading"></no-data>
 </template>
 <style scoped lang="scss">
     //base
@@ -125,13 +128,12 @@
         }
     }
 
-
 </style>
 <script>
     import Vue from "vue"
     import noData from "../components/nodata.vue"
     import {GetHistoryList} from "../api/api_article"
-
+    import copyright from '../components/copyright.vue'
     import {num2MMM} from "../utils/filters.js";
 
     Vue.filter('num2MMM', num2MMM);
@@ -141,23 +143,26 @@
         data: function () {
             return {
                 historyList: [],
-//                isLoading: true,
+                isLoading: true,
                 hasData: true,
             }
         },
         methods: {},
-        created: function () {
+        ready: function () {
             const scope = this;
+            $(window).scrollTop(0);// 滚到顶部
             // 获取文章历史列表
             GetHistoryList().then((data)=> {
                 scope.historyList = data;
-                scope.hasData = (data.length !== 0);
             }, ()=> {
                 scope.hasData = false;
+            }).then(function () {
+                scope.historyList.length===0? (scope.hasData = false) : (scope.hasData = true);
+                scope.isLoading = false;
             });
         },
         components: {
-            noData
+            noData,copyright
         }
     }
 </script>

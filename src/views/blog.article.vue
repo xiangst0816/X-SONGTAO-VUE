@@ -98,6 +98,8 @@
         margin: 0 auto;
         padding-bottom: 30px;
         box-sizing: border-box;
+        position: relative;
+        z-index: 999;
         .paper {
             background-color: transparent;
             margin-bottom: 30px;

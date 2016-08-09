@@ -30,9 +30,9 @@
                     </ul>
                 </section>
                 <section class="detail__sns">
-                    <div class="github text-shadow">
+                    <a class="github text-shadow" href="https://github.com/xiangsongtao">
                         Follow
-                    </div>
+                    </a>
                     <ul class="SNS">
                         <li @click="showSocialImg('http://xiangsongtao.com/web/img/qq-addme.jpg')" data-toggle="modal" data-target="#socialContact"><i class="fa fa-qq"></i></li>
                         <li @click="showSocialImg('http://xiangsongtao.com/web/img/weixin-addme.jpg')"  data-toggle="modal" data-target="#socialContact"><i class="fa fa-weixin"></i></li>
@@ -51,7 +51,7 @@
     </div>
 
 </template>
-<style lang="scss">
+<style scoped lang="scss">
     @import "../theme/theme.scss";
 
     .myinfo {
@@ -128,7 +128,7 @@
                                 width: 68px;
                                 line-height: 100%;
                                 box-sizing: border-box;
-                                transition: .2s ease;
+                                transition: all .2s ease;
                                 text-align: center;
                                 font-size: 14px;
                                 padding: 5px 0;
@@ -167,6 +167,9 @@
                         display: block;
                         cursor: pointer;
                         text-align: center;
+                        a{
+                            color:inherit;
+                        }
                         &:hover {
                             text-decoration: none;
                             background: #49c8fb !important;
@@ -225,8 +228,9 @@
                 }
             }
             @include media("<=desktop") {
-                height: 700px;
+                height: 800px;
                 position: relative;
+
                 .detail {
                 }
                 .mywords {
@@ -387,9 +391,6 @@
     import {setMyWordStatus, setSocialImgUrl} from '../vuex/actions'
     import {addImgPrefix} from "../utils/filters.js";
     import {GetMyInfo} from '../api/api_myinfo'
-
-    import "../assets/qq-addme.jpg"
-
     Vue.filter('addImgPrefix', addImgPrefix);
     module.exports = {
         replace: true,

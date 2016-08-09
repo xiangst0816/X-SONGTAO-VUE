@@ -8,20 +8,19 @@
         <!--column title-->
         <h3 class="title">
             <i class="fa fa-fw fa-lg fa-list"></i> 文章编辑 / <span class="blue">ARTICLE-EDIT</span>
-            <span>消息提示</span>
         </h3>
         <section class="mainSection">
             <div class="editSection">
                 <div class="inputBox">
                     <div class="inputBox__input">
                         <div class="form-inline" name="titleBox">
-                            <div class="form-group titleBox" ng-class="{true:'has-error',false:''}[]">
+                            <div class="form-group titleBox" :class="{true:'has-error',false:''}[!article.title]">
                                 <label for="artTitle">文章标题</label>
                                 <input type="text" name="title" v-model="article.title" class="form-control" id="artTitle" placeholder="请输入文章标题" required>
                             </div>
                         </div>
                         <div class="form-inline" name="timeBox">
-                            <div class="form-group publishTime" ng-class="{true:'has-error',false:''}[]">
+                            <div class="form-group publishTime" :class="{true:'has-error',false:''}[!publishTime]">
                                 <label for="publish_time">发布时间</label>
                                 <div class="input-group date" id="datetimepicker">
                                     <input type="text" class="form-control" v-model="publishTime">
@@ -30,16 +29,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group imgUploadBox" ng-class="{true:'has-error',false:''}[]">
+                            <div class="form-group imgUploadBox">
                                 <label for="artTitle">上传图片</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-
                                         <form id="imgUpload" action="" class="dropzone" method="post" enctype="multipart/form-data">
                                             <div class="dz-default dz-message"></div>
                                         </form>
-
-
                                         <span class="fa fa-cloud-upload"></span>
                                     </div>
                                     <input id="uploadImgUrl" type="text" class="form-control" placeholder="图片引用路径" v-model="uploadImgUrl">
@@ -51,7 +47,6 @@
 
                         </div>
                         <div class="form-inline other_form_2" name="titleBox">
-
                             <div class="form-group tagsBox">
                                 <label for="tags">添加标签</label>
                                 <Multiselect key="_id" label="name" id="tags" :searchable="false" :close-on-select="false" :limit="3" :multiple="true"

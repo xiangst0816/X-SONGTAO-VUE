@@ -11,7 +11,8 @@
 <style lang="scss">
     @import "../theme/theme.scss";
     .nodata {
-        width:780px;
+        max-width:780px;
+        width:100%;
         padding: 20px;
         margin:0 auto;
         @include display-flex;
@@ -68,7 +69,5 @@
             border-bottom-right-radius: 5px;
         }
     }
-
-
 
 </style>

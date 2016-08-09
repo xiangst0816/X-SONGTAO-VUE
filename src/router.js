@@ -99,7 +99,6 @@ export default function () {
                 },
             }
         },
-
     });
 
     //路由重定向

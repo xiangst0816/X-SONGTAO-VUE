@@ -100,27 +100,8 @@
                     <span>{{item.content}}</span>
                 </div>
             </div>
-
-            <!--无数据提示-->
-            <!--<div class="nodata  animated fadeIn" v-if="!commentArr.length && isLoaded">-->
-            <!--<div class="logo-left-box">-->
-            <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
-            <!--<h3 class="blue notice">提示!</h3>-->
-            <!--<p class="white">没有找到数据,~~~~(>_<)~~~~</p>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
-            <!--</div>-->
-
-            <!--加载提示-->
-            <!--<div class="nodata  animated fadeIn" v-if="!isLoaded">-->
-            <!--<div class="logo-left-box">-->
-            <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
-            <!--<h3 class="blue notice">提示!</h3>-->
-            <!--<p class="white">正在加载,O(∩_∩)O稍等~</p>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
-            <!--</div>-->
         </section>
+        <no-data v-if="!hasData"></no-data>
     </div>
     <!--增加评论 modal-->
     <div class="modal fade comment--replyBox" id="addComm" tabindex="-1" role="dialog">
@@ -323,7 +304,7 @@
     import copyright from '../components/copyright.vue'
     import adminAddComment from '../components/adminAddComment.vue'
     import {SendComment} from '../api/api_comment'
-
+    import noData from "../components/nodata.vue"
     module.exports = {
         data: function () {
             return {
@@ -334,12 +315,11 @@
                 Condition_reply: 0,
                 btn_filter_auth: '全部',
                 Condition_auth: 0,
-
                 replyBox: {},
                 delBox: {},
-
                 replyContent: '',
-
+                hasData: true,
+                isLoading: true,
             }
         },
         computed: {
@@ -412,12 +392,13 @@
                     }
                 }
 
+                _tmp.length === 0 ? (scope.hasData = false) : (scope.hasData = true);
                 return _tmp;
             }
         },
         methods: {
             //获得列表
-            getList:function () {
+            getList: function () {
                 const scope = this;
                 GetCommentToArticleList().then((data)=> {
                     scope.commentList = data;
@@ -490,7 +471,7 @@
                 console.log(item)
                 DeleteComment(item._id).then((data)=> {
                     console.log(data)
-                },(err)=>{
+                }, (err)=> {
                     console.log('err')
                     console.log(err)
                 }).then(function () {
@@ -501,14 +482,10 @@
         },
         created: function () {
             const scope = this;
-
             /**
              * 获得评论列表
              * */
             scope.getList()
-
-
-
         }
         ,
         destroyed: function () {
@@ -516,14 +493,8 @@
         ,
         components: {
             copyright,
-            'admin-add-comment': adminAddComment
+            'admin-add-comment': adminAddComment,
+            noData,
         }
-        ,
-        //        vuex: {
-        //            getters: {
-        //                isShowMyWords: state=>state.isShowMyWords,
-        //            }
-        //
-        //        }
     }
 </script>

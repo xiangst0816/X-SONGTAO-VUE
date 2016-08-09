@@ -2,7 +2,7 @@
 <template>
     <div class="blogNav">
         <nav class="nav__top">
-            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="Just Logo">
+            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
                 <span class="siteLogo"></span>
             </a>
             <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="首页">
@@ -17,22 +17,22 @@
             <!--</a>-->
         </nav>
         <nav class="nav__bottom">
-            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-myinfo',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="我的资料">
+            <a v-if="isLogin" class="nav__item animated fadeIn" v-link="{ name: 'admin-myinfo',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="我的资料">
                 <i class="fa fa-user fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-tag',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="标签管理">
+            <a v-if="isLogin" class="nav__item animated fadeIn" v-link="{ name: 'admin-tag',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="标签管理">
                 <i class="fa fa-tag fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-articleManager',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章管理">
+            <a v-if="isLogin" class="nav__item animated fadeIn" v-link="{ name: 'admin-articleManager',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章管理">
                 <i class="fa fa-list fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item" v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章评论">
+            <a v-if="isLogin" class="nav__item animated fadeIn" v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章评论">
                 <i class="fa fa-comments fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item" data-toggle="tooltip" data-placement="right" title="退出" @click="doLoginout()">
+            <a v-if="isLogin" class="nav__item animated fadeIn" data-toggle="tooltip" data-placement="right" title="退出" @click="doLoginout()">
                 <i class="fa fa-sign-out fa-lg"></i>
             </a>
-            <a v-if="!isLogin" class="nav__item" v-link="{ name: 'login',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="登录">
+            <a v-if="!isLogin" class="nav__item animated fadeIn" v-link="{ name: 'login',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="登录">
                 <i class="fa fa-sign-in fa-lg"></i>
             </a>
         </nav>
@@ -52,12 +52,12 @@
         left: 0;
         top: 0;
         z-index: 10;
-        transition: background-color ease 400ms;
+        transition: all ease 400ms;
 
         background-color: rgba(0, 0, 0, .8);
         &:hover {
             color: rgba(256, 256, 256, 0.8);
-            background-color: rgba(0, 0, 0, .9);
+            background-color: rgba(0, 0, 0, 1);
             text-shadow: 0px 1px 1px #3b3b3b;
         }
         /*导航上面结构*/
@@ -88,7 +88,7 @@
                 width: 45px;
                 line-height: 45px;
                 font-size: 30px;
-                background: rgba(0, 0, 0, 0.9) url(../assets/pleasehole-img.png) no-repeat center center/30px auto;
+                background: rgba(0, 0, 0, 0.9) url(../assets/pleasehole-img.png) no-repeat center center/28px auto;
             }
 
             i {
@@ -162,13 +162,10 @@
             }
         },
         ready: function () {
-            console.log('isLogin')
-            console.log(this.isLogin)
             tooltip();
             function tooltip() {
                 let clientWidth = parseInt(document.documentElement.clientWidth);
                 if (clientWidth < 768) {
-
                 } else if (clientWidth < 991 && clientWidth > 768) {
                     $('[data-toggle="tooltip"]').tooltip({
                         trigger: 'hover',
@@ -182,12 +179,7 @@
                     });
                     return true;
                 }
-
             }
-
-        },
-        components: {
-//            tooltip
         },
         vuex: {
             getters: {

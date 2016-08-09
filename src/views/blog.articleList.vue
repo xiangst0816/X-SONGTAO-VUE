@@ -3,7 +3,7 @@
 * Description: 文章列表
 */
 <template>
-    <div class="aritcleList animated fadeIn">
+    <div class="aritcleList" transition="blogTrans">
         <article class="article" v-for="article of articleList" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
             <div class="article__header">
                 <h2 class="article__header--title">{{article.title}}</h2>
@@ -36,8 +36,11 @@
                 </div>
             </div>
         </article>
+        <section class="copyright">
+            <copyright></copyright>
+        </section>
     </div>
-    <no-data v-if="!hasData"></no-data>
+    <no-data v-if="!hasData && !isLoading"></no-data>
 </template>
 <style scoped lang="scss">
     @import "../theme/theme.scss";
@@ -46,7 +49,7 @@
     .aritcleList {
         width: 780px;
         margin: 0 auto;
-        position: relative;
+        /*position: relative;*/
 
         .article {
             user-select: none;
@@ -157,19 +160,19 @@
 
     import {GetArticleListForFrontEnd} from "../api/api_article"
 
-
     export default{
         replace: true,
         data: function () {
             return {
-                isLoading:true,
+                isLoading: true,
                 articleList: [],
-                hasData:true,
+                hasData: true,
             }
         },
         methods: {},
-        created: function () {
+        ready: function () {
             const scope = this;
+            $(window).scrollTop(0);// 滚到顶部
             /**
              * 文章列表会根据
              * "最新-latest"、"标签筛选-tagList"进行区分,
@@ -188,9 +191,11 @@
             // 数据请求根据url参数会发生改变,故get时传入url
             GetArticleListForFrontEnd(url).then((data)=> {
                 scope.articleList = data;
-                scope.hasData=(data.length !== 0);
-            },()=>{
-                scope.hasData=false;
+            }, ()=> {
+                scope.hasData = false;
+            }).then(function () {
+                scope.articleList.length === 0 ? (scope.hasData = false) : (scope.hasData = true)
+                scope.isLoading = false;
             })
         },
         destroyed: function () {

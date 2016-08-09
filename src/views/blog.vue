@@ -8,12 +8,9 @@
     <div class="blog animated fadeIn">
         <my-info></my-info>
         <!-- 路由外链 -->
-        <div class="blog__content"  v-show="!isShowMyWords"  transition="isShowMyWords">
+        <div class="blog__content" v-show="!isShowMyWords" transition="isShowMyWords">
             <div class="blog__content--inner">
                 <router-view></router-view>
-                <section class="copyright">
-                    <copyright></copyright>
-                </section>
             </div>
         </div>
 
@@ -26,19 +23,25 @@
     .blog {
         .blog__content {
             display: flex;
-            justify-content:center;
+            justify-content: center;
             align-items: flex-start;
             box-sizing: content-box;
-            .blog__content--inner{
-                width:100%;
+
+            .blog__content--inner {
+                width: 100%;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
-                overflow: hidden;
-                padding-top:35px;
+                /*overflow: hidden;*/
+                padding-top: 35px;
+                position: relative;
             }
-            .copyright{
-                margin-bottom:15px;
+            .copyright {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 15px;
             }
         }
     }
@@ -55,29 +58,28 @@
         opacity: 0;
     }
 
-
-
     @include media(">desktop") {
         .blog {
-            width:100%;
+            width: 100%;
             .blog__content {
                 z-index: 2;
-                width: 68%;
-                padding-left: 33.33%;
+                width: 66%;
+                padding-left: 34%;
                 position: relative;
             }
         }
     }
+
     @include media("<desktop_small") {
         .blog {
-            padding-top:45px;
+            padding-top: 45px;
         }
     }
 </style>
 <script>
     import Vue from "vue";
     import myInfo from './blog.myInfo.vue'
-    import copyright from '../components/copyright.vue'
+
     module.exports = {
         data: function () {
             return {}
@@ -87,7 +89,7 @@
         destroyed: function () {
         },
         components: {
-            myInfo,copyright
+            myInfo
         },
         vuex: {
             getters: {

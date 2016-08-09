@@ -1,6 +1,6 @@
 /**
  * Created by xiangsongtao on 16/8/3.
- * Description:
+ * Description: localstorage和sessionStorage的插件
  */
 module.exports = {
     install: function (Vue, options) {
@@ -42,7 +42,6 @@ module.exports = {
         });
 
         function _storageProvider(storageType) {
-
             var storageKeyPrefix;
             if (!!options && !!options.storageKeyPrefix) {
                 storageKeyPrefix = options.storageKeyPrefix
@@ -63,7 +62,6 @@ module.exports = {
                 _store = {
                     //重置全部后写入items => items保留其余重置
                     $reset: function (items) {
-                        console.log('$reset');
                         for (var k in _store) {
                             '$' === k[0] || (delete _store[k] && _webStorage.removeItem(storageKeyPrefix + k));
                         }
@@ -71,7 +69,6 @@ module.exports = {
                     },
                     //数据拉取(web本地storage->$storage内部)
                     $fetch: function () {
-                        console.log('$fetch')
                         for (var i = 0, l = _webStorage.length, k; i < l; i++) {
                             // #8, #10: `_webStorage.key(i)` may be an empty string (or throw an exception in IE9 if `_webStorage` is empty)
                             (k = _webStorage.key(i)) && storageKeyPrefix === k.slice(0, prefixLength) && (_store[k.slice(prefixLength)] = deserializer(_webStorage.getItem(k)));
@@ -79,7 +76,6 @@ module.exports = {
                     },
                     //设置值
                     $set: function () {
-                        console.log('$set');
                         var args = Array.prototype.slice.call(arguments);
                         if (args.length === 1 && isObject(args[0])) {
                             var obj = args[0];

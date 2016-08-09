@@ -16,32 +16,43 @@
                 <!--我的详细信息-->
                 <div class="infoDetail">
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12" for="name">昵称/Nickname</label>
+                        <label class="col-sm-12">
+                            昵称/Nickname
+                            <i v-if="checkThis==='full_name'&&!!isSuccess" class="fa fa-check-circle"></i>
+                        </label>
                         <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.full_name)" v-on:blur="save(myinfo.full_name)" class="form-control input-sm col-sm-12 inputContent" id="name" name="name"
-                                   placeholder="姓名/Name" v-model="myinfo.full_name">
-                            <!--<span class="glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>-->
+                            <input type="text" @click="setThis(myinfo.full_name,'full_name')" v-on:blur="save(myinfo.full_name)" class="form-control input-sm col-sm-12 inputContent" id="name"
+                                   name="name" placeholder="姓名/Name" v-model="myinfo.full_name">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12 " for="position">职位/Position</label>
+                        <label class="col-sm-12">
+                            职位/Position
+                            <i v-if="checkThis==='position'&&!!isSuccess" class="fa fa-check-circle"></i>
+                        </label>
                         <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.position)" v-on:blur="save(myinfo.position)" class="form-control input-sm col-sm-12 inputContent" id="position" name="position"
-                                   placeholder="职位/Position" v-model="myinfo.position">
+                            <input type="text" @click="setThis(myinfo.position,'position')" v-on:blur="save(myinfo.position)" class="form-control input-sm col-sm-12 inputContent" id="position"
+                                   name="position" placeholder="职位/Position" v-model="myinfo.position">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12 " for="address">地址/Address</label>
+                        <label class="col-sm-12">
+                            地址/Address
+                            <i v-if="checkThis==='address'&&!!isSuccess" class="fa fa-check-circle"></i>
+                        </label>
                         <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.address)" v-on:blur="save(myinfo.address)" class="form-control input-sm col-sm-12 inputContent" id="address" name="address"
-                                   placeholder="地址/Address" v-model="myinfo.address">
+                            <input type="text" @click="setThis(myinfo.address,'address')" v-on:blur="save(myinfo.address)" class="form-control input-sm col-sm-12 inputContent" id="address"
+                                   name="address" placeholder="地址/Address" v-model="myinfo.address">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12" for="mood">心情/Motto</label>
+                        <label class="col-sm-12">
+                            心情/Motto
+                            <i v-if="checkThis==='motto'&&!!isSuccess" class="fa fa-check-circle"></i>
+                        </label>
                         <div class="col-sm-12 infoDetail__inputGroup">
                             <input type="text" class="form-control input-sm col-sm-6 inputContent" id="mood" name="mood"
-                                   @click="setThis(myinfo.motto)" v-on:blur="save(myinfo.motto)"
+                                   @click="setThis(myinfo.motto),'motto'" v-on:blur="save(myinfo.motto)"
                                    placeholder="心情/Mood" v-model="myinfo.motto">
                         </div>
                     </div>
@@ -60,10 +71,12 @@
 
                 <!--我的陈述-->
                 <div class="personalState">
-                    <label for="personalState__textarea">我的介绍/MyIntroduce(Markdown)</label>
+                    <label>
+                        我的介绍/MyIntroduce(Markdown)
+                        <i v-if="checkThis==='personal_state'&&!!isSuccess" class="fa fa-check-circle"></i></label>
                     <div class="personalState__textarea">
                     <textarea
-                            @click="setThis(myinfo.personal_state)" v-on:blur="save(myinfo.personal_state)" id="personalState__textarea"
+                            @click="setThis(myinfo.personal_state,'personal_state')" v-on:blur="save(myinfo.personal_state)" id="personalState__textarea"
                             v-model="myinfo.personal_state" placeholder="请填写我的介绍...."></textarea>
                     </div>
                 </div>
@@ -155,7 +168,7 @@
                         cursor: pointer;
                         position: relative;
 
-                        .headerImg{
+                        .headerImg {
                             min-width: 100%;
                             min-height: 100%;
                             width: 100%;
@@ -172,11 +185,11 @@
                             border: 0;
                             background-color: transparent;
                         }
-                        .dz-default{
+                        .dz-default {
                             display: none;
                         }
-                        .dz-preview{
-                            display: none!important;
+                        .dz-preview {
+                            display: none !important;
                         }
                     }
                 }
@@ -205,6 +218,9 @@
                 .infoDetail {
                     width: 50%;
                     color: #fff;
+                    label {
+                        font-size: 16px;
+                    }
                 }
                 //我的心情
                 .myMotto {
@@ -248,6 +264,11 @@
                 .authorizationBox {
                     width: 100%;
                     margin-bottom: 30px;
+                    .inputGroup {
+                        label {
+                            font-size: 16px;
+                        }
+                    }
                     .inputBox {
                         padding-top: 10px;
                         width: 100%;
@@ -351,11 +372,17 @@
                 myinfo: {},
                 changedValue: '',
                 textState: 'Submit',
+                checkThis: '',
+                isSuccess: false,
             }
         },
         methods: {
-            setThis: function (value) {
+            setThis: function (value, key) {
+                this.checkThis = key;
                 this.changedValue = value;
+
+                console.log(key)
+                console.log(this.isSuccess)
             },
             save: function (value) {
                 const scope = this;
@@ -370,8 +397,12 @@
                         img_url: scope.myinfo.img_url
                     };
                     PostMyInfo(params).then((data)=> {
-                       alert('修改成功')
+                        scope.isSuccess = true;
                         console.log(data)
+                        setTimeout(function () {
+                            scope.isSuccess = false;
+                            console.log(scope.isSuccess)
+                        },2000);
                     }, (err)=> {
                         alert('修改失败')
                         console.log(err)
@@ -409,7 +440,7 @@
                         scope.$localStorage.$reset();
                         scope.setLoginState(false);//设置全局登录状态
                         scope.$router.go({
-                            name:'login'
+                            name: 'login'
                         });//跳转
 
                     }, 1200, true);
@@ -417,8 +448,6 @@
                     scope.textState = '失败!';
                 })
             },
-
-
         },
         created: function () {
             const scope = this;
@@ -427,13 +456,10 @@
              * */
             GetMyInfoWithOriginal().then((data)=> {
                 scope.myinfo = data;
-                console.log(data)
-            }, (err)=> {
-                console.log('code:' + err)
             })
 
         },
-        ready:function () {
+        ready: function () {
             const scope = this;
 
 
@@ -448,7 +474,7 @@
                 parallelUploads: 1,
                 //自动上传
                 autoProcessQueue: true,
-                previewsContainer:false,
+                previewsContainer: false,
             };
             let dropzone = new Dropzone('#imgUpload', config);
             dropzone.on('success', function (file, response) {
@@ -459,7 +485,8 @@
                 }
             });
         },
-        destroyed: function () {},
+        destroyed: function () {
+        },
         components: {
             copyright
         },

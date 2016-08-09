@@ -9,7 +9,6 @@
         <social-info></social-info>
         <!--退出弹层-->
         <do-logout></do-logout>
-
     </div>
 </template>
 
@@ -45,22 +44,15 @@
     Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
     Vue.http.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
-
     import {setLoginState} from './vuex/actions'
-
-
 
     module.exports = {
         store,
         replace: false,
         data: function () {
-            return {
-//            authenticating: false,
-//            isIndex:true
-            }
+            return {}
         },
         ready: function () {
-
             const scope = this;
             /**
              * 进入检查是否有token,是否能直接登录

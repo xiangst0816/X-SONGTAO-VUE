@@ -11,15 +11,15 @@
                 <h1><span class="blue">X</span>-SONGTAO</h1>
                 <h4><span class="blue">后台</span>管理</h4>
                 <div class="divider"></div>
-                <div class="form-horizontal" ng-keydown="keydown($event)">
+                <div class="form-horizontal"  v-on:keydown.enter="loginBtn()">
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input ng-keydown="errText=''" class="form-control" id="username" type="text" name="username" v-model="username" placeholder="用户名">
+                            <input v-on:keydown="errText=''" class="form-control" id="username" type="text" name="username" v-model="username" placeholder="用户名">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input ng-keydown="errText=''" class="form-control" id="password" type="password" name="password" v-model="password" placeholder="密码">
+                            <input v-on:keydown="errText=''" class="form-control" id="password" type="password" name="password" v-model="password" placeholder="密码">
                         </div>
                     </div>
                     <div class="btnGroup">

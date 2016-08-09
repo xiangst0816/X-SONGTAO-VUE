@@ -3,7 +3,7 @@
 * Description:
 */
 <template>
-    <div class="historyList  animated fadeIn">
+    <div class="historyList" transition="blogTrans" v-if="tagList.length>0">
         <div class="cataBox card-shadow">
             <h3 class="cataBox__title">
                 <span class="main">Tags</span>
@@ -26,8 +26,11 @@
                 </div>
             </div>
         </div>
+        <section class="copyright">
+            <copyright></copyright>
+        </section>
     </div>
-    <no-data v-if="!hasData"></no-data>
+    <no-data v-if="!hasData && !isLoading"></no-data>
 </template>
 <style scoped lang="scss">
     //base
@@ -66,22 +69,22 @@
                     cursor: pointer;
                     margin: 10px 0;
                     a {
-                        color:$base-word-color;
+                        color: $base-word-color;
                         text-decoration: none;
                     }
                     span {
-                        font-size:16px;
+                        font-size: 16px;
                         vertical-align: middle;
                         display: inline-block;
                         max-width: 360px;
                         transition: color ease 200ms;
                     }
                     &:hover {
-                        .tagName{
+                        .tagName {
                             color: $base-theme-color;
                         }
-                        .badge{
-                            background-color:$base-theme-color;
+                        .badge {
+                            background-color: $base-theme-color;
                             color: #fff;
                         }
 
@@ -99,28 +102,33 @@
 </style>
 <script>
     import noData from "../components/nodata.vue"
+    import copyright from '../components/copyright.vue'
     import {GetTagsListWithStructure} from '../api/api_tag'
     export default{
         replace: true,
         data: function () {
             return {
                 tagList: [],
-                hasData:true,
+                hasData: true,
+                isLoading: true,
             }
         },
         methods: {},
-        created: function () {
+        ready: function () {
             const scope = this;
+            $(window).scrollTop(0);// 滚到顶部
             // GET /someUrl
             GetTagsListWithStructure().then((data) => {
                 scope.tagList = data;
-                scope.hasData=(data.length !== 0);
-            },()=>{
-                scope.hasData=false;
+            }, ()=> {
+                scope.hasData = false;
+            }).then(function () {
+                scope.tagList.length===0? (scope.hasData = false) : (scope.hasData = true);
+                scope.isLoading = false;
             });
         },
         components: {
-            noData
+            noData,copyright
         }
     }
 </script>

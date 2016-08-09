@@ -41,12 +41,7 @@ new Vue({
     components: {
         blogNav, app
     },
-    ready:function () {
-
-        // console.log(this.$storage.hello)
-
-
-    }
+    ready:function () {}
 
 })
 

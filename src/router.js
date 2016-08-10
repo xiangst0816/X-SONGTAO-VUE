@@ -31,43 +31,61 @@ export default function () {
         },
         '/login': {
             name: 'login',
-            component: require('./views/blog.login.vue')
+            component: function (resolve) {
+                require(['./views/blog.login.vue'], resolve)
+            },
         },
         '/blog': {
             name: 'blog',
-            component: require('./views/blog.vue'),
+            component: function (resolve) {
+                require(['./views/blog.vue'], resolve)
+            },
             subRoutes: {
                 '/art-list': {
                     name: 'artList',
-                    component: require('./views/blog.articleList.vue')
+                    component: function (resolve) {
+                        require(['./views/blog.articleList.vue'], resolve)
+                    },
                 },
                 '/his-list': {
                     name: 'historyList',
-                    component: require('./views/blog.historyList.vue')
+                    component: function (resolve) {
+                        require(['./views/blog.historyList.vue'], resolve)
+                    },
                 },
                 '/tag-list': {
                     name: 'tagList',
-                    component: require('./views/blog.tagList.vue')
+                    component: function (resolve) {
+                        require(['./views/blog.tagList.vue'], resolve)
+                    },
                 },
                 '/article/:articleId': {
                     name: 'article',
-                    component: require('./views/blog.article.vue')
+                    component: function (resolve) {
+                        require(['./views/blog.article.vue'], resolve)
+                    },
                 },
             }
         },
         '/admin': {
             name: 'admin',
-            component: require('./views/admin.vue'),
+            component: function (resolve) {
+                require(['./views/admin.vue'], resolve)
+            },
             auth: true,
             subRoutes:{
                 '/admin-myinfo': {
                     name: 'admin-myinfo',
-                    component: require('./views/admin.myInfo.vue'),
+                    component: function (resolve) {
+                        require(['./views/admin.myInfo.vue'], resolve)
+                    },
                     auth: true,
                 },
                 '/admin-tag': {
                     name: 'admin-tag',
-                    component: require('./views/admin.tagList.vue'),
+                    component: function (resolve) {
+                        require(['./views/admin.tagList.vue'], resolve)
+                    },
                     auth: true,
                 },
                 '/admin-articleManager': {
@@ -79,22 +97,25 @@ export default function () {
                     subRoutes:{
                         '/admin-articleList': {
                             name: 'admin-articleList',
-                            component: require('./views/admin.articleList.vue'),
+                            component: function (resolve) {
+                                require(['./views/admin.articleList.vue'], resolve)
+                            },
                             auth: true,
                         },
                         '/admin-article/:articleId': {
                             name: 'admin-article',
-                            component: require('./views/admin.article.vue'),
+                            component: function (resolve) {
+                                require(['./views/admin.article.vue'], resolve)
+                            },
                             auth: true,
                         },
                     }
                 },
-
-
-
                 '/admin-commentList': {
                     name: 'admin-commentList',
-                    component: require('./views/admin.commentList.vue'),
+                    component: function (resolve) {
+                        require(['./views/admin.commentList.vue'], resolve)
+                    },
                     auth: true,
                 },
             }

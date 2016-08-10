@@ -359,7 +359,6 @@
     import API from '../config'
     import Dropzone from '../plugin/dropzone'
 
-
     import {ChangePassword} from '../api/api_auth'
     import copyright from '../components/copyright.vue'
     import {addImgPrefix} from "../utils/filters.js";

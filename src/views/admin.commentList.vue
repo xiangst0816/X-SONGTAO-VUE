@@ -295,8 +295,6 @@
             ChangeCommentReplyState,
     } from "../api/api_comment";
 
-    //    import "bootstrap/js/dropdown"
-
     import copyright from '../components/copyright.vue'
     import adminAddComment from '../components/adminAddComment.vue'
     import {SendComment} from '../api/api_comment'

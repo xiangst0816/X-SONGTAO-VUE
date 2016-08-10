@@ -23,9 +23,11 @@ import "font-awesome/css/font-awesome.min.css";
 /**
  * 精简版的scss,只选用需要的部分
  * */
-// import 'bootstrap/scss/bootstrap.slim.scss'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.min.js'
+import 'bootstrap/scss/bootstrap.slim.scss'
+import 'bootstrap/js/tooltip.js'
+import 'bootstrap/js/modal.js'
+import 'bootstrap/js/dropdown.js'
+import 'bootstrap/js/transition.js'
 
 
 

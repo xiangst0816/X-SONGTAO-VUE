@@ -25,7 +25,7 @@ module.exports = {
             "bootstrap": path.resolve(__dirname, '../src/plugin/bootstrap'),
             "bootstrap-datetimepicker": path.resolve(__dirname, '../src/plugin/bootstrap-datetimepicker'),
             "bootstrap-multiselect": path.resolve(__dirname, '../src/plugin/bootstrap-multiselect'),
-            "vue-toast": path.resolve(__dirname, '../src/plugin/vue-toast/dist/vue-toast.js'),
+            "moment": path.resolve(__dirname, '../src/plugin/moment-with-locales.js'),
         }
     },
     resolveLoader: {

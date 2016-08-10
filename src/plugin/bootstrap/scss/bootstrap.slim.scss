@@ -10,7 +10,7 @@
 
 // Reset and dependencies
 @import "bootstrap/normalize";
-@import "bootstrap/print";
+//@import "bootstrap/print";
 //@import "bootstrap/glyphicons";
 
 // Core CSS
@@ -29,8 +29,8 @@
 @import "bootstrap/breadcrumbs";
 @import "bootstrap/close";
 //
-//@import "bootstrap/button-groups";
-//@import "bootstrap/input-groups";
+@import "bootstrap/button-groups";
+@import "bootstrap/input-groups";
 //@import "bootstrap/navs";
 //@import "bootstrap/navbar";
 //@import "bootstrap/pagination";

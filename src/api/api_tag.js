@@ -11,11 +11,19 @@ import {doError} from "../api/api_doError";
  * */
 export const GetTagsListWithStructure = function () {
     return new Promise(function (resolve, reject) {
-        Vue.http.get(API.getTagsListWithStructure).then((response) => {
+        let url = API.getTagsListWithStructure;
+        let tmp = Vue.$sessionStorage[url];
+        if (!!tmp) {
+            console.log("标签库数据使用缓存!")
+            resolve(tmp);
+            return;
+        }
+        Vue.http.get(url).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
+                Vue.$sessionStorage.$set(url,result.data);
             } else {
                 reject(parseInt(result.code));
             }

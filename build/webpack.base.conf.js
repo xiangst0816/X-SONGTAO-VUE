@@ -24,8 +24,9 @@ module.exports = {
             //插件位置
             "bootstrap": path.resolve(__dirname, '../src/plugin/bootstrap'),
             "bootstrap-datetimepicker": path.resolve(__dirname, '../src/plugin/bootstrap-datetimepicker'),
-            "bootstrap-multiselect": path.resolve(__dirname, '../src/plugin/bootstrap-multiselect'),
             "moment": path.resolve(__dirname, '../src/plugin/moment-with-locales.js'),
+            "fastclick": path.resolve(__dirname, '../src/plugin/fastclick.js'),
+            "vue-multiselect": path.resolve(__dirname, '../src/plugin/vue-multiselect/Multiselect.vue'),
         }
     },
     resolveLoader: {

@@ -28,8 +28,14 @@ import 'bootstrap/js/tooltip.js'
 import 'bootstrap/js/modal.js'
 import 'bootstrap/js/dropdown.js'
 import 'bootstrap/js/transition.js'
+import 'bootstrap/js/popover.js'
 
 
+/**
+ * 触摸配置
+ * */
+import attachFastClick from "fastclick";
+new attachFastClick(document.body);
 
 
 

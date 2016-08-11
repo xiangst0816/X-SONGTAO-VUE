@@ -4,7 +4,7 @@
         <div class="commentBox__questionBox">
             <input ng-focus="chain.selectId=''" class="commentBox__questionBox--input" type="text" placeholder="我要说几句" v-model="content">
 
-            <button class="btn commentBox__questionBox--reply" @click="submit()">
+            <button v-bind:disabled="!content" class="btn commentBox__questionBox--reply" @click="submit()">
                 <span>提交</span>
             </button>
         </div>
@@ -142,11 +142,6 @@
         ],
         methods: {
             submit: function () {
-
-                if(!this.content){
-                    alert("请输入评论内容!");
-                    return;
-                }
                 this.$dispatch('replyThisComment', {
                     content: this.content,
                     name: this.name,

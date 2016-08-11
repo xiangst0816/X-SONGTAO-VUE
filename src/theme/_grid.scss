@@ -14,7 +14,7 @@
   }
 }
 
-@include media(">=phone","<tablet") {
+@include media("<tablet") {
   .hidden-xs {
     display: none !important
   }

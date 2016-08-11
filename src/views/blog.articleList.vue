@@ -4,7 +4,7 @@
 */
 <template>
     <div class="aritcleList" transition="blogTrans">
-        <article class="article" v-for="article of articleList" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
+        <article class="article animated fadeIn" v-for="article of articleList" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
             <div class="article__header">
                 <h2 class="article__header--title">{{article.title}}</h2>
                 <div class="article__header--content">
@@ -36,11 +36,12 @@
                 </div>
             </div>
         </article>
-        <section class="copyright">
+        <section class="copyright animated fadeIn" v-if="articleList.length!==0">
             <copyright></copyright>
         </section>
+        <no-data v-if="!hasData && !isLoading"></no-data>
+        <is-loading v-if="isLoading"></is-loading>
     </div>
-    <no-data v-if="!hasData && !isLoading"></no-data>
 </template>
 <style scoped lang="scss">
     @import "../theme/theme.scss";
@@ -151,11 +152,60 @@
         }
     }
 
+    @include media("<=tablet") {
+        .aritcleList {
+            max-width: 780px;
+            width: 100%;
+            .article {
+                .article__header {
+                    padding: 30px;
+                }
+                .article__infobox {
+                    padding: 14px 20px
+                }
+            }
+        }
+    }
+
+    @include media("<=phone") {
+        .aritcleList {
+            max-width: 780px;
+            width: 100%;
+            .article {
+                .article__header {
+                    padding: 30px 10px 10px;
+                    .article__header--title {
+                        font-size: 24px;
+                    }
+                    .article__header--content {
+                        font-size: 14px;
+                        color: #000;
+                    }
+                }
+                .article__infobox {
+                    padding: 8px 0px;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items:center;
+                    .article__info {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        .article__info--each {
+                            font-size: 14px;
+                            margin: 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 </style>
 <script>
     import API from "../config.js"
     import noData from "../components/nodata.vue"
+    import isLoading from "../components/isLoading.vue"
     import copyright from '../components/copyright.vue'
 
     import {GetArticleListForFrontEnd} from "../api/api_article"
@@ -201,7 +251,7 @@
         destroyed: function () {
         },
         components: {
-            noData, copyright
+            noData, copyright, isLoading
         },
     }
 </script>

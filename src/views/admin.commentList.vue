@@ -296,7 +296,6 @@
     } from "../api/api_comment";
 
     import copyright from '../components/copyright.vue'
-    import adminAddComment from '../components/adminAddComment.vue'
     import {SendComment} from '../api/api_comment'
     import noData from "../components/nodata.vue"
     module.exports = {
@@ -465,7 +464,6 @@
         ,
         components: {
             copyright,
-            'admin-add-comment': adminAddComment,
             noData,
         }
     }

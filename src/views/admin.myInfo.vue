@@ -99,8 +99,7 @@
                                 <label>新密码/New Password</label>
                             </div>
                             <div class="buttonBox" data-toggle="modal" data-target="#logoutBox">
-                                <button v-if="!!myinfo.username&&!!myinfo.password&&!!myinfo.new_password" class="btn btn-danger" @click.prevent="changeAuthorizationInfo()">确认</button>
-                                <button v-else disabled="disabled" class="btn btn-danger">确认</button>
+                                <button v-bind:disabled="!myinfo.username||!myinfo.password||!myinfo.new_password" class="btn btn-danger" @click.prevent="changeAuthorizationInfo()">确认</button>
                                 <span class="stateText">{{textState}}</span>
                             </div>
                         </form>

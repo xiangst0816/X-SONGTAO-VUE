@@ -146,6 +146,21 @@
             left: 0;
         }
     }
+
+    @include media("<=phone") {
+        .indexBox{
+
+            .index-content {
+                padding-top: 45px;
+                .head-wrap{
+                    h3{
+                        max-width: 260px;
+                    }
+                }
+            }
+        }
+
+    }
 </style>
 <script>
     import Vue from "vue";
@@ -165,7 +180,7 @@
             }, 4000);
         },
         destroyed: function () {
-            console.log('destroyed')
+//            console.log('destroyed')
             clearInterval(this.clearInterval)
         },
         components: {

@@ -3,8 +3,8 @@
 * Description:
 */
 <template>
-    <div class="historyList" transition="blogTrans" v-if="tagList.length>0">
-        <div class="cataBox card-shadow">
+    <div class="tagList" transition="blogTrans">
+        <div class="cataBox card-shadow animated fadeIn" v-if="tagList.length>0">
             <h3 class="cataBox__title">
                 <span class="main">Tags</span>
                 <span class="tag">标签库</span>
@@ -13,7 +13,7 @@
                 <!--专属于标签库的样式结构-->
                 <div class="itemBox" v-for="cata in tagList">
                     <div class="itemBox__name">
-                        <i class="fa fa-tag"></i> {{cata.name | uppercase}}
+                        <i class="fa fa-tag hidden-xs"></i> {{cata.name | uppercase}}
                     </div>
                     <ul class="itemBox__content">
                         <li class="itemBox__content__item" v-for="tag in cata.data">
@@ -26,17 +26,18 @@
                 </div>
             </div>
         </div>
-        <section class="copyright">
+        <section class="copyright animated fadeIn" v-if="tagList.length>0">
             <copyright></copyright>
         </section>
+        <no-data v-if="!hasData && !isLoading"></no-data>
+        <is-loading v-if="isLoading"></is-loading>
     </div>
-    <no-data v-if="!hasData && !isLoading"></no-data>
 </template>
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
 
-    .historyList {
+    .tagList {
         .itemBox {
             padding: 10px 40px;
             margin-bottom: 10px;
@@ -44,7 +45,6 @@
                 font-size: 25px;
                 border-bottom: 1px solid #ccc;
                 padding-left: 15px;
-
                 p {
                     margin: 0;
                 }
@@ -98,12 +98,40 @@
 
     }
 
+    @include media("<=tablet") {
+        .tagList {
+            max-width: 780px;
+            width: 100%;
+        }
+    }
+
+    @include media("<=phone") {
+        .tagList {
+            .itemBox {
+                padding: 3px 10px;
+                .itemBox__name{
+                    padding-left: 10px;
+                }
+                .itemBox__content{
+                    padding-left: 0px;
+                    .itemBox__content__item {
+                        .tagName,.badge{
+                            font-size:14px;
+                        }
+
+                    }
+                }
+            }
+        }
+
+    }
 
 </style>
 <script>
     import noData from "../components/nodata.vue"
     import copyright from '../components/copyright.vue'
     import {GetTagsListWithStructure} from '../api/api_tag'
+    import isLoading from "../components/isLoading.vue"
     export default{
         replace: true,
         data: function () {
@@ -123,12 +151,12 @@
             }, ()=> {
                 scope.hasData = false;
             }).then(function () {
-                scope.tagList.length===0? (scope.hasData = false) : (scope.hasData = true);
+                scope.tagList.length === 0 ? (scope.hasData = false) : (scope.hasData = true);
                 scope.isLoading = false;
             });
         },
         components: {
-            noData,copyright
+            noData, copyright,isLoading
         }
     }
 </script>

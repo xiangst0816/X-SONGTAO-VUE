@@ -91,6 +91,9 @@
 </template>
 
 <script>
+  /*!
+   * Multiselect  vue-multiselect
+   */
   import multiselectMixin from './multiselectMixin'
   import pointerMixin from './pointerMixin'
 

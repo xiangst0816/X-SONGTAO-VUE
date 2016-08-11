@@ -2,7 +2,7 @@
 <template>
     <div class="blogNav">
         <nav class="nav__top">
-            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
+            <a class="nav__item" @click="clearSessionStorage()" data-toggle="tooltip" data-placement="right" title="SongTao">
                 <span class="siteLogo"></span>
             </a>
             <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="首页">
@@ -11,28 +11,40 @@
             <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="博客">
                 <i class="fa fa-map-signs fa-fw fa-lg"></i>
             </a>
-            <!--<a class="nav__item" v-link="{ name: 'article',params: { articleId: '57826e945c21c1dd04b4ad4d' },activeClass: 'active'}">-->
-            <!--<i class="fa fa-bold fa-fw fa-lg"></i>-->
-            <!--&lt;!&ndash;<span class="visible-hg">博客</span>&ndash;&gt;-->
-            <!--</a>-->
+            <a class="nav__item" data-toggle="tooltip" data-placement="right" title="音乐">
+                <i class="fa fa-music fa-fw fa-lg"></i>
+            </a>
+            <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景">
+                <i class="fa fa-refresh fa-fw fa-lg"></i>
+                <!--<i class="fa fa-photo fa-spin  fa-stack-1x fa-lg"></i>-->
+            </a>
         </nav>
         <nav class="nav__bottom">
-            <a v-if="isLogin" class="nav__item animated fadeIn" v-link="{ name: 'admin-myinfo',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="我的资料">
+
+
+            <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'admin-myinfo',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="我的资料">
                 <i class="fa fa-user fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item animated fadeIn" v-link="{ name: 'admin-tag',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="标签管理">
+            <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'admin-tag',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="标签管理">
                 <i class="fa fa-tag fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item animated fadeIn" v-link="{ name: 'admin-articleManager',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章管理">
+            <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'admin-articleManager',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章管理">
                 <i class="fa fa-list fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item animated fadeIn" v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章评论">
+            <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章评论">
                 <i class="fa fa-comments fa-lg"></i>
             </a>
-            <a v-if="isLogin" class="nav__item animated fadeIn" data-toggle="tooltip" data-placement="right" title="退出" @click="doLoginout()">
+
+
+            <!--<a class="nav__item animated fadeIn" id="changeBGImage" title="更改背景">-->
+            <!--<i class="fa fa-picture-o fa-lg"></i>-->
+            <!--</a>-->
+
+
+            <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" data-toggle="tooltip" data-placement="right" title="退出" @click="doLoginout()">
                 <i class="fa fa-sign-out fa-lg"></i>
             </a>
-            <a v-if="!isLogin" class="nav__item animated fadeIn" v-link="{ name: 'login',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="登录">
+            <a v-if="!isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'login',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="登录">
                 <i class="fa fa-sign-in fa-lg"></i>
             </a>
         </nav>
@@ -51,12 +63,14 @@
         position: fixed;
         left: 0;
         top: 0;
-        z-index: 10;
+        z-index: 1040;
         transition: all ease 400ms;
 
         background-color: rgba(0, 0, 0, .8);
         &:hover {
-            color: rgba(256, 256, 256, 0.8);
+            .a {
+                color: rgba(256, 256, 256, 0.8);
+            }
             background-color: rgba(0, 0, 0, 1);
             text-shadow: 0px 1px 1px #3b3b3b;
         }
@@ -82,7 +96,7 @@
             line-height: 45px;
             float: left;
             cursor: pointer;
-            .siteLogo{
+            .siteLogo {
                 display: inline-block;
                 height: 45px;
                 width: 45px;
@@ -92,7 +106,7 @@
             }
 
             i {
-                font-size: 24px;
+                font-size: 22px;
                 width: 45px;
                 height: 45px;
                 display: flex;
@@ -143,9 +157,10 @@
         }
     }
 
+
 </style>
 <script>
-//    import 'bootstrap/js/tooltip.js'
+    //    import 'bootstrap/js/tooltip.js'
     import {setLoginState} from '../vuex/actions'
     export default{
 //        data(){
@@ -154,25 +169,27 @@
 //            }
 //        }
         methods: {
-            doLoginout:function () {
+            doLoginout: function () {
                 $('#logout').modal()
-
-
-
+            },
+            clearSessionStorage(){
+                this.$sessionStorage.$reset();
             }
         },
         ready: function () {
             tooltip();
+
             function tooltip() {
                 let clientWidth = parseInt(document.documentElement.clientWidth);
-                if (clientWidth < 768) {
-                } else if (clientWidth < 991 && clientWidth > 768) {
+                if (clientWidth <= 768) {
+
+                } else if (clientWidth > 769 && clientWidth < 991) {
                     $('[data-toggle="tooltip"]').tooltip({
                         trigger: 'hover',
                         placement: 'bottom'
                     });
                     return true;
-                } else {
+                } else if (clientWidth > 991) {
                     $('[data-toggle="tooltip"]').tooltip({
                         trigger: 'hover',
                         placement: 'right'
@@ -180,6 +197,24 @@
                     return true;
                 }
             }
+
+
+//            let isPopoverShown = false;
+//            $('#changeBGImage').popover({
+//                trigger: 'click',
+//                placement: 'right',
+//                html: true,
+//                content: '' +
+//                '<div class="changeBackgroundImage">' +
+//                '<div class="imgBox" id="img_1">' +
+//                '<img src="" alt="">' +
+//                '</div>' +
+//                '<div class="imgBox">' +
+//                '<img src="" alt="">' +
+//                '</div>' +
+//                '</div>'
+//            });
+
         },
         vuex: {
             getters: {

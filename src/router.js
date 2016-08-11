@@ -31,39 +31,27 @@ export default function () {
         },
         '/login': {
             name: 'login',
-            component: function (resolve) {
-                require(['./views/blog.login.vue'], resolve)
-            },
+            component: require('./views/blog.login.vue')
         },
         '/blog': {
             name: 'blog',
-            component: function (resolve) {
-                require(['./views/blog.vue'], resolve)
-            },
+            component: require('./views/blog.vue'),
             subRoutes: {
                 '/art-list': {
                     name: 'artList',
-                    component: function (resolve) {
-                        require(['./views/blog.articleList.vue'], resolve)
-                    },
+                    component: require('./views/blog.articleList.vue'),
                 },
                 '/his-list': {
                     name: 'historyList',
-                    component: function (resolve) {
-                        require(['./views/blog.historyList.vue'], resolve)
-                    },
+                    component: require('./views/blog.historyList.vue'),
                 },
                 '/tag-list': {
                     name: 'tagList',
-                    component: function (resolve) {
-                        require(['./views/blog.tagList.vue'], resolve)
-                    },
+                    component: require('./views/blog.tagList.vue'),
                 },
                 '/article/:articleId': {
                     name: 'article',
-                    component: function (resolve) {
-                        require(['./views/blog.article.vue'], resolve)
-                    },
+                    component: require('./views/blog.article.vue'),
                 },
             }
         },

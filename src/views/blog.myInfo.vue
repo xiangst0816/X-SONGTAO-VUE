@@ -5,19 +5,20 @@
 <template>
     <div class="myinfo" :class="{ 'active': isShowMyWords}">
         <!--我的信息列表-->
+
         <section class="detail text-center">
             <section class="detail__1">
                 <section class="detail__imgBox" @click="setMyWordStatus">
-                    <img class="img-circle" :src="myinfo.img_url | addImgPrefix">
+                    <img class="img-circle" :src="myinfo.img_url | addImgPrefix"  v-err-src.literal="">
                 </section>
                 <section class="detail__info">
-                    <p class="name text-shadow"> {{myinfo.full_name}}</p>
-                    <p class="job text-shadow"> {{myinfo.position}}</p>
-                    <p class="address text-shadow">
-                        <span class="fa fa-map-marker"></span> <span>{{myinfo.address}}</span>
+                    <p class="name text-shadow"> {{myinfo.full_name || 'X-SONGTAO'}}</p>
+                    <p class="job text-shadow"> {{myinfo.position || '前端工程师&&Nodejs工程师'}}</p>
+                    <p class="address text-shadow hidden-xs">
+                        <span class="fa fa-map-marker"></span> <span>{{myinfo.address || '火星'}}</span>
                     </p>
-                    <p class="motto text-shadow">
-                        <i class="fa fa-coffee"></i> <span>{{myinfo.motto}}</span>
+                    <p class="motto text-shadow hidden-xs">
+                        <i class="fa fa-coffee"></i> <span>{{myinfo.motto || '今天想写点什么?'}}</span>
                     </p>
                 </section>
             </section>
@@ -29,13 +30,13 @@
                         <li><a v-link="{ name: 'tagList',activeClass: 'active'}">标签库</a></li>
                     </ul>
                 </section>
-                <section class="detail__sns">
+                <section class="detail__sns hidden-xs">
                     <a class="github text-shadow" href="https://github.com/xiangsongtao">
                         Follow
                     </a>
                     <ul class="SNS">
-                        <li @click="showSocialImg('http://xiangsongtao.com/web/img/qq-addme.jpg')" data-toggle="modal" data-target="#socialContact"><i class="fa fa-qq"></i></li>
-                        <li @click="showSocialImg('http://xiangsongtao.com/web/img/weixin-addme.jpg')"  data-toggle="modal" data-target="#socialContact"><i class="fa fa-weixin"></i></li>
+                        <li @click="showSocialImg('http://xiangsongtao.com/uploads/qq-addme.jpg')" data-toggle="modal" data-target="#socialContact"><i class="fa fa-qq"></i></li>
+                        <li @click="showSocialImg('http://xiangsongtao.com/uploads/weixin-addme.jpg')" data-toggle="modal" data-target="#socialContact"><i class="fa fa-weixin"></i></li>
                         <li><a href="http://weibo.com"><i class="fa fa-weibo"></i></a></li>
                         <li><a href="http://t.qq.com/hsiang-sootao"><i class="fa fa-tencent-weibo"></i></a></li>
                     </ul>
@@ -45,7 +46,7 @@
         <!--我的称述-->
         <section class="mywords visuallyhidden">
             <article>
-                {{{myinfo.personal_state}}}
+                {{{myinfo.personal_state || '这里主要记录我的感想感言。'}}}
             </article>
         </section>
     </div>
@@ -66,9 +67,12 @@
                     height: 160px;
                     margin: 0 auto;
                     img {
-                        width: 160px;
-                        height: 160px;
+                        width:100%;
+                        height:100%;
+                        max-width: 160px;
+                        max-height: 160px;
                         box-shadow: 0 3px 12px #000;
+                        background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNNDAwLjc2NCA0MDIuMDEybC0xOC4xNC0xMDguNTloLS4wNTNjLTIuNTE3LTE0LjY4NS0xMi42MTItMjkuODktMjkuOC0zNC43MDMtLjIxLS4wNi0uNDIzLS4xMDgtLjY0LS4xNGwtNDIuMzI0LTYuMzVjLS4yNi0uMDQtLjgxMi0uMDYtMS4wNzctLjA2LTIuNjc4IDAtNC45MzYgMS45OTYtNS4yNiA0LjY1NS0yLjI1NSAxOC4yOTgtMTcuMzg0IDMyLjY2NS0zNi44NSAzNi41OTVoLTIxLjI0M2MtMTkuNDctMy45My0zNC42LTE4LjI5NC0zNi44NDctMzYuNTk0LS4zMzMtMi43MzYtMi43OTctNC43OTQtNS4zOTctNC42NTItLjMxLS4wMTgtLjYxNi4wMDgtLjk0Mi4wNTdsLTQyLjMyIDYuMzUzYy0uMjE4LjAzLS40My4wNzgtLjY0My4xMzctMTcuMTg4IDQuODEtMjcuMjgzIDIwLjAxOC0yOS44IDM0LjdoLS4wNTRsLTE4LjE0IDEwOC41OTJDMTA3LjQ4IDQyMS43MzIgMTIyLjU5NyA0NDAgMTQyLjY3IDQ0MGgyMjYuNjZjMjAuMDczIDAgMzUuMTktMTguMjcgMzEuNDM0LTM3Ljk4OHoiIGZpbGw9IiNGRjRGMTkiLz48cGF0aCBkPSJNMjU2IDI0Ni44N2MtMTguNTIgMC0zNS4zMjItNy45NDctNDcuNzItMjAuNzktLjAwOCA3LjY5Ny0uMjg4IDE4LjgwNy0yLjMzIDI2LjkxNCAxLjM0LjgxOCAyLjM4IDIuMTYyIDIuNTggMy44MzMgMi42NDcgMjEuNTMgMjMuMDUyIDM3Ljc2IDQ3LjQ3IDM3Ljc2IDI0LjQxMyAwIDQ0LjgxOC0xNi4yMzQgNDcuNDctMzcuNzYuMjA1LTEuNjc0IDEuMjItMy4wMTUgMi41OC0zLjgzLTIuMDQtOC4xMDgtMi4zMjItMTkuMjItMi4zMy0yNi45MTgtMTIuMzk4IDEyLjg0Mi0yOS4yIDIwLjc5LTQ3LjcyIDIwLjc5eiIgZmlsbD0iI0ZEQzg4RSIvPjxwYXRoIGQ9Ik0zMDIuNjg0IDIyNy4wNTZDMjkwLjM5IDIzOS4zIDI3NC4wMjQgMjQ2Ljg3IDI1NiAyNDYuODdjLTE4LjUyIDAtMzUuMzIyLTcuOTQ3LTQ3LjcyLTIwLjc5LS4wMDggNy42OTctLjI4OCAxOC44MDctMi4zMyAyNi45MTQgMS4zNC44MTggMi4zOCAyLjE2MiAyLjU4IDMuODMzIDEuMTcgOS41MTYgNS44MTggMTcuOTkgMTIuNzQgMjQuNDkgMzEuOTI0LTQuNDk1IDY4LjE1Ni0zNi4wMTcgODEuNDE0LTU0LjI2eiIgZmlsbD0iI0ZGQjk4MCIvPjxwYXRoIGQ9Ik0zMDMuNzE3IDExNC4zMmgtOTAuMTMzYy0xNC42MTcgMC0yNi41MSAxMS44OTQtMjYuNTEgMjYuNTF2MzEuODEzYzAgNDAuOTMgMzAuOTIgNzQuMjI3IDY4LjkyNSA3NC4yMjdzNjguOTIzLTMzLjI5OCA2OC45MjMtNzQuMjI3VjEzNS41M2MwLTExLjY5NS05LjUxLTIxLjIxLTIxLjIwNy0yMS4yMXoiIGZpbGw9IiNGRkUxQjIiLz48cGF0aCBkPSJNMjkzLjExMyA1NmgtNjguOTI1Yy05Ljk3MiAwLTE4LjM1NSA2LjkxNy0yMC42MTIgMTYuMjA0LTE4LjI1IDIuMzItMzIuNDA3IDE3Ljk0Ni0zMi40MDcgMzYuODE2djI2LjUxYzAgMTMuNjY0IDUuOCAyNi40MSAxNS45MDQgMzUuNDd2LTMwLjE2OGMwLTE0LjYxNyAxMS44OTMtMjYuNTEgMjYuNTEtMjYuNTFoOTAuMTMzYzExLjY5NiAwIDIxLjIwOCA5LjUxNCAyMS4yMDggMjEuMjA4djM1LjQ2NGMxMC4xMDctOS4wNTcgMTUuOTA2LTIxLjgwNCAxNS45MDYtMzUuNDY0di0zMS44MTJjMC0yNi4zMS0yMS40MDUtNDcuNzE4LTQ3LjcyLTQ3LjcxOHoiIGZpbGw9IiM3RTU0NDkiLz48cGF0aCBkPSJNMzUyIDQ0MEgxNjBjLTQuNDE4IDAtOC0zLjU4Mi04LThWMzI4YzAtNC40MTggMy41ODItOCA4LThoMTkyYzQuNDE4IDAgOCAzLjU4MiA4IDh2MTA0YzAgNC40MTgtMy41ODIgOC04IDh6IiBmaWxsPSIjRDhEQ0UxIi8+PHBhdGggZD0iTTUwNCA0NTZIOGMtNC40MjIgMC04LTMuNTgyLTgtOHMzLjU3OC04IDgtOGg0OTZjNC40MjIgMCA4IDMuNTgyIDggOHMtMy41NzggOC04IDh6IiBmaWxsPSIjOUY2NDU5Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMzg0IiByPSIxNiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==) no-repeat center center/cover;
                     }
                 }
                 .detail__info {
@@ -167,8 +171,8 @@
                         display: block;
                         cursor: pointer;
                         text-align: center;
-                        a{
-                            color:inherit;
+                        a {
+                            color: inherit;
                         }
                         &:hover {
                             text-decoration: none;
@@ -188,8 +192,8 @@
                             margin: 0 8px;
                             cursor: pointer;
                             transition: .2s ease;
-                            a{
-                                color:inherit;
+                            a {
+                                color: inherit;
                             }
                             &:hover {
                                 color: #38b7ea;
@@ -228,17 +232,33 @@
                 }
             }
             @include media("<=desktop") {
-                height: 800px;
+                 height: 800px;
+                 position: relative;
+
+                 .detail {
+                 }
+                 .mywords {
+                     height: 230px;
+                     width: 100%;
+                     overflow: inherit;
+                     opacity: 1;
+                     transition: height .5s ease, opacity .2s ease .5s;
+                 }
+             }
+            @include media("<=phone") {
+                height: auto;
                 position: relative;
 
                 .detail {
                 }
                 .mywords {
-                    height: 300px;
+                    display: none;
+                    height:auto;
                     width: 100%;
+                    padding:0 20px;
                     overflow: inherit;
                     opacity: 1;
-                    transition: height .5s ease, opacity .2s ease .5s;
+                    transition: none;
                 }
             }
         }
@@ -384,6 +404,35 @@
 
         }
     }
+
+    @include media("<=phone") {
+        .myinfo {
+            .detail {
+                width: 100%;
+                /*overflow: hidden;*/
+                .detail__1 {
+                    flex-direction: column;
+                    .detail__imgBox {
+                        width: 120px;
+                        height: 120px;
+                    }
+                    .detail__info{
+                        .name{
+                            margin:15px 0;
+                            font-size: 28px;
+                        }
+                        .job{
+                            margin:15px 0;
+                            font-size: 18px;
+                        }
+                    }
+                }
+                .detail__2{
+                    margin-top:0;
+                }
+            }
+        }
+    }
 </style>
 <script>
 
@@ -392,6 +441,44 @@
     import {addImgPrefix} from "../utils/filters.js";
     import {GetMyInfo} from '../api/api_myinfo'
     Vue.filter('addImgPrefix', addImgPrefix);
+
+    Vue.directive('err-src', {
+        bind: function () {
+            let scope = this;
+            let element = $(scope.el);
+            let errSrc = scope.expression;
+            element.css({"opacity": 0});
+            var emptyTransparent = "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==";
+            //如果失败
+            element.on('error', function () {
+                if (!!errSrc) {
+                    element.attr('src', errSrc);
+                }else{
+                    element.attr('src', emptyTransparent);
+                }
+                element.css({"opacity": 1,"transition":"opacity ease 300ms"});
+                element.off()
+            });
+            //如果成功
+            element.on('load', function () {
+                element.css({"opacity": 1,"transition":"opacity ease 300ms"});
+            });
+
+
+
+            // 准备工作
+            // 例如，添加事件处理器或只需要运行一次的高耗任务
+        },
+        update: function (newValue, oldValue) {
+            // 值更新时的工作
+            // 也会以初始值为参数调用一次
+        },
+        unbind: function () {
+            // 清理工作
+            // 例如，删除 bind() 添加的事件监听器
+        }
+    })
+
     module.exports = {
         replace: true,
         data: function () {

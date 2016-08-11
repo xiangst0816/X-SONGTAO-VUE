@@ -10,11 +10,19 @@ import {doError} from "../api/api_doError";
 //获取文章详情-for 前端 渲染后的详情
 export const GetArticleById = function (articleId) {
     return new Promise(function (resolve, reject) {
-        Vue.http.get(API.getArticleById.replace('id', articleId)).then((response) => {
+        let url = API.getArticleById.replace('id', articleId);
+        let tmp = Vue.$sessionStorage[url];
+        if (!!tmp) {
+            console.log("文章详情"+articleId+"数据使用缓存!")
+            resolve(tmp);
+            return;
+        }
+        Vue.http.get(url).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
+                Vue.$sessionStorage.$set(url,result.data);
             } else {
                 reject(parseInt(result.code));
             }
@@ -26,11 +34,18 @@ export const GetArticleById = function (articleId) {
 //获取文章列表-for 最近更新
 export const GetArticleListForFrontEnd = function (url) {
     return new Promise(function (resolve, reject) {
+        let tmp = Vue.$sessionStorage[url];
+        if (!!tmp) {
+            console.log("文章列表数据使用缓存!")
+            resolve(tmp);
+            return;
+        }
         Vue.http.get(url).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
+                Vue.$sessionStorage.$set(url,result.data);
             } else {
                 reject(parseInt(result.code));
             }
@@ -43,11 +58,19 @@ export const GetArticleListForFrontEnd = function (url) {
 //获取文章历史记录-for 时光机
 export const GetHistoryList = function () {
     return new Promise(function (resolve, reject) {
-        Vue.http.get(API.getArticleHistoryWithStructure).then((response) => {
+        let url = API.getArticleHistoryWithStructure;
+        let tmp = Vue.$sessionStorage[url];
+        if (!!tmp) {
+            console.log("时光机数据使用缓存!")
+            resolve(tmp);
+            return;
+        }
+        Vue.http.get(url).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
+                Vue.$sessionStorage.$set(url,result.data);
             } else {
                 reject(parseInt(result.code))
             }

@@ -57,3 +57,18 @@
   }
 
 }
+
+@include media("<=phone") {
+
+  .cataBox{
+    .cataBox__title{
+      .main{
+        font-size: 30px;
+      }
+      .tag{
+        top: 0;
+      }
+    }
+  }
+
+}

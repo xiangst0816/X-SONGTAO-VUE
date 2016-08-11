@@ -59,11 +59,12 @@
                                 <button class="btn btn-info" @click="publishBtn()" v-bind:disabled="!article.title || !content_raw">
                                     <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-rocket'}[isPublishing]"></i> 发布
                                 </button>
+
+                                <button @click="previewBtn()" class="btn btn-default showPreview hidden-sm">
+                                    <i class="fa fa-fw" :class="{true:'fa-angle-double-left',false:'fa-angle-double-right'}[isShowBigAdmin]"></i> 预览
+                                </button>
                                 <button class="btn btn-default" @click="draftBtn()" v-bind:disabled="!article.title || !content_raw">
                                     <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-save'}[isDrafting]"></i> 草稿
-                                </button>
-                                <button @click="previewBtn()" class="btn btn-default showPreview">
-                                    <i class="fa fa-fw" :class="{true:'fa-angle-double-left',false:'fa-angle-double-right'}[isShowBigAdmin]"></i> 预览
                                 </button>
                             </div>
                         </div>
@@ -144,26 +145,72 @@
                                 label {
                                     color: #fff;
                                     margin-right: 5px;
+                                    margin-bottom:0;
                                 }
                             }
                             //标题
                             .titleBox {
-                                white-space: nowrap;
-                                overflow: hidden;
+                                /*white-space: nowrap;*/
+                                /*overflow: hidden;*/
                                 width: 100%;
+                                display: flex;
+                                justify-content:center;
+                                align-items: center;
                                 input {
-                                    width: 653px;
+                                    flex:1;
+                                    /*width: 653px;*/
                                 }
                             }
                             //发布时间
                             .publishTime {
                                 width: 50%;
-                                input {
-                                    width: 240px;
+                                display: flex;
+                                justify-content:flex-start;
+                                align-items: center;
+                                .input-group.date {
+                                    display: flex;
+                                    flex:1;
+                                    justify-content: center;
+                                    /*align-items: center;*/
+                                    margin-right:10px;
+                                    .input-group-addon{
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+                                }
+                            }
+                            //上传图片
+                            .imgUploadBox {
+                                width: 50%;
+                                display: flex;
+                                justify-content:flex-end;
+                                align-items: center;
+                                .input-group {
+                                    display: flex;
+                                    flex:1;
+                                    justify-content: center;
+                                    .input-group-addon{
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+                                }
+
+                                #imgUpload {
+                                    position: absolute;
+                                    width: 100%;
+                                    height: 100%;
+                                    left: 0;
+                                    top: 0;
+                                    opacity: 0;
                                 }
                             }
                             //标签组
                             .tagsBox {
+                                display: flex;
+                                justify-content:center;
+                                align-items: center;
                                 .multiselect {
                                     position: relative;
                                     border: none;
@@ -183,24 +230,7 @@
                                     }
                                 }
                             }
-                            //上传图片
-                            .imgUploadBox {
-                                width: 50%;
-                                input {
-                                    width: 215px;
-                                }
 
-                                #imgUpload {
-                                    position: absolute;
-                                    width: 100%;
-                                    height: 100%;
-                                    left: 0;
-                                    top: 0;
-                                    opacity: 0;
-
-                                }
-
-                            }
                             .input-group-addon {
                                 cursor: pointer;
                                 position: relative;
@@ -395,7 +425,7 @@
     });
     import hljs from "highlight.js";
     import moment from "moment";
-    import Multiselect from '../plugin/vue-multiselect/lib/Multiselect.vue'
+    import Multiselect from 'vue-multiselect'
     import API from "../config"
     import Dropzone from '../plugin/dropzone'
     import Clipboard from "clipboard"

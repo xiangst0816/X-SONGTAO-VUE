@@ -4,7 +4,7 @@
 */
 <template>
     <div class="historyList" transition="blogTrans">
-        <div class="cataBox card-shadow" v-for="cataBox of historyList">
+        <div class="cataBox card-shadow  animated fadeIn" v-for="cataBox of historyList">
             <h3 class="cataBox__title">
                 <!--<i class="fa fa-calendar"></i>-->
                 <!--&ensp;-->
@@ -19,18 +19,19 @@
                     <ul class="itemBox__content">
                         <li class="itemBox__content__item" v-for="article in monthBox.data" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
                             <span class="itemBox__content__item-title" ng-bind="article.title">{{article.title}}</span>&ensp;
-                            <span> <span>(阅读数:</span><span ng-bind="article.read_num">{{article.read_num}}</span>
+                            <span class="hidden-xs"> <span>(阅读数:</span><span ng-bind="article.read_num">{{article.read_num}}</span>
                            <span> ,评论数:</span><span ng-bind="article.comment_num">{{article.comment_num}}</span><span>)</span></span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <section class="copyright">
+        <section class="copyright animated fadeIn" v-if="historyList.length!==0">
             <copyright></copyright>
         </section>
+        <no-data v-if="!hasData && !isLoading"></no-data>
+        <is-loading v-if="isLoading"></is-loading>
     </div>
-    <no-data v-if="!hasData && !isLoading"></no-data>
 </template>
 <style scoped lang="scss">
     //base
@@ -44,6 +45,7 @@
             @include display-flex;
             @include justify-content(flex-start);
             @include align-items(center);
+            flex-direction: row;
             margin: 0 0 15px 0;
             padding: 26px 10px;
             border: 1px solid transparent;
@@ -60,7 +62,6 @@
                 height: 100%;
                 text-align: right;
                 p {
-                    color: $base-word-color;
                     text-shadow: 1px 1px 0px #ffffff;
                     font-size: 24px;
                     font-weight: 500;
@@ -128,6 +129,39 @@
         }
     }
 
+    @include media("<=tablet") {
+        .historyList {
+            max-width: 780px;
+            width: 100%;
+        }
+    }
+
+    @include media("<=phone") {
+        .historyList {
+            .itemBox {
+                flex-direction: column;
+                margin: 0;
+                .itemBox__name {
+                    width: 100%;
+                    font-size: 25px;
+                    border-bottom: 1px solid #ccc;
+                    p{
+                        padding-right: 10px;
+                    }
+                }
+                .itemBox__content {
+                    padding-left: 32px;
+                    width: 100%;
+                    border-left: none;
+                    .itemBox__content__item {
+                        margin:  0;
+                        font-size:14px;
+                    }
+                }
+            }
+        }
+
+    }
 </style>
 <script>
     import Vue from "vue"
@@ -135,7 +169,7 @@
     import {GetHistoryList} from "../api/api_article"
     import copyright from '../components/copyright.vue'
     import {num2MMM} from "../utils/filters.js";
-
+    import isLoading from "../components/isLoading.vue"
     Vue.filter('num2MMM', num2MMM);
 
     export default{
@@ -157,12 +191,12 @@
             }, ()=> {
                 scope.hasData = false;
             }).then(function () {
-                scope.historyList.length===0? (scope.hasData = false) : (scope.hasData = true);
+                scope.historyList.length === 0 ? (scope.hasData = false) : (scope.hasData = true);
                 scope.isLoading = false;
             });
         },
         components: {
-            noData,copyright
+            noData, copyright,isLoading
         }
     }
 </script>

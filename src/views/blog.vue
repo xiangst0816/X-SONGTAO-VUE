@@ -8,27 +8,32 @@
     <div class="blog animated fadeIn">
         <my-info></my-info>
         <!-- 路由外链 -->
-        <div class="blog__content" v-show="!isShowMyWords" transition="isShowMyWords">
+        <div class="blog__content" :class={'isShowMyWords':isShowMyWords}>
             <div class="blog__content--inner">
                 <router-view></router-view>
             </div>
         </div>
 
     </div>
+
 </template>
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
 
     .blog {
+        position: relative;
         .blog__content {
             display: flex;
             justify-content: center;
             align-items: flex-start;
             box-sizing: content-box;
+            transition: opacity ease 500ms;
+            opacity:1;
 
             .blog__content--inner {
-                width: 100%;
+                max-width: 780px;
+                width:100%;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
@@ -45,18 +50,34 @@
             }
         }
     }
+    @include media("<=tablet") {
+        .blog{
+            .blog__content{
+                padding-left: 15px;
+                padding-right: 15px;
+                .blog__content--inner{
 
-    /* 必需 */
-    .isShowMyWords-transition {
-        transition: all .5s ease;
-        opacity: 1;
+                }
+            }
+        }
+    }
+    @include media("<=phone") {
+        .blog{
+            .blog__content{
+                padding-left: 10px;
+                padding-right: 10px;
+                .blog__content--inner{
+
+                }
+            }
+        }
+    }
+    @include media(">desktop") {
+        .isShowMyWords{
+            opacity: 0!important;
+        }
     }
 
-    /* .expand-enter 定义进入的开始状态 */
-    /* .expand-leave 定义离开的结束状态 */
-    .isShowMyWords-enter, .isShowMyWords-leave {
-        opacity: 0;
-    }
 
     @include media(">desktop") {
         .blog {

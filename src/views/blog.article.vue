@@ -7,7 +7,7 @@
         <!--文章-->
         <div class="paper" :class="{'loading':isLoading}">
             <section class="paper__header">
-                <ol class="breadcrumb">
+                <ol class="breadcrumb  hidden-xs">
                     <li><a v-link="{ name: 'index'}">首页</a></li>
                     <li><a v-link="{ name: 'blog'}">博客</a></li>
                     <li class="active">文章</li>
@@ -40,10 +40,11 @@
                 </div>
                 <!--page-->
             </section>
+
             <!--the end-->
         </div>
         <!--评论-->
-        <section class="commentbox">
+        <section class="commentbox hidden-xs">
             <!--标题-->
             <div class="commentbox__header">
                 <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{article.comment_num}}</span></h3>
@@ -130,7 +131,6 @@
                 }
 
             }
-
             .paper__header {
                 border: 1px solid transparent;
                 padding: 35px 35px 0;
@@ -383,6 +383,51 @@
         }
     }
 
+    @include media("<=tablet") {
+        .article-detail {
+            max-width: 780px;
+            min-width: inherit;
+            width: auto;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+    }
+
+    @include media("<=phone") {
+        .article-detail {
+            margin-left: 10px;
+            margin-right: 10px;
+            .paper {
+                .paper__header {
+                    padding: 30px 10px 10px;
+                    h1 {
+                        font-size:24px;
+                        font-weight: 500;
+                        line-height:100%;
+                        margin:0;
+                        min-height:inherit;
+
+                    }
+                }
+                .paper__info{
+                    display: flex;
+                    justify-content:flex-end;
+                    align-items:center;
+                    padding: 8px 0px;
+                    .paper__info--span{
+                        margin:0 10px;
+                        font-size:14px;
+                    }
+                }
+                .paper__content{
+                    padding: 20px 10px 10px;
+                    .paper__content--inner{
+                        font-size:14px!important;
+                    }
+                }
+            }
+        }
+    }
 </style>
 <script>
     //"57826e945c21c1dd04b4ad4d"
@@ -428,7 +473,6 @@
              * */
             $(window).scrollTop(0);// 滚到顶部
             let articleId = this.$route.params.articleId;
-
 
 
             /**
@@ -506,7 +550,7 @@
                 this.$broadcast('Submitting');
                 SendComment(params).then(()=> {
                     console.log('comment success');
-                    this.toggle =!this.toggle;
+                    this.toggle = !this.toggle;
                     this.$broadcast('SubmitSuccess');
                 }, (error)=> {
                     console.log(error)

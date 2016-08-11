@@ -14,7 +14,7 @@
                 <div class="form-horizontal"  v-on:keydown.enter="loginBtn()">
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input v-on:keydown="errText=''" class="form-control" id="username" type="text" name="username" v-model="username" placeholder="用户名">
+                            <input autofocus v-on:keydown="errText=''" class="form-control" id="username" type="text" name="username" v-model="username" placeholder="用户名">
                         </div>
                     </div>
                     <div class="form-group">

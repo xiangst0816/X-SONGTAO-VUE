@@ -83,6 +83,21 @@
         }
     }
 
+
+    @include media("<=tablet") {
+        .adminBox{
+            padding-top:10px;
+            .adminBox-content{
+                max-width:780px;
+                min-width: inherit;
+                width: auto;
+                margin-left:15px;
+                margin-right:15px;
+            }
+        }
+    }
+
+
 </style>
 <script>
     import copyright from "../components/copyright.vue"

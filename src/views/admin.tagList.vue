@@ -88,8 +88,7 @@
                 <div class="modal-footer">
                     <span class="submitText">{{submitText}}</span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button v-if="!newTag.name||!newTag.catalogue_name" disabled="disabled" type="button" class="btn btn-success">保存</button>
-                    <button v-else @click="confirmSaveNewTagBtn()"  type="button" class="btn btn-success">保存</button>
+                    <button v-bind:disabled="!newTag.name||!newTag.catalogue_name"  @click="confirmSaveNewTagBtn()" disabled="disabled" type="button" class="btn btn-success">保存</button>
                 </div>
             </div>
         </div>
@@ -118,8 +117,7 @@
                 <div class="modal-footer">
                     <span class="submitText">{{submitText}}</span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button v-if="!editTag.name||!editTag.catalogue_name" disabled="disabled" type="button" class="btn btn-success">修改</button>
-                    <button v-else @click="confirmEditTagBtn()" type="button" class="btn btn-success">修改</button>
+                    <button v-bind:disabled="!editTag.name||!editTag.catalogue_name" @click="confirmEditTagBtn()" type="button" class="btn btn-success">修改</button>
                 </div>
             </div>
         </div>

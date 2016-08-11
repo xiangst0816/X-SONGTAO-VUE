@@ -5,17 +5,25 @@
  */
 
 
-import API from "../config.js"
+import API from "../config.js";
 import Vue from "vue";
 import {doError} from "../api/api_doError";
 
 export const GetMyInfo = function () {
     return new Promise(function (resolve, reject) {
-        Vue.http.get(API.getMyInfo).then((response) => {
+        let url = API.getMyInfo;
+        let tmp = Vue.$sessionStorage[url];
+        if (!!tmp) {
+            console.log("个人数据使用缓存!")
+            resolve(tmp);
+            return;
+        }
+        Vue.http.get(url).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {
                 resolve(result.data);
+                Vue.$sessionStorage.$set(url,result.data);
             } else {
                 reject(parseInt(result.code));
             }
@@ -27,7 +35,7 @@ export const GetMyInfo = function () {
 
 export const GetMyInfoWithOriginal = function () {
     return new Promise(function (resolve, reject) {
-        Vue.http.post(API.getMyInfoWithOriginal,{
+        Vue.http.post(API.getMyInfoWithOriginal, {
             _id: API.MY_INFO_ID
         }).then((response) => {
             // success callback
@@ -46,7 +54,7 @@ export const GetMyInfoWithOriginal = function () {
 
 export const PostMyInfo = function (params) {
     return new Promise(function (resolve, reject) {
-        Vue.http.put(API.postMyInfo,params).then((response) => {
+        Vue.http.put(API.postMyInfo, params).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {

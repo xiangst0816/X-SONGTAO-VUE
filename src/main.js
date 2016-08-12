@@ -19,6 +19,13 @@ import blogNav from "./views/blog.nav";
 
 
 import "font-awesome/css/font-awesome.min.css";
+import "./theme/codeHighLight.css";
+import "./theme/markdown.scss";
+import "./theme/util.scss";
+import "./theme/ui-modify.scss";
+import "./theme/grid.scss";
+
+
 
 /**
  * 精简版的scss,只选用需要的部分

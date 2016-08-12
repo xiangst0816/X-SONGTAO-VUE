@@ -38,7 +38,7 @@
     @import "../theme/theme.scss";
 
     .historyList {
-        @import "../theme/cataBox";
+        @import "../theme/cataBox.scss";
         width: 780px;
         margin: 0 auto;
         .itemBox {
@@ -145,8 +145,10 @@
                     width: 100%;
                     font-size: 25px;
                     border-bottom: 1px solid #ccc;
-                    p{
+                    p {
                         padding-right: 10px;
+                        line-height: 100%;
+                        margin-bottom: 2px;
                     }
                 }
                 .itemBox__content {
@@ -154,8 +156,8 @@
                     width: 100%;
                     border-left: none;
                     .itemBox__content__item {
-                        margin:  0;
-                        font-size:14px;
+                        margin: 0;
+                        font-size: 14px;
                     }
                 }
             }
@@ -196,7 +198,7 @@
             });
         },
         components: {
-            noData, copyright,isLoading
+            noData, copyright, isLoading
         }
     }
 </script>

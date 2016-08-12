@@ -92,7 +92,7 @@
                 }
             }
         }
-        @import "../theme/cataBox";
+        @import "../theme/cataBox.scss";
         width: 780px;
         margin: 0 auto;
 

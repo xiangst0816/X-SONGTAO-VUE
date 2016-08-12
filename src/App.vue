@@ -45,8 +45,6 @@
     Vue.http.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
 
-
-
     import {setLoginState} from './vuex/actions'
 
     module.exports = {

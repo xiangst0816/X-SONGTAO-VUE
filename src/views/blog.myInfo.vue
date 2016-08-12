@@ -9,7 +9,7 @@
         <section class="detail text-center">
             <section class="detail__1">
                 <section class="detail__imgBox" @click="setMyWordStatus">
-                    <img class="img-circle" :src="myinfo.img_url | addImgPrefix"  v-err-src.literal="">
+                    <img class="img-circle" :src="myinfo.img_url | addImgPrefix" v-err-src.literal="">
                 </section>
                 <section class="detail__info">
                     <p class="name text-shadow"> {{myinfo.full_name || 'X-SONGTAO'}}</p>
@@ -55,7 +55,10 @@
 <style scoped lang="scss">
     @import "../theme/theme.scss";
 
+    $animationTime_1: 500ms;
+    $animationTime_2: 200ms;
     .myinfo {
+        z-index: 99;
 
         background-color: rgba(0, 0, 0, 0.5);
         color: #fff;
@@ -66,13 +69,14 @@
                     width: 160px;
                     height: 160px;
                     margin: 0 auto;
+                    cursor: pointer;
                     img {
-                        width:100%;
-                        height:100%;
+                        width: 100%;
+                        height: 100%;
                         max-width: 160px;
                         max-height: 160px;
                         box-shadow: 0 3px 12px #000;
-                        background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNNDAwLjc2NCA0MDIuMDEybC0xOC4xNC0xMDguNTloLS4wNTNjLTIuNTE3LTE0LjY4NS0xMi42MTItMjkuODktMjkuOC0zNC43MDMtLjIxLS4wNi0uNDIzLS4xMDgtLjY0LS4xNGwtNDIuMzI0LTYuMzVjLS4yNi0uMDQtLjgxMi0uMDYtMS4wNzctLjA2LTIuNjc4IDAtNC45MzYgMS45OTYtNS4yNiA0LjY1NS0yLjI1NSAxOC4yOTgtMTcuMzg0IDMyLjY2NS0zNi44NSAzNi41OTVoLTIxLjI0M2MtMTkuNDctMy45My0zNC42LTE4LjI5NC0zNi44NDctMzYuNTk0LS4zMzMtMi43MzYtMi43OTctNC43OTQtNS4zOTctNC42NTItLjMxLS4wMTgtLjYxNi4wMDgtLjk0Mi4wNTdsLTQyLjMyIDYuMzUzYy0uMjE4LjAzLS40My4wNzgtLjY0My4xMzctMTcuMTg4IDQuODEtMjcuMjgzIDIwLjAxOC0yOS44IDM0LjdoLS4wNTRsLTE4LjE0IDEwOC41OTJDMTA3LjQ4IDQyMS43MzIgMTIyLjU5NyA0NDAgMTQyLjY3IDQ0MGgyMjYuNjZjMjAuMDczIDAgMzUuMTktMTguMjcgMzEuNDM0LTM3Ljk4OHoiIGZpbGw9IiNGRjRGMTkiLz48cGF0aCBkPSJNMjU2IDI0Ni44N2MtMTguNTIgMC0zNS4zMjItNy45NDctNDcuNzItMjAuNzktLjAwOCA3LjY5Ny0uMjg4IDE4LjgwNy0yLjMzIDI2LjkxNCAxLjM0LjgxOCAyLjM4IDIuMTYyIDIuNTggMy44MzMgMi42NDcgMjEuNTMgMjMuMDUyIDM3Ljc2IDQ3LjQ3IDM3Ljc2IDI0LjQxMyAwIDQ0LjgxOC0xNi4yMzQgNDcuNDctMzcuNzYuMjA1LTEuNjc0IDEuMjItMy4wMTUgMi41OC0zLjgzLTIuMDQtOC4xMDgtMi4zMjItMTkuMjItMi4zMy0yNi45MTgtMTIuMzk4IDEyLjg0Mi0yOS4yIDIwLjc5LTQ3LjcyIDIwLjc5eiIgZmlsbD0iI0ZEQzg4RSIvPjxwYXRoIGQ9Ik0zMDIuNjg0IDIyNy4wNTZDMjkwLjM5IDIzOS4zIDI3NC4wMjQgMjQ2Ljg3IDI1NiAyNDYuODdjLTE4LjUyIDAtMzUuMzIyLTcuOTQ3LTQ3LjcyLTIwLjc5LS4wMDggNy42OTctLjI4OCAxOC44MDctMi4zMyAyNi45MTQgMS4zNC44MTggMi4zOCAyLjE2MiAyLjU4IDMuODMzIDEuMTcgOS41MTYgNS44MTggMTcuOTkgMTIuNzQgMjQuNDkgMzEuOTI0LTQuNDk1IDY4LjE1Ni0zNi4wMTcgODEuNDE0LTU0LjI2eiIgZmlsbD0iI0ZGQjk4MCIvPjxwYXRoIGQ9Ik0zMDMuNzE3IDExNC4zMmgtOTAuMTMzYy0xNC42MTcgMC0yNi41MSAxMS44OTQtMjYuNTEgMjYuNTF2MzEuODEzYzAgNDAuOTMgMzAuOTIgNzQuMjI3IDY4LjkyNSA3NC4yMjdzNjguOTIzLTMzLjI5OCA2OC45MjMtNzQuMjI3VjEzNS41M2MwLTExLjY5NS05LjUxLTIxLjIxLTIxLjIwNy0yMS4yMXoiIGZpbGw9IiNGRkUxQjIiLz48cGF0aCBkPSJNMjkzLjExMyA1NmgtNjguOTI1Yy05Ljk3MiAwLTE4LjM1NSA2LjkxNy0yMC42MTIgMTYuMjA0LTE4LjI1IDIuMzItMzIuNDA3IDE3Ljk0Ni0zMi40MDcgMzYuODE2djI2LjUxYzAgMTMuNjY0IDUuOCAyNi40MSAxNS45MDQgMzUuNDd2LTMwLjE2OGMwLTE0LjYxNyAxMS44OTMtMjYuNTEgMjYuNTEtMjYuNTFoOTAuMTMzYzExLjY5NiAwIDIxLjIwOCA5LjUxNCAyMS4yMDggMjEuMjA4djM1LjQ2NGMxMC4xMDctOS4wNTcgMTUuOTA2LTIxLjgwNCAxNS45MDYtMzUuNDY0di0zMS44MTJjMC0yNi4zMS0yMS40MDUtNDcuNzE4LTQ3LjcyLTQ3LjcxOHoiIGZpbGw9IiM3RTU0NDkiLz48cGF0aCBkPSJNMzUyIDQ0MEgxNjBjLTQuNDE4IDAtOC0zLjU4Mi04LThWMzI4YzAtNC40MTggMy41ODItOCA4LThoMTkyYzQuNDE4IDAgOCAzLjU4MiA4IDh2MTA0YzAgNC40MTgtMy41ODIgOC04IDh6IiBmaWxsPSIjRDhEQ0UxIi8+PHBhdGggZD0iTTUwNCA0NTZIOGMtNC40MjIgMC04LTMuNTgyLTgtOHMzLjU3OC04IDgtOGg0OTZjNC40MjIgMCA4IDMuNTgyIDggOHMtMy41NzggOC04IDh6IiBmaWxsPSIjOUY2NDU5Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMzg0IiByPSIxNiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==) no-repeat center center/cover;
+                        background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNNDAwLjc2NCA0MDIuMDEybC0xOC4xNC0xMDguNTloLS4wNTNjLTIuNTE3LTE0LjY4NS0xMi42MTItMjkuODktMjkuOC0zNC43MDMtLjIxLS4wNi0uNDIzLS4xMDgtLjY0LS4xNGwtNDIuMzI0LTYuMzVjLS4yNi0uMDQtLjgxMi0uMDYtMS4wNzctLjA2LTIuNjc4IDAtNC45MzYgMS45OTYtNS4yNiA0LjY1NS0yLjI1NSAxOC4yOTgtMTcuMzg0IDMyLjY2NS0zNi44NSAzNi41OTVoLTIxLjI0M2MtMTkuNDctMy45My0zNC42LTE4LjI5NC0zNi44NDctMzYuNTk0LS4zMzMtMi43MzYtMi43OTctNC43OTQtNS4zOTctNC42NTItLjMxLS4wMTgtLjYxNi4wMDgtLjk0Mi4wNTdsLTQyLjMyIDYuMzUzYy0uMjE4LjAzLS40My4wNzgtLjY0My4xMzctMTcuMTg4IDQuODEtMjcuMjgzIDIwLjAxOC0yOS44IDM0LjdoLS4wNTRsLTE4LjE0IDEwOC41OTJDMTA3LjQ4IDQyMS43MzIgMTIyLjU5NyA0NDAgMTQyLjY3IDQ0MGgyMjYuNjZjMjAuMDczIDAgMzUuMTktMTguMjcgMzEuNDM0LTM3Ljk4OHoiIGZpbGw9IiNGRjRGMTkiLz48cGF0aCBkPSJNMjU2IDI0Ni44N2MtMTguNTIgMC0zNS4zMjItNy45NDctNDcuNzItMjAuNzktLjAwOCA3LjY5Ny0uMjg4IDE4LjgwNy0yLjMzIDI2LjkxNCAxLjM0LjgxOCAyLjM4IDIuMTYyIDIuNTggMy44MzMgMi42NDcgMjEuNTMgMjMuMDUyIDM3Ljc2IDQ3LjQ3IDM3Ljc2IDI0LjQxMyAwIDQ0LjgxOC0xNi4yMzQgNDcuNDctMzcuNzYuMjA1LTEuNjc0IDEuMjItMy4wMTUgMi41OC0zLjgzLTIuMDQtOC4xMDgtMi4zMjItMTkuMjItMi4zMy0yNi45MTgtMTIuMzk4IDEyLjg0Mi0yOS4yIDIwLjc5LTQ3LjcyIDIwLjc5eiIgZmlsbD0iI0ZEQzg4RSIvPjxwYXRoIGQ9Ik0zMDIuNjg0IDIyNy4wNTZDMjkwLjM5IDIzOS4zIDI3NC4wMjQgMjQ2Ljg3IDI1NiAyNDYuODdjLTE4LjUyIDAtMzUuMzIyLTcuOTQ3LTQ3LjcyLTIwLjc5LS4wMDggNy42OTctLjI4OCAxOC44MDctMi4zMyAyNi45MTQgMS4zNC44MTggMi4zOCAyLjE2MiAyLjU4IDMuODMzIDEuMTcgOS41MTYgNS44MTggMTcuOTkgMTIuNzQgMjQuNDkgMzEuOTI0LTQuNDk1IDY4LjE1Ni0zNi4wMTcgODEuNDE0LTU0LjI2eiIgZmlsbD0iI0ZGQjk4MCIvPjxwYXRoIGQ9Ik0zMDMuNzE3IDExNC4zMmgtOTAuMTMzYy0xNC42MTcgMC0yNi41MSAxMS44OTQtMjYuNTEgMjYuNTF2MzEuODEzYzAgNDAuOTMgMzAuOTIgNzQuMjI3IDY4LjkyNSA3NC4yMjdzNjguOTIzLTMzLjI5OCA2OC45MjMtNzQuMjI3VjEzNS41M2MwLTExLjY5NS05LjUxLTIxLjIxLTIxLjIwNy0yMS4yMXoiIGZpbGw9IiNGRkUxQjIiLz48cGF0aCBkPSJNMjkzLjExMyA1NmgtNjguOTI1Yy05Ljk3MiAwLTE4LjM1NSA2LjkxNy0yMC42MTIgMTYuMjA0LTE4LjI1IDIuMzItMzIuNDA3IDE3Ljk0Ni0zMi40MDcgMzYuODE2djI2LjUxYzAgMTMuNjY0IDUuOCAyNi40MSAxNS45MDQgMzUuNDd2LTMwLjE2OGMwLTE0LjYxNyAxMS44OTMtMjYuNTEgMjYuNTEtMjYuNTFoOTAuMTMzYzExLjY5NiAwIDIxLjIwOCA5LjUxNCAyMS4yMDggMjEuMjA4djM1LjQ2NGMxMC4xMDctOS4wNTcgMTUuOTA2LTIxLjgwNCAxNS45MDYtMzUuNDY0di0zMS44MTJjMC0yNi4zMS0yMS40MDUtNDcuNzE4LTQ3LjcyLTQ3LjcxOHoiIGZpbGw9IiM3RTU0NDkiLz48cGF0aCBkPSJNMzUyIDQ0MEgxNjBjLTQuNDE4IDAtOC0zLjU4Mi04LThWMzI4YzAtNC40MTggMy41ODItOCA4LThoMTkyYzQuNDE4IDAgOCAzLjU4MiA4IDh2MTA0YzAgNC40MTgtMy41ODIgOC04IDh6IiBmaWxsPSIjRDhEQ0UxIi8+PHBhdGggZD0iTTUwNCA0NTZIOGMtNC40MjIgMC04LTMuNTgyLTgtOHMzLjU3OC04IDgtOGg0OTZjNC40MjIgMCA4IDMuNTgyIDggOHMtMy41NzggOC04IDh6IiBmaWxsPSIjOUY2NDU5Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMzg0IiByPSIxNiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==) no-repeat center center/cover;
                     }
                 }
                 .detail__info {
@@ -221,45 +225,56 @@
             box-sizing: border-box;
         }
         &.active {
-
             @include media(">desktop") {
                 width: 100%;
                 .mywords {
                     width: 720px;
                     opacity: 1;
                     overflow: inherit;
-                    transition: width .5s ease, opacity .2s ease .5s;
+                    transition: width $animationTime_1 ease, opacity $animationTime_2 ease $animationTime_1;
                 }
             }
             @include media("<=desktop") {
-                 height: 800px;
-                 position: relative;
 
-                 .detail {
-                 }
-                 .mywords {
-                     height: 230px;
-                     width: 100%;
-                     overflow: inherit;
-                     opacity: 1;
-                     transition: height .5s ease, opacity .2s ease .5s;
-                 }
-             }
-            @include media("<=phone") {
-                height: auto;
-                position: relative;
-
-                .detail {
-                }
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                padding-right: 45px;
+                transition: height ease $animationTime_1;
                 .mywords {
-                    display: none;
-                    height:auto;
+                    height: 230px;
                     width: 100%;
-                    padding:0 20px;
+                    overflow: inherit;
+                    opacity: 1;
+                    transition: height $animationTime_1 ease, opacity $animationTime_2 ease;
+                }
+            }
+            @include media("<=desktop_small") {
+                padding-right: 0;
+                .mywords {
+
+                    padding: 0px 40px;
+                }
+            }
+            @include media("<=phone") {
+                /*height: auto;*/
+                /*position: relative;*/
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                transition: none;
+                .mywords {
+                    text-align: center;
+                    padding: 5px 20px;
+                    height: auto;
+                    font-size: 14px;
+                    width: 100%;
                     overflow: inherit;
                     opacity: 1;
                     transition: none;
+                    //transition: height $animationTime_1 ease, opacity $animationTime_2 ease ;
                 }
+
             }
         }
     }
@@ -268,14 +283,13 @@
     @include media(">desktop") {
         .myinfo {
             width: 33.33%;
-            z-index: 10;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: row;
             position: fixed;
-            transition: width ease 500ms;
+            transition: width ease $animationTime_1;
             .detail {
                 width: 350px;
                 display: flex;
@@ -326,7 +340,7 @@
                 width: 0;
                 align-items: center;
                 opacity: 0;
-                transition: width .5s ease, opacity .2s ease;
+                transition: width $animationTime_1 ease, opacity $animationTime_2 ease;
             }
         }
     }
@@ -335,14 +349,13 @@
         .myinfo {
             width: 100%;
             height: 270px;
-
+            max-height: 983px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            position: relative;
-
-            transition: height ease 500ms;
+            position: absolute;
+            transition: none;
             .detail {
                 width: 720px;
                 height: 270px;
@@ -399,40 +412,48 @@
                 overflow: hidden;
                 width: 720px;
                 opacity: 0;
-                transition: height .5s ease, opacity .2s ease;
+                transition: none;
             }
-
         }
     }
 
     @include media("<=phone") {
         .myinfo {
+            justify-content: flex-start;
             .detail {
                 width: 100%;
-                /*overflow: hidden;*/
+                flex-wrap: nowrap;
                 .detail__1 {
                     flex-direction: column;
                     .detail__imgBox {
                         width: 120px;
                         height: 120px;
                     }
-                    .detail__info{
-                        .name{
-                            margin:15px 0;
+                    .detail__info {
+                        .name {
+                            margin: 15px 0;
                             font-size: 28px;
                         }
-                        .job{
-                            margin:15px 0;
+                        .job {
+                            margin: 15px 0;
                             font-size: 18px;
                         }
                     }
                 }
-                .detail__2{
-                    margin-top:0;
+                .detail__2 {
+                    margin-top: 0;
                 }
             }
         }
     }
+
+    //@include media(">desktop_small","<=desktop") {
+    //  .myInfo{
+    //      position: absolute;
+    //  }
+    //}
+
+
 </style>
 <script>
 
@@ -453,17 +474,16 @@
             element.on('error', function () {
                 if (!!errSrc) {
                     element.attr('src', errSrc);
-                }else{
+                } else {
                     element.attr('src', emptyTransparent);
                 }
-                element.css({"opacity": 1,"transition":"opacity ease 300ms"});
+                element.css({"opacity": 1, "transition": "opacity ease 300ms"});
                 element.off()
             });
             //如果成功
             element.on('load', function () {
-                element.css({"opacity": 1,"transition":"opacity ease 300ms"});
+                element.css({"opacity": 1, "transition": "opacity ease 300ms"});
             });
-
 
 
             // 准备工作

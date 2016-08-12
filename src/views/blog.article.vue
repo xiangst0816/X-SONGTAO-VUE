@@ -388,15 +388,11 @@
             max-width: 780px;
             min-width: inherit;
             width: auto;
-            margin-left: 15px;
-            margin-right: 15px;
         }
     }
 
     @include media("<=phone") {
         .article-detail {
-            margin-left: 10px;
-            margin-right: 10px;
             .paper {
                 .paper__header {
                     padding: 30px 10px 10px;
@@ -411,7 +407,7 @@
                 }
                 .paper__info{
                     display: flex;
-                    justify-content:flex-end;
+                    justify-content:center;
                     align-items:center;
                     padding: 8px 0px;
                     .paper__info--span{

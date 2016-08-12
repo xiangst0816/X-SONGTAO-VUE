@@ -16,39 +16,39 @@
                 <!--我的详细信息-->
                 <div class="infoDetail">
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12">
+                        <label class="">
                             昵称/Nickname
                             <i v-if="checkThis==='full_name'&&!!isSuccess" class="fa fa-check-circle"></i>
                         </label>
-                        <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.full_name,'full_name')" v-on:blur="save(myinfo.full_name)" class="form-control input-sm col-sm-12 inputContent" id="name"
+                        <div class=" infoDetail__inputGroup">
+                            <input type="text" @click="setThis(myinfo.full_name,'full_name')" v-on:blur="save(myinfo.full_name)" class="form-control input-sm  inputContent" id="name"
                                    name="name" placeholder="姓名/Name" v-model="myinfo.full_name">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12">
+                        <label class="">
                             职位/Position
                             <i v-if="checkThis==='position'&&!!isSuccess" class="fa fa-check-circle"></i>
                         </label>
-                        <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.position,'position')" v-on:blur="save(myinfo.position)" class="form-control input-sm col-sm-12 inputContent" id="position" name="position" placeholder="职位/Position" v-model="myinfo.position">
+                        <div class=" infoDetail__inputGroup">
+                            <input type="text" @click="setThis(myinfo.position,'position')" v-on:blur="save(myinfo.position)" class="form-control input-sm  inputContent" id="position" name="position" placeholder="职位/Position" v-model="myinfo.position">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12">
+                        <label class="">
                             地址/Address
                             <i v-if="checkThis==='address'&&!!isSuccess" class="fa fa-check-circle"></i>
                         </label>
-                        <div class="col-sm-12 infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.address,'address')" v-on:blur="save(myinfo.address)" class="form-control input-sm col-sm-12 inputContent" id="address" name="address" placeholder="地址/Address" v-model="myinfo.address">
+                        <div class=" infoDetail__inputGroup">
+                            <input type="text" @click="setThis(myinfo.address,'address')" v-on:blur="save(myinfo.address)" class="form-control input-sm  inputContent" id="address" name="address" placeholder="地址/Address" v-model="myinfo.address">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12">
+                        <label class="">
                             心情/Motto
                             <i v-if="checkThis==='motto'&&!!isSuccess" class="fa fa-check-circle"></i>
                         </label>
-                        <div class="col-sm-12 infoDetail__inputGroup">
+                        <div class=" infoDetail__inputGroup">
                             <input type="text" class="form-control input-sm col-sm-6 inputContent" id="mood" name="mood"
                                    @click="setThis(myinfo.motto,'motto')" v-on:blur="save(myinfo.motto)"
                                    placeholder="心情/Mood" v-model="myinfo.motto">
@@ -81,20 +81,20 @@
                 <!--修改用户名密码-->
                 <div class="authorizationBox">
                     <div class="inputGroup clearfix">
-                        <label class="col-sm-12" for="new_password">登录验证信息/Authorization</label>
+                        <label class="" for="new_password">登录验证信息/Authorization</label>
                         <form class="inputBox">
-                            <div class="col-sm-12" :class="{'has-error':!myinfo.username}">
-                                <input type="text" class="form-control input-sm col-sm-12 inputContent"
+                            <div class="" :class="{'has-error':!myinfo.username}">
+                                <input type="text" class="form-control input-sm  inputContent"
                                        placeholder="用户名/Username" name="username" v-model="myinfo.username" required>
                                 <label>用户名/Username</label>
                             </div>
-                            <div class="col-sm-12" :class="{'has-error':!myinfo.password}">
-                                <input type="password" class="form-control input-sm col-sm-12 inputContent"
+                            <div class="" :class="{'has-error':!myinfo.password}">
+                                <input type="password" class="form-control input-sm  inputContent"
                                        placeholder="旧密码/Old Password" name="password" v-model="myinfo.password" required>
                                 <label>旧密码/Old Password</label>
                             </div>
-                            <div class="col-sm-12" :class="{'has-error':!myinfo.new_password}">
-                                <input type="password" class="form-control input-sm col-sm-12 inputContent" id="new_password"
+                            <div class="" :class="{'has-error':!myinfo.new_password}">
+                                <input type="password" class="form-control input-sm  inputContent" id="new_password"
                                        placeholder="新密码/New Password" name="new_password" v-model="myinfo.new_password" required>
                                 <label>新密码/New Password</label>
                             </div>
@@ -205,7 +205,6 @@
                             height: 34px;
                             background-color: #fff;
                             color: #333;
-                            margin: 0 0 0 -11px;
                             //display: none;
                             border: 1px solid $base-theme-color;
                         }
@@ -233,11 +232,11 @@
                         color: #00b2e2;
                         font-weight: bold;
                         margin-bottom: 10px;
-                        padding: 0 15px;
+                        padding: 0 ;
                     }
                     .personalState__textarea {
                         width: 100%;
-                        padding: 0 5px;
+                        /*padding: 0 5px;*/
                         position: relative;
                         textarea {
                             background-color: #fff;
@@ -276,6 +275,7 @@
                         @include align-items(center);
                         div {
                             flex: 1;
+                            padding:0 10px 0 0;
                         }
                         label {
                             margin-top: 5px;
@@ -289,6 +289,7 @@
                             width: 60px;
                             position: absolute;
                             right: 0;
+                            padding:0;
                             button {
                                 width: 100%;
                                 height: 30px;
@@ -346,6 +347,7 @@
             }
         }
     }
+
 
 </style>
 <script>

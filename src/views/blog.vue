@@ -8,7 +8,7 @@
     <div class="blog animated fadeIn">
         <my-info></my-info>
         <!-- 路由外链 -->
-        <div class="blog__content" :class={'isShowMyWords':isShowMyWords}>
+        <div class="blog__content" v-show="!isShowMyWords" transition="isShowMyWords">
             <div class="blog__content--inner">
                 <router-view></router-view>
             </div>
@@ -29,7 +29,7 @@
             align-items: flex-start;
             box-sizing: content-box;
             transition: opacity ease 500ms;
-            opacity:1;
+            /*opacity:1;*/
 
             .blog__content--inner {
                 max-width: 780px;
@@ -72,11 +72,29 @@
             }
         }
     }
-    @include media(">desktop") {
-        .isShowMyWords{
-            opacity: 0!important;
+
+
+    @include media(">desktop_small","<=desktop") {
+        .blog{
+            .blog__content{
+                padding-top:270px;
+                .blog__content--inner{
+
+                }
+            }
+        }
+        .isShowMyWords-transition {
+            transition: all .5s ease;
+            opacity:1;
+        }
+        .isShowMyWords-enter, .isShowMyWords-leave {
+            opacity: 0;
         }
     }
+
+
+
+
 
 
     @include media(">desktop") {
@@ -89,13 +107,38 @@
                 position: relative;
             }
         }
+
+        .isShowMyWords-transition {
+            transition: all .5s ease;
+            opacity:1;
+        }
+        .isShowMyWords-enter, .isShowMyWords-leave {
+            opacity: 0;
+        }
     }
 
     @include media("<desktop_small") {
-        .blog {
+        .blog{
             padding-top: 45px;
+            .blog__content{
+                padding-top:270px;
+                .blog__content--inner{
+
+                }
+            }
+        }
+        .isShowMyWords-transition {
+            transition: all .5s ease;
+            opacity:1;
+        }
+        .isShowMyWords-enter, .isShowMyWords-leave {
+            opacity: 0;
         }
     }
+
+
+
+
 </style>
 <script>
     import Vue from "vue";

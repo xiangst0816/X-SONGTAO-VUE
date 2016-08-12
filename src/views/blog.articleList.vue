@@ -185,7 +185,7 @@
                 .article__infobox {
                     padding: 8px 0px;
                     display: flex;
-                    justify-content: flex-end;
+                    justify-content: center;
                     align-items:center;
                     .article__info {
                         display: flex;

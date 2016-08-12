@@ -1,7 +1,5 @@
-/**
- * Utility Classes
- * --------------------------------------------------
- */
+@charset "UTF-8";
+//Utility Classes
 
 .hide {
   display: none;
@@ -65,9 +63,7 @@
     content: ".";
   }
 }
-//-----------------------------
-// 文字对其方式
-//-----------------------------
+
 .pull-left{
   float: left;
 }
@@ -89,10 +85,7 @@
   margin-left: auto;
 }
 
-//-----------------------------
-// 动画类(from animate.css)
-//-----------------------------
-//文章列表,时光机,标签库之间的专场切换
+
 .blogTrans-transition {
   transition: transform .5s ease,opacity .5s ease;
   opacity:1;
@@ -125,7 +118,7 @@
   animation-fill-mode: both
 }
 
-//fadeIn
+
 .fadeIn {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -149,9 +142,7 @@
 }
 
 
-//-----------------------------
-// 清除浮动
-//-----------------------------
+
 .clearfix {
   *zoom: 1;
   &:before,
@@ -165,9 +156,8 @@
   }
 }
 
-//-----------------------------
-// 显示隐藏
-//-----------------------------
+
+
 .hidden{
   display: none !important;
 }
@@ -193,16 +183,14 @@
   width: auto;
 }
 
-// Hide visually and from screen readers, but maintain layout 
+
 .invisible {
   visibility: hidden;
 }
 
-//-----------------------------
-// 文字
-//-----------------------------
+
+
 .word-line {
-  //display: block; //如果是块儿级元素可以不用加
   overflow: hidden;
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
@@ -210,9 +198,8 @@
 }
 
 
-//-----------------------------
-// 其他
-//-----------------------------
+
+
 
 .full-image {
   width: 100%;
@@ -227,7 +214,7 @@
 }
 
 
-//全屏
+
 .bigScreen {
   height: 100%;
   width: 100%;
@@ -243,7 +230,6 @@
   padding-left: 15px;
   padding-right: 15px;
 }
-/*overflow*/
 
 .lockScreen{
   overflow: hidden!important;

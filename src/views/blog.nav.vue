@@ -14,14 +14,8 @@
             <a class="nav__item" data-toggle="tooltip" data-placement="right" title="音乐">
                 <i class="fa fa-music fa-fw fa-lg"></i>
             </a>
-            <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景">
-                <i class="fa fa-refresh fa-fw fa-lg"></i>
-                <!--<i class="fa fa-photo fa-spin  fa-stack-1x fa-lg"></i>-->
-            </a>
         </nav>
         <nav class="nav__bottom">
-
-
             <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'admin-myinfo',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="我的资料">
                 <i class="fa fa-user fa-lg"></i>
             </a>
@@ -34,13 +28,9 @@
             <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章评论">
                 <i class="fa fa-comments fa-lg"></i>
             </a>
-
-
-            <!--<a class="nav__item animated fadeIn" id="changeBGImage" title="更改背景">-->
-            <!--<i class="fa fa-picture-o fa-lg"></i>-->
-            <!--</a>-->
-
-
+            <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景" @click="changeBG()">
+                <i class="fa fa-fw fa-lg" :class="{false:'fa-photo',true:'fa-refresh fa-spin'}[isChangeBG]"></i>
+            </a>
             <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" data-toggle="tooltip" data-placement="right" title="退出" @click="doLoginout()">
                 <i class="fa fa-sign-out fa-lg"></i>
             </a>
@@ -163,58 +153,105 @@
     //    import 'bootstrap/js/tooltip.js'
     import {setLoginState} from '../vuex/actions'
     export default{
-//        data(){
-//            return {
-//                msg: 'hello vue'
-//            }
-//        }
+        data(){
+            return {
+                isChangeBG: false,
+                bgIndexNow:'',
+            }
+        },
         methods: {
             doLoginout: function () {
                 $('#logout').modal()
             },
             clearSessionStorage(){
                 this.$sessionStorage.$reset();
-            }
+            },
+            /**
+             * 更换背景
+             * */
+            changeBG(){
+                const scope = this;
+                if (scope.isChangeBG) {
+                    return false;
+                }
+                scope.isChangeBG = true;
+
+                let $body = $('#app');
+                let imgUrl = randomImage();
+                loadImg(imgUrl, function () {
+                    $body.css({
+                        background: `url(${imgUrl}) no-repeat top left/cover fixed`
+                    });
+                    // 动画是500ms
+                    setTimeout(function () {
+                        scope.isChangeBG = false;
+                    },500);
+                });
+
+
+
+
+
+                //加载资源,成功执行回调
+                function loadImg(url, cb) {
+                    if (/.png$|.jpg$|.gif$/.test(url)) {
+                        let _TagObjs = new Image();
+                        _TagObjs.src = url;
+                        _TagObjs.onload = function () {
+                            !!cb && cb();
+                        };
+                    }
+                }
+
+                //随机返回列表中的地址
+                function randomImage() {
+                    let imageSource = [
+                            'http://xiangsongtao.com/bg_resource/1.jpg',
+                            'http://xiangsongtao.com/bg_resource/2.jpg',
+                            'http://xiangsongtao.com/bg_resource/3.jpg',
+                            'http://xiangsongtao.com/bg_resource/4.jpg',
+                            'http://xiangsongtao.com/bg_resource/5.jpg',
+                            'http://xiangsongtao.com/bg_resource/6.jpg',
+                            'http://xiangsongtao.com/bg_resource/7.jpg',
+                    ];
+                    let imageCount = imageSource.length;
+                    return imageSource[selectFrom(0,imageCount-1)]
+                }
+
+                //返回 v_from 和 v_to 之间的随机整数
+                function selectFrom(v_from, v_to) {
+                    let range = v_to - v_from + 1;
+                    let selected = Math.floor(Math.random() * range + v_from);
+                    if(selected === parseInt(scope.bgIndexNow)){
+//                        console.log('和上一个相同,再去随机取值')
+                        return selectFrom(v_from, v_to);
+                    }else{
+//                        console.log("当前取值为:" + (selected+1))
+                        scope.bgIndexNow = selected
+                        return selected
+                    }
+                }
+            },
         },
         ready: function () {
-            tooltip();
 
-            function tooltip() {
-                let clientWidth = parseInt(document.documentElement.clientWidth);
-                if (clientWidth <= 768) {
+            /**
+             * 工具提示栏
+             * */
+            let clientWidth = parseInt(document.documentElement.clientWidth);
+            if (clientWidth <= 768) {
 
-                } else if (clientWidth > 769 && clientWidth < 991) {
-                    $('[data-toggle="tooltip"]').tooltip({
-                        trigger: 'hover',
-                        placement: 'bottom'
-                    });
-                    return true;
-                } else if (clientWidth > 991) {
-                    $('[data-toggle="tooltip"]').tooltip({
-                        trigger: 'hover',
-                        placement: 'right'
-                    });
-                    return true;
-                }
+            } else if (clientWidth > 769 && clientWidth < 991) {
+                $('[data-toggle="tooltip"]').tooltip({
+                    trigger: 'hover',
+                    placement: 'bottom'
+                });
+            } else if (clientWidth > 991) {
+                $('[data-toggle="tooltip"]').tooltip({
+                    trigger: 'hover',
+                    placement: 'right'
+                });
             }
-
-
-//            let isPopoverShown = false;
-//            $('#changeBGImage').popover({
-//                trigger: 'click',
-//                placement: 'right',
-//                html: true,
-//                content: '' +
-//                '<div class="changeBackgroundImage">' +
-//                '<div class="imgBox" id="img_1">' +
-//                '<img src="" alt="">' +
-//                '</div>' +
-//                '<div class="imgBox">' +
-//                '<img src="" alt="">' +
-//                '</div>' +
-//                '</div>'
-//            });
-
         },
         vuex: {
             getters: {

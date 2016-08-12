@@ -349,7 +349,7 @@
         .myinfo {
             width: 100%;
             height: 270px;
-            max-height: 983px;
+            /*max-height: 983px;*/
             display: flex;
             justify-content: center;
             align-items: center;

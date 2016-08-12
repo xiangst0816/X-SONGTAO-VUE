@@ -25,8 +25,8 @@
 |    admin-tagList 组件    |     08/09       |     已完成   |
 |    admin-commentList 组件    |       08/09     |     已完成    |
 |    admin-article-add/edit 组件    |    08/09        |     已完成    |
-|    联调    |             |          |
-|    优化    |             |          |
+|    联调    |      08/11      |     已完成     |
+|    优化    |       08/11      |     已完成     |
 
 
 

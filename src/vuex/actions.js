@@ -32,105 +32,40 @@ export const setShowBigAdminStatus = function ({dispatch},status) {
     dispatch(types.SET_SHOW_BIGADMIN_STATUS,status)
 };
 
-
-//-------------------------我的信息---------------------------
+//-------------------------Music---------------------------
 /**
- * 获取我的信息
+ * 更改播放状态
  * */
-// export const getMyInfo = function ({dispatch}) {
-//     // action 会收到 store 作为它的第一个参数,
-//     // 既然我们只对事件的分发（dispatch 对象）感兴趣。
-//     // （state 也可以作为可选项放入）,我们可以利用 ES6 的解构（destructuring）功能来简化对参数的导入
-//     api_myinfo.get(data=> {
-//         // action 也可以先从 HTTP 后端或 store 中读取其他数据之后再分发更新事件。
-//         // action 函数能够通过分发相应的 mutation 函数，来触发对 store 的更新。
-//         dispatch(types.GET_MYINFO, data)//『当 INCREMENT 事件被触发时，调用这个 handler』
-//     })
-// };
-
-//-------------------------文章---------------------------
+export const setPlayingStatus = function ({dispatch},status) {
+    dispatch(types.SET_PLAYING_STATUS,status)
+};
 /**
- * 获取文章列表
+ * 设置当前音乐的持续时间
  * */
-// export const getArticleList = function ({dispatch}, url) {
-//     api_article.getArticleList(url).then(function (data) {
-//         dispatch(types.GET_ARTICLELIST, data)
-//     },()=>{
-//
-//     });
-// };
+export const setMusicDuration = function ({dispatch},duration) {
+    dispatch(types.SET_MUSIC_DURATION,duration)
+};
 /**
- * 获取文章历史记录
+ * 设置当前音乐的进行时间
  * */
-// export const getHistoryList = function ({dispatch}) {
-//     api_article.getHistoryList((data)=> {
-//         dispatch(types.GET_HISTORYLIST, data)
-//     });
-// };
+export const setMusicRightNow = function ({dispatch},rightNow) {
+    dispatch(types.SET_MUSIC_RIGHTNOW,rightNow)
+};
 /**
- * 根据文章id获取文章详情(前台)
+ * 设置当前音乐的信息
  * */
-// export const getArticleById = function ({dispatch}, articleId) {
-//     return new Promise(function (resolve, reject) {
-//         api_article.getArticleById(articleId)
-//             .then(function (data) {
-//                 dispatch(types.GET_ARTICLE, data);
-//                 resolve(data);
-//             }, function (error) {
-//                 reject(error);
-//             });
-//     })
-// };
+export const setCurrentMusic = function ({dispatch},currentMusicInfo) {
+    dispatch(types.SET_CURRENT_MUSIC,currentMusicInfo)
+};
 /**
- * 清除文章记录(清楚缓存)
+ * 设置当前音乐的加载状态
  * */
-// export const clearArticle = function ({dispatch}) {
-//     dispatch(types.CLEAR_ARTICLE)
-// };
-
-//-------------------------标签---------------------------
+export const setLoadingStatus = function ({dispatch},status) {
+    dispatch(types.SET_LOADING_STATUS,status)
+};
 /**
- * 获取具有标签结构的记录(标签库)
+ * 设置是否能自动播放
  * */
-// export const getTagsListWithStructure = function ({dispatch}) {
-//     api_tag.getTagsListWithStructure((data)=> {
-//         dispatch(types.GET_TAGSWITHSTRUCTURE, data)
-//     });
-// };
-
-//-------------------------评论---------------------------
-/**
- * 根据文章id获取该文章的评论信息
- * */
-// export const getArticleComments = function ({dispatch}, articleId) {
-//     return new Promise(function (resolve, reject) {
-//         api_comment.getArticleComments(articleId)
-//             .then(function (data) {
-//                 dispatch(types.GET_ARTICLECOMMENTS, data)
-//             }, function (error) {
-//                 reject(error);
-//             });
-//     })
-//
-// };
-/**
- * 发表评论
- * */
-// export const sendComment = function ({dispatch}, params) {
-//     return api_comment.sendComment(params).then(function (data) {
-//
-//     });
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
+export const setCanAutoPlay = function ({dispatch},status) {
+    dispatch(types.SET_CAN_AUTOPLAY,status)
+};

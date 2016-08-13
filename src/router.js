@@ -33,6 +33,10 @@ export default function () {
             name: 'login',
             component: require('./views/blog.login.vue')
         },
+        '/music': {
+            name: 'music',
+            component: require('./views/blog.music.vue')
+        },
         '/blog': {
             name: 'blog',
             component: require('./views/blog.vue'),

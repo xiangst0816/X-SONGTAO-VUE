@@ -4,9 +4,9 @@
 
 $font-family-sans-serif:          'PingHei', 'PingFang SC', "Microsoft Yahei", 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif !default;
 //$font-family-sans-serif:          "Hiragino Sans GB", PingHei, "Helvetica Neue", Helvetica, Arial, Verdana, "Microsoft Yahei", sans-serif !default;
-$font-family-light-sans-serif:    "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
-$font-family-serif:               serif !default;
-$font-family-monospace:           monospace !default;
+$font-family-light-sans-serif:    $font-family-sans-serif !default;
+$font-family-serif:               $font-family-sans-serif !default;
+$font-family-monospace:           $font-family-sans-serif !default;
 
 $font-family-base:                $font-family-sans-serif !default;
 $font-size-base:                  14px !default;

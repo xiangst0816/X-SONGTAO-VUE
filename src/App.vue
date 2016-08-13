@@ -73,6 +73,22 @@
                 console.log('登录状态修改')
                 scope.setLoginState(!!params);
             })
+
+
+
+//            /**
+//             * music 播放的控制区
+//             * */
+
+//            var Music = new Audio("http://172.20.10.3:8000/Beirut.mp3");
+//
+//            Music.play()
+
+
+
+
+
+
         },
         components: {
 //            小组件挂载集中挂载
@@ -81,15 +97,22 @@
             doLogout,
         },
         vuex: {
+            getters: {
+
+            },
             actions: {
                 setLoginState,//设置登录否
-            }
+            },
         },
     }
 </script>
 
 <style lang="scss">
     @import "./theme/theme.scss";
+
+    @-ms-viewport {
+        width: device-width;
+    }
 
     html {
         padding: 0;

@@ -77,6 +77,7 @@ module.exports = {
                     //设置值
                     $set: function () {
                         var args = Array.prototype.slice.call(arguments);
+
                         if (args.length === 1 && isObject(args[0])) {
                             var obj = args[0];
                             for (var k in obj) {
@@ -86,7 +87,7 @@ module.exports = {
                         } else if (args.length === 2) {
                             var key = args[0];
                             var value = args[1];
-                            isDefined(_store[key]) || (_store[key] = copy(value));
+                            (_store[key] = copy(value));
                             _webStorage.setItem(storageKeyPrefix + key, serializer(value));
                         }
                         return _store;

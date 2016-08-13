@@ -15,17 +15,15 @@
                 </div>
                 <div class="text-center cat">一个记录时光的博客</div>
             </div>
+            <section class="index-btnBox">
+                <div class="index-btnBox-each text-center" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">我的博客</div>
+                <div class="index-btnBox-each text-center" v-link="{ name: 'music',activeClass: 'active'}">我的音乐</div>
+            </section>
+            <section class="index-copyright">
+                <copyright></copyright>
+            </section>
         </div>
-        <section class="index-btnBox">
-            <div class="index-btnBox-each text-center" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">我的博客</div>
-            <div class="index-btnBox-each text-center hidden">照片墙</div>
-        </section>
-        <section class="index-copyright">
-            <copyright></copyright>
-        </section>
     </div>
-
-
 </template>
 <style scoped lang="scss">
     //base
@@ -33,13 +31,17 @@
     //首次进入页面,主页展示切换文字
     /*index的内容*/
     .indexBox {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        left:0;
         .index-content {
-            user-select: none;
-            -webkit-user-select: none;
             width: 100%;
             height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
             display: block;
-            position: absolute;
             left: 0;
             color: #fff;
             overflow: hidden;

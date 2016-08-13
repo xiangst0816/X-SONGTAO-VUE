@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import "include-media";
 .markdown-body {
-  //font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'PingHei', 'PingFang SC', "Microsoft Yahei", 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif ;
   font-size: 16px;
   line-height: 1.6;
   word-wrap: break-word
@@ -424,7 +424,8 @@
   //word-wrap: normal;
   white-space: pre;
   background-color: transparent;
-  border: 0
+  border: 0;
+  font-family: 'PingHei', 'PingFang SC', "Microsoft Yahei", 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif ;
 }
 
 .markdown-body pre code::before,.markdown-body pre code::after,.markdown-body pre tt::before,.markdown-body pre tt::after {

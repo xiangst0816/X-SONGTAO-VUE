@@ -128,7 +128,7 @@ export const SaveArticle = function (params) {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {
-                resolve(result);
+                resolve(result.data);
             } else {
                 reject(doError(parseInt(result.code)));
             }

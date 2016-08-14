@@ -75,28 +75,9 @@
 
             </tbody>
         </table>
-        <!--无数据提示-->
-        <!--<div class="nodata  animated fadeIn" v-if="!articleLists.length && isLoaded">-->
-        <!--<div class="logo-left-box">-->
-        <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
-        <!--<h3 class="blue notice">提示!</h3>-->
-        <!--<p class="white">没有找到数据,~~~~(>_<)~~~~</p>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
-        <!--</div>-->
-
-        <!--加载提示-->
-        <!--<div class="nodata  animated fadeIn" v-if="!isLoaded">-->
-        <!--<div class="logo-left-box">-->
-        <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
-        <!--<h3 class="blue notice">提示!</h3>-->
-        <!--<p class="white">正在加载,O(∩_∩)O稍等~</p>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<img src="./web/img/employee.svg" alt="employee">&ndash;&gt;-->
-        <!--</div>-->
     </div>
     <!--弹出层-删除-->
-    <div class="modal fade" id="delArticle" tabindex="-1" role="dialog">
+    <div class="modal fade" id="delArticle" tabindex="-1" role="dialog" @keyup.enter="confirmDelArtBtn()" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,7 +89,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button"  data-dismiss="modal" @click="confirmDelArtBtn()" class="btn btn-danger">
+                    <button type="button" @click="confirmDelArtBtn()"  class="btn btn-danger">
                         删除
                     </button>
                 </div>
@@ -183,6 +164,7 @@
                 DeleteArticle(this.deleteArticle._id).then(()=>{
                     //刷新文章列表
                     this.articleLists.splice(this.articleLists.indexOf(this.deleteArticle), 1);
+                    $('#delArticle').modal('hide');
                 })
             }
         },

@@ -147,7 +147,7 @@
                                 label {
                                     color: #fff;
                                     margin-right: 5px;
-                                    margin-bottom:0;
+                                    margin-bottom: 0;
                                 }
                             }
                             //标题
@@ -156,10 +156,10 @@
                                 /*overflow: hidden;*/
                                 width: 100%;
                                 display: flex;
-                                justify-content:center;
+                                justify-content: center;
                                 align-items: center;
                                 input {
-                                    flex:1;
+                                    flex: 1;
                                     /*width: 653px;*/
                                 }
                             }
@@ -167,15 +167,15 @@
                             .publishTime {
                                 width: 50%;
                                 display: flex;
-                                justify-content:flex-start;
+                                justify-content: flex-start;
                                 align-items: center;
                                 .input-group.date {
                                     display: flex;
-                                    flex:1;
+                                    flex: 1;
                                     justify-content: center;
                                     /*align-items: center;*/
-                                    margin-right:10px;
-                                    .input-group-addon{
+                                    margin-right: 10px;
+                                    .input-group-addon {
                                         display: flex;
                                         justify-content: center;
                                         align-items: center;
@@ -186,13 +186,13 @@
                             .imgUploadBox {
                                 width: 50%;
                                 display: flex;
-                                justify-content:flex-end;
+                                justify-content: flex-end;
                                 align-items: center;
                                 .input-group {
                                     display: flex;
-                                    flex:1;
+                                    flex: 1;
                                     justify-content: center;
-                                    .input-group-addon{
+                                    .input-group-addon {
                                         display: flex;
                                         justify-content: center;
                                         align-items: center;
@@ -211,7 +211,7 @@
                             //标签组
                             .tagsBox {
                                 display: flex;
-                                justify-content:center;
+                                justify-content: center;
                                 align-items: center;
                                 .multiselect {
                                     position: relative;
@@ -507,42 +507,74 @@
                 const scope = this;
                 scope.article.state = true;
                 scope.isPublishing = true;
-                let params = scope.collectEditedArtInfo();
-                SaveArticle(params).then(function () {
-//                    console.log("保存publishBtn成功")
-                }).then(function () {
+
+                scope._save().then(function () {
                     setTimeout(function () {
                         history.back();
                         scope.isPublishing = false;
                     }, 500)
-                })
+                });
             },
             // 点击草稿按钮
             draftBtn(){
                 const scope = this;
                 scope.article.state = false;
                 scope.isDrafting = true;
-                let params = scope.collectEditedArtInfo();
-                SaveArticle(params).then(function () {
-//                    console.log("保存draftBtn成功")
-                }).then(function () {
+
+                scope._save().then(function () {
                     setTimeout(function () {
                         scope.isDrafting = false;
                     }, 500)
-                })
+                });
+
             },
             // 设置是否显示预览
             previewBtn(){
                 const scope = this;
                 scope.setShowBigAdminStatus(!scope.isShowBigAdmin)
             },
+            _save(){
+                const scope = this;
+                let params = scope.collectEditedArtInfo();
+                return SaveArticle(params).then(function (data) {
+                    // 针对新建的情况
+                    if (!params._id) {
+                        let _id = data._id;
+                        scope.article._id = _id;
+                        scope.$router.replace({//跳转
+                            name: 'admin-article',
+                            params: {articleId: _id}
+                        });
+                    }
+                })
+            },
+            _autoSave(){
+                const scope = this;
+                if(scope.article.state){
+                    scope.isPublishing = true;
+                }else{
+                    scope.isDrafting = true;
+                }
+                scope._save().then(function () {
+                    setTimeout(function () {
+                        if(scope.article.state){
+                            scope.isPublishing = false;
+                        }else{
+                            scope.isDrafting = false;
+                        }
+                    }, 500)
+                });
+            }
         },
         watch: {
             'content_raw': function () {
                 const scope = this;
                 let $TextArea = document.getElementById('textarea');
                 autoTextarea($TextArea, 10);
-                this.content_marked = marked(scope.content_raw)
+                this.content_marked = marked(scope.content_raw);
+
+                //自动保存
+                scope._autoSave();
             }
         },
         created: function () {

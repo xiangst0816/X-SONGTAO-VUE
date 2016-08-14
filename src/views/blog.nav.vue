@@ -123,18 +123,25 @@
             }
             &.active {
                 color: $base-theme-color !important;
+                .rightBottomStatus{
+                    color:inherit;
+                }
             }
             &:hover {
                 color: $base-theme-color;
+                .rightBottomStatus{
+                    color:inherit;
+                }
             }
             .rightBottomStatus{
                 display: block;
                 position: absolute;
                 font-size:14px;
-                right:1px;
+                right:5px;
                 bottom:3px;;
                 width:18px;
                 height:18px;
+                color:#999;
                 i{
                     display: block;
                     position: absolute;
@@ -201,6 +208,7 @@
 <script>
     //    import 'bootstrap/js/tooltip.js'
     import {setLoginState} from '../vuex/actions'
+    import API from '../config'
     export default{
         data(){
             return {
@@ -251,17 +259,9 @@
 
                 //随机返回列表中的地址
                 function randomImage() {
-                    let imageSource = [
-                        'http://xiangsongtao.com/bg_resource/1.jpg',
-                        'http://xiangsongtao.com/bg_resource/2.jpg',
-                        'http://xiangsongtao.com/bg_resource/3.jpg',
-                        'http://xiangsongtao.com/bg_resource/4.jpg',
-                        'http://xiangsongtao.com/bg_resource/5.jpg',
-                        'http://xiangsongtao.com/bg_resource/6.jpg',
-                        'http://xiangsongtao.com/bg_resource/7.jpg',
-                    ];
-                    let imageCount = imageSource.length;
-                    return imageSource[selectFrom(0, imageCount - 1)]
+                    let imageList = API.imageList;//图片列表
+                    let imageCount = imageList.length;
+                    return imageList[selectFrom(0, imageCount - 1)]
                 }
 
                 //返回 v_from 和 v_to 之间的随机整数

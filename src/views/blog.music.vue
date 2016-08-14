@@ -8,7 +8,7 @@
                 <div class="music--info">
                     <h1 class="nameBox">
                         <span class="name">{{currentMusicInfo.name}}</span>
-                        <span class="heart" @click="setAutoPlay()" data-toggle="tooltip" data-placement="right" title="希望能自动播放">
+                        <span class="heart" @click="setAutoPlay" data-toggle="tooltip" data-placement="right" title="希望能自动播放">
                             <i class="fa" :class="{true:'fa-heart text-danger',false:'fa-heart-o'}[canAutoPlay]"></i>
                         </span>
                     </h1>

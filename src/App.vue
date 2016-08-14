@@ -188,11 +188,7 @@
                 scope.nextCtrl();
             });
             $(document).on("Music_SetAutoPlay", function (event, params) {
-                let scope = this;
-                scope.setCanAutoPlay(!scope.canAutoPlay)
-                scope.$localStorage.$set('canAutoPlay', {
-                    autoPlay: scope.canAutoPlay
-                });
+                scope.setAutoPlay();
             });
 
             /**

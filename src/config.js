@@ -15,7 +15,6 @@ var CONFIG = {
 };
 
 
-
 // const CONFIG = {
 //     url: "http://xiangsongtao.com",
 //     // url: "http://127.0.0.1:8080",
@@ -43,7 +42,7 @@ module.exports = {
      * 通用状态码
      * */
 
-    SYS_ERR:'SYS_ERR',//api请求系统错误
+    SYS_ERR: 'SYS_ERR',//api请求系统错误
 
 
     /**
@@ -121,18 +120,18 @@ module.exports = {
      * */
     musicList: [
         {
-            coverUrl: 'http://p4.music.126.net/zYqptzyHld2ylpb5FOoqDA==/1785606883508227.jpg?param=260y260',
-            musicUrl: 'http://xiangsongtao.com/music_resource/Joel%20Hanson%20-%20Traveling%20Light.mp3',
-            name: 'Traveling Light',
-            player: 'Joel Hanson',
-            album: 'Traveling Light',
-        },
-        {
             coverUrl: 'http://p4.music.126.net/Jm8cjfA9c8udNBnohoIzqA==/3239161256372553.jpg?param=260y260',
             musicUrl: 'http://xiangsongtao.com/music_resource/Beirut.mp3',
             name: 'Beirut',
             player: 'Koi.',
             album: 'Maelstrom',
+        },
+        {
+            coverUrl: 'http://p4.music.126.net/zYqptzyHld2ylpb5FOoqDA==/1785606883508227.jpg?param=260y260',
+            musicUrl: 'http://xiangsongtao.com/music_resource/Joel%20Hanson%20-%20Traveling%20Light.mp3',
+            name: 'Traveling Light',
+            player: 'Joel Hanson',
+            album: 'Traveling Light',
         },
         {
             coverUrl: 'http://p3.music.126.net/U_IlMiO7pWenOk0fuDdWvA==/2542070885314968.jpg?param=260y260',
@@ -162,6 +161,21 @@ module.exports = {
             player: 'The Deysion',
             album: 'TOP25 Chill Emotion',
         }
+    ],
+    /**
+     * 切换的背景列表
+     * */
+    imageList: [
+        'http://xiangsongtao.com/bg_resource/1.jpg',
+        'http://xiangsongtao.com/bg_resource/2.jpg',
+        'http://xiangsongtao.com/bg_resource/3.jpg',
+        'http://xiangsongtao.com/bg_resource/4.jpg',
+        'http://xiangsongtao.com/bg_resource/5.jpg',
+        'http://xiangsongtao.com/bg_resource/6.jpg',
+        'http://xiangsongtao.com/bg_resource/7.jpg',
+        'http://xiangsongtao.com/bg_resource/8.jpg',
+        'http://xiangsongtao.com/bg_resource/9.jpg',
+        'http://xiangsongtao.com/bg_resource/10.jpg',
     ]
 
-}
+};

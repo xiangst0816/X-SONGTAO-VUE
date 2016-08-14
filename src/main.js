@@ -17,7 +17,9 @@ routerConfig();
 import app from "./App.vue";
 import blogNav from "./views/blog.nav";
 
-
+/**
+ * 独立样式
+ * */
 import "font-awesome/css/font-awesome.min.css";
 import "./theme/codeHighLight.css";
 import "./theme/markdown.scss";

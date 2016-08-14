@@ -14,6 +14,7 @@
 
 <script>
     import Vue from "vue";
+    import API from "./config";
     import blogNav from "./views/blog.nav";
     import socialInfo from "./components/socialInfo.vue";
     import doLogout from "./components/doLogout.vue";
@@ -44,14 +45,107 @@
     Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
     Vue.http.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
+    import {
+            setLoginState,
+            setPlayingStatus,
+            setMusicDuration,
+            setMusicRightNow,
+            setCurrentMusic,
+            setLoadingStatus,
+            setCanAutoPlay,
+    } from './vuex/actions'
 
-    import {setLoginState} from './vuex/actions'
 
     module.exports = {
         store,
         replace: false,
         data: function () {
-            return {}
+            return {
+                clear: '',
+                musicList:API.musicList,
+            }
+        },
+        methods:{
+            /**
+             * music的控制在App.vue中,方便全局管理
+             * 只是展示与事件触发,通过vuex操作
+             * */
+            playCtrl(){
+                let scope = this;
+                scope.setPlayingStatus(!scope.isPlaying);
+            },
+            preCtrl(){
+                let scope = this;
+                let currentid = scope.musicList.indexOf(scope.currentMusicInfo);
+                let index;
+                if (currentid !== 0) {
+                    index = currentid - 1;
+                } else {
+                    index = scope.musicList.length - 1;
+                }
+                scope.indexCtrl(index);
+            },
+            nextCtrl(){
+                let scope = this;
+                let currentid = scope.musicList.indexOf(scope.currentMusicInfo);
+                let index;
+                if (currentid !== (scope.musicList.length - 1)) {
+                    index = currentid + 1;
+                } else {
+                    index = 0;
+                }
+                scope.indexCtrl(index);
+            },
+            // 从第几个开始
+            indexCtrl(index){
+                let scope = this;
+                scope._ended();
+                scope.setCurrentMusic(scope.musicList[index]);
+                scope._beforeStart();
+                scope._Start();
+                scope.setPlayingStatus(true);
+            },
+            _init(){
+                let scope = this;
+                scope.setCurrentMusic(scope.musicList[0]);
+                scope._beforeStart();
+                scope._Start();
+            },
+            //start之前的准备工作,比如清除上一个的播放数据
+            _beforeStart(){
+                let scope = this;
+                //监听播放完毕状态
+                scope.MusicHandle.addEventListener('ended', function () {
+                    scope._ended();
+                    scope.nextCtrl();
+//                    console.log("ended")
+                });
+                //监听加载状态
+                scope.MusicHandle.addEventListener('canplay', function () {
+//                    console.log("canplay")
+                    scope.setLoadingStatus(false);
+                    scope.setMusicDuration(scope.MusicHandle.duration)
+                });
+            },
+            _Start(){
+                let scope = this;
+                scope.clear = setInterval(function () {
+                    scope.setMusicRightNow(scope.MusicHandle.currentTime);
+                }, 500)
+            },
+            _ended(){
+                let scope = this;
+                clearInterval(scope.clear);
+                scope.setPlayingStatus(false);
+                scope.setMusicRightNow(0);
+            },
+            setAutoPlay(){
+                let scope = this;
+                scope.setCanAutoPlay(!scope.canAutoPlay)
+                scope.$localStorage.$set('canAutoPlay', {
+                    autoPlay: scope.canAutoPlay
+                });
+            }
         },
         ready: function () {
             const scope = this;
@@ -72,22 +166,44 @@
             $(document).on("ChangeLoginStatus",function (event,params) {
                 console.log('登录状态修改')
                 scope.setLoginState(!!params);
-            })
+            });
 
+            /**
+             * music 初始化
+             * */
+            if (!scope.MusicHandle) {
+                scope._init()
+            }
 
+            /**
+             * music 播放的控制区
+             * */
+            $(document).on("Music_PlayCtrl", function (event, params) {
+                scope.playCtrl();
+            });
+            $(document).on("Music_PreCtrl", function (event, params) {
+                scope.preCtrl();
+            });
+            $(document).on("Music_NextCtrl", function (event, params) {
+                scope.nextCtrl();
+            });
+            $(document).on("Music_SetAutoPlay", function (event, params) {
+                let scope = this;
+                scope.setCanAutoPlay(!scope.canAutoPlay)
+                scope.$localStorage.$set('canAutoPlay', {
+                    autoPlay: scope.canAutoPlay
+                });
+            });
 
-//            /**
-//             * music 播放的控制区
-//             * */
-
-//            var Music = new Audio("http://172.20.10.3:8000/Beirut.mp3");
-//
-//            Music.play()
-
-
-
-
-
+            /**
+             * music 播放的控制区
+             * 是否自动播放
+             * 进入初始化
+             * */
+            if (!!scope.$localStorage.canAutoPlay && !scope.isPlaying) {
+                scope.setCanAutoPlay(scope.$localStorage.canAutoPlay.autoPlay);
+                scope.setPlayingStatus(scope.$localStorage.canAutoPlay.autoPlay);
+            }
 
         },
         components: {
@@ -98,10 +214,23 @@
         },
         vuex: {
             getters: {
-
+                isPlaying: state=>state.isPlaying,
+                isLoading: state=>state.isLoading,
+                currentMusicInfo: state=>state.currentMusicInfo,
+                MusicHandle: state=>state.handle,
+                duration: state=>state.duration,
+                rightNow: state=>state.rightNow,
+                rightPercent: state=>state.rightPercent,
+                canAutoPlay: state=>state.canAutoPlay,
             },
             actions: {
                 setLoginState,//设置登录否
+                setPlayingStatus,//该表播放状态
+                setMusicDuration,
+                setMusicRightNow,
+                setCurrentMusic,
+                setLoadingStatus,
+                setCanAutoPlay,
             },
         },
     }
@@ -110,6 +239,7 @@
 <style lang="scss">
     @import "./theme/theme.scss";
 
+    /*解决ie下右侧出现滚动条的情况,因为如果使用modal时,会出现抖动*/
     @-ms-viewport {
         width: device-width;
     }

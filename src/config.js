@@ -116,4 +116,52 @@ module.exports = {
     //新增评论
     // newComment: `${url}/api/comment`,
 
+    /**
+     * 音乐列表
+     * */
+    musicList: [
+        {
+            coverUrl: 'http://p4.music.126.net/zYqptzyHld2ylpb5FOoqDA==/1785606883508227.jpg?param=260y260',
+            musicUrl: 'http://xiangsongtao.com/music_resource/Joel%20Hanson%20-%20Traveling%20Light.mp3',
+            name: 'Traveling Light',
+            player: 'Joel Hanson',
+            album: 'Traveling Light',
+        },
+        {
+            coverUrl: 'http://p4.music.126.net/Jm8cjfA9c8udNBnohoIzqA==/3239161256372553.jpg?param=260y260',
+            musicUrl: 'http://xiangsongtao.com/music_resource/Beirut.mp3',
+            name: 'Beirut',
+            player: 'Koi.',
+            album: 'Maelstrom',
+        },
+        {
+            coverUrl: 'http://p3.music.126.net/U_IlMiO7pWenOk0fuDdWvA==/2542070885314968.jpg?param=260y260',
+            musicUrl: 'http://xiangsongtao.com/music_resource/Explorers.mp3',
+            name: 'Explorers',
+            player: 'Koi.',
+            album: 'Beginnings',
+        },
+        {
+            coverUrl: 'http://p4.music.126.net/hH4UmteuzsqZHacrr3YS_g==/18358545649308968.jpg?param=260y260',
+            musicUrl: 'http://xiangsongtao.com/music_resource/China-X.mp3',
+            name: 'China-X',
+            player: '徐梦圆',
+            album: 'Change',
+        },
+        {
+            coverUrl: 'http://p3.music.126.net/DW-fId71WHtzfDJH_X5kBg==/7777945255137045.jpg?param=260y260',
+            musicUrl: 'http://xiangsongtao.com/music_resource/FarAway.mp3',
+            name: 'Far Away',
+            player: 'Yinyues',
+            album: 'Far Away',
+        },
+        {
+            coverUrl: 'http://p4.music.126.net/Vbf6B70-bHLgD4muejpcbQ==/5650390255232065.jpg?param=260y260',
+            musicUrl: 'http://xiangsongtao.com/music_resource/The%20Deysion%20-%20Perfect%20Day%20feat.%20R.I.B.mp3',
+            name: 'Perfect Day feat. R.I.B.',
+            player: 'The Deysion',
+            album: 'TOP25 Chill Emotion',
+        }
+    ]
+
 }

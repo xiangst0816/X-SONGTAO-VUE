@@ -13,7 +13,7 @@
             </a>
             <a class="nav__item" v-link="{ name: 'music',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="音乐">
                 <i class="fa fa-music fa-fw fa-lg"></i>
-                <section class="musicStatus">
+                <section class="rightBottomStatus">
                     <i class="fa fa-lg" :class="{true:'fa-pause-circle-o',false:' fa-play-circle-o playing'}[!isPlaying]"></i>
                 </section>
             </a>
@@ -31,8 +31,12 @@
             <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right" title="文章评论">
                 <i class="fa fa-comments fa-lg"></i>
             </a>
+            <!--切换背景-->
             <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景" @click="changeBG()">
-                <i class="fa fa-fw fa-lg" :class="{false:'fa-photo',true:'fa-refresh fa-spin'}[isChangeBG]"></i>
+                <i class="fa fa-photo fa-fw fa-lg"></i>
+                <section class="rightBottomStatus">
+                    <i class="fa fa-lg fa-refresh" :class="{true:'',false:'fa-spin'}[!isChangeBG]"></i>
+                </section>
             </a>
             <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" data-toggle="tooltip" data-placement="right" title="退出" @click="doLoginout()">
                 <i class="fa fa-sign-out fa-lg"></i>
@@ -123,7 +127,7 @@
             &:hover {
                 color: $base-theme-color;
             }
-            .musicStatus{
+            .rightBottomStatus{
                 display: block;
                 position: absolute;
                 font-size:14px;
@@ -134,7 +138,6 @@
                 i{
                     display: block;
                     position: absolute;
-
                     width:18px;
                     height:18px;
                     overflow: hidden;

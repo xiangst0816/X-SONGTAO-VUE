@@ -2,6 +2,8 @@
  * Created by xiangsongtao on 16/7/24.
  * Description: vue-router 路由控制
  * 每个vue的SPA有且只有一个路由控制,且将控制挂载到了顶级组件-->APP.vue上
+ * 官网是这么说的,但是如果挂载App.vue上,如果在某一页上刷新,则会出现加载问题,
+ * 但是将路由初始化相关代码放在main.js中就没问题,没清楚为啥
  * */
 
 //引入
@@ -14,7 +16,11 @@ Vue.use(VueRouter);
 var App = Vue.extend(require('./App.vue'));
 // 路由配置参数
 var router = new VueRouter({
-    hashbang: true //hash路由
+    hashbang: false,
+    abstract:false,
+    history:true,
+    saveScrollPosition:true,
+    transitionOnLoad:true,
 });
 
 

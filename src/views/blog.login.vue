@@ -11,7 +11,7 @@
                 <h1><span class="blue">X</span>-SONGTAO</h1>
                 <h4><span class="blue">后台</span>管理</h4>
                 <div class="divider"></div>
-                <div class="form-horizontal"  v-on:keydown.enter="loginBtn()">
+                <div class="form-horizontal" v-on:keydown.enter="loginBtn()">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <input autofocus v-on:keydown="errText=''" class="form-control" id="username" type="text" name="username" v-model="username" placeholder="用户名">
@@ -39,6 +39,9 @@
     @import "../theme/theme.scss";
     //登录页面
     .login {
+        position: absolute;
+        height: 100%;
+        width: 100%;
         .login-content {
             display: flex;
             justify-content: center;
@@ -46,7 +49,6 @@
             box-sizing: border-box;
             height: 100%;
             background: transparent radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-            position: absolute;
             left: 0;
             top: 0;
             width: 100%;
@@ -157,14 +159,13 @@
                     Vue.http.headers.common['authorization'] = "token " + response.token;
 
 
-
                     console.log('login-success')
 
                     //开启tooltip
 //                        $rootScope.tooltip();
                     scope.setLoginState(true);//设置全局登录状态
                     scope.$router.go({//跳转
-                        name:'index'
+                        name: 'index'
                     });
 
                 }, (err)=> {

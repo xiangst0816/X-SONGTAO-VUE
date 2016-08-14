@@ -4,12 +4,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 */
 
-.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  color: #333;
-  background: #f8f8f8;
+.hljs pre{
+  display: block!important;
+  overflow-x: auto!important;
+  padding: 0.5em!important;
+  color: #333!important;
+  background: #f8f8f8!important;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace!important;
 }
 
 .hljs-comment,

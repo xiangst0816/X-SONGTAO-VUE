@@ -41,7 +41,7 @@
 - marked（只是markdown预览用了下）
 - clipboard（复制到剪贴板，用户上传图片获得图片访问地址的）
 
-> 需求就是我自己的想法，没有模板。
+> 需求就是我自己的想法，没有抄不抄的问题。
 
 
 
@@ -140,5 +140,124 @@ open -a "Google Chrome" --args --disable-web-security --user-data-dir
 ## 遇到的问题
 
 
+#### IE浏览器下，如何隐藏右侧的滚动条
+
+因为平时都是在Mac上开发，偶尔一次打开IE看看我的项目，结果大吃一惊。modal在打开的时候，因为ie右侧的滚动条存在的原因，页面会发生抖动，但是在chrome中是没有的。我认为还是有必要hack一下，代码如下
+
+```
+/*解决ie下右侧出现滚动条的情况,因为如果使用modal时,会出现抖动*/
+    @-ms-viewport {
+        width: device-width;
+    }
+```
+
+chrome下的设置
+
+```
+html {
+        padding: 0;
+        min-height: 100%;
+        /*不要滚动条*/
+        & ::-webkit-scrollbar {
+            display: none;
+        }
+    }
+```
 
 
+
+
+#### a标签在ie下点击出现虚线框的问题
+
+```
+a {
+  &:focus {
+    outline:none!important;
+  }
+}
+```
+
+
+
+#### 引入jQuery插件
+
+请参考我的[webpack config](https://github.com/xiangsongtao/X-SONGTAO-VUE/blob/master/build/webpack.base.conf.js)中的写法。
+
+首先在alias中定义好别名和插件位置，之后在plugins中将$、jQuery、jquery、window.jQuery编程项目中全局可用状态，最后在你的vue中引入，如下：
+
+webpack中配置：
+
+```
+ alias: {
+            "jquery": path.resolve(__dirname, '../node_modules/jquery/dist/jquery.slim.min.js'),
+            //插件位置
+            "bootstrap-datetimepicker": path.resolve(__dirname, '../src/plugin/bootstrap-datetimepicker'),
+        }
+```
+
+
+```
+plugins: [
+        // new webpack.optimize.CommonsChunkPlugin('common.js'),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            jquery: "jquery",
+            "window.jQuery": "jquery",
+        })
+    ]
+```
+
+
+项目文件中：
+
+```
+    import "bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build.scss"
+    import "bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
+```
+
+
+
+#### 在某一页刷新时不能正确http读取
+
+当然这种问题对应的情况有很多种，我想说的是vue-router的配置位置可能出现问题了。对于我的项目我是将他放到了main.js下了，而不是app.vue中
+
+按照
+
+
+
+```
+/**
+ * 路由相关 路由规则配置
+ * */
+import routerConfig from "./router.js";
+routerConfig();
+```
+
+
+
+#### 关于fastclick的配置
+
+也是 ，按照官方文档的写法会报错，我做了修改，如下：
+
+```
+/**
+ * 触摸配置
+ * */
+import attachFastClick from "fastclick";
+new attachFastClick(document.body);
+```
+
+#### 关于vuex的正确用法
+
+当时在读这里的时候，误以为下图的Backend API就是将SPA中的http请求都由这部分接管，所以就都写到这里面了，包括文章列表及详情，写了几个之后发现，应该不会有傻的这么干的，因为有些http结果并不是全局状态属性，干嘛写在vuex中。和同事交流了后觉得如果这么做了，那就违背了vuex全局状态管理的特点了。这个Backend API只是接管和全局相关的api比如config获取、公共数据等。下图是
+[vuex数据流](http://vuex.vuejs.org/zh-cn/data-flow.html)。ps.很喜欢简洁的设计。
+
+
+![](http://vuex.vuejs.org/zh-cn/vuex.png "")
+
+
+
+## 最后
+
+因为网站带宽的问题，首次进入可能会慢点，不过我这边缓存做得可以，之后就顺畅了。欢迎访问！

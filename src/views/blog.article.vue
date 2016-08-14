@@ -35,7 +35,7 @@
                 </div>
             </section>
             <section class="paper__content">
-                <div class="paper__content--inner markdown-body" ng-bind-html="article.content | toTrusted">
+                <div class="paper__content--inner markdown-body hljs" ng-bind-html="article.content | toTrusted">
                     {{{article.content}}}
                 </div>
                 <!--page-->

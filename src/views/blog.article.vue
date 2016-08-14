@@ -90,6 +90,8 @@
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
+    @import "../theme/codeHighLight.css";
+    @import "../theme/markdown.scss";
 
     .article-detail {
         /*width: 780px;*/

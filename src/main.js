@@ -21,8 +21,7 @@ import blogNav from "./views/blog.nav";
  * 独立样式
  * */
 import "font-awesome/css/font-awesome.min.css";
-import "./theme/codeHighLight.css";
-import "./theme/markdown.scss";
+
 import "./theme/util.scss";
 import "./theme/ui-modify.scss";
 import "./theme/grid.scss";

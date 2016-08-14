@@ -107,6 +107,8 @@
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
+    @import "../theme/codeHighLight.css";
+    @import "../theme/markdown.scss";
 
     .articleEdit {
         .title {

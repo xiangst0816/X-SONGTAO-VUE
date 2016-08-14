@@ -7,6 +7,6 @@
 // export const getCount = state => state.count
 
 // getters,从store的state中获取整个状态对象作为其唯一参数
-export function getCount (state) {
-    return state.count
-}
+// export function getCount (state) {
+//     return state.count
+// }

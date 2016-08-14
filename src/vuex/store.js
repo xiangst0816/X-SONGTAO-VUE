@@ -1,3 +1,7 @@
+/**
+ * Created by xiangsongtao on 16/7/30.
+ * Description: 状态存储
+ */
 import Vue from "vue";
 import Vuex from "vuex";
 import {

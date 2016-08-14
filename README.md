@@ -250,7 +250,7 @@ new attachFastClick(document.body);
 
 #### 关于vuex的正确用法
 
-当时在读这里的时候，误以为下图的Backend API就是将SPA中的http请求都由这部分接管，所以就都写到这里面了，包括文章列表及详情，写了几个之后发现，应该不会有傻的这么干的，因为有些http结果并不是全局状态属性，干嘛写在vuex中。和同事交流了后觉得如果这么做了，那就违背了vuex全局状态管理的特点了。这个Backend API只是接管和全局相关的api比如config获取、公共数据等。下图是
+当时在读这里的时候，误以为下图的Backend API就是将SPA中的http请求都由这部分接管，所以就都写到这里面了，包括文章列表及详情，写了几个之后发现，应该不会有傻X这么干的，因为有些http结果并不是全局状态属性，干嘛写在vuex中。和同事交流了后觉得如果这么做了，那就违背了vuex全局状态管理的特点了。这个Backend API只是接管和全局相关的api比如config获取、公共数据等。下图是
 [vuex数据流](http://vuex.vuejs.org/zh-cn/data-flow.html)。ps.很喜欢简洁的设计。
 
 

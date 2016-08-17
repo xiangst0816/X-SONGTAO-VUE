@@ -87,11 +87,10 @@
         </section>
     </div>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
     //base
     @import "../theme/theme.scss";
-    @import "../theme/codeHighLight.css";
-    @import "../theme/markdown.scss";
+
 
     .article-detail {
         /*width: 780px;*/
@@ -525,7 +524,13 @@
 
                 } else {
                     if (!!data.name && !!data.email) {
-                        this.$localStorage.$set('commentInfo', {name: data.name, email: data.email});
+                        this.$localStorage.$set({
+                            commentInfo:{
+                                name: data.name,
+                                email: data.email
+                            }
+                        });
+
                         this.hasNickName = true;
                         params = {
                             article_id: data.article_id,

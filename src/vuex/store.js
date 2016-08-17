@@ -86,8 +86,13 @@ export default new Vuex.Store({
         },
         [SET_CURRENT_MUSIC] (state, currentMusicInfo) {
             state.handle = new Audio(currentMusicInfo.musicUrl);
-            state.handle.load();
-            state.isLoading = true;
+            state.handle.preload="none";
+            // console.log('isPlaying:'+state.isPlaying)
+            // if(state.isPlaying){
+            //     console.log('willPlaying')
+            //     state.handle.load();
+            // }
+            // state.isLoading = true;
             state.currentMusicInfo = currentMusicInfo;
         },
         [SET_LOADING_STATUS] (state, status) {

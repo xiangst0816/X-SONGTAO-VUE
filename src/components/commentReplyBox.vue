@@ -11,12 +11,12 @@
         <!--个人信息-->
         <div class="commentBox__info">
             <div class="commentBox__info--input">
-                <label>昵称:</label>
-                <input type="text" placeholder="请输入昵称!" v-model="name">
+                <label for="name">昵称:</label>
+                <input id="name" type="text" placeholder="请输入昵称!" v-model="name" required>
             </div>
             <div class="commentBox__info--input ">
-                <label>邮箱: </label>
-                <input type="text" placeholder="请输入邮箱!" v-model="email">
+                <label for="mail">邮箱: </label>
+                <input type="email" id="mail" name="mail" placeholder="example@domain.com" v-model="email" required pattern="\w+@[a-z0-9]+\.[a-z]+" title="example@domain.com">
             </div>
         </div>
     </div>

@@ -77,7 +77,6 @@ module.exports = {
                     //设置值
                     $set: function () {
                         var args = Array.prototype.slice.call(arguments);
-
                         if (args.length === 1 && isObject(args[0])) {
                             var obj = args[0];
                             for (var k in obj) {
@@ -102,6 +101,21 @@ module.exports = {
 
                 //初始化从本地拉数据
                 _store.$fetch();
+
+                //设置代理
+                var logHandler = {
+                    get: function(target, key) {
+                        // console.log(`${key} 被读取`);
+                        return target[key];
+                    },
+                    set: function(target, key, value,proxy) {
+                        // console.log(`${key} 被设置为 ${value}`);
+                        _store[key] = copy(value);
+                        _webStorage.setItem(storageKeyPrefix + key, serializer(value));
+                        return Reflect.set(target, key, value, proxy);
+                    }
+                };
+                // let targetWithLog = new Proxy(_store, logHandler);
                 return _store
             };
             return _storage()

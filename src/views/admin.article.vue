@@ -107,9 +107,6 @@
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
-    @import "../theme/codeHighLight.css";
-    @import "../theme/markdown.scss";
-
     .articleEdit {
         .title {
             width: 100%;
@@ -550,6 +547,12 @@
             },
             _autoSave(){
                 const scope = this;
+                if(!scope.article.title){
+                    return false
+                }
+                if(!scope.content_raw){
+                    return false
+                }
                 if(scope.article.state){
                     scope.isPublishing = true;
                 }else{
@@ -633,6 +636,7 @@
                 //自动上传
                 autoProcessQueue: true,
                 previewsContainer: false,
+                //
             };
             let dropzone = new Dropzone('#imgUpload', config);
             dropzone.on('success', function (file, response) {
@@ -640,6 +644,15 @@
                     scope.uploadImgUrl = addImgPrefix(response.data);
                 }
             });
+
+
+
+
+
+
+
+
+
         },
         destroyed: function () {
             /**

@@ -61,9 +61,6 @@ export default function () {
                 },
                 '/article/:articleId': {
                     name: 'article',
-                    component: function (resolve) {
-                        require(['./views/blog.article.vue'], resolve)
-                    },
                     component: require('./views/blog.article.vue'),
                 },
             }

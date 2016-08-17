@@ -23,7 +23,7 @@
                             <div class="bar" :style="{left:rightPercent+'%'}"></div>
                         </div>
                         <div class="loadingTime">
-                            <span class="musicLoading" v-show="isLoading">
+                            <span class="musicLoading" v-show="isLoading&&isPlaying">
                                 <i class="fa fa-spin fa-spinner"></i>
                             </span>
                             <span>

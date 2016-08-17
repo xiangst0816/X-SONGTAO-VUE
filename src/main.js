@@ -25,7 +25,8 @@ import "font-awesome/css/font-awesome.min.css";
 import "./theme/util.scss";
 import "./theme/ui-modify.scss";
 import "./theme/grid.scss";
-
+import "./theme/codeHighLight.css";
+import "./theme/markdown.scss";
 
 
 /**
@@ -45,6 +46,12 @@ import 'bootstrap/js/popover.js'
 import attachFastClick from "fastclick";
 new attachFastClick(document.body);
 
+/**
+ * 发布模式禁用console.log()
+ * */
+if(process.env.NODE_ENV === 'production'){
+    console.log =function () {};
+}
 
 
 new Vue({
@@ -57,7 +64,8 @@ new Vue({
     components: {
         blogNav, app
     },
-    ready:function () {}
+    ready:function () {
+    }
 
 })
 

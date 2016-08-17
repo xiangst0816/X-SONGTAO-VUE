@@ -56,6 +56,8 @@
     } from './vuex/actions'
 
 
+    $.extend()
+
     module.exports = {
         store,
         replace: false,
@@ -122,9 +124,19 @@
                 });
                 //监听加载状态
                 scope.MusicHandle.addEventListener('canplay', function () {
-//                    console.log("canplay")
+                    console.log("canplay")
                     scope.setLoadingStatus(false);
                     scope.setMusicDuration(scope.MusicHandle.duration)
+                });
+                //开始请求数据
+                scope.MusicHandle.addEventListener('loadstart', function () {
+                    console.log("loadstart")
+                    scope.setLoadingStatus(true);
+                });
+                //开始请求数据
+                scope.MusicHandle.addEventListener('canplaythrough', function () {
+                    console.log("canplaythrough")
+                    scope.setLoadingStatus(false);
                 });
             },
             _Start(){

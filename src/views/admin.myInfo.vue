@@ -31,7 +31,8 @@
                             <i v-if="checkThis==='position'&&!!isSuccess" class="fa fa-check-circle"></i>
                         </label>
                         <div class=" infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.position,'position')" v-on:blur="save(myinfo.position)" class="form-control input-sm  inputContent" id="position" name="position" placeholder="职位/Position" v-model="myinfo.position">
+                            <input type="text" @click="setThis(myinfo.position,'position')" v-on:blur="save(myinfo.position)" class="form-control input-sm  inputContent" id="position" name="position"
+                                   placeholder="职位/Position" v-model="myinfo.position">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
@@ -40,7 +41,8 @@
                             <i v-if="checkThis==='address'&&!!isSuccess" class="fa fa-check-circle"></i>
                         </label>
                         <div class=" infoDetail__inputGroup">
-                            <input type="text" @click="setThis(myinfo.address,'address')" v-on:blur="save(myinfo.address)" class="form-control input-sm  inputContent" id="address" name="address" placeholder="地址/Address" v-model="myinfo.address">
+                            <input type="text" @click="setThis(myinfo.address,'address')" v-on:blur="save(myinfo.address)" class="form-control input-sm  inputContent" id="address" name="address"
+                                   placeholder="地址/Address" v-model="myinfo.address">
                         </div>
                     </div>
                     <div class="inputGroup clearfix">
@@ -60,8 +62,8 @@
                 <div class="imgBox">
                     <div class="imgBoxInner">
                         <!--头像上传form-->
-                        <form id="imgUpload" action="" class="dropzone" method="post" enctype="multipart/form-data">
-                            <div class="dz-default dz-message"></div>
+                        <form id="imgUploadForm" action="" class="dropzone" method="post" enctype="multipart/form-data">
+                            <input id="imgUpload" type="file">
                         </form>
                         <img class="img-circle headerImg" :src="myinfo.img_url | addImgPrefix">
                     </div>
@@ -173,14 +175,23 @@
                             /*position: relative;*/
                             /*z-index: 999;*/
                         }
-                        #imgUpload {
+                        #imgUploadForm {
                             position: absolute;
                             height: 100%;
                             width: 100%;
-                            opacity: 1;
+                            opacity: 0;
                             padding: 0;
                             border: 0;
                             background-color: transparent;
+                            #imgUpload {
+                                position: absolute;
+                                height: 100%;
+                                width: 100%;
+                                opacity: 0;
+                                padding: 0;
+                                border: 0;
+                                background-color: transparent;
+                            }
                         }
                         .dz-default {
                             display: none;
@@ -232,7 +243,7 @@
                         color: #00b2e2;
                         font-weight: bold;
                         margin-bottom: 10px;
-                        padding: 0 ;
+                        padding: 0;
                     }
                     .personalState__textarea {
                         width: 100%;
@@ -275,7 +286,7 @@
                         @include align-items(center);
                         div {
                             flex: 1;
-                            padding:0 10px 0 0;
+                            padding: 0 10px 0 0;
                         }
                         label {
                             margin-top: 5px;
@@ -289,7 +300,7 @@
                             width: 60px;
                             position: absolute;
                             right: 0;
-                            padding:0;
+                            padding: 0;
                             button {
                                 width: 100%;
                                 height: 30px;
@@ -358,12 +369,14 @@
     } from '../api/api_myinfo'
 
     import API from '../config'
-    import Dropzone from '../plugin/dropzone'
+    //    import Dropzone from '../plugin/dropzone'
 
     import {ChangePassword} from '../api/api_auth'
     import copyright from '../components/copyright.vue'
     import {addImgPrefix} from "../utils/filters.js";
     import {setLoginState} from '../vuex/actions'
+
+    import {ImageUpload} from "../api/api_upload";
     module.exports = {
         data: function () {
             return {
@@ -395,7 +408,7 @@
                         scope.isSuccess = true;
                         setTimeout(function () {
                             scope.isSuccess = false;
-                        },500);
+                        }, 500);
                     })
                 }
             },
@@ -445,8 +458,8 @@
              * */
             GetMyInfoWithOriginal().then((data)=> {
                 scope.myinfo = data;
-            },(code)=>{
-                console.log("code:"+code)
+            }, (code)=> {
+                console.log("code:" + code)
             })
 
         },
@@ -457,24 +470,47 @@
             /**
              * imgUpload 配置
              * */
-            let config = {
-                url: API.imgUpload,
-                maxFilesize: 1000,
-                paramName: "uploadImg",
-                maxThumbnailFilesize: 10,
-                parallelUploads: 1,
-                //自动上传
-                autoProcessQueue: true,
-                previewsContainer: false,
-            };
-            let dropzone = new Dropzone('#imgUpload', config);
-            dropzone.on('success', function (file, response) {
-                if (parseInt(response.code) === 1) {
-                    scope.myinfo.img_url = response.data;
+//            let config = {
+//                url: API.imgUpload,
+//                maxFilesize: 1000,
+//                paramName: "uploadImg",
+//                maxThumbnailFilesize: 10,
+//                parallelUploads: 1,
+//                //自动上传
+//                autoProcessQueue: true,
+//                previewsContainer: false,
+//            };
+//            let dropzone = new Dropzone('#imgUpload', config);
+//            dropzone.on('success', function (file, response) {
+//                if (parseInt(response.code) === 1) {
+//                    scope.myinfo.img_url = response.data;
+//                    scope.changedValue = false;
+//                    scope.save(true);
+//                }
+//            });
+
+
+            /**
+             * 1. 选择图片,获得filer信息
+             * */
+            $("#imgUpload").change(function (e) {
+                // 文件句柄
+                var file = e.target.files[0];
+                // 只处理图片
+                if (!file.type.match('image.*')) {
+                    return null;
+                }
+                ImageUpload(file).then(function (imageName) {
+                    scope.myinfo.img_url = imageName;
                     scope.changedValue = false;
                     scope.save(true);
-                }
-            });
+
+                }, function () {
+                    alert("upload error");
+                })
+            })
+
+
         },
         destroyed: function () {
         },

@@ -6,11 +6,12 @@
             </div>
             <div class="music--infoBox">
                 <div class="music--info">
+                    <div class="heart" @click="setAutoPlay" data-toggle="tooltip" data-placement="right" title="希望能自动播放">
+                        <i class="fa" :class="{true:'fa-heart text-danger',false:'fa-heart-o'}[canAutoPlay]"></i>
+                    </div>
                     <h1 class="nameBox">
                         <span class="name">{{currentMusicInfo.name}}</span>
-                        <span class="heart" @click="setAutoPlay" data-toggle="tooltip" data-placement="right" title="希望能自动播放">
-                            <i class="fa" :class="{true:'fa-heart text-danger',false:'fa-heart-o'}[canAutoPlay]"></i>
-                        </span>
+
                     </h1>
                     <p class="detail">
                     <span class="left">
@@ -88,7 +89,7 @@
             justify-content: flex-start;
             align-items: flex-start;
             border-radius: 5px;
-            overflow: hidden;
+            /*overflow: hidden;*/
             background: rgba(0, 0, 0, 0.5);
             .music--img {
                 width: 200px;
@@ -122,17 +123,26 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
+                    position: relative;
+                    .heart {
+                        cursor: pointer;
+                        position: absolute;
+                        right: 20px;
+                        top: 20px;
+                        font-size: 30px;
+                        z-index:999;
+                    }
+                    .tooltip{
+                        z-index:999;
+                    }
                     .nameBox {
                         display: flex;
-                        justify-content: space-between;
+                        justify-content: flex-start;
                         align-items: center;
                         margin-top: 0;
+                        position: relative;
                         .name {
                             color: $base-theme-color;
-                        }
-                        .heart {
-                            cursor: pointer;
-                            font-size: 30px;
                         }
                     }
                     .detail {
@@ -311,7 +321,7 @@
                             justify-content: space-between;
                             align-items: flex-start;
                             height: 38px;
-                            margin-bottom:7px;
+                            margin-bottom: 7px;
 
                             .left {
                                 .player {
@@ -439,16 +449,16 @@
              * 只是展示与事件触发,通过vuex操作
              * */
             playCtrl(){
-                $(document).trigger("Music_PlayCtrl",false);
+                $(document).trigger("Music_PlayCtrl", false);
             },
             preCtrl(){
-                $(document).trigger("Music_PreCtrl",false);
+                $(document).trigger("Music_PreCtrl", false);
             },
             nextCtrl(){
-                $(document).trigger("Music_NextCtrl",false);
+                $(document).trigger("Music_NextCtrl", false);
             },
             setAutoPlay(){
-                $(document).trigger("Music_SetAutoPlay",false);
+                $(document).trigger("Music_SetAutoPlay", false);
             }
         },
         components: {copyright},

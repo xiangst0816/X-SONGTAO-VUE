@@ -25,7 +25,7 @@
                                 <div class="input-group date" id="datetimepicker">
                                     <input id="publish_time" type="text" class="form-control" v-model="publishTime">
                                     <div class="input-group-addon">
-                                        <span class="fa fa-calendar"></span>
+                                        <span class="fa fa-fw fa-calendar"></span>
                                     </div>
                                 </div>
                             </div>
@@ -33,15 +33,14 @@
                                 <label for="artTitle">上传图片</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <form action="" class="dropzone" method="post" enctype="multipart/form-data">
+                                        <form action="" class="imgUploadForm" method="post" enctype="multipart/form-data">
                                             <input id="imgUpload" type="file">
-                                            <img id="preview">
                                         </form>
-                                        <span class="fa fa-cloud-upload"></span>
+                                        <span class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-cloud-upload'}[isImgLoading]"></span>
                                     </div>
                                     <input id="uploadImgUrl" type="text" class="form-control" placeholder="图片引用路径" v-model="uploadImgUrl">
                                     <div class="input-group-addon" id='copyImgUrl2Clipboard' data-clipboard-target="#uploadImgUrl">
-                                        <span class="fa fa-clipboard"></span>
+                                        <span class="fa fa-fw fa-clipboard"></span>
                                     </div>
                                 </div>
                             </div>
@@ -60,12 +59,11 @@
                                 <button class="btn btn-info" @click="publishBtn()" v-bind:disabled="!article.title || !content_raw">
                                     <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-rocket'}[isPublishing]"></i> 发布
                                 </button>
-
-                                <button @click="previewBtn()" class="btn btn-default showPreview hidden-sm">
-                                    <i class="fa fa-fw" :class="{true:'fa-angle-double-left',false:'fa-angle-double-right'}[isShowBigAdmin]"></i> 预览
-                                </button>
                                 <button class="btn btn-default" @click="draftBtn()" v-bind:disabled="!article.title || !content_raw">
                                     <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-save'}[isDrafting]"></i> 草稿
+                                </button>
+                                <button @click="previewBtn()" class="btn btn-default showPreview">
+                                    <i class="fa fa-fw" :class="{true:'fa-angle-double-left',false:'fa-angle-double-right'}[isShowBigAdmin]"></i> 预览
                                 </button>
                             </div>
                         </div>
@@ -184,6 +182,7 @@
                                 display: flex;
                                 justify-content: flex-end;
                                 align-items: center;
+                                position: relative;
                                 .input-group {
                                     display: flex;
                                     flex: 1;
@@ -192,17 +191,37 @@
                                         display: flex;
                                         justify-content: center;
                                         align-items: center;
+                                        /*cursor: pointer;*/
                                     }
                                 }
 
-                                #imgUpload {
+                                .imgUploadForm {
                                     position: absolute;
                                     width: 100%;
                                     height: 100%;
                                     left: 0;
                                     top: 0;
                                     opacity: 0;
+                                    #imgUpload {
+                                        position: absolute;
+                                        width: 100%;
+                                        height: 100%;
+                                        left: 0;
+                                        top: 0;
+                                        opacity: 0;
+                                        &::before {
+                                            content: '';
+                                            position: absolute;
+                                            width: 100%;
+                                            height: 100%;
+                                            left: 0;
+                                            top: 0;
+                                            opacity: 0;
+                                            cursor: pointer;
+                                        }
+                                    }
                                 }
+
                             }
                             //标签组
                             .tagsBox {
@@ -439,7 +458,6 @@
     import copyright from '../components/copyright.vue'
 
 
-
     import {ImageUpload} from "../api/api_upload";
 
     module.exports = {
@@ -454,6 +472,7 @@
                 uploadImgUrl: '',
                 isPublishing: false,
                 isDrafting: false,
+                isImgLoading: false,
             }
         },
         computed: {},
@@ -625,12 +644,9 @@
              * 点击复制到剪贴板按钮的操作
              * */
             let clipboard = new Clipboard('#copyImgUrl2Clipboard');
-            clipboard.on('success', function(e) {
+            clipboard.on('success', function (e) {
 
             });
-
-
-
 
 
             /**
@@ -643,16 +659,15 @@
                 if (!file.type.match('image.*')) {
                     return null;
                 }
+                scope.isImgLoading = true;
                 ImageUpload(file).then(function (imageName) {
                     scope.uploadImgUrl = addImgPrefix(imageName);
-                    alert("upload success");
-                },function () {
+                }, function () {
                     alert("upload error");
+                }).then(function () {
+                    scope.isImgLoading = false;
                 })
             })
-
-
-
 
 
         },

@@ -33,8 +33,9 @@
                                 <label for="artTitle">上传图片</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <form id="imgUpload" action="" class="dropzone" method="post" enctype="multipart/form-data">
-                                            <div class="dz-default dz-message"></div>
+                                        <form action="" class="dropzone" method="post" enctype="multipart/form-data">
+                                            <input id="imgUpload" type="file">
+                                            <img id="preview">
                                         </form>
                                         <span class="fa fa-cloud-upload"></span>
                                     </div>
@@ -107,6 +108,7 @@
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
+
     .articleEdit {
         .title {
             width: 100%;
@@ -125,9 +127,6 @@
                     @include justify-content(space-between);
                     @include align-items(center);
                     box-sizing: border-box;
-                    /*margin-bottom: 10px;*/
-                    //padding-bottom: 5px;
-                    /*border-bottom: 2px dashed #bbb;*/
                     .inputBox__input {
                         width: 100%;
                         //padding-right: 4px;
@@ -426,7 +425,6 @@
     import moment from "moment";
     import Multiselect from 'vue-multiselect'
     import API from "../config"
-    import Dropzone from '../plugin/dropzone'
     import Clipboard from "clipboard"
     import "bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build.scss"
     import "bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
@@ -439,6 +437,10 @@
     import {autoTextarea} from "../utils/autoTextarea";
     import {setShowBigAdminStatus} from "../vuex/actions"
     import copyright from '../components/copyright.vue'
+
+
+
+    import {ImageUpload} from "../api/api_upload";
 
     module.exports = {
         data: function () {
@@ -547,22 +549,22 @@
             },
             _autoSave(){
                 const scope = this;
-                if(!scope.article.title){
+                if (!scope.article.title) {
                     return false
                 }
-                if(!scope.content_raw){
+                if (!scope.content_raw) {
                     return false
                 }
-                if(scope.article.state){
+                if (scope.article.state) {
                     scope.isPublishing = true;
-                }else{
+                } else {
                     scope.isDrafting = true;
                 }
                 scope._save().then(function () {
                     setTimeout(function () {
-                        if(scope.article.state){
+                        if (scope.article.state) {
                             scope.isPublishing = false;
-                        }else{
+                        } else {
                             scope.isDrafting = false;
                         }
                     }, 500)
@@ -622,32 +624,32 @@
             /**
              * 点击复制到剪贴板按钮的操作
              * */
-            new Clipboard('#copyImgUrl2Clipboard');
+            let clipboard = new Clipboard('#copyImgUrl2Clipboard');
+            clipboard.on('success', function(e) {
 
-            /**
-             * imgUpload 配置
-             * */
-            let config = {
-                url: API.imgUpload,
-                maxFilesize: 1000,
-                paramName: "uploadImg",
-                maxThumbnailFilesize: 10,
-                parallelUploads: 1,
-                //自动上传
-                autoProcessQueue: true,
-                previewsContainer: false,
-                //
-            };
-            let dropzone = new Dropzone('#imgUpload', config);
-            dropzone.on('success', function (file, response) {
-                if (parseInt(response.code) === 1) {
-                    scope.uploadImgUrl = addImgPrefix(response.data);
-                }
             });
 
 
 
 
+
+            /**
+             * 1. 选择图片,获得filer信息
+             * */
+            $("#imgUpload").change(function (e) {
+                // 文件句柄
+                var file = e.target.files[0];
+                // 只处理图片
+                if (!file.type.match('image.*')) {
+                    return null;
+                }
+                ImageUpload(file).then(function (imageName) {
+                    scope.uploadImgUrl = addImgPrefix(imageName);
+                    alert("upload success");
+                },function () {
+                    alert("upload error");
+                })
+            })
 
 
 

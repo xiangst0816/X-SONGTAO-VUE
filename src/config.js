@@ -3,29 +3,22 @@
  * Description:
  */
 //线上配置
-var CONFIG = {
-    // url: "http://172.20.90.2:8080",
-    url: "http://xiangsongtao.com",
-    // url: "http://172.16.6.55:8080",
+// var CONFIG = {
+//     url: "http://xiangsongtao.com",
+//     MY_INFO_ID: '578251be1cd6c37a04a4d50b',
+//     MY: '我',
+//     EMAIL: '280304286@163.com'
+// };
+
+
+const CONFIG = {
+    url: "http://127.0.0.1:8081",
     //我的信息_id
-    MY_INFO_ID: '578251be1cd6c37a04a4d50b',
+    MY_INFO_ID: '576b95155fce2dfd3874e738',
     //我对对评论进行回复的信息
     MY: '我',
     EMAIL: '280304286@163.com'
 };
-
-
-// const CONFIG = {
-//     url: "http://xiangsongtao.com",
-//     // url: "http://127.0.0.1:8080",
-//     // url: "http://172.16.6.55:8080",
-//     //我的信息_id
-//     // MY_INFO_ID: '576b95155fce2dfd3874e738',
-//     MY_INFO_ID: '578251be1cd6c37a04a4d50b',
-//     //我对对评论进行回复的信息
-//     MY: '我',
-//     EMAIL: '280304286@163.com'
-// };
 
 // "http://xiangsongtao.com/api/user/578251be1cd6c37a04a4d50b".
 //接口API根地址

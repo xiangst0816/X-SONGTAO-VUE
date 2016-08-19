@@ -223,63 +223,84 @@
             clearSessionStorage(){
                 this.$sessionStorage.$reset();
             },
+            //加载资源,成功执行回调
+            _loadImg(url, cb) {
+                if (/.png$|.jpg$|.gif$/.test(url)) {
+                    let _TagObjs = new Image();
+                    _TagObjs.src = url;
+                    _TagObjs.onload = function () {
+                        !!cb && cb();
+                    };
+                }
+            },
+            //随机返回列表中的地址
+            _randomImage() {
+                const scope = this;
+                let imageList = API.imageList;//图片列表
+                let imageCount = imageList.length;
+                //返回 v_from 和 v_to 之间的随机整数
+                function _selectFrom(v_from, v_to) {
+                    let range = v_to - v_from + 1;
+                    let selected = Math.floor(Math.random() * range + v_from);
+                    if (selected === parseInt(scope.bgIndexNow)) {
+                        // console.log('和上一个相同,再去随机取值')
+                        return _selectFrom(v_from, v_to);
+                    } else {
+                        // console.log("当前取值为:" + (selected+1))
+                        scope.bgIndexNow = selected;
+                        return selected
+                    }
+                }
+                
+                return imageList[_selectFrom(0, imageCount - 1)]
+            },
             /**
              * 更换背景
              * */
-            changeBG(){
+            changeBG(imgUrl){
                 const scope = this;
                 if (scope.isChangeBG) {
                     return false;
                 }
+                if(!imgUrl){
+                    imgUrl = scope._randomImage();
+                }
                 scope.isChangeBG = true;
 
-                let $body = $('#app');
-                let imgUrl = randomImage();
-                loadImg(imgUrl, function () {
+                let $body = $('html');
+                // 检查是否有用户自己保存过背景图片,如果保存过,则自动切换
+                scope._loadImg(imgUrl, function () {
                     $body.css({
-                        background: `url(${imgUrl}) no-repeat top left/cover fixed`
+                        'background-image': `url(${imgUrl})`,
+                        'background-repeat':'no-repeat',
+                        'background-size':'cover',
+                        'background-attachment':'fixed',
                     });
+
+                    // 保存用户切换的壁纸信息,下次直接自动切换
+                    scope.$localStorage.$set('userBackground',imgUrl);
+
                     // 动画是500ms
                     setTimeout(function () {
                         scope.isChangeBG = false;
+                        $body.css({
+                            'transition': 'background-image ease 500ms'
+                        })
                     }, 500);
                 });
-
-
-                //加载资源,成功执行回调
-                function loadImg(url, cb) {
-                    if (/.png$|.jpg$|.gif$/.test(url)) {
-                        let _TagObjs = new Image();
-                        _TagObjs.src = url;
-                        _TagObjs.onload = function () {
-                            !!cb && cb();
-                        };
-                    }
-                }
-
-                //随机返回列表中的地址
-                function randomImage() {
-                    let imageList = API.imageList;//图片列表
-                    let imageCount = imageList.length;
-                    return imageList[selectFrom(0, imageCount - 1)]
-                }
-
-                //返回 v_from 和 v_to 之间的随机整数
-                function selectFrom(v_from, v_to) {
-                    let range = v_to - v_from + 1;
-                    let selected = Math.floor(Math.random() * range + v_from);
-                    if (selected === parseInt(scope.bgIndexNow)) {
-//                        console.log('和上一个相同,再去随机取值')
-                        return selectFrom(v_from, v_to);
-                    } else {
-//                        console.log("当前取值为:" + (selected+1))
-                        scope.bgIndexNow = selected
-                        return selected
-                    }
-                }
             },
         },
         ready: function () {
+            const scope = this;
+            /**
+             * 背景初始化
+             * */
+            if(!!scope.$localStorage.userBackground){
+                setTimeout(function () {
+                    scope.changeBG(scope.$localStorage.userBackground)
+                },1000)
+
+            }
 
             /**
              * 工具提示栏

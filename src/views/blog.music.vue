@@ -1,14 +1,18 @@
 <template>
     <div class="musicBox animated fadeIn">
         <div class="music">
+
+            <div class="heart" @click="setAutoPlay" data-toggle="tooltip" data-placement="right" title="希望能自动播放">
+                <i class="fa" :class="{true:'fa-heart text-danger',false:'fa-heart-o'}[canAutoPlay]"></i>
+            </div>
+
+
             <div class="music--img">
                 <img :src="currentMusicInfo.coverUrl">
             </div>
             <div class="music--infoBox">
                 <div class="music--info">
-                    <div class="heart" @click="setAutoPlay" data-toggle="tooltip" data-placement="right" title="希望能自动播放">
-                        <i class="fa" :class="{true:'fa-heart text-danger',false:'fa-heart-o'}[canAutoPlay]"></i>
-                    </div>
+
                     <h1 class="nameBox">
                         <span class="name">{{currentMusicInfo.name}}</span>
 
@@ -91,6 +95,17 @@
             border-radius: 5px;
             /*overflow: hidden;*/
             background: rgba(0, 0, 0, 0.5);
+            position: relative;
+            .heart {
+                cursor: pointer;
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                font-size: 30px;
+                z-index:999;
+                height:30px;
+                line-height: 100%;
+            }
             .music--img {
                 width: 200px;
                 height: 200px;
@@ -124,14 +139,7 @@
                     flex-direction: column;
                     justify-content: space-between;
                     position: relative;
-                    .heart {
-                        cursor: pointer;
-                        position: absolute;
-                        right: 20px;
-                        top: 20px;
-                        font-size: 30px;
-                        z-index:999;
-                    }
+
                     .tooltip{
                         z-index:999;
                     }
@@ -249,7 +257,6 @@
                     }
                 }
             }
-
         }
     }
 
@@ -275,6 +282,10 @@
                 overflow: hidden;
                 background: rgba(0, 0, 0, 0.5);
                 margin-bottom: 0;
+                .heart {
+                    left: 20px;
+                    right:auto;
+                }
                 .music--img {
                     width: $musicBoxWidth;
                     height: $musicBoxWidth;
@@ -464,11 +475,20 @@
         components: {copyright},
         ready: function () {
             let scope = this;
-            // 工具提示
-            $('[data-toggle="tooltip"]').tooltip({
-                trigger: 'hover',
-                placement: 'right'
-            });
+
+            /**
+             * 工具提示栏
+             * */
+            let clientWidth = parseInt(document.documentElement.clientWidth);
+            if (clientWidth > 769) {
+                // 工具提示
+                $('[data-toggle="tooltip"]').tooltip({
+                    trigger: 'hover',
+                    placement: 'right'
+                });
+            }
+
+
         },
         vuex: {
             getters: {

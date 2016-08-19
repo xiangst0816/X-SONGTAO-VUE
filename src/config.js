@@ -169,6 +169,8 @@ module.exports = {
         'http://xiangsongtao.com/bg_resource/8.jpg',
         'http://xiangsongtao.com/bg_resource/9.jpg',
         'http://xiangsongtao.com/bg_resource/10.jpg',
+        'http://xiangsongtao.com/bg_resource/11.jpg',
+        'http://xiangsongtao.com/bg_resource/12.jpg',
     ]
 
 };

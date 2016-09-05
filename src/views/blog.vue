@@ -123,7 +123,6 @@
             .blog__content{
                 padding-top:270px;
                 .blog__content--inner{
-
                 }
             }
         }
@@ -135,9 +134,6 @@
             opacity: 0;
         }
     }
-
-
-
 
 </style>
 <script>

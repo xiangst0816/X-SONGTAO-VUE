@@ -13,9 +13,7 @@
                 <router-view></router-view>
             </div>
         </div>
-
     </div>
-
 </template>
 <style scoped lang="scss">
     //base

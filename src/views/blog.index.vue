@@ -6,7 +6,7 @@
             <div class="head-wrap">
                 <h3 class="text-center services">前端工程师 - Nodejs工程师</h3>
                 <div id="headlines">
-                    <h1 :class="{'current': now==1}" class="text-center textItem">我是<span class="blue">X-SONGTAO</span></h1>
+                    <h1 :class="{'current': now==1}" class="text-center textItem">我是<span class="blue">Songtao</span></h1>
                     <h1 :class="{'current': now==2}" class="text-center textItem">既然喜欢那就<span class="blue">行动吧</span>, 不然以后就真没机会了!</h1>
                     <h1 :class="{'current': now==3}" class="text-center textItem">不忘<span class="blue">初心</span> 方得始终</h1>
                     <h1 :class="{'current': now==4}" class="text-center textItem"><span class="blue">行动吧, </span>骚年!</h1>

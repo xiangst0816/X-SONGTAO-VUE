@@ -93,7 +93,7 @@
             justify-content: flex-start;
             align-items: flex-start;
             border-radius: 5px;
-            /*overflow: hidden;*/
+            overflow: hidden;
             background: rgba(0, 0, 0, 0.5);
             position: relative;
             .heart {

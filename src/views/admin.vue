@@ -37,8 +37,8 @@
             margin-bottom: 15px;
             margin-right: auto;
             user-select: none;
-            -webkit-user-select: none;
-            -webkit-user-select: none;
+            /*-webkit-user-select: none;*/
+            /*-webkit-user-select: none;*/
             .adminBox-content-header h1 {
                 display: inline-block;
                 float: right;

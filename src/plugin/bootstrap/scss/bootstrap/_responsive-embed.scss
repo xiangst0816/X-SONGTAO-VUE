@@ -1,7 +1,8 @@
 // Embeds responsive
 //
 // Credit: Nicolas Gallagher and SUIT CSS.
-
+@import "variables";
+@import "mixins";
 .embed-responsive {
   position: relative;
   display: block;

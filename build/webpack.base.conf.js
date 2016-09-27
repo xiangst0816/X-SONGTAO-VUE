@@ -25,7 +25,7 @@ module.exports = {
             "bootstrap": path.resolve(__dirname, '../src/plugin/bootstrap'),
             "bootstrap-datetimepicker": path.resolve(__dirname, '../src/plugin/bootstrap-datetimepicker'),
             "moment": path.resolve(__dirname, '../src/plugin/moment-with-locales.js'),
-            "fastclick": path.resolve(__dirname, '../src/plugin/fastclick.js'),
+            // "fastclick": path.resolve(__dirname, '../src/plugin/fastclick.js'),
             "vue-multiselect": path.resolve(__dirname, '../src/plugin/vue-multiselect/Multiselect.vue'),
         }
     },

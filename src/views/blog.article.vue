@@ -32,7 +32,6 @@
                                 评论数
                                 <span ng-bind="article.comment_num">{{article.comment_num}}</span>
                             </a>
-
                             <div class="paper__info--span hidden-xs" v-for="tag of article.tags">
                                 <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
                             </div>
@@ -626,7 +625,7 @@
                     }
                 }
                 .paper__content {
-                    padding: 20px 10px 0px;
+                    padding: 20px 10px 20px;
                     .paper__content--inner {
                         font-size: 14px !important;
                     }
@@ -645,7 +644,11 @@
 
     import commentReplyBox from '../components/commentReplyBox.vue'
 
-    //    import "bootstrap/js/affix.js";
+    import "../theme/codeHighLight.css";
+    import "../theme/markdown.scss";
+    import "bootstrap/scss/bootstrap/_breadcrumbs.scss";
+
+
     import copyright from '../components/copyright.vue'
     module.exports = {
         replace: true,

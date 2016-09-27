@@ -1,7 +1,8 @@
 //
 // Component animations
 // --------------------------------------------------
-
+@import "variables";
+@import "mixins";
 // Heads up!
 //
 // We don't use the `.opacity()` mixin here since it causes a bug with text

@@ -1,7 +1,8 @@
 //
 // Tooltips
 // --------------------------------------------------
-
+@import "variables";
+@import "mixins";
 
 // Base class
 .tooltip {
@@ -30,6 +31,11 @@
   text-align: center;
   background-color: $tooltip-bg;
   border-radius: $border-radius-base;
+
+  white-space: nowrap;
+  font-size: 14px;
+
+
 }
 
 // Arrows

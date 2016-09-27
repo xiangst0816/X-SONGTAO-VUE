@@ -151,7 +151,9 @@
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
-
+    .deleteConfirmText{
+        margin:10px;
+    }
     .comments {
         height: 100%;
         .title {
@@ -298,6 +300,11 @@
     import copyright from '../components/copyright.vue'
     import {SendComment} from '../api/api_comment'
     import noData from "../components/nodata.vue"
+
+    import "bootstrap/js/dropdown.js";//放到它出现的位置
+    import "bootstrap/scss/bootstrap/_dropdowns.scss";
+
+
     module.exports = {
         data: function () {
             return {

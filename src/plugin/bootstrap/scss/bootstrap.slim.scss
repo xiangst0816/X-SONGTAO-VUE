@@ -5,8 +5,8 @@
  */
 
 // Core variables and mixins
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
+//@import "bootstrap/variables";
+//@import "bootstrap/mixins";
 
 // Reset and dependencies
 @import "bootstrap/normalize";
@@ -24,13 +24,13 @@
 
 // Components
 @import "bootstrap/component-animations";
-@import "bootstrap/dropdowns";
+//@import "bootstrap/dropdowns";
 @import "bootstrap/badges";
-@import "bootstrap/breadcrumbs";
+//@import "bootstrap/breadcrumbs";
 @import "bootstrap/close";
 //
-@import "bootstrap/button-groups";
-@import "bootstrap/input-groups";
+//@import "bootstrap/button-groups";
+//@import "bootstrap/input-groups";
 //@import "bootstrap/navs";
 //@import "bootstrap/navbar";
 //@import "bootstrap/pagination";

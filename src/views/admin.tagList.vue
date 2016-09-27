@@ -147,7 +147,9 @@
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
-
+    .deleteConfirmText{
+        margin:10px;
+    }
     .tags {
         height: 100%;
         .title {

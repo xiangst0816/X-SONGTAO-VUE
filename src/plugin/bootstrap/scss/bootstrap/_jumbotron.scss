@@ -1,7 +1,8 @@
 //
 // Jumbotron
 // --------------------------------------------------
-
+@import "variables";
+@import "mixins";
 
 .jumbotron {
   padding-top:    $jumbotron-padding;

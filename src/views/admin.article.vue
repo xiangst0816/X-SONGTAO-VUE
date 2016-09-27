@@ -427,6 +427,10 @@
 <script>
     import Vue from "vue";
     import marked from "marked";
+
+    import "../theme/codeHighLight.css";
+    import "../theme/markdown.scss";
+
     marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,
@@ -460,6 +464,8 @@
 
     import {ImageUpload} from "../api/api_upload";
 
+    import "bootstrap/scss/bootstrap/_button-groups.scss";
+    import "bootstrap/scss/bootstrap/_input-groups.scss";
     module.exports = {
         data: function () {
             return {
@@ -499,7 +505,7 @@
                         autoTextarea($TextArea, 10);
                     }, 0);
                 }, (err)=> {
-                    alert(err)
+                    alert(JSON.stringify(err))
                 })
             },
             //获取书写的文章信息

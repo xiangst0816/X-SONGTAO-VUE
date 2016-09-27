@@ -135,7 +135,9 @@
 <style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
-
+    .deleteConfirmText{
+        margin:10px;
+    }
     .myInfo {
         overflow: hidden;
         height: 100%;

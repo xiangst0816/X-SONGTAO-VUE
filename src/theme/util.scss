@@ -1,90 +1,6 @@
 @charset "UTF-8";
 //Utility Classes
 
-.hide {
-  display: none;
-}
-
-.opacity-hide {
-  opacity: 0;
-}
-
-.grade-b .opacity-hide,
-.grade-c .opacity-hide {
-  opacity: 1;
-  display: none;
-}
-
-.show {
-  display: block;
-}
-
-.opacity-show {
-  opacity: 1;
-}
-
-.invisible {
-  visibility: hidden;
-}
-
-.keyboard-open .hide-on-keyboard-open {
-  display: none;
-}
-
-.keyboard-open .tabs.hide-on-keyboard-open + .pane .has-tabs,
-.keyboard-open .bar-footer.hide-on-keyboard-open + .pane .has-footer {
-  bottom: 0;
-}
-
-.inline {
-  display: inline-block;
-}
-
-.disable-pointer-events {
-  pointer-events: none;
-}
-
-.enable-pointer-events {
-  pointer-events: auto;
-}
-
-.no-resize {
-  resize: none;
-}
-
-.block {
-  display: block;
-  clear: both;
-  &:after {
-    display: block;
-    visibility: hidden;
-    clear: both;
-    height: 0;
-    content: ".";
-  }
-}
-
-.pull-left{
-  float: left;
-}
-.pull-right{
-  float:right;
-}
-.text-center{
-  text-align: center;
-}
-.text-right{
-  text-align: right;
-}
-.text-left{
-  text-align: left;
-}
-.center-block{
-  display: block!important;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 
 .blogTrans-transition {
   transition: transform .5s ease,opacity .5s ease;
@@ -143,25 +59,6 @@
 
 
 
-.clearfix {
-  *zoom: 1;
-  &:before,
-  &:after {
-    display: table;
-    content: "";
-    line-height: 0;
-  }
-  &:after {
-    clear: both;
-  }
-}
-
-
-
-.hidden{
-  display: none !important;
-}
-
 .visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -184,56 +81,6 @@
 }
 
 
-.invisible {
-  visibility: hidden;
-}
-
-
-
-.word-line {
-  overflow: hidden;
-  -ms-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-
-
-
-
-.full-image {
-  width: 100%;
-}
-
-.img-circle{
-  border-radius: 50%;
-}
-
-.text-shadow{
-  text-shadow: 0 3px 12px #000;
-}
-
-
-
-.bigScreen {
-  height: 100%;
-  width: 100%;
-  display: block;
-  position: relative;
-}
-.noPadding {
-  padding: 0;
-}
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.lockScreen{
-  overflow: hidden!important;
-}
 
 .card-shadow{
   box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);

@@ -38,7 +38,9 @@ export default function () {
         },
         '/login': {
             name: 'login',
-            component: require('./views/blog.login.vue')
+            component: function (resolve) {
+                require(['./views/blog.login.vue'], resolve)
+            },
         },
         '/music': {
             name: 'music',

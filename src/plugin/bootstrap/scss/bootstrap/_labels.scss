@@ -1,7 +1,8 @@
 //
 // Labels
 // --------------------------------------------------
-
+@import "variables";
+@import "mixins";
 .label {
   display: inline;
   padding: .2em .6em .3em;

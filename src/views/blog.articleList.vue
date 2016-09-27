@@ -207,7 +207,6 @@
     import noData from "../components/nodata.vue"
     import isLoading from "../components/isLoading.vue"
     import copyright from '../components/copyright.vue'
-
     import {GetArticleListForFrontEnd} from "../api/api_article"
 
     export default{
@@ -251,7 +250,7 @@
         destroyed: function () {
         },
         components: {
-            noData, copyright, isLoading
+            noData, copyright, isLoading,
         },
     }
 </script>

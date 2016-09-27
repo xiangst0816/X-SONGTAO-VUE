@@ -10,6 +10,7 @@
 +function ($) {
   'use strict';
 
+  console.log('affix.js')
   // AFFIX CLASS DEFINITION
   // ======================
 

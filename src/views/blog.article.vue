@@ -3,102 +3,246 @@
 * Description:
 */
 <template>
-    <div class="article-detail animated fadeIn">
-        <!--文章-->
-        <div class="paper" :class="{'loading':isLoading}">
-            <section class="paper__header">
-                <ol class="breadcrumb  hidden-xs">
-                    <li><a v-link="{ name: 'index'}">首页</a></li>
-                    <li><a v-link="{ name: 'blog'}">博客</a></li>
-                    <li class="active">文章</li>
-                </ol>
-                <h1>{{article.title}}</h1>
-            </section>
-            <section class="paper__info">
-                <div class="paper__info--span">
-                    <i class="fa fa-calendar"></i>
-                    <span>{{article.publish_time   | moment "from" "now"}}</span>
-                </div>
-                <div class="paper__info--span">
-                    <i class="fa fa-book"></i>
-                    阅读数
-                    <span ng-bind="article.read_num">{{article.read_num}}</span>
-                </div>
-                <div class="paper__info--span">
-                    <i class="fa fa-comments"></i>
-                    评论数
-                    <span ng-bind="article.comment_num">{{article.comment_num}}</span>
-                </div>
+    <div class="article animated fadeIn container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="article-detail">
+                    <!--文章-->
+                    <div class="paper" :class="{'loading':isLoading}">
+                        <section class="paper__header">
+                            <ol class="breadcrumb  hidden-xs">
+                                <li><a v-link="{ name: 'index'}">首页</a></li>
+                                <li><a v-link="{ name: 'blog'}">博客</a></li>
+                                <li class="active">文章</li>
+                            </ol>
+                            <h1>{{article.title}}</h1>
+                        </section>
+                        <section class="paper__info">
+                            <div class="paper__info--span">
+                                <i class="fa fa-calendar"></i>
+                                <span>{{article.publish_time   | moment "from" "now"}}</span>
+                            </div>
+                            <div class="paper__info--span">
+                                <i class="fa fa-book"></i>
+                                阅读数
+                                <span ng-bind="article.read_num">{{article.read_num}}</span>
+                            </div>
+                            <div class="paper__info--span">
+                                <i class="fa fa-comments"></i>
+                                评论数
+                                <span ng-bind="article.comment_num">{{article.comment_num}}</span>
+                            </div>
 
-                <div class="paper__info--span hidden-xs" v-for="tag of article.tags">
-                    <i class="fa fa-tag"></i> <span>{{tag}}</span>
-                </div>
-            </section>
-            <section class="paper__content">
-                <div class="paper__content--inner markdown-body hljs" ng-bind-html="article.content | toTrusted">
-                    {{{article.content}}}
-                </div>
-                <!--page-->
-            </section>
+                            <div class="paper__info--span hidden-xs" v-for="tag of article.tags">
+                                <i class="fa fa-tag"></i> <span>{{tag}}</span>
+                            </div>
+                        </section>
+                        <section class="paper__content">
+                            <div class="paper__content--inner markdown-body hljs" ng-bind-html="article.content | toTrusted">
+                                {{{article.content}}}
+                            </div>
+                            <!--page-->
+                        </section>
 
-            <!--the end-->
+                        <!--the end-->
+                    </div>
+                    <!--评论-->
+                    <section class="commentbox hidden-xs">
+                        <!--标题-->
+                        <div class="commentbox__header">
+                            <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{article.comment_num}}</span></h3>
+                        </div>
+                        <!--提问题-->
+                        <div class="commentBox__question" @click="replyBtn('')">
+                            <comment-box :has-nick-name.sync="hasNickName" :article-id="article._id" :pre-id="article._id"></comment-box>
+                        </div>
+
+                        <!--问题盒子-->
+
+                        <div class="commentbox__inner">
+                            <div class="comments" v-for="comment of commentList">
+                                <!--{{comment._id}}{{'&#45;&#45;'}}{{chain.selectId ==comment._id}}{{'&#45;&#45;'}}{{toggle}}{{'&#45;&#45;'}}{{chain.selectId}}-->
+                                <div class="comments__ask">
+                                    <div class="comments__ask__header">
+                                        <!--<span class="name" ng-bind="comment.name"></span>&ensp;·&ensp;<span am-time-ago="comment.time" ></span>&ensp;·&ensp;<span class="reply" ng-click="commentToComemntBtn($event)">回复</span>-->
+                                        <span class="name">{{comment.name}}</span>&ensp;·&ensp;<span>{{comment.time | moment "from" "now"}}</span><span class="hidden-xs">&ensp;·&ensp;<span
+                                            class="reply"
+                                            @click="replyBtn(comment._id)">回复</span></span>
+                                    </div>
+                                    <div class="comments__ask__content">
+                                        <span>{{comment.content}}</span>
+                                    </div>
+                                </div>
+                                <div class="comments__reply" :class="{'active':(comment._id==selectId && toggle)}">
+                                    <div class="commentBox__question">
+                                        <comment-box :has-nick-name.sync="hasNickName" :article-id="comment.article_id" :pre-id="comment._id"></comment-box>
+                                    </div>
+                                    <div class="comments__reply__each" v-for="reply of comment.next_id">
+                                        <div class="comments__reply__header">
+                                            <span class="name">{{reply.name}}</span>&ensp;·&ensp;<span>{{reply.time | moment "from" "now"}}</span>
+                                        </div>
+                                        <div class="comments__reply__content">
+                                            <span ng-bind="reply.content">{{reply.content}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="col-lg-4 visible-lg clearfix">
+                <aside class="article-aside">
+                    <!--最新排行 for 10-->
+                    <div class="topBar">
+                        <h3 class="topBar--title">最新排行
+                            <small>Top10</small>
+                        </h3>
+                        <ol class="topBar--ul">
+                            <li class="topBar--li">
+                                <a href="#">文章1</a>
+                            </li>
+                            <li class="topBar--li">
+                                <a href="#">文章2</a>
+                            </li>
+                            <li class="topBar--li">
+                                <a href="#">文章3</a>
+                            </li>
+                            <li class="topBar--li">
+                                <a href="#">文章4</a>
+                            </li>
+                            <li class="topBar--li">
+                                <a href="#">文章5</a>
+                            </li>
+                        </ol>
+                    </div>
+                    <!--阅读排行 for 10-->
+                    <div class="topBar">
+                        <h3 class="topBar--title">阅读排行
+                            <small>Top10</small>
+                        </h3>
+                        <ol class="topBar--ul">
+                            <li class="topBar--li">
+                                <a href="#">文章1</a>
+                            </li>
+                            <li class="topBar--li">
+                                <a href="#">文章2</a>
+                            </li>
+                            <li class="topBar--li">
+                                <a href="#">文章3</a>
+                            </li>
+                            <li class="topBar--li">
+                                <a href="#">文章4</a>
+                            </li>
+                            <li class="topBar--li">
+                                <a href="#">文章5</a>
+                            </li>
+                        </ol>
+                    </div>
+                    <!--标签 最多10个-->
+                    <div class="topBar">
+                        <h3 class="aside--title">标签
+                            <small>Top10</small>
+                        </h3>
+                        <ul>
+                            <li>文章文章文章文章文章文章文章文章文章1</li>
+                            <li>文章2</li>
+                            <li>文章3</li>
+                            <li>文章4</li>
+                            <li>文章5</li>
+                        </ul>
+                    </div>
+
+                </aside>
+                <!--返回最上层-->
+                <div class="backToTop">
+                    <div class="backToTop--inner">
+                        Top
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--评论-->
-        <section class="commentbox hidden-xs">
-            <!--标题-->
-            <div class="commentbox__header">
-                <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{article.comment_num}}</span></h3>
-            </div>
-            <!--提问题-->
-            <div class="commentBox__question" @click="replyBtn('')">
-                <comment-box :has-nick-name.sync="hasNickName" :article-id="article._id" :pre-id="article._id"></comment-box>
-            </div>
-
-            <!--问题盒子-->
-
-            <div class="commentbox__inner">
-                <div class="comments" v-for="comment of commentList">
-                    <!--{{comment._id}}{{'&#45;&#45;'}}{{chain.selectId ==comment._id}}{{'&#45;&#45;'}}{{toggle}}{{'&#45;&#45;'}}{{chain.selectId}}-->
-                    <div class="comments__ask">
-                        <div class="comments__ask__header">
-                            <!--<span class="name" ng-bind="comment.name"></span>&ensp;·&ensp;<span am-time-ago="comment.time" ></span>&ensp;·&ensp;<span class="reply" ng-click="commentToComemntBtn($event)">回复</span>-->
-                            <span class="name">{{comment.name}}</span>&ensp;·&ensp;<span>{{comment.time | moment "from" "now"}}</span><span class="hidden-xs">&ensp;·&ensp;<span class="reply"
-                                                                                                                                                                                 @click="replyBtn(comment._id)">回复</span></span>
-                        </div>
-                        <div class="comments__ask__content">
-                            <span>{{comment.content}}</span>
-                        </div>
-                    </div>
-                    <div class="comments__reply" :class="{'active':(comment._id==selectId && toggle)}">
-                        <div class="commentBox__question">
-                            <comment-box :has-nick-name.sync="hasNickName" :article-id="comment.article_id" :pre-id="comment._id"></comment-box>
-                        </div>
-                        <div class="comments__reply__each" v-for="reply of comment.next_id">
-                            <div class="comments__reply__header">
-                                <span class="name">{{reply.name}}</span>&ensp;·&ensp;<span>{{reply.time | moment "from" "now"}}</span>
-                            </div>
-                            <div class="comments__reply__content">
-                                <span ng-bind="reply.content">{{reply.content}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 </template>
 <style lang="scss">
     //base
     @import "../theme/theme.scss";
 
+    * {
+        /*outline: 1px solid #eee;*/
+    }
+
+    .article {
+        padding-top: 35px;
+        position: relative;
+        .article-detail {
+
+        }
+        .article-aside {
+            position: fixed;
+            padding-left: 20px;
+            width: 370px;
+            box-sizing: border-box;
+            color: #333;
+
+            .topBar{
+                width: 100%;
+                background: #fff;
+                border:1px solid transparent;
+                margin-bottom: 20px;
+                box-sizing: border-box;
+                padding:0 10px;
+                .topBar--title{
+                    border-left:3px solid $base-theme-color;
+                    padding-left:10px;
+                }
+                .topBar--ul{
+                    padding-left:20px;
+                    .topBar--li{
+                        a{
+                            color:inherit;
+                        }
+
+                    }
+                }
+            }
+
+            .tagTop10 {
+                width: 100%;
+            }
+        }
+        .backToTop {
+            position: fixed;
+            bottom: 70px;
+            margin-left: 20px;
+            height: 50px;
+
+
+            .backToTop--inner{
+                width: 50px;
+                height: 50px;
+                background: #aaa;
+                border-radius: 100%;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                cursor: pointer;
+
+            }
+
+        }
+    }
 
     .article-detail {
-        /*width: 780px;*/
-        min-width: 780px;
-        max-width: 980px;
-        width: 52%;
+        width: 780px;
+        /*min-width: 780px;*/
+        /*max-width: 980px;*/
+        /*width: 52%;*/
         margin: 0 auto;
         padding-bottom: 30px;
+
         box-sizing: border-box;
         position: relative;
         z-index: 999;
@@ -209,7 +353,6 @@
             }
 
         }
-
         .commentbox {
             background-color: $base-background-color;
             padding: 0;
@@ -398,33 +541,35 @@
                 .paper__header {
                     padding: 30px 10px 10px;
                     h1 {
-                        font-size:24px;
+                        font-size: 24px;
                         font-weight: 500;
-                        line-height:100%;
-                        margin:0;
-                        min-height:inherit;
+                        line-height: 100%;
+                        margin: 0;
+                        min-height: inherit;
 
                     }
                 }
-                .paper__info{
+                .paper__info {
                     display: flex;
-                    justify-content:center;
-                    align-items:center;
+                    justify-content: center;
+                    align-items: center;
                     padding: 8px 0px;
-                    .paper__info--span{
-                        margin:0 10px;
-                        font-size:14px;
+                    .paper__info--span {
+                        margin: 0 10px;
+                        font-size: 14px;
                     }
                 }
-                .paper__content{
+                .paper__content {
                     padding: 20px 10px 10px;
-                    .paper__content--inner{
-                        font-size:14px!important;
+                    .paper__content--inner {
+                        font-size: 14px !important;
                     }
                 }
             }
         }
     }
+
+
 </style>
 <script>
     //"57826e945c21c1dd04b4ad4d"
@@ -434,6 +579,7 @@
 
     import commentReplyBox from '../components/commentReplyBox.vue'
 
+    import "bootstrap/js/affix.js";
 
     module.exports = {
         replace: true,
@@ -525,7 +671,7 @@
                 } else {
                     if (!!data.name && !!data.email) {
                         this.$localStorage.$set({
-                            commentInfo:{
+                            commentInfo: {
                                 name: data.name,
                                 email: data.email
                             }

@@ -59,11 +59,14 @@ export default function () {
                     name: 'tagList',
                     component: require('./views/blog.tagList.vue'),
                 },
-                '/article/:articleId': {
-                    name: 'article',
-                    component: require('./views/blog.article.vue'),
-                },
+
             }
+        },
+        '/article/:articleId': {
+            name: 'article',
+            component: function (resolve) {
+                require(['./views/blog.article.vue'], resolve)
+            },
         },
         '/admin': {
             name: 'admin',

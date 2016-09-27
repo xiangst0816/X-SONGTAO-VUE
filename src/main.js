@@ -15,11 +15,13 @@ import "./theme/grid.scss";
 import "./theme/codeHighLight.css";
 import "./theme/markdown.scss";
 import "bootstrap/scss/bootstrap.slim.scss";
+
 import "bootstrap/js/tooltip.js";
 import "bootstrap/js/modal.js";
-import "bootstrap/js/dropdown.js";
+import "bootstrap/js/dropdown.js";//放到它出现的位置
 import "bootstrap/js/transition.js";
 import "bootstrap/js/popover.js";
+
 import attachFastClick from "fastclick";
 /**
  * 路由相关 路由规则配置

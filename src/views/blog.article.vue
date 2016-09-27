@@ -5,7 +5,7 @@
 <template>
     <div class="article animated fadeIn container">
         <div class="row">
-            <div class="col-lg-8">
+            <div id="article" class="col-lg-8">
                 <div class="article-detail">
                     <!--文章-->
                     <div class="paper" :class="{'loading':isLoading}">
@@ -27,14 +27,14 @@
                                 阅读数
                                 <span ng-bind="article.read_num">{{article.read_num}}</span>
                             </div>
-                            <div class="paper__info--span">
+                            <a href="#comment" class="paper__info--span">
                                 <i class="fa fa-comments"></i>
                                 评论数
                                 <span ng-bind="article.comment_num">{{article.comment_num}}</span>
-                            </div>
+                            </a>
 
                             <div class="paper__info--span hidden-xs" v-for="tag of article.tags">
-                                <i class="fa fa-tag"></i> <span>{{tag}}</span>
+                                <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
                             </div>
                         </section>
                         <section class="paper__content">
@@ -47,7 +47,7 @@
                         <!--the end-->
                     </div>
                     <!--评论-->
-                    <section class="commentbox hidden-xs">
+                    <section id="comment" class="commentbox hidden-xs">
                         <!--标题-->
                         <div class="commentbox__header">
                             <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{article.comment_num}}</span></h3>
@@ -89,82 +89,63 @@
                             </div>
                         </div>
                     </section>
+
                 </div>
             </div>
             <div class="col-lg-4 visible-lg clearfix">
                 <aside class="article-aside">
                     <!--最新排行 for 10-->
                     <div class="topBar">
-                        <h3 class="topBar--title">最新排行
-                            <small>Top10</small>
-                        </h3>
-                        <ol class="topBar--ul">
-                            <li class="topBar--li">
-                                <a href="#">文章1</a>
+                        <div class="topBar--title">
+                            <h3 class="topBar--title__h3">RECENT
+                                <small>Top{{topNum}}</small>
+                            </h3>
+                        </div>
+                        <ul class="topBar--ul">
+                            <li class="topArticle--li" v-for="article of articleTop.latest">
+                                <a target="_blank" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">{{article.title}}</a><span>({{article.read_num}})</span>
                             </li>
-                            <li class="topBar--li">
-                                <a href="#">文章2</a>
-                            </li>
-                            <li class="topBar--li">
-                                <a href="#">文章3</a>
-                            </li>
-                            <li class="topBar--li">
-                                <a href="#">文章4</a>
-                            </li>
-                            <li class="topBar--li">
-                                <a href="#">文章5</a>
-                            </li>
-                        </ol>
+                        </ul>
                     </div>
                     <!--阅读排行 for 10-->
                     <div class="topBar">
-                        <h3 class="topBar--title">阅读排行
-                            <small>Top10</small>
-                        </h3>
-                        <ol class="topBar--ul">
-                            <li class="topBar--li">
-                                <a href="#">文章1</a>
+                        <div class="topBar--title">
+                            <h3 class="topBar--title__h3">READ
+                                <small>Top{{topNum}}</small>
+                            </h3>
+                        </div>
+                        <ul class="topBar--ul">
+                            <li class="topArticle--li" v-for="article of articleTop.read">
+                                <a target="_blank" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}"
+                                   href="#">{{article.title}}</a><span>({{article.read_num}})</span>
                             </li>
-                            <li class="topBar--li">
-                                <a href="#">文章2</a>
-                            </li>
-                            <li class="topBar--li">
-                                <a href="#">文章3</a>
-                            </li>
-                            <li class="topBar--li">
-                                <a href="#">文章4</a>
-                            </li>
-                            <li class="topBar--li">
-                                <a href="#">文章5</a>
-                            </li>
-                        </ol>
+                        </ul>
                     </div>
                     <!--标签 最多10个-->
                     <div class="topBar">
-                        <h3 class="aside--title">标签
-                            <small>Top10</small>
-                        </h3>
-                        <ul>
-                            <li>文章文章文章文章文章文章文章文章文章1</li>
-                            <li>文章2</li>
-                            <li>文章3</li>
-                            <li>文章4</li>
-                            <li>文章5</li>
+                        <div class="topBar--title">
+                            <h3 class="topBar--title__h3">TAGS
+                                <!--<small>Top10</small>-->
+                            </h3>
+                        </div>
+                        <ul class="topBar--ul">
+                            <li class="topTag--li" v-for="tag of articleTop.tag">
+                                <a v-link="{ name: 'artList',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}">{{tag.name}}</a>
+                            </li>
                         </ul>
                     </div>
 
                 </aside>
-                <!--返回最上层-->
-                <div class="backToTop">
-                    <div class="backToTop--inner">
-                        Top
-                    </div>
-                </div>
             </div>
         </div>
+        <!--返回最上层-->
+        <div id="toTop" class="backToTop">
+            <i class="fa fa-arrow-up"></i>
+        </div>
     </div>
+    <copyright></copyright>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
     //base
     @import "../theme/theme.scss";
 
@@ -180,29 +161,97 @@
         }
         .article-aside {
             position: fixed;
-            padding-left: 20px;
+            /*padding-left: 20px;*/
             width: 370px;
             box-sizing: border-box;
             color: #333;
 
-            .topBar{
+            .topBar {
                 width: 100%;
-                background: #fff;
-                border:1px solid transparent;
+
+                /*border: 1px solid transparent;*/
                 margin-bottom: 20px;
                 box-sizing: border-box;
-                padding:0 10px;
-                .topBar--title{
-                    border-left:3px solid $base-theme-color;
-                    padding-left:10px;
-                }
-                .topBar--ul{
-                    padding-left:20px;
-                    .topBar--li{
-                        a{
-                            color:inherit;
+                .topBar--title {
+                    padding: 20px 0 10px;
+                    background: rgba(0, 0, 0, 0.5);
+                    .topBar--title__h3 {
+                        border-left: 5px solid $base-theme-color;
+                        padding: 0 0 0 10px;
+                        margin: 0;
+                        color: #fff;
+                        margin-left: 10px;
+                        @include display-flex;
+                        @include justify-content(flex-start);
+                        @include align-items(center);
+                        transition: all ease 200ms;
+                        small {
+                            color: $base-theme-color;
+                            margin-left: 7px;
                         }
+                    }
+                }
+                .topBar--ul {
+                    padding: 10px 20px;
+                    background: #fff;
+                    list-style-type: none;
+                    position: relative;
 
+                    .topArticle--li {
+                        color: #777;
+                        position: relative;
+                        padding: 8px 0;
+                        font-size: 14px;
+                        &:before {
+                            color: #ccc;
+                            content: "\f0da";
+                            font-size: 12px;
+                            margin-right: 6px;
+                            font-family: FontAwesome;
+                            transition: all ease 200ms;
+                        }
+                        a {
+                            color: inherit;
+                            text-decoration: none;
+                            transition: all ease 200ms;
+                        }
+                        span {
+                            cursor: pointer;
+                            transition: all ease 200ms;
+                        }
+                        &:hover {
+                            color: $base-theme-color;
+                            a {
+                                color: $base-theme-color;
+                            }
+                            &:before {
+                                color: $base-theme-color;
+                            }
+                            span {
+                                color: $base-theme-color;
+                            }
+                        }
+                    }
+                    .topTag--li {
+                        border: 1px solid #ccc;
+                        display: inline-block;
+                        margin: 5px;
+                        color: #777;
+                        padding: 2px 8px;
+                        transition: all ease 200ms;
+                        cursor: pointer;
+                        a {
+                            color: #777;
+                            text-decoration: none;
+                            transition: all ease 200ms;
+                        }
+                        &:hover {
+                            color: $base-theme-color;
+                            border-color: $base-theme-color;
+                            a {
+                                color: $base-theme-color;
+                            }
+                        }
                     }
                 }
             }
@@ -211,46 +260,25 @@
                 width: 100%;
             }
         }
-        .backToTop {
-            position: fixed;
-            bottom: 70px;
-            margin-left: 20px;
-            height: 50px;
 
-
-            .backToTop--inner{
-                width: 50px;
-                height: 50px;
-                background: #aaa;
-                border-radius: 100%;
-
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                cursor: pointer;
-
-            }
-
-        }
     }
 
     .article-detail {
-        width: 780px;
-        /*min-width: 780px;*/
-        /*max-width: 980px;*/
+        /*width: 780px;*/
+        min-width: 740px;
+        max-width: 980px;
         /*width: 52%;*/
         margin: 0 auto;
-        padding-bottom: 30px;
-
+        color:$base-word-color;
         box-sizing: border-box;
         position: relative;
         z-index: 999;
         .paper {
             background-color: transparent;
-            margin-bottom: 30px;
+            /*margin-bottom: 30px;*/
             /*border-radius: 4px;*/
             overflow: hidden;
+            margin-bottom:30px;
             &.loading {
                 .paper__header {
                     h1 {
@@ -262,6 +290,7 @@
                         opacity: 0.3;
                         background: #fff;
                         min-width: 70px;
+                        text-decoration: none;
                     }
                 }
                 .paper__content {
@@ -308,15 +337,18 @@
                     font-size: 14px;
                     //min-width: 70px;
                     white-space: nowrap;
+                    text-decoration: none;
                 }
-
+                a:hover {
+                    color: $base-theme-color;
+                }
             }
             .paper__content {
                 padding: 35px 35px 0;
                 background: #fff;
                 //min-height: 800px;
                 .paper__content--inner {
-                    padding: 5px 0 40px;
+                    padding: 5px 0 0px;
                     //border-bottom: 1px dashed #464646;
                 }
             }
@@ -361,6 +393,7 @@
             border-bottom: 3px solid $base-theme-color;
             position: relative;
             overflow: hidden;
+            margin-bottom:30px;
             &::after {
                 /*content: '';*/
                 position: absolute;
@@ -527,6 +560,39 @@
         }
     }
 
+    .backToTop {
+        position: fixed;
+        left: 700px;
+        width: 60px;
+        height: 60px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 100%;
+        font-size: 20px;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all ease 200ms;
+        z-index: 999;
+        margin-left: 40px;
+        bottom: 20px;
+        &:hover {
+            background: $base-theme-color;
+        }
+
+    }
+
+    @include media("<=desktop") {
+        .backToTop {
+            margin-left: 0;
+        }
+    }
+    @include media("<=desktop_small") {
+        .article {
+            padding-top:60px;
+        }
+    }
     @include media("<=tablet") {
         .article-detail {
             max-width: 780px;
@@ -538,29 +604,29 @@
     @include media("<=phone") {
         .article-detail {
             .paper {
+
                 .paper__header {
                     padding: 30px 10px 10px;
                     h1 {
-                        font-size: 24px;
+                        font-size: 28px;
                         font-weight: 500;
-                        line-height: 100%;
+                        line-height: 120%;
                         margin: 0;
                         min-height: inherit;
-
                     }
                 }
                 .paper__info {
                     display: flex;
-                    justify-content: center;
+                    justify-content: flex-end;
                     align-items: center;
-                    padding: 8px 0px;
+                    padding: 8px 0px;    background: rgba(0, 0, 0, 0.5);
                     .paper__info--span {
                         margin: 0 10px;
                         font-size: 14px;
                     }
                 }
                 .paper__content {
-                    padding: 20px 10px 10px;
+                    padding: 20px 10px 0px;
                     .paper__content--inner {
                         font-size: 14px !important;
                     }
@@ -574,25 +640,28 @@
 <script>
     //"57826e945c21c1dd04b4ad4d"
     import API from "../config.js"
-    import {GetArticleById} from "../api/api_article"
+    import {GetArticleById, GetArticleTop} from "../api/api_article"
     import {GetArticleComments, SendComment} from "../api/api_comment"
 
     import commentReplyBox from '../components/commentReplyBox.vue'
 
-    import "bootstrap/js/affix.js";
-
+    //    import "bootstrap/js/affix.js";
+    import copyright from '../components/copyright.vue'
     module.exports = {
         replace: true,
         data: function () {
             return {
                 article: {},
                 commentList: [],
+                articleTop: {},
                 toggle: true,
                 selectId: '',
                 isLoading: true,
                 hasNickName: false,
                 username: '',//评论人的昵称
                 email: '',//评论人的email
+
+                topNum: 5,//top 榜单
             }
         },
         methods: {
@@ -604,13 +673,45 @@
                     this.selectId = id
                 }
             },
-            submit: function () {
-
-            },
+            scrollTop: ()=> {
+                $(window).scrollTop(0);// 滚到顶部
+            }
         },
         computed: {},
         ready: function () {
             const scope = this;
+            // To Top
+            $(document).on('scroll', function () {
+                let _width = $(document).width()
+                if (_width >= 1200) {
+                    if ($(this).scrollTop() > 0) {
+                        $('#toTop').css({
+                            "opacity": 1,
+                            'left': $('#article').offset().left + $('#article').width(),
+                        });
+                    } else {
+                        $('#toTop').css({
+                            "opacity": 0
+                        });
+                    }
+                } else if (_width < 1200) {
+                    if ($(this).scrollTop() > 0) {
+                        $('#toTop').css({
+                            "opacity": 1,
+                            'left': $('#article').offset().left + $('#article').width() - $('#toTop').width(),
+                        });
+                    } else {
+                        $('#toTop').css({
+                            "opacity": 0
+                        });
+                    }
+                }
+            }).on('click', '#toTop', function () {
+                $(window).scrollTop(0);
+//                $('body, html').animate({scrollTop: 0}, 600);
+            });
+
+
             /**
              * 初始化
              * */
@@ -628,12 +729,19 @@
             }, function (error) {
                 console.log(error)
             });
-            //获取文章详情
+            //获取文章评论
             GetArticleComments(articleId).then(function (data) {
                 scope.commentList = data;
             }, function (error) {
                 console.log(error)
             });
+            // 获取文章top榜单
+            GetArticleTop(scope.topNum).then(function (data) {
+                scope.articleTop = data;
+            }, function (error) {
+                console.log(error)
+            });
+
 
             /**
              * 获取游客昵称及邮箱,并设置input显示与否
@@ -650,7 +758,8 @@
 
         },
         components: {
-            'comment-box': commentReplyBox
+            'comment-box': commentReplyBox,
+            copyright
         },
         events: {
             'replyThisComment': function (data) {

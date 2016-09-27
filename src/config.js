@@ -74,6 +74,9 @@ module.exports = {
     postArt: `${url}/api/article`,
     //delete 文章
     deleteArt: `${url}/api/article/id`,
+    //get 获得文章最新num条+阅读最多Num条+引用次数最多的num条，用于文章详情的
+    getArticleTop:`${url}/api/article_top/num`,
+
 
     /**
      * 标签相关

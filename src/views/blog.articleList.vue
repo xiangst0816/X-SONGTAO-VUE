@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="article__info--each hidden-xs" v-for="tag of article.tags">
-                        <i class="fa fa-tag"></i> <span>{{tag}}</span>
+                        <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
                     </div>
                 </div>
                 <div class="arrticle__readmore hidden-xs">
@@ -73,7 +73,7 @@
             //标题
             .article__header {
                 padding: 35px;
-                color: #000;
+                color: $base-word-color;
                 font-size: 20px;
                 line-height: 28px;
                 background: #fff;
@@ -81,7 +81,6 @@
                 //title
                 .article__header--title {
                     text-align: right;
-                    color: #333;
                     transition: color ease 200ms;
                     position: relative;
                     padding-bottom: 20px;
@@ -106,7 +105,6 @@
                 }
                 //内容
                 .article__header--content {
-                    color: #999;
                     line-height: 24px;
                     font-size: 16px;
                     overflow: hidden;
@@ -175,17 +173,16 @@
                 .article__header {
                     padding: 30px 10px 10px;
                     .article__header--title {
-                        font-size: 24px;
+                        font-size: 28px;
                     }
                     .article__header--content {
                         font-size: 14px;
-                        color: #000;
                     }
                 }
                 .article__infobox {
-                    padding: 8px 0px;
+                    padding: 10px 0px;
                     display: flex;
-                    justify-content: center;
+                    justify-content: flex-end;
                     align-items:center;
                     .article__info {
                         display: flex;

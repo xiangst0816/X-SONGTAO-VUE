@@ -245,6 +245,10 @@
 <style lang="scss">
     @import "./theme/theme.scss";
 
+    *{
+        /*outline: 1px solid #ddd;*/
+    }
+
     /*解决ie下右侧出现滚动条的情况,因为如果使用modal时,会出现抖动*/
     @-ms-viewport {
         width: device-width;
@@ -297,6 +301,12 @@
     @include media("<=desktop_small") {
         body {
             margin-top: 45px;
+        }
+    }
+
+    @include media("<=phone") {
+        html {
+            /*background:#fff;*/
         }
     }
 

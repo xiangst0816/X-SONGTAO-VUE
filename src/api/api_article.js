@@ -158,3 +158,21 @@ export const DeleteArticle = function (_id) {
     })
 };
 
+/**
+ * 文章top榜单
+ * */
+export const GetArticleTop = function (_num) {
+    return new Promise(function (resolve, reject) {
+        Vue.http.get(API.getArticleTop.replace('num', _num)).then((response) => {
+            // success callback
+            let result = response.data;
+            if (parseInt(result.code) === 1) {
+                resolve(result.data);
+            } else {
+                reject(doError(parseInt(result.code)));
+            }
+        }, () => {
+            reject(API.SYS_ERR);
+        });
+    })
+};

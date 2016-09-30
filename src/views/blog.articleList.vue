@@ -26,7 +26,6 @@
                         <i class="fa fa-comments"></i>评论数
                         <span class="article-comment">{{article.comment_num}}</span>
                     </div>
-
                     <div class="article__info--each hidden-xs" v-for="tag of article.tags">
                         <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
                     </div>

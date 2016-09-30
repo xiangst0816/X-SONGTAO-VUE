@@ -90,6 +90,7 @@
                     </section>
 
                 </div>
+                <copyright></copyright>
             </div>
             <div class="col-lg-4 visible-lg clearfix">
                 <aside class="article-aside">
@@ -142,7 +143,7 @@
             <i class="fa fa-arrow-up"></i>
         </div>
     </div>
-    <copyright></copyright>
+
 </template>
 <style scoped lang="scss">
     //base
@@ -268,7 +269,7 @@
         max-width: 980px;
         /*width: 52%;*/
         margin: 0 auto;
-        color:$base-word-color;
+        color: $base-word-color;
         box-sizing: border-box;
         position: relative;
         z-index: 999;
@@ -277,7 +278,7 @@
             /*margin-bottom: 30px;*/
             /*border-radius: 4px;*/
             overflow: hidden;
-            margin-bottom:30px;
+            margin-bottom: 30px;
             &.loading {
                 .paper__header {
                     h1 {
@@ -343,11 +344,11 @@
                 }
             }
             .paper__content {
-                padding: 35px 35px 0;
+                padding: 35px;
                 background: #fff;
                 //min-height: 800px;
                 .paper__content--inner {
-                    padding: 5px 0 0px;
+                    padding: 5px 0 0;
                     //border-bottom: 1px dashed #464646;
                 }
             }
@@ -392,7 +393,7 @@
             border-bottom: 3px solid $base-theme-color;
             position: relative;
             overflow: hidden;
-            margin-bottom:30px;
+            margin-bottom: 30px;
             &::after {
                 /*content: '';*/
                 position: absolute;
@@ -576,10 +577,10 @@
         z-index: 999;
         margin-left: 40px;
         bottom: 20px;
+        opacity:0;
         &:hover {
             background: $base-theme-color;
         }
-
     }
 
     @include media("<=desktop") {
@@ -587,11 +588,13 @@
             margin-left: 0;
         }
     }
+
     @include media("<=desktop_small") {
         .article {
-            padding-top:60px;
+            padding-top: 60px;
         }
     }
+
     @include media("<=tablet") {
         .article-detail {
             max-width: 780px;
@@ -618,7 +621,8 @@
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
-                    padding: 8px 0px;    background: rgba(0, 0, 0, 0.5);
+                    padding: 8px 0px;
+                    background: rgba(0, 0, 0, 0.5);
                     .paper__info--span {
                         margin: 0 10px;
                         font-size: 14px;
@@ -759,6 +763,9 @@
             }
 
 
+        },
+        destroyed:function () {
+            $(document).off('scroll')
         },
         components: {
             'comment-box': commentReplyBox,

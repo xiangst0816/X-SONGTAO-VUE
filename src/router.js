@@ -17,9 +17,9 @@ var App = Vue.extend(require('./App.vue'));
 // 路由配置参数
 
 var router = new VueRouter({
-    hashbang: false,
+    hashbang: true,
     abstract:false,
-    history:true,
+    history:false,
     saveScrollPosition:true,
     transitionOnLoad:true,
 });

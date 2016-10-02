@@ -100,8 +100,8 @@
             width: 100%;
             .blog__content {
                 z-index: 2;
-                width: 66%;
-                padding-left: 34%;
+                width: 63%;
+                padding-left: 36%;
                 position: relative;
             }
         }

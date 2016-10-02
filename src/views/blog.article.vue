@@ -211,10 +211,10 @@
         width: 100%;
 
         /*border: 1px solid transparent;*/
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         box-sizing: border-box;
         .topBar--title {
-          padding: 20px 0 10px;
+          padding: 18px 0 8px;
           background: rgba(0, 0, 0, 0.5);
           .topBar--title__h3 {
             border-left: 5px solid $base-theme-color;
@@ -233,23 +233,24 @@
           }
         }
         .topBar--ul {
-          padding: 10px 20px;
+          padding: 8px 20px;
           background: #fff;
           list-style-type: none;
           position: relative;
-          min-height: 175px;
+          min-height: 150px;
+          margin:0;
           .topBar--loading {
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 155px;
+            min-height: 135px;
           }
           .topArticle--li {
             color: #777;
             position: relative;
-            padding: 5px 0;
+            padding: 4px 0;
             font-size: 14px;
             &:before {
               color: #ccc;
@@ -284,7 +285,7 @@
           .topTag--li {
             border: 1px solid #ccc;
             display: inline-block;
-            margin: 5px;
+            margin: 4px;
             color: #777;
             padding: 2px 8px;
             transition: all ease 200ms;

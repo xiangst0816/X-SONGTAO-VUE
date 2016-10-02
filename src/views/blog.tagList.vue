@@ -17,7 +17,7 @@
                     </div>
                     <ul class="itemBox__content">
                         <li class="itemBox__content__item" v-for="tag in cata.data">
-                            <a v-if="tag.used_num>0" v-link="{ name: 'artList',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}" class="ui tag label">
+                            <a v-if="tag.used_num>0" v-link="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}" class="ui tag label">
                                 <span class="tagName">{{tag.name}}</span>
                                 <span class="badge">{{tag.used_num}}</span></a>
                             <a v-if="tag.used_num==0" class="ui tag label"><span class="tagName">{{tag.name}}</span></a>

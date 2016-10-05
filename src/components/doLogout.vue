@@ -35,9 +35,7 @@
                 const scope = this;
 
                 setTimeout(function () {
-                    console.log(scope)
-
-                    scope.$localStorage.$reset();
+                    scope.$localStorage.$delete('authorization');
                     scope.setLoginState(false);
                     scope.$router.go({
                         name: 'index'

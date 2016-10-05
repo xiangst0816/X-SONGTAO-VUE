@@ -22,9 +22,9 @@
                         <div class="form-inline">
                             <div class="form-group publishTime" :class="{true:'has-error',false:''}[!publishTime]">
                                 <label for="publish_time">发布时间</label>
-                                <div class="input-group date" id="datetimepicker">
+                                <div class="input-group date dropdown" id="datetimepicker">
                                     <input id="publish_time" type="text" class="form-control" v-model="publishTime">
-                                    <div class="input-group-addon">
+                                    <div class="input-group-addon"  data-toggle="dropdown"  data-target="#datetimepicker">
                                         <span class="fa fa-fw fa-calendar"></span>
                                     </div>
                                 </div>
@@ -174,6 +174,9 @@
                                         justify-content: center;
                                         align-items: center;
                                     }
+                                  /*.dropdown-menu{*/
+                                    /*display: block!important;*/
+                                  /*}*/
                                 }
                             }
                             //上传图片
@@ -233,7 +236,7 @@
                                     border: none;
                                     outline: none;
                                     background: #fff;
-                                    z-index: 999999;
+                                    z-index: 999;
                                     width: 410px;
                                     min-height: 34px;
                                     padding: 0;
@@ -392,7 +395,7 @@
         .textarea {
             font-size: 16px;
             line-height: 1.6;
-            z-index: 999;
+            z-index: 1;
             display: block;
             width: 100%;
             padding: 6px 12px;
@@ -466,6 +469,9 @@
 
     import "bootstrap/scss/bootstrap/_button-groups.scss";
     import "bootstrap/scss/bootstrap/_input-groups.scss";
+    import "bootstrap/scss/bootstrap/_dropdowns.scss";
+    import "bootstrap/js/dropdown.js";//放到它出现的位置
+
     module.exports = {
         data: function () {
             return {

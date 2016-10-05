@@ -65,3 +65,22 @@ export const GetMap = function () {
     });
   })
 };
+
+/**
+ * 签到
+ * */
+export const Sign = function () {
+  return new Promise(function (resolve, reject) {
+    Vue.http.get(API.sign).then((response) => {
+      // success callback
+      let result = response.data;
+      if (parseInt(result.code) === 1) {
+        resolve();
+      } else {
+        reject(parseInt(result.code));
+      }
+    }, () => {
+      reject(API.SYS_ERR)
+    });
+  })
+};

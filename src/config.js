@@ -3,22 +3,26 @@
  * Description:
  */
 //线上配置
-// var CONFIG = {
-//     url: "http://xiangsongtao.com",
-//     MY_INFO_ID: '578251be1cd6c37a04a4d50b',
-//     MY: '我',
-//     EMAIL: '280304286@163.com'
-// };
+let CONFIG;
+// if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
+  CONFIG = {
+    url: "http://xiangsongtao.com",
+    MY_INFO_ID: '578251be1cd6c37a04a4d50b',
+    MY: '我',
+    EMAIL: '280304286@163.com'
+  };
+} else {
+  CONFIG = {
+    url: "http://127.0.0.1:8080",
+    //我的信息_id
+    MY_INFO_ID: '57ef5987e1bb0b0b7cbd17e8',
+    //我对对评论进行回复的信息
+    MY: '我',
+    EMAIL: '280304286@163.com'
+  };
+}
 
-
-const CONFIG = {
-  url: "http://127.0.0.1:8080",
-  //我的信息_id
-  MY_INFO_ID: '57ef5987e1bb0b0b7cbd17e8',
-  //我对对评论进行回复的信息
-  MY: '我',
-  EMAIL: '280304286@163.com'
-};
 
 // "http://xiangsongtao.com/api/user/578251be1cd6c37a04a4d50b".
 //接口API根地址
@@ -117,6 +121,7 @@ module.exports = {
   getTotal: `${url}/api/statistic/total`,
   getChart: `${url}/api/statistic/chart`,
   getMap: `${url}/api/statistic/map`,
+  sign: `${url}/api/statistic/sign`,
 
   /**
    * 音乐列表

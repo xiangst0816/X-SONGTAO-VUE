@@ -121,7 +121,8 @@
               </div>
               <li v-show="articleTop.latest.length>0" class="topArticle--li animated fadeIn"
                   v-for="article of articleTop.latest">
-                <a target="_blank" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">{{article.title}}</a> <span>({{article.read_num}})</span>
+                <a target="_blank" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">{{article.title}}</a>
+                <span>({{article.read_num}})</span>
               </li>
             </ul>
           </div>
@@ -238,7 +239,7 @@
           list-style-type: none;
           position: relative;
           min-height: 150px;
-          margin:0;
+          margin: 0;
           .topBar--loading {
             width: 100%;
             height: 100%;
@@ -719,7 +720,12 @@
   import "bootstrap/scss/bootstrap/_breadcrumbs.scss";
 
 
-  import copyright from '../components/copyright.vue'
+  import copyright from '../components/copyright.vue';
+
+  import { Toast } from 'mint-ui';
+  import  'mint-ui/lib/toast/style.css';
+
+
   module.exports = {
     replace: true,
     data: function () {
@@ -829,6 +835,9 @@
       }
 
 
+
+
+
     },
     destroyed: function () {
       $(document).off('scroll')
@@ -840,7 +849,7 @@
     events: {
       'replyThisComment': function (data) {
         let params;
-        if (this.hasNickName) {
+        if (!!this.hasNickName) {
           params = {
             article_id: data.article_id,
             pre_id: data.pre_id,
@@ -854,36 +863,62 @@
           }
 
         } else {
-          if (!!data.name && !!data.email) {
-            this.$localStorage.$set({
-              commentInfo: {
-                name: data.name,
-                email: data.email
-              }
+          if (!data.name) {
+            Toast({
+              message: '请输入昵称',iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
             });
-
-            this.hasNickName = true;
-            params = {
-              article_id: data.article_id,
-              pre_id: data.pre_id,
-              next_id: [],
-              name: data.name,
-              email: data.email,
-              time: new Date(),
-              content: data.content,
-              state: false,
-              isIReplied: false
-            }
-          } else {
-            alert("请输入昵称和邮箱")
             return
+          }
+          if (!data.email) {
+            Toast({
+              message: '请输入邮箱',iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
+            return
+          }
+          if (!/^\w+@[1-9a-z]+(\.[a-z]+){1,3}$/.test(data.email)) {
+            Toast({
+              message: '邮箱格式输入错误',
+              iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
+            return
+          }
+
+          this.$localStorage.$set({
+            commentInfo: {
+              name: data.name,
+              email: data.email
+            }
+          });
+
+          this.hasNickName = true;
+          params = {
+            article_id: data.article_id,
+            pre_id: data.pre_id,
+            next_id: [],
+            name: data.name,
+            email: data.email,
+            time: new Date(),
+            content: data.content,
+            state: false,
+            isIReplied: false
           }
         }
 
         // 发送评论请求,并且向组件发送事件
         this.$broadcast('Submitting');
         SendComment(params).then(()=> {
-          console.log('comment success');
+          Toast({
+            message: '评论成功，正在审核！',
+            iconClass: 'fa fa-check',
+            position: 'center',
+            duration: 3000
+          });
           this.toggle = !this.toggle;
           this.$broadcast('SubmitSuccess');
         }, (error)=> {

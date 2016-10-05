@@ -36,7 +36,7 @@
           </p>
         </div>
       </section>
-      <h4 class="main--title"><i class="fa fa-bar-chart"></i> 今日统计/Today's Statistics</h4>
+      <h4 class="main--title"><i class="fa fa-bar-chart"></i> 今日统计/Charts</h4>
       <section class="main--statistic">
         <div class="statistic--chart" id="chart">
           <!--chart here-->
@@ -185,7 +185,7 @@
         myChart.setOption({
           color:['#ff0000'],
           title: {
-            text: '今日访问数变化',
+            text: '过去24小时访问数变化',
             subtext: '实时统计',
             textAlign:'left'
           },
@@ -212,7 +212,7 @@
           },
           series: [
             {
-              name: '当天访问数',
+              name: '访问数',
               type: 'line',
               data: data.y,
               markLine: {
@@ -244,7 +244,7 @@
         myMap.setOption({
           backgroundColor: '#fff',
           title: {
-            text: '访问分布图',
+            text: '过去30天访问分布图',
             subtext: '实时统计'
           },
           tooltip: {
@@ -282,7 +282,8 @@
               coordinateSystem: 'geo',
               data: data,
               symbolSize: function (val) {
-                return val[2] * 2;
+                return 6;
+//                return val[2] /10;
               },
               label: {
                 normal: {

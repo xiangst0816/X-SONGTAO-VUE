@@ -145,14 +145,14 @@
                     });
                     //我进行评论的信息
                     if (scope.username.indexOf("visitor") !== -1) {
-                        scope.$localStorage.$set('commentAuth', {
-                            "commentUsername": "Visitor",
-                            "commentEmail": "visitor@email.com"
+                        scope.$localStorage.$set('commentInfo', {
+                            "name": "Visitor",
+                            "email": "visitor@email.com"
                         });
                     } else {
-                        scope.$localStorage.$set('commentAuth', {
-                            "commentUsername": API.MY,
-                            "commentEmail": API.EMAIL
+                        scope.$localStorage.$set('commentInfo', {
+                            "name": API.MY,
+                            "email": API.EMAIL
                         });
                     }
                     // 设置请求的token

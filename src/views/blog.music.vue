@@ -95,6 +95,7 @@
       align-items: flex-start;
       /*background: rgba(0, 0, 0, 0.5);*/
       position: relative;
+      z-index: 999;
       .heart {
         cursor: pointer;
         position: absolute;
@@ -132,9 +133,14 @@
         flex: 1;
         height: 100%;
         border-top-right-radius: 5px;
+        border-top-left-radius: 0;
         border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 0;
+
+
+
         overflow: hidden;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.3);
         .music--info {
           border: 1px solid transparent;
           box-sizing: border-box;
@@ -276,9 +282,10 @@
 
   @include media("<=phone") {
     .musicBox {
-      $musicBoxWidth: 260px;
+      $musicBoxWidth: 240px;
       .music {
-        height: 440px;
+        margin-top:20px;
+        height: $musicBoxWidth*1.74;
         width: $musicBoxWidth;
         display: flex;
         flex-direction: column;
@@ -286,7 +293,7 @@
         align-items: flex-start;
         border-radius: 5px;
         overflow: hidden;
-        background: rgba(0, 0, 0, 0.5);
+        /*background: rgba(0, 0, 0, 0.5);*/
         margin-bottom: 0;
         .heart {
           left: 20px;
@@ -296,6 +303,11 @@
           width: $musicBoxWidth;
           height: $musicBoxWidth;
           position: relative;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+
           img {
             width: 100%;
             height: 100%;
@@ -305,16 +317,19 @@
           }
         }
         .music--infoBox {
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
           .music--info {
             border: none;
             box-sizing: border-box;
             width: $musicBoxWidth;
-            height: $musicBoxWidth;
+            height: 100%;
             padding: 8px 10px 0;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-
             .nameBox {
               display: flex;
               justify-content: space-between;

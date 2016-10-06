@@ -1,10 +1,10 @@
 <template>
     <div class="isLoading animated fadeIn">
-        <div class="logo-left-box">
-            <h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>
-            <h3 class="blue notice">提示!</h3>
-            <p class="white">时光正在路上,稍等!</p>
-        </div>
+        <!--<div class="logo-left-box">-->
+            <!--<h2 class="logo"><span class="blue">X</span><span class="white">-SONGTAO</span></h2>-->
+            <!--<h3 class="blue notice">提示!</h3>-->
+            <!--<p class="white">时光正在路上,稍等!</p>-->
+        <!--</div>-->
         <div class="loadingBox ball-grid-pulse">
             <div></div>
             <div></div>
@@ -30,8 +30,8 @@
         @include justify-content(flex-end);
         @include align-items(center);
         @include flex-direction(column);
-        height: 312px;
-        background: rgba(0, 0, 0, 0.4);
+        /*height: 312px;*/
+        /*background: rgba(0, 0, 0, 0.4);*/
         border-radius: 5px;
         margin-bottom: 30px;
         margin-top: 30px;
@@ -67,21 +67,21 @@
         }
         .loadingBox {
             width: 200px;
-            height: 200px;
+            /*height: 200px;*/
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        &::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 10px;
-            height: 70px;
-            background: $base-theme-color;
-            border-bottom-right-radius: 5px;
-        }
+        /*&::after {*/
+            /*content: '';*/
+            /*position: absolute;*/
+            /*right: 0;*/
+            /*bottom: 0;*/
+            /*width: 10px;*/
+            /*height: 70px;*/
+            /*<!--background: $base-theme-color;-->*/
+            /*border-bottom-right-radius: 5px;*/
+        /*}*/
     }
 
     @-webkit-keyframes ball-grid-pulse {

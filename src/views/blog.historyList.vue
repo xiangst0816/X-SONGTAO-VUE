@@ -109,7 +109,7 @@
                     span {
                         vertical-align: middle;
                         display: inline-block;
-                        max-width: 360px;
+                        max-width: 340px;
                     }
                     &:hover {
                         color: $base-theme-color;

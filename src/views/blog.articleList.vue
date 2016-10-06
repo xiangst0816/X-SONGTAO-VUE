@@ -175,10 +175,20 @@
       max-width: 780px;
       width: 100%;
       .article {
+        margin-bottom: 10px;
+        &:hover .article__header .article__header--title {
+          color: inherit;
+          &:after {
+            border-top: 3px solid inherit;
+          }
+        }
+        &:hover .article__infobox .arrticle__readmore span {
+          background-color:inherit;
+        }
         .article__header {
-          padding: 30px 10px 10px;
+          padding: 25px 10px 10px;
           .article__header--title {
-            font-size: 28px;
+            font-size: 20px;
           }
           .article__header--content {
             font-size: 14px;
@@ -194,7 +204,7 @@
             justify-content: space-between;
             align-items: center;
             .article__info--each {
-              font-size: 14px;
+              font-size: 12px;
               margin: 0 10px;
             }
           }

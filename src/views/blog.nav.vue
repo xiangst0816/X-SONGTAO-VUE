@@ -48,7 +48,7 @@
         <i class="fa fa-comments fa-lg"></i>
       </a>
       <!--切换背景-->
-      <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景" @click="changeBG()">
+      <a class="nav__item fa-stack fa-lg  hidden-xs" data-toggle="tooltip" data-placement="right" title="切换背景" @click="changeBG()">
         <i class="fa fa-photo fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
           <i class="fa fa-lg fa-refresh" :class="{true:'',false:'fa-spin'}[!isChangeBG]"></i>

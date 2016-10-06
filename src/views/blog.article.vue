@@ -172,7 +172,7 @@
                 <div></div>
               </div>
               <li v-show="articleTop.tag.length>0" class="topTag--li  animated fadeIn" v-for="tag of articleTop.tag">
-                <a v-link="{ name: 'artList',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}">{{tag.name}}
+                <a v-link="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}">{{tag.name}}
                   ({{tag.used_num}})</a>
               </li>
             </ul>
@@ -671,38 +671,50 @@
   }
 
   @include media("<=phone") {
-    .article-detail {
-      .paper {
+    .article{
+      padding-left:6px;
+      padding-right:6px;
+      padding-top: 51px;
+      .row{
+        margin:0;
+        #article{
+          padding:0;
+        }
+      }
+      .article-detail {
+        .paper {
 
-        .paper__header {
-          padding: 30px 10px 10px;
-          h1 {
-            font-size: 28px;
-            font-weight: 500;
-            line-height: 120%;
-            margin: 0;
-            min-height: inherit;
+          .paper__header {
+            padding: 30px 10px 10px;
+            h1 {
+              font-size: 20px;
+              font-weight: 500;
+              line-height: 120%;
+              margin: 0;
+              min-height: inherit;
+            }
           }
-        }
-        .paper__info {
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          padding: 8px 0px;
-          background: rgba(0, 0, 0, 0.5);
-          .paper__info--span {
-            margin: 0 10px;
-            font-size: 14px;
+          .paper__info {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 8px 0px;
+            background: rgba(0, 0, 0, 0.5);
+            .paper__info--span {
+              margin: 0 10px;
+              font-size: 12px;
+            }
           }
-        }
-        .paper__content {
-          padding: 20px 10px 20px;
-          .paper__content--inner {
-            font-size: 14px !important;
+          .paper__content {
+            padding: 20px 10px 20px;
+            .paper__content--inner {
+              font-size: 14px !important;
+            }
           }
         }
       }
     }
+
   }
 
 

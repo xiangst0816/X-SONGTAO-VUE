@@ -2,7 +2,7 @@
 <template>
   <div class="blogNav">
     <nav class="nav__top">
-      <a class="nav__item" @click="clearSessionStorage()" data-toggle="tooltip" data-placement="right" title="SongTao">
+      <a class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
         <span class="siteLogo"></span>
       </a>
       <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-toggle="tooltip" data-placement="right"

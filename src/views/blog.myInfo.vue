@@ -33,7 +33,7 @@
           </ul>
         </section>
         <section class="detail__sns hidden-xs">
-          <a class="github text-shadow" href="https://github.com/xiangsongtao">
+          <a target="_blank" class="github text-shadow" href="https://github.com/xiangsongtao">
             Follow
           </a>
           <ul class="SNS">

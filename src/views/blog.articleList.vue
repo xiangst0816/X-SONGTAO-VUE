@@ -186,7 +186,7 @@
           background-color:inherit;
         }
         .article__header {
-          padding: 25px 10px 10px;
+          padding: 30px 10px 10px;
           .article__header--title {
             font-size: 20px;
           }

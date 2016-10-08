@@ -31,9 +31,10 @@ new attachFastClick(document.body);
 /**
  * 发布模式禁用console.log()
  * */
+window.noop = function () {}
 if (process.env.NODE_ENV === 'production') {
-    console.log = function () {
-    };
+    console.log = noop;
+    console.warn = noop;
 }
 
 

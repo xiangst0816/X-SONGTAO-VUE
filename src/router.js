@@ -53,7 +53,9 @@ export default function () {
       subRoutes: {
         '/art-list': {
           name: 'artList',
-          component: require('./views/blog.articleList.vue'),
+          component: function (resolve) {
+            require(['./views/blog.articleList.vue'], resolve)
+          },
         },
         '/his-list': {
           name: 'historyList',
@@ -71,7 +73,9 @@ export default function () {
             },
             '/find-by-tag-id': {
               name: 'tagListFindByTagId',
-              component: require('./views/blog.articleList.vue'),
+              component: function (resolve) {
+                require(['./views/blog.articleList.vue'], resolve)
+              },
             },
           }
         },

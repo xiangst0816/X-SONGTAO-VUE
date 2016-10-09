@@ -171,7 +171,7 @@
           Vue.$localStorage.$set('sign', (new Date().getTime()));
         });
       } else {
-        console.log('you have already sign!');
+//        console.log('you have already sign!');
       }
     },
     ready: function () {

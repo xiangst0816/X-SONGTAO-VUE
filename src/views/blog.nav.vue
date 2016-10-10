@@ -5,7 +5,7 @@
       <a class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
         <span class="siteLogo"></span>
       </a>
-      <a class="nav__item" v-link="{ name: 'index',activeClass: 'active'}" data-toggle="tooltip" data-placement="right"
+      <a class="nav__item" v-link="{ name: 'index',activeClass: 'active',exact: true}" data-toggle="tooltip" data-placement="right"
          title="首页">
         <i class="fa fa-home fa-fw fa-lg"></i>
       </a>

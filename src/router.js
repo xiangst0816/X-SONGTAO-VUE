@@ -17,9 +17,9 @@ var App = Vue.extend(require('./App.vue'));
 // 路由配置参数
 
 var router = new VueRouter({
-  hashbang: true,
+  hashbang: false,
   abstract: false,
-  history: false,
+  history: true,
   saveScrollPosition: true,
   transitionOnLoad: true,
 });
@@ -32,7 +32,7 @@ export default function () {
 
   //定义路由规则
   router.map({
-    '/index': {
+    '/': {
       name: 'index',
       component: require('./views/blog.index.vue')
     },
@@ -151,7 +151,7 @@ export default function () {
 
   //路由重定向
   router.redirect({
-    '/': '/index',
+
     '/blog': '/blog/art-list/?listType=latest',
     '/blog/tag-list': '/blog/tag-list/classify',
     '/admin/admin-articleManager': '/admin/admin-articleManager/admin-articleList',

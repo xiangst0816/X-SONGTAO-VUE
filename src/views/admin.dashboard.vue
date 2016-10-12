@@ -282,14 +282,19 @@
               coordinateSystem: 'geo',
               data: data,
               symbolSize: function (val) {
-                return 6;
-//                return val[2] /10;
+                let count = val[2];
+                return 5
+//                if(count>4){
+//                  return count
+//                }else{
+//                  return val[2]*2
+//                }
               },
               label: {
                 normal: {
                   formatter: '{b}',
                   position: 'right',
-                  show: true
+                  show: false
                 },
                 emphasis: {
                   show: true

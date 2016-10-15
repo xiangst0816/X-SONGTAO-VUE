@@ -50,6 +50,7 @@ module.exports = {
   EMAIL: EMAIL,
   //登录
   login: `${url}/api/login`,
+  doLogin: `${url}/api/do_login`,
   //获取我的信息
   getMyInfo: `${url}/api/user/${MY_INFO_ID}`,
   //post 为了安全起见

@@ -8,6 +8,26 @@
 import API from "../config.js"
 import Vue from "vue";
 import {doError} from "../api/api_doError";
+
+/**
+ * 获取login的token
+ * */
+export const DoLogin = function () {
+  return new Promise(function (resolve, reject) {
+    Vue.http.get(API.doLogin).then((response) => {
+      // success callback
+      let result = response.data;
+      if (parseInt(result.code) === 1) {
+        resolve(result);
+      } else {
+        reject(doError(parseInt(result.code)));
+      }
+    }, () => {
+      reject(API.SYS_ERR)
+    });
+  })
+};
+
 export const Login = function (params) {
     return new Promise(function (resolve, reject) {
         Vue.http.post(API.login,params).then((response) => {
@@ -23,6 +43,10 @@ export const Login = function (params) {
         });
     })
 };
+
+
+
+
 
 export const GetMyInfoWithOriginal = function () {
     return new Promise(function (resolve, reject) {

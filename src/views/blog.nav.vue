@@ -83,14 +83,15 @@
     z-index: 1040;
     /*transition: all ease 400ms;*/
 
-    background-color: rgba(0, 0, 0, .8);
+    /*background-color: rgba(0, 0, 0, .8);*/
+    background-color: #222;
     transition: background-color ease 400ms;
 
     &:hover {
       .a {
         color: rgba(256, 256, 256, 0.8);
       }
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: #000;
       text-shadow: 0px 1px 1px #3b3b3b;
     }
     /*导航上面结构*/
@@ -286,7 +287,7 @@
         }
         scope.isChangeBG = true;
 
-        let $body = $('html');
+//        let $body = $('html');
         // 检查是否有用户自己保存过背景图片,如果保存过,则自动切换
         scope._loadImg(imgUrl, function () {
 
@@ -324,7 +325,7 @@
           // 动画是500ms
           setTimeout(function () {
             scope.isChangeBG = false;
-          }, 400);
+          }, 1000);
         });
       },
     },

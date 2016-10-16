@@ -171,9 +171,13 @@
 
 //            console.log('login-success')
 
-            //开启tooltip
-//                        $rootScope.tooltip();
+            /**
+             * start tooltip
+             * */
+            window.tooltip();
             scope.setLoginState(true);//设置全局登录状态
+
+
             scope.$router.go({//跳转
               name: 'index'
             });

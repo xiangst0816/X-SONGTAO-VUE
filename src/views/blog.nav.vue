@@ -5,7 +5,8 @@
       <a class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
         <span class="siteLogo"></span>
       </a>
-      <a class="nav__item" v-link="{ name: 'index',activeClass: 'active',exact: true}" data-toggle="tooltip" data-placement="right"
+      <a class="nav__item" v-link="{ name: 'index',activeClass: 'active',exact: true}" data-toggle="tooltip"
+         data-placement="right"
          title="首页">
         <i class="fa fa-home fa-fw fa-lg"></i>
       </a>
@@ -48,7 +49,8 @@
         <i class="fa fa-comments fa-lg"></i>
       </a>
       <!--切换背景-->
-      <a class="nav__item fa-stack fa-lg  hidden-xs" data-toggle="tooltip" data-placement="right" title="切换背景" @click="changeBG()">
+      <a class="nav__item fa-stack fa-lg  hidden-xs" data-toggle="tooltip" data-placement="right" title="切换背景"
+         @click="changeBG()">
         <i class="fa fa-photo fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
           <i class="fa fa-lg fa-refresh" :class="{true:'',false:'fa-spin'}[!isChangeBG]"></i>
@@ -287,27 +289,46 @@
         let $body = $('html');
         // 检查是否有用户自己保存过背景图片,如果保存过,则自动切换
         scope._loadImg(imgUrl, function () {
-          $body.css({
-            'background-image': `url(${imgUrl})`,
-            'background-repeat': 'no-repeat',
-            'background-size': 'cover',
-            'background-attachment': 'fixed',
-          });
+
+          var css = function (t, s) {
+            s = document.createElement('style');
+            s.innerText = t;
+            document.body.appendChild(s);
+          };
+
+          let cssRules = '.background:before{' +
+            'content:"";' +
+            'position: fixed;' +
+            'z-index: -1;' +
+            'top: 0;' +
+            'right: 0;' +
+            'bottom: 0;' +
+            'left: 0;' +
+            'background-repeat: no-repeat;' +
+            'background-size: cover;' +
+            'background-attachment: fixed;' +
+            'background-position: center center;' +
+            'background-image: ' + `url(${imgUrl});` +
+            '}';
+
+//          $body.css({
+//            'background-image': `url(${imgUrl})`,
+//            'background-repeat': 'no-repeat',
+//            'background-size': 'cover',
+//            'background-attachment': 'fixed',
+//          });
 
           // 保存用户切换的壁纸信息,下次直接自动切换
           scope.$localStorage.$set('userBackground', imgUrl);
-
+          css(cssRules);
           // 动画是500ms
           setTimeout(function () {
             scope.isChangeBG = false;
-            $body.css({
-              'transition': 'background-image ease 500ms'
-            })
-          }, 500);
+          }, 400);
         });
       },
     },
-    ready: function () {
+    created: function () {
       const scope = this;
       /**
        * 背景初始化
@@ -315,27 +336,17 @@
       if (!!scope.$localStorage.userBackground) {
         setTimeout(function () {
           scope.changeBG(scope.$localStorage.userBackground)
-        }, 1000)
-
+        }, 1500)
       }
+    },
+    ready: function () {
+      const scope = this;
 
       /**
-       * 工具提示栏
+       * start tooltip
        * */
-      let clientWidth = parseInt(document.documentElement.clientWidth);
-      if (clientWidth <= 768) {
+      window.tooltip()
 
-      } else if (clientWidth > 769 && clientWidth < 991) {
-        $('[data-toggle="tooltip"]').tooltip({
-          trigger: 'hover',
-          placement: 'bottom'
-        });
-      } else if (clientWidth > 991) {
-        $('[data-toggle="tooltip"]').tooltip({
-          trigger: 'hover',
-          placement: 'right'
-        });
-      }
     },
     vuex: {
       getters: {

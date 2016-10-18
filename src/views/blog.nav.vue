@@ -83,8 +83,8 @@
     z-index: 1040;
     /*transition: all ease 400ms;*/
 
-    /*background-color: rgba(0, 0, 0, .8);*/
-    background-color: #222;
+    background-color: rgba(0, 0, 0, .9);
+    /*background-color: #222;*/
     transition: background-color ease 400ms;
 
     &:hover {

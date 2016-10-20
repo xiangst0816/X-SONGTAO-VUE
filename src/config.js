@@ -129,18 +129,25 @@ module.exports = {
    * */
   musicList: [
     {
-      coverUrl: 'http://p4.music.126.net/zYqptzyHld2ylpb5FOoqDA==/1785606883508227.jpg?param=260y260',
-      musicUrl: 'http://xiangsongtao.com/music_resource/Joel%20Hanson%20-%20Traveling%20Light.mp3',
-      name: 'Traveling Light',
-      player: 'Joel Hanson',
-      album: 'Traveling Light',
+      coverUrl: 'http://p3.music.126.net/0X1DVaNmTMH7W5l9S-XB_g==/18675204997913949.jpg?param=260y260',
+      musicUrl: 'http://xiangsongtao.com/music_resource/Kozoro%20-%20Silhouette%20(Original%20Mix).mp3',
+      name: 'Silhouette',
+      player: 'Kozoro',
+      album: 'Silhouette',
     },
     {
-      coverUrl: 'http://p4.music.126.net/Jm8cjfA9c8udNBnohoIzqA==/3239161256372553.jpg?param=260y260',
-      musicUrl: 'http://xiangsongtao.com/music_resource/Beirut.mp3',
-      name: 'Beirut',
-      player: 'Koi.',
-      album: 'Maelstrom',
+      coverUrl: 'http://p4.music.126.net/EvWz-TdM6MUjEDS-6pmMbA==/7700979442816625.jpg?param=260y260',
+      musicUrl: 'http://xiangsongtao.com/music_resource/Kozoro%20-%20A%20Spring%20Without%20You%20(Original%20Mix).mp3',
+      name: 'A Spring Without You',
+      player: 'Kozoro',
+      album: 'A Spring Without You',
+    },
+    {
+      coverUrl: 'http://p3.music.126.net/6tu0HRcN9Rrb7mfLpTbkuA==/7948369559818308.jpg?param=260y260',
+      musicUrl: 'http://xiangsongtao.com/music_resource/Kozoro%20-%20Remember%20Me%20(Original%20Mix).mp3',
+      name: 'Remember Me',
+      player: 'Kozoro',
+      album: 'Remember Me',
     },
     {
       coverUrl: 'http://p3.music.126.net/U_IlMiO7pWenOk0fuDdWvA==/2542070885314968.jpg?param=260y260',

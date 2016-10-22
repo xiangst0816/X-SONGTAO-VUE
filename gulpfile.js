@@ -20,5 +20,3 @@ gulp.task('manifest', function () {
     }))
     .pipe(gulp.dest('dist'));
 });
-
-//士大夫撒旦法

@@ -117,7 +117,7 @@ open -a "Google Chrome" --args --disable-web-security --user-data-dir
 
 ```
 |-build  				//webpack配置，注意webpack.base.conf.js此文件关于引入jQuery插件的写法
-|-config  				
+|-config
 |-dist  				//目标文件
 |-src  					//开发目录
 |----App.vue  			//初始化配置（main）及组件挂载
@@ -132,8 +132,8 @@ open -a "Google Chrome" --args --disable-web-security --user-data-dir
 |----utils  			//filter等工具组件
 |----views  			//整个页面组件集合
 |----vuex  				//全局状态管理（管理登录状态，可惜没用到getters.js）
-|-static  				
-|-test  				 
+|-static
+|-test
 ```
 
 
@@ -253,8 +253,6 @@ new attachFastClick(document.body);
 当时在读这里的时候，误以为下图的Backend API就是将SPA中的http请求都由这部分接管，所以就都写到这里面了，包括文章列表及详情，写了几个之后发现，应该不会有傻X这么干的，因为有些http结果并不是全局状态属性，干嘛写在vuex中。和同事交流了后觉得如果这么做了，那就违背了vuex全局状态管理的特点了。这个Backend API只是接管和全局相关的api比如config获取、公共数据等。下图是
 [vuex数据流](http://vuex.vuejs.org/zh-cn/data-flow.html)。ps.很喜欢简洁的设计。
 
-
-![](http://vuex.vuejs.org/zh-cn/vuex.png "")
 
 
 

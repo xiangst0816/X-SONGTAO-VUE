@@ -106,17 +106,17 @@
         width: 100%;
         height: 400px;
         border-radius: 5px;
-        padding:8px;
+        padding: 8px;
         box-sizing: border-box;
         background: #fff !important;
       }
       .statistic--map {
         width: 100%;
         height: 500px;
-        padding:8px;
+        padding: 8px;
         border-radius: 5px;
         box-sizing: border-box;
-        background:#fff!important;
+        background: #fff !important;
       }
     }
   }
@@ -283,12 +283,8 @@
               data: data,
               symbolSize: function (val) {
                 let count = val[2];
-                return 5
-//                if(count>4){
-//                  return count
-//                }else{
-//                  return val[2]*2
-//                }
+                // 最大在8附近，count=24时，约等于8
+                return Math.atan(count/3)*5.2
               },
               label: {
                 normal: {
@@ -314,4 +310,32 @@
       copyright
     },
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

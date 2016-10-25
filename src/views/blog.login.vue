@@ -30,6 +30,7 @@
           </div>
         </div>
       </div>
+      <p class=notice>*参观账号：visitor visitor</p>
     </div>
     <section class="index-copyright">
       <copyright></copyright>
@@ -47,6 +48,7 @@
     .login-content {
       display: flex;
       justify-content: center;
+      flex-direction: column;
       align-items: center;
       box-sizing: border-box;
       height: 100%;
@@ -62,7 +64,7 @@
         text-align: right;
         box-sizing: content-box;
         padding: 30px;
-        margin-bottom: 110px;
+
         background: rgba(0, 0, 0, 0.3);
         border-radius: 5px;
         h1, h4 {
@@ -75,7 +77,6 @@
           float: right;
           margin: 0px auto 15px;
         }
-
         .btnGroup {
           .errText {
             color: $base-red-color;
@@ -94,9 +95,12 @@
             }
           }
         }
-
       }
-
+      .notice{
+        color:$base-theme-color;
+        margin-bottom: 100px;
+        margin-top:10px;
+      }
     }
     .index-copyright {
       position: absolute;

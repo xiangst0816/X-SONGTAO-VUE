@@ -28,6 +28,149 @@ var router = new VueRouter({
 import store from "./vuex/store"
 
 
+let routes = [
+  {
+    path: '/',
+    name: 'index',
+    component: require('./views/blog.index.vue')
+  },
+  {
+    path: '/blog',
+    redirect: '/art-list?listType=latest',
+    name: 'blog',
+    component: require('./views/blog.vue'),
+    children: [
+      {
+        path: '/art-list',
+        name: 'artList',
+        component: function (resolve) {
+          require(['./views/blog.articleList.vue'], resolve)
+        }
+      },
+      {
+        path: '/his-list',
+        name: 'historyList',
+        component: function (resolve) {
+          require(['./views/blog.historyList.vue'], resolve)
+        }
+      },
+      {
+        path: '/tag-list',
+        name: 'tagList',
+        redirect:'/tag-list/classify',
+        component: {
+          template: '<router-view></router-view>'
+        },
+        children: [
+          {
+            path: '/classify',
+            name: 'tagListClassify',
+            component: require('./views/blog.tagList.vue')
+          },
+          {
+            path: '/find-by-tag-id',
+            name: 'tagListFindByTagId',
+            component: function (resolve) {
+              require(['./views/blog.articleList.vue'], resolve)
+            },
+          },
+        ]
+      },
+    ]
+  },
+  {
+    path: '/music',
+    name: 'music',
+    component: require('./views/blog.music.vue')
+  },
+  {
+    path: '/article/:articleId',
+    name: 'article',
+    component: function (resolve) {
+      require(['./views/blog.article.vue'], resolve)
+    },
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: function (resolve) {
+      require(['./views/blog.login.vue'], resolve)
+    }
+  },
+
+  {
+    path: '/admin',
+    name: 'admin',
+    component: function (resolve) {
+      require(['./views/admin.vue'], resolve)
+    },
+    auth: true,
+    children: [
+      {
+        path: '/admin-dashboard',
+        name: 'admin-dashboard',
+        component: function (resolve) {
+          require(['./views/admin.dashboard.vue'], resolve)
+        },
+      },
+      {
+        path: '/admin-myinfo',
+        name: 'admin-myinfo',
+        component: function (resolve) {
+          require(['./views/admin.myInfo.vue'], resolve)
+        },
+        auth: true,
+      },
+      {
+        path: '/admin-tag',
+        name: 'admin-tag',
+        component: function (resolve) {
+          require(['./views/admin.tagList.vue'], resolve)
+        },
+        auth: true,
+      },
+      {
+        path: '/admin-articleManager',
+        name: 'admin-articleManager',
+        redirect:'/admin-articleList',
+        component: {
+          template: '<router-view></router-view>'
+        },
+        auth: true,
+        children: [
+          {
+            path: '/admin-articleList',
+            name: 'admin-articleList',
+            component: function (resolve) {
+              require(['./views/admin.articleList.vue'], resolve)
+            },
+            auth: true,
+          },
+          {
+            path: '/admin-article/:articleId',
+            name: 'admin-article',
+            component: function (resolve) {
+              require(['./views/admin.article.vue'], resolve)
+            },
+            auth: true,
+          },
+        ]
+      },
+      {
+        path: '/admin-commentList',
+        name: 'admin-commentList',
+        component: function (resolve) {
+          require(['./views/admin.commentList.vue'], resolve)
+        },
+        auth: true,
+      },
+    ]
+  },
+
+
+]
+
+
 export default function () {
 
   //定义路由规则
@@ -36,7 +179,6 @@ export default function () {
       name: 'index',
       component: require('./views/blog.index.vue')
     },
-
     '/login': {
       name: 'login',
       component: function (resolve) {

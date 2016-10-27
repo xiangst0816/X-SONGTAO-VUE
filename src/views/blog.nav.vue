@@ -1,6 +1,6 @@
 <!--导航条-->
 <template>
-  <div class="blogNav">
+  <div class="blogNav ">
     <nav class="nav__top">
       <a class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
         <span class="siteLogo"></span>
@@ -49,7 +49,7 @@
         <i class="fa fa-comments fa-lg"></i>
       </a>
       <!--切换背景-->
-      <a class="nav__item fa-stack fa-lg  hidden-xs" data-toggle="tooltip" data-placement="right" title="切换背景"
+      <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景"
          @click="changeBG()">
         <i class="fa fa-photo fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
@@ -81,17 +81,13 @@
     left: 0;
     top: 0;
     z-index: 1040;
-    /*transition: all ease 400ms;*/
-
-    background-color: rgba(0, 0, 0, .9);
-    /*background-color: #222;*/
+    background-color: rgba(0, 0, 0, .6);
     transition: background-color ease 400ms;
-
     &:hover {
       .a {
         color: rgba(256, 256, 256, 0.8);
       }
-      background-color: #000;
+      background-color: rgba(0, 0, 0, .8);
       text-shadow: 0px 1px 1px #3b3b3b;
     }
     /*导航上面结构*/
@@ -103,7 +99,7 @@
 
     }
     a {
-      color: #696969;
+      color: #797979;
       cursor: pointer;
       display: inline-block;
       text-decoration: none;
@@ -129,7 +125,7 @@
       }
 
       & > i {
-        font-size: 20px;
+        font-size: 18px;
         width: 45px;
         height: 45px;
         display: flex;
@@ -183,9 +179,7 @@
         }
       }
     }
-
   }
-
   /*响应式*/
   @include media("<=desktop_small") {
     .blogNav {
@@ -194,6 +188,11 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;;
+      /*background-color: rgba(0, 0, 0, .8);*/
+      &:hover {
+
+        /*background-color: rgba(0, 0, 0, .9);*/
+      }
       .nav__item {
         width: 45px;
       }
@@ -356,6 +355,8 @@
       }
     }
   }
+
+
 
 
 </script>

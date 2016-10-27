@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <!--修改用户名密码-->
-                <div class="authorizationBox">
+                <div style="display:none" class="authorizationBox">
                     <div class="inputGroup clearfix">
                         <label class="" for="new_password">登录验证信息/Authorization</label>
                         <form class="inputBox">

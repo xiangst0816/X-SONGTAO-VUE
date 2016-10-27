@@ -33,13 +33,12 @@
     "node-sass": "^3.8.0",
     "sass-loader": "^4.0.0",
     "scss-loader": "^0.0.1",
-    "vue": "^1.0.26",
+    "vue": "^2.0.3",
     "vue-moment": "^2.0.1",
     "vue-multiselect": "^1.0.1",
     "vue-resource": "^0.9.3",
-    "vue-router": "^0.7.13",
-    "vue-touch": "^1.1.0",
-    "vuex": "^1.0.0-rc.2"
+    "vue-router": "^2.0.1",
+    "vuex": "^2.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

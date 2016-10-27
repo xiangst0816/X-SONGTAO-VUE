@@ -173,6 +173,14 @@
       } else {
 //        console.log('you have already sign!');
       }
+
+      /**
+       * 设定创窗口最小高度，写在body中
+       * 我的信息展开的时候用到
+       * */
+        var docEl = document.documentElement;
+        var clientHeight = docEl.clientHeight;
+        document.body.style.minHeight = clientHeight + 'px';
     },
     ready: function () {
       //更改loading状态
@@ -260,6 +268,8 @@
       },
     },
   }
+
+
 </script>
 
 <style lang="scss">
@@ -273,7 +283,6 @@
   @-ms-viewport {
     width: device-width;
   }
-
 
   body {
     padding: 0;
@@ -299,7 +308,7 @@
 
   @include media(">desktop_small") {
     body {
-      padding-left: 45px;
+      /*padding-left: 45px;*/
     }
   }
 

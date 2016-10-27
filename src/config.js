@@ -54,7 +54,7 @@ module.exports = {
   //获取我的信息
   getMyInfo: `${url}/api/user/${MY_INFO_ID}`,
   //post 为了安全起见
-  getMyInfoWithOriginal: `${url}/api/user/original`,
+  getMyInfoWithOriginal: `${url}/api/user/original/${MY_INFO_ID}`,
   postMyInfo: `${url}/api/user`,
   changePassword: `${url}/api/change_password`,
   imgUpload: `${url}/api/imgupload`,

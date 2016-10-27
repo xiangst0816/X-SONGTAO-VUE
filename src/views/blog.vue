@@ -48,40 +48,6 @@
       }
     }
   }
-
-  @include media("<=tablet") {
-    .blog {
-      .blog__content {
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 270px;
-        .blog__content--inner {
-
-        }
-      }
-    }
-  }
-
-
-
-  @include media(">desktop_small", "<=desktop") {
-    .blog {
-      .blog__content {
-        padding-top: 270px;
-        .blog__content--inner {
-
-        }
-      }
-    }
-    .isShowMyWords-transition {
-      transition: all .5s ease;
-      opacity: 1;
-    }
-    .isShowMyWords-enter, .isShowMyWords-leave {
-      opacity: 0;
-    }
-  }
-
   @include media(">desktop") {
     .blog {
       width: 100%;
@@ -101,12 +67,28 @@
       opacity: 0;
     }
   }
-
-  @include media("<desktop_small") {
+  @include media(">desktop_small", "<=desktop") {
     .blog {
-      padding-top: 45px;
       .blog__content {
         padding-top: 270px;
+        .blog__content--inner {
+
+        }
+      }
+    }
+    .isShowMyWords-transition {
+      transition: all .5s ease;
+      opacity: 1;
+    }
+    .isShowMyWords-enter, .isShowMyWords-leave {
+      opacity: 0;
+    }
+  }
+  @include media("<=desktop_small") {
+    .blog {
+      /*padding-top: 45px;*/
+      .blog__content {
+        padding-top: 315px;
         .blog__content--inner {
         }
       }
@@ -119,12 +101,24 @@
       opacity: 0;
     }
   }
+  @include media("<=tablet") {
+    .blog {
+      .blog__content {
+        padding-left: 15px;
+        padding-right: 15px;
+        /*padding-top: 270px;*/
+        .blog__content--inner {
+
+        }
+      }
+    }
+  }
   @include media("<=phone") {
     .blog {
       .blog__content {
         padding-left: 6px;
         padding-right: 6px;
-        padding-top: 200px;
+        padding-top: 245px;
         .blog__content--inner {
           padding-top: 6px;
         }

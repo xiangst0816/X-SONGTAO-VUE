@@ -35,9 +35,7 @@ export const GetMyInfo = function () {
 
 export const GetMyInfoWithOriginal = function () {
     return new Promise(function (resolve, reject) {
-        Vue.http.post(API.getMyInfoWithOriginal, {
-            _id: API.MY_INFO_ID
-        }).then((response) => {
+        Vue.http.get(API.getMyInfoWithOriginal).then((response) => {
             // success callback
             let result = response.data;
             if (parseInt(result.code) === 1) {

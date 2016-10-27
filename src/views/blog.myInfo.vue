@@ -37,12 +37,13 @@
             Follow
           </a>
           <ul class="SNS">
+            <li class="hidden-lg"><a title="GitHub" target="_blank" href="https://github.com/xiangsongtao"><i class="fa fa-github"></i></a></li>
             <li @click="showSocialImg('http://xiangsongtao.com/uploads/qq-addme.jpg')" data-toggle="modal"
                 data-target="#socialContact"><i class="fa fa-qq"></i></li>
             <li @click="showSocialImg('http://xiangsongtao.com/uploads/weixin-addme.jpg')" data-toggle="modal"
                 data-target="#socialContact"><i class="fa fa-weixin"></i></li>
-            <li><a href="http://weibo.com"><i class="fa fa-weibo"></i></a></li>
-            <li><a href="http://t.qq.com/hsiang-sootao"><i class="fa fa-tencent-weibo"></i></a></li>
+            <li><a title="新浪微博" target="_blank" href="http://weibo.com"><i class="fa fa-weibo"></i></a></li>
+            <li><a title="腾讯微博" target="_blank" href="http://t.qq.com/hsiang-sootao"><i class="fa fa-tencent-weibo"></i></a></li>
           </ul>
         </section>
       </section>
@@ -64,7 +65,7 @@
   .myinfo {
     z-index: 99;
 
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
 
     .detail {
@@ -274,21 +275,24 @@
       @include media("<=desktop") {
 
         position: fixed;
-        min-height: 270px;
+        max-height:983px;
         width: 100%;
         height: 100%;
-        padding-right: 45px;
-        transition: opacity $animationTime_1 ease;
+        /*padding-right: 45px;*/
+        transition: all $animationTime_1 ease;
         .mywords {
           height: 230px;
           width: 100%;
           overflow: inherit;
           opacity: 1;
-          transition: opacity $animationTime_1 ease;
+          transition: all $animationTime_1 ease;
         }
       }
       @include media("<=desktop_small") {
         padding-right: 0;
+        .detail{
+          padding-top:0;
+        }
         .mywords {
           padding: 0px 40px;
         }
@@ -310,7 +314,7 @@
           opacity: 1;
           transition: none;
           p {
-            margin: 0!important;
+            margin: 0 !important;
           }
         }
 
@@ -329,6 +333,7 @@
       flex-direction: row;
       position: fixed;
       transition: width ease $animationTime_1;
+      padding-left: 45px;
       .detail {
         width: 350px;
         display: flex;
@@ -377,27 +382,27 @@
       }
       .mywords {
         width: 0;
+        justify-content: flex-start;
         align-items: center;
         opacity: 0;
         transition: width $animationTime_1 ease, opacity $animationTime_2 ease;
       }
     }
   }
-
   @include media("<=desktop") {
     .myinfo {
       width: 100%;
-      height: 270px;
-      /*max-height: 983px;*/
+      height: 100%;
+      max-height:983px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       position: absolute;
-      transition: none;
+       transition: height ease $animationTime_1;
       .detail {
         width: 720px;
-        height: 270px;
+        min-height:270px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -420,7 +425,7 @@
           flex-direction: row;
           justify-content: center;
           align-items: center;
-          margin: 25px 0 0;
+          margin: 20px 0 0;
           .detail__nav {
             width: 225px;
             .tabs {
@@ -447,11 +452,29 @@
       }
       .mywords {
         align-items: flex-start;
+        justify-content: flex-start;
         height: 0;
         overflow: hidden;
         width: 720px;
         opacity: 0;
-        transition: none;
+
+        transition: height $animationTime_1 ease, opacity $animationTime_2 ease;
+      }
+    }
+  }
+
+  @include media(">desktop_small", "<=desktop") {
+    .myinfo {
+      height: 270px;
+      .detail{
+      }
+    }
+  }
+  @include media("<=desktop_small") {
+    .myinfo {
+      height: 315px;
+      .detail{
+        padding-top: 45px;
       }
     }
   }
@@ -459,11 +482,11 @@
   @include media("<=phone") {
     .myinfo {
       justify-content: flex-start;
-      height: 200px;
+      height: 245px;
       .detail {
         width: 100%;
         flex-wrap: nowrap;
-        height: 200px;
+        height: 100%;
         .detail__1 {
           flex-direction: column;
           .detail__imgBox {
@@ -497,11 +520,7 @@
     }
   }
 
-  //@include media(">desktop_small","<=desktop") {
-  //  .myInfo{
-  //      position: absolute;
-  //  }
-  //}
+
 
 
 </style>
@@ -579,4 +598,5 @@
       });
     },
   }
+
 </script>

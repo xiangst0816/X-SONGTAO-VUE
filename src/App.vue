@@ -1,14 +1,16 @@
 <!--内容区-->
 <template>
-  <div class="app__content">
-    <!--导航条-->
-    <blog-nav></blog-nav>
-    <!-- 路由外链 -->
-    <router-view></router-view>
-    <!--qq,微信弹出层-->
-    <social-info></social-info>
-    <!--退出弹层-->
-    <do-logout></do-logout>
+  <div>
+    <div class="app__content">
+      <!--导航条-->
+      <blog-nav></blog-nav>
+      <!-- 路由外链 -->
+      <router-view></router-view>
+      <!--qq,微信弹出层-->
+      <social-info></social-info>
+      <!--退出弹层-->
+      <do-logout></do-logout>
+    </div>
   </div>
 </template>
 
@@ -21,6 +23,9 @@
 
   import store from './vuex/store'
 
+  console.log('store')
+  console.log(store)
+
   /**
    * 设置本地存储
    * */
@@ -28,6 +33,7 @@
   Vue.use(vStorage, {
     storageKeyPrefix: 'xst-'
   });
+
 
   /**
    * 时间格式化插件-过滤器
@@ -57,8 +63,9 @@
 
 
   import {Sign} from "./api/api_statistic";
-
-  module.exports = {
+  import {mapState,mapActions} from 'vuex';
+  export default {
+    // name: 'app',
     store,
     replace: false,
     data: function () {
@@ -67,7 +74,29 @@
         musicList: API.musicList,
       }
     },
+    computed:{
+      ...mapState({
+        isPlaying: 'isPlaying',
+        isLoading: 'isLoading',
+        currentMusicInfo: 'currentMusicInfo',
+        MusicHandle: 'handle',
+        duration: 'duration',
+        rightNow: 'rightNow',
+        rightPercent: 'rightPercent',
+        canAutoPlay: 'canAutoPlay',
+      }),
+    },
     methods: {
+       //vuex
+      ...mapActions({
+        setLoginState:'setLoginState',
+        setPlayingStatus:'setPlayingStatus',
+        setMusicDuration:'setMusicDuration',
+        setMusicRightNow:'setMusicRightNow',
+        setCurrentMusic:'setCurrentMusic',
+        setLoadingStatus:'setLoadingStatus',
+        setCanAutoPlay:'setCanAutoPlay',
+      }),
       /**
        * music的控制在App.vue中,方便全局管理
        * 只是展示与事件触发,通过vuex操作
@@ -120,7 +149,7 @@
         scope.MusicHandle.addEventListener('ended', function () {
           scope._ended();
           scope.nextCtrl();
-//                    console.log("ended")
+          //console.log("ended")
         });
         //监听加载状态
         scope.MusicHandle.addEventListener('canplay', function () {
@@ -157,7 +186,8 @@
         scope.$localStorage.$set('canAutoPlay', {
           autoPlay: scope.canAutoPlay
         });
-      }
+      },
+
     },
     created: function () {
       /**
@@ -171,7 +201,7 @@
           Vue.$localStorage.$set('sign', (new Date().getTime()));
         });
       } else {
-//        console.log('you have already sign!');
+       console.log('you have already sign!');
       }
 
       /**
@@ -182,7 +212,7 @@
         var clientHeight = docEl.clientHeight;
         document.body.style.minHeight = clientHeight + 'px';
     },
-    ready: function () {
+    mounted: function () {
       //更改loading状态
       window.hideLoadingPage();
 
@@ -241,33 +271,13 @@
 
     },
     components: {
-//            小组件挂载集中挂载
+      //小组件挂载集中挂载
       blogNav,
       socialInfo,
       doLogout,
     },
-    vuex: {
-      getters: {
-        isPlaying: state=>state.isPlaying,
-        isLoading: state=>state.isLoading,
-        currentMusicInfo: state=>state.currentMusicInfo,
-        MusicHandle: state=>state.handle,
-        duration: state=>state.duration,
-        rightNow: state=>state.rightNow,
-        rightPercent: state=>state.rightPercent,
-        canAutoPlay: state=>state.canAutoPlay,
-      },
-      actions: {
-        setLoginState,//设置登录否
-        setPlayingStatus,//该表播放状态
-        setMusicDuration,
-        setMusicRightNow,
-        setCurrentMusic,
-        setLoadingStatus,
-        setCanAutoPlay,
-      },
-    },
   }
+
 
 
 </script>

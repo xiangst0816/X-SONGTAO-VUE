@@ -465,7 +465,7 @@
             })
 
         },
-        ready: function () {
+        mounted: function () {
             const scope = this;
 
 

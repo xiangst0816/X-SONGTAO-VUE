@@ -1,20 +1,20 @@
 /**
- * Created by xiangsongtao on 16/7/26.
+ * Created by xiangsongtao on 16/10/29.
  * Description: main.js
  * */
-
 'use strict';
-import Vue from "vue";
-import routerConfig from "./router.js";
-import app from "./App.vue";
-import blogNav from "./views/blog.nav";
+
+import Vue from 'vue';
+import App from './App';
+import router from './router.js'
+
+// import blogNav from "./views/blog.nav";
 import "./theme/util.scss";
 import "bootstrap/scss/bootstrap.slim.scss";
 import "bootstrap/js/tooltip.js";
 import "bootstrap/js/modal.js";
 import "bootstrap/js/transition.js";
 import attachFastClick from "fastclick";
-
 /**
  * 工具提示栏 tooltip 初始化方法
  * */
@@ -38,42 +38,53 @@ window.tooltip = function tooltip() {
     }
   }, 50)
 };
-
-
-/**
- * 路由相关 路由规则配置
- * */
-routerConfig();
-
 /**
  * 触摸配置
  * */
 new attachFastClick(document.body);
-
 /**
  * 发布模式禁用console.log()
  * */
-if (process.env.NODE_ENV === 'production') {
-  console.log = function () {
-  }
-  console.warn = function () {
-  }
-}
+// if (process.env.NODE_ENV === 'production') {
+//   console.log = function () {
+//   }
+//   console.warn = function () {
+//   }
+// }
+
+
+// new Vue({
+//   el: '#app',
+//   // replace: false,
+//   components: {
+//     blogNav, app
+//   },
+//   router,
+//   render: h => h(App),
+// });
 
 
 new Vue({
   el: '#app',
-  replace: false,
-  data: function () {
-    return {}
-  },
-  components: {
-    blogNav, app
-  },
-  ready: function () {
-  }
-
+  router,
+  template: '<App/>',
+  components: { App }
 })
+
+
+
+
+// import app from "./App.vue";
+// /**
+//  * 路由相关 路由规则配置
+//  * */
+// routerConfig();
+
+
+
+
+
+
 
 
 

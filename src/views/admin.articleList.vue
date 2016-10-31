@@ -56,7 +56,8 @@
             <tr v-for="article in articleLists | orderBy predicate reverse " track-by="$index" class="animated fadeIn">
                 <td>{{$index+1}}</td>
                 <td>{{article.title}}</td>
-                <td>{{article.publish_time | moment 'YYYY/MM/DD'}}</td>
+                <td></td>
+                <!--<td>{{article.publish_time | moment 'YYYY/MM/DD'}}</td>-->
                 <td>{{article.read_num}}</td>
                 <td>{{article.comment_num}}</td>
                 <td>
@@ -175,7 +176,7 @@
                 scope.articleLists = data;
             })
         },
-        ready: function () {
+        mounted: function () {
         },
         destroyed: function () {
         },

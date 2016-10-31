@@ -346,7 +346,7 @@
                 })
             },
         },
-        ready: function () {
+        mounted: function () {
             /**
              * GetTagsList
              * */

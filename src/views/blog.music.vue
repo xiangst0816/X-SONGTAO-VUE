@@ -137,10 +137,8 @@
         border-bottom-right-radius: 5px;
         border-bottom-left-radius: 0;
 
-
-
         overflow: hidden;
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.4);
         .music--info {
           border: 1px solid transparent;
           box-sizing: border-box;
@@ -284,7 +282,7 @@
     .musicBox {
       $musicBoxWidth: 240px;
       .music {
-        margin-top:20px;
+        margin-top: 20px;
         height: $musicBoxWidth*1.74;
         width: $musicBoxWidth;
         display: flex;
@@ -470,12 +468,26 @@
   import {secondsConvert} from "../utils/filters.js";
 
   Vue.filter('secondsConvert', secondsConvert);
-
+  import {mapState,mapActions} from 'vuex';
   export default{
     data(){
       return {}
     },
+    computed:{
+      ...mapState({
+          isPlaying: 'isPlaying',
+          isLoading: 'isLoading',
+          currentMusicInfo: 'currentMusicInfo',
+          duration: 'duration',
+          rightNow: 'rightNow',
+          rightPercent: 'rightPercent',
+          canAutoPlay: 'canAutoPlay',
+      }),
+    },
     methods: {
+      ...mapActions({
+          setCanAutoPlay: 'setCanAutoPlay'
+      }),
       /**
        * music的控制在App.vue中,方便全局管理
        * 只是展示与事件触发,通过vuex操作
@@ -494,7 +506,7 @@
       }
     },
     components: {copyright},
-    ready: function () {
+    mounted: function () {
       let scope = this;
 
       /**
@@ -511,19 +523,6 @@
 
 
     },
-    vuex: {
-      getters: {
-        isPlaying: state=>state.isPlaying,
-        isLoading: state=>state.isLoading,
-        currentMusicInfo: state=>state.currentMusicInfo,
-        duration: state=>state.duration,
-        rightNow: state=>state.rightNow,
-        rightPercent: state=>state.rightPercent,
-        canAutoPlay: state=>state.canAutoPlay,
-      },
-      actions: {
-        setCanAutoPlay,
-      },
-    },
   }
+
 </script>

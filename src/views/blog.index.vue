@@ -16,8 +16,8 @@
                 <div class="text-center cat">一个记录时光的博客</div>
             </div>
             <section class="index-btnBox">
-                <div class="index-btnBox-each text-center" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">我的博客</div>
-                <div class="index-btnBox-each text-center" v-link="{ name: 'music',activeClass: 'active'}">我的音乐</div>
+                <div class="index-btnBox-each text-center" :to="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">我的博客</div>
+                <div class="index-btnBox-each text-center" :to="{ name: 'music',activeClass: 'active'}">我的音乐</div>
             </section>
             <section class="index-copyright">
                 <copyright></copyright>
@@ -174,7 +174,7 @@
                 clearInterval: ''
             }
         },
-        ready: function () {
+        mounted: function () {
             let self = this;
             self.clearInterval = setInterval(function () {
                 self.now >= 6 ? self.now = 1 : self.now++;

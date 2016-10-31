@@ -5,12 +5,12 @@
 <template>
   <div class="myinfo" :class="{ 'active': isShowMyWords}">
     <!--我的信息列表-->
-
     <section class="detail text-center">
       <section class="detail__1">
         <section class="detail__imgBox" @click="setMyWordStatus">
           <div class="imgBox">
-            <img class="img-circle" :src="myinfo.img_url | addImgPrefix" v-err-src.literal="">
+            <img class="img-circle" :src="myinfo.img_url" >
+            <!--<img class="img-circle" :src="myinfo.img_url | addImgPrefix" v-err-src.literal="">-->
           </div>
         </section>
         <section class="detail__info">
@@ -27,9 +27,9 @@
       <section class="detail__2">
         <section class="detail__nav">
           <ul class="tabs text-shadow">
-            <li><a v-link="{ name: 'artList',query: { listType: 'latest' },activeClass: 'active'}">最新列表</a></li>
-            <li><a v-link="{ name: 'historyList',activeClass: 'active'}">时光机</a></li>
-            <li><a v-link="{ name: 'tagList',activeClass: 'active'}">标签库</a></li>
+            <li><router-link :to="{ name: 'artList',query: { listType: 'latest' }}" activeClass="active" tag="a">最新列表</router-link></li>
+            <li><router-link :to="{ name: 'historyList'}" activeClass="active" tag="a">时光机</router-link></li>
+            <li><router-link :to="{ name: 'tagList'}" activeClass="active" tag="a">标签库</router-link></li>
           </ul>
         </section>
         <section class="detail__sns hidden-xs">
@@ -37,13 +37,15 @@
             Follow
           </a>
           <ul class="SNS">
-            <li class="hidden-lg"><a title="GitHub" target="_blank" href="https://github.com/xiangsongtao"><i class="fa fa-github"></i></a></li>
+            <li class="hidden-lg"><a title="GitHub" target="_blank" href="https://github.com/xiangsongtao"><i
+              class="fa fa-github"></i></a></li>
             <li @click="showSocialImg('http://xiangsongtao.com/uploads/qq-addme.jpg')" data-toggle="modal"
                 data-target="#socialContact"><i class="fa fa-qq"></i></li>
             <li @click="showSocialImg('http://xiangsongtao.com/uploads/weixin-addme.jpg')" data-toggle="modal"
                 data-target="#socialContact"><i class="fa fa-weixin"></i></li>
             <li><a title="新浪微博" target="_blank" href="http://weibo.com"><i class="fa fa-weibo"></i></a></li>
-            <li><a title="腾讯微博" target="_blank" href="http://t.qq.com/hsiang-sootao"><i class="fa fa-tencent-weibo"></i></a></li>
+            <li><a title="腾讯微博" target="_blank" href="http://t.qq.com/hsiang-sootao"><i class="fa fa-tencent-weibo"></i></a>
+            </li>
           </ul>
         </section>
       </section>
@@ -51,11 +53,10 @@
     <!--我的称述-->
     <section class="mywords visuallyhidden">
       <article>
-        {{{myinfo.personal_state || '这里主要记录我的感想感言。'}}}
+        <!--{{{myinfo.personal_state || '这里主要记录我的感想感言。'}}}-->
       </article>
     </section>
   </div>
-
 </template>
 <style scoped lang="scss">
   @import "../theme/theme.scss";
@@ -275,7 +276,7 @@
       @include media("<=desktop") {
 
         position: fixed;
-        max-height:983px;
+        max-height: 983px;
         width: 100%;
         height: 100%;
         /*padding-right: 45px;*/
@@ -290,8 +291,8 @@
       }
       @include media("<=desktop_small") {
         padding-right: 0;
-        .detail{
-          padding-top:0;
+        .detail {
+          padding-top: 0;
         }
         .mywords {
           padding: 0px 40px;
@@ -389,20 +390,21 @@
       }
     }
   }
+
   @include media("<=desktop") {
     .myinfo {
       width: 100%;
       height: 100%;
-      max-height:983px;
+      max-height: 983px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       position: absolute;
-       transition: height ease $animationTime_1;
+      transition: height ease $animationTime_1;
       .detail {
         width: 720px;
-        min-height:270px;
+        min-height: 270px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -466,14 +468,15 @@
   @include media(">desktop_small", "<=desktop") {
     .myinfo {
       height: 270px;
-      .detail{
+      .detail {
       }
     }
   }
+
   @include media("<=desktop_small") {
     .myinfo {
       height: 315px;
-      .detail{
+      .detail {
         padding-top: 45px;
       }
     }
@@ -521,16 +524,14 @@
   }
 
 
-
-
 </style>
 <script>
 
   import Vue from "vue";
   import {setMyWordStatus, setSocialImgUrl} from '../vuex/actions'
-  import {addImgPrefix} from "../utils/filters.js";
+  //import {addImgPrefix} from "../utils/filters.js";
   import {GetMyInfo} from '../api/api_myinfo'
-  Vue.filter('addImgPrefix', addImgPrefix);
+  //Vue.filter('addImgPrefix', addImgPrefix);
 
   Vue.directive('err-src', {
     bind: function () {
@@ -553,8 +554,6 @@
       element.on('load', function () {
         element.css({"opacity": 1, "transition": "opacity ease 300ms"});
       });
-
-
       // 准备工作
       // 例如，添加事件处理器或只需要运行一次的高耗任务
     },
@@ -566,30 +565,33 @@
       // 清理工作
       // 例如，删除 bind() 添加的事件监听器
     }
-  })
+  });
 
-  module.exports = {
-    replace: true,
+
+  import {mapState,mapActions} from 'vuex';
+  export default {
+    //replace: true,
     data: function () {
       return {
         myinfo: {},
         socialImg: '',
       }
     },
+    computed:{
+      ...mapState({
+        isShowMyWords: 'isShowMyWords',
+      }),
+      //addImgPrefix,
+    },
     methods: {
       showSocialImg: function (url) {
         this.setSocialImgUrl(url)
-      }
-    },
-    vuex: {
-      getters: {
-        isShowMyWords: state=>state.isShowMyWords,
       },
-      actions: {
-        // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
-        setMyWordStatus,//toggle我的个人称述显影状态,因为其他组件可能需要这个信息
-        setSocialImgUrl,//更改社交的二维码图片
-      }
+      ...mapState({
+       // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
+        setMyWordStatus: 'setMyWordStatus',//toggle我的个人称述显影状态,因为其他组件可能需要这个信息
+        setSocialImgUrl: 'setSocialImgUrl',//更改社交的二维码图片
+      }),
     },
     created: function () {
       const scope = this;
@@ -598,5 +600,6 @@
       });
     },
   }
+
 
 </script>

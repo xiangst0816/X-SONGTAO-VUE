@@ -142,7 +142,7 @@
             }
         },
         methods: {},
-        ready: function () {
+        mounted: function () {
             const scope = this;
             $(window).scrollTop(0);// 滚到顶部
             // GET /someUrl

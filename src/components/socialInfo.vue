@@ -12,13 +12,16 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex';
 export default {
-  vuex: {
-    getters: {
-      socialImgUrl: state=>state.socialImgUrl
-    }
+  computed:{
+    ...mapState({
+      socialImgUrl: 'socialImgUrl',
+    }),
   },
 }
+
+
 </script>
 
 <style lang="scss" scoped>

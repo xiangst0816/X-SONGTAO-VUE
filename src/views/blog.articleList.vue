@@ -3,50 +3,53 @@
 * Description: 文章列表
 */
 <template>
-  <div class="aritcleList" transition="blogTrans"
-       v-infinite-scroll="loadMore()"
-       infinite-scroll-disabled="infiniteDisabled"
-       infinite-scroll-distance="10">
-    <article class="article animated fadeIn" v-for="article of articleList" track-by="$index"
-             v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
-      <div class="article__header">
-        <h2 class="article__header--title">{{article.title}}</h2>
-        <div class="article__header--content">
-          {{article.content}}
-        </div>
-      </div>
-      <div class="article__infobox">
-        <div class="article__info">
-          <div class="article__info--each">
-            <i class="fa fa-calendar"></i>
-            <span>{{article.publish_time  | moment "from" "now"}}</span>
-          </div>
-          <div class="article__info--each">
-            <i class="fa fa-book"></i>
-            阅读数
-            <span class="article-readnum">{{article.read_num}}</span>
-          </div>
-          <div class="article__info--each">
-            <i class="fa fa-comments"></i>评论数
-            <span class="article-comment">{{article.comment_num}}</span>
-          </div>
-          <div class="article__info--each hidden-xs" v-for="tag of article.tags">
-            <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
+  <div class="main">
+    <div class="aritcleList" transition="blogTrans"
+         v-infinite-scroll="loadMore"
+         infinite-scroll-disabled="infiniteDisabled"
+         infinite-scroll-distance="10">
+      <router-link class="article animated fadeIn" v-for="article of articleList" :key="article._id"
+               :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active"  tag="article">
+        <div class="article__header">
+          <h2 class="article__header--title">{{article.title}}</h2>
+          <div class="article__header--content">
+            {{article.content}}
           </div>
         </div>
-        <div class="arrticle__readmore hidden-xs">
-          <span>阅读更多</span>
+        <div class="article__infobox">
+          <div class="article__info">
+            <div class="article__info--each">
+              <i class="fa fa-calendar"></i>
+              <span>{{article.publish_time}}</span>
+              <!--<span>{{article.publish_time  | moment "from" "now"}}</span>-->
+            </div>
+            <div class="article__info--each">
+              <i class="fa fa-book"></i>
+              阅读数
+              <span class="article-readnum">{{article.read_num}}</span>
+            </div>
+            <div class="article__info--each">
+              <i class="fa fa-comments"></i>评论数
+              <span class="article-comment">{{article.comment_num}}</span>
+            </div>
+            <div class="article__info--each hidden-xs" v-for="tag of article.tags">
+              <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
+            </div>
+          </div>
+          <div class="arrticle__readmore hidden-xs">
+            <span>阅读更多</span>
+          </div>
         </div>
-      </div>
-    </article>
+      </router-link>
 
-    <no-data v-if="!hasData && !isLoading"></no-data>
-    <!--<no-data v-if="!hasData && !isLoading"></no-data>-->
-    <is-loading v-if="isLoading"></is-loading>
+      <no-data v-if="!hasData && !isLoading"></no-data>
+      <!--<no-data v-if="!hasData && !isLoading"></no-data>-->
+      <is-loading v-if="isLoading"></is-loading>
+    </div>
+    <section class="copyright animated fadeIn" v-if="articleList.length!==0">
+      <copyright></copyright>
+    </section>
   </div>
-  <section class="copyright animated fadeIn" v-if="articleList.length!==0">
-    <copyright></copyright>
-  </section>
 </template>
 <style scoped lang="scss">
   @import "../theme/theme.scss";
@@ -224,6 +227,8 @@
   import {InfiniteScroll} from 'mint-ui';
   Vue.use(InfiniteScroll);
 
+  console.log('blog.articleList.vue');
+
   export default{
     replace: true,
     data: function () {
@@ -249,6 +254,7 @@
          * "最新-latest"、"标签筛选-tagList"进行区分,
          * 不同的type进行不同的url搜索
          * */
+         console.log('get article list');
         let listType = scope.$route.query.listType;
         let url;
         switch (listType) {
@@ -283,12 +289,10 @@
         })
       },
     },
-    ready: function () {
+    mounted: function () {
       const scope = this;
       $(window).scrollTop(0);// 滚到顶部
-//      scope.getArticleList();
-
-
+      //scope.getArticleList();
     },
     destroyed: function () {
     },

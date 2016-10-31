@@ -117,11 +117,11 @@
   import md5 from "js-md5";
   import API from "../config.js"
   import {Login, DoLogin} from "../api/api_auth";
-  import {setLoginState} from '../vuex/actions'
   import copyright from '../components/copyright.vue'
 
-
+  import {mapState,mapActions} from 'vuex';
   module.exports = {
+
     data: function () {
       return {
         username: '',
@@ -129,7 +129,15 @@
         errText: '',
       }
     },
+    computed:{
+         ...mapState({
+            isLogin: 'isLogin',
+        }),
+    },
     methods: {
+    ...mapActions({
+            setLoginState: 'setLoginState',
+        }),
       loginBtn: function () {
         const scope = this;
 
@@ -204,7 +212,7 @@
 
       }
     },
-    ready: function () {
+    mounted: function () {
 
 
     },
@@ -213,14 +221,6 @@
     components: {
       copyright
     },
-    vuex: {
-      getters: {
-        isLogin: state=>state.isLogin,
-      },
-      actions: {
-        // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
-        setLoginState,//设置登录否
-      }
-    }
+
   }
 </script>

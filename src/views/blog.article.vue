@@ -769,7 +769,7 @@
       }
     },
     computed: {},
-    ready: function () {
+    mounted: function () {
       const scope = this;
       // To Top
       $(document).on('scroll', function () {

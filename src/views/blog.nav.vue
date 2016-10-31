@@ -5,65 +5,68 @@
       <a class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
         <span class="siteLogo"></span>
       </a>
-      <a class="nav__item" v-link="{ name: 'index',activeClass: 'active',exact: true}" data-toggle="tooltip"
-         data-placement="right"
-         title="首页">
+      <router-link class="nav__item" :to="{ name: 'index'}" exact data-toggle="tooltip" activeClass="active"
+                   data-placement="right"
+                   title="首页">
         <i class="fa fa-home fa-fw fa-lg"></i>
-      </a>
-      <a class="nav__item" v-link="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}"
-         data-toggle="tooltip" data-placement="right" title="博客">
+      </router-link>
+      <router-link class="nav__item" :to="{ name: 'blog'}" activeClass="active"
+                   data-toggle="tooltip" data-placement="right" title="博客">
         <i class="fa fa-map-signs fa-fw fa-lg"></i>
-      </a>
-      <a class="nav__item" v-link="{ name: 'music',activeClass: 'active'}" data-toggle="tooltip" data-placement="right"
-         title="音乐">
+      </router-link>
+      <router-link class="nav__item" :to="{ name: 'music'}" data-toggle="tooltip" activeClass="active"
+                   data-placement="right"
+                   title="音乐">
         <i class="fa fa-music fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
           <i class="fa fa-lg" :class="{true:'fa-pause-circle-o',false:' fa-play-circle-o playing'}[!isPlaying]"></i>
         </section>
-      </a>
+      </router-link>
     </nav>
     <nav class="nav__bottom">
-      <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
-         v-link="{ name: 'admin-dashboard',activeClass: 'active'}" data-toggle="tooltip" data-placement="right"
-         title="控制台">
+      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+                   :to="{ name: 'admin-dashboard'}" activeClass="active" data-toggle="tooltip" data-placement="right"
+                   title="控制台">
         <i class="fa fa-dashboard fa-lg"></i>
-      </a>
-
-      <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
-         v-link="{ name: 'admin-myinfo',activeClass: 'active'}" data-toggle="tooltip" data-placement="right"
-         title="我的资料">
+      </router-link>
+      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+                   :to="{ name: 'admin-myinfo'}" activeClass="active" data-toggle="tooltip" data-placement="right"
+                   title="我的资料">
         <i class="fa fa-user fa-lg"></i>
-      </a>
-      <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" v-link="{ name: 'admin-tag',activeClass: 'active'}"
-         data-toggle="tooltip" data-placement="right" title="标签管理">
+      </router-link>
+      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+                   :to="{ name: 'admin-tag'}" activeClass="active"
+                   data-toggle="tooltip" data-placement="right" title="标签管理">
         <i class="fa fa-tag fa-lg"></i>
-      </a>
-      <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
-         v-link="{ name: 'admin-articleManager',activeClass: 'active'}" data-toggle="tooltip" data-placement="right"
-         title="文章管理">
+      </router-link>
+      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+                   :to="{ name: 'admin-articleManager'}" activeClass="active" data-toggle="tooltip"
+                   data-placement="right"
+                   title="文章管理">
         <i class="fa fa-list fa-lg"></i>
-      </a>
-      <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
-         v-link="{ name: 'admin-commentList',activeClass: 'active'}" data-toggle="tooltip" data-placement="right"
-         title="文章评论">
+      </router-link>
+      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+                   :to="{ name: 'admin-commentList'}" activeClass="active" data-toggle="tooltip" data-placement="right"
+                   title="文章评论">
         <i class="fa fa-comments fa-lg"></i>
-      </a>
+      </router-link>
       <!--切换背景-->
       <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景"
-         @click="changeBG()">
+                   @click="changeBG()">
         <i class="fa fa-photo fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
           <i class="fa fa-lg fa-refresh" :class="{true:'',false:'fa-spin'}[!isChangeBG]"></i>
         </section>
       </a>
-      <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" data-toggle="tooltip" data-placement="right"
-         title="退出" @click="doLoginout()">
+      <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" data-toggle="tooltip"
+                   data-placement="right"
+                   title="退出" @click="doLoginout()">
         <i class="fa fa-sign-out fa-lg"></i>
       </a>
-      <a v-if="!isLogin" class="nav__item hidden-xs" v-link="{ name: 'login',activeClass: 'active'}"
-         data-toggle="tooltip" data-placement="right" title="登录">
+      <router-link v-if="!isLogin" class="nav__item hidden-xs" :to="{ name: 'login'}" activeClass="active"
+                   data-toggle="tooltip" data-placement="right" title="登录">
         <i class="fa fa-sign-in fa-lg"></i>
-      </a>
+      </router-link>
     </nav>
   </div>
 </template>
@@ -180,6 +183,7 @@
       }
     }
   }
+
   /*响应式*/
   @include media("<=desktop_small") {
     .blogNav {
@@ -226,14 +230,20 @@
 </style>
 <script>
   //    import 'bootstrap/js/tooltip.js'
-  import {setLoginState} from '../vuex/actions'
   import API from '../config'
+  import {mapState} from 'vuex';
   export default{
     data(){
       return {
         isChangeBG: false,
         bgIndexNow: '',
       }
+    },
+    computed:{
+      ...mapState({
+        isLogin: 'isLogin',
+        isPlaying: 'isPlaying',
+      }),
     },
     methods: {
       doLoginout: function () {
@@ -339,21 +349,15 @@
         }, 1500)
       }
     },
-    ready: function () {
+    mounted: function () {
       const scope = this;
+      console.log('nav')
 
       /**
        * start tooltip
        * */
       window.tooltip()
-
     },
-    vuex: {
-      getters: {
-        isLogin: state=>state.isLogin,
-        isPlaying: state=>state.isPlaying,
-      }
-    }
   }
 
 

@@ -129,23 +129,18 @@
 <script>
   import Vue from "vue";
   import myInfo from './blog.myInfo.vue'
-
+  import {mapState} from 'vuex';
   module.exports = {
     data: function () {
       return {}
     },
-    ready: function () {
-    },
-    destroyed: function () {
+      computed:{
+      ...mapState({
+        isShowMyWords: 'isShowMyWords',
+      }),
     },
     components: {
       myInfo
     },
-    vuex: {
-      getters: {
-        isShowMyWords: state=>state.isShowMyWords,
-      }
-
-    }
   }
 </script>

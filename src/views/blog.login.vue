@@ -96,10 +96,10 @@
           }
         }
       }
-      .notice{
-        color:$base-theme-color;
+      .notice {
+        color: $base-theme-color;
         margin-bottom: 100px;
-        margin-top:10px;
+        margin-top: 10px;
       }
     }
     .index-copyright {
@@ -110,18 +110,18 @@
       left: 0;
     }
   }
-
 </style>
-<script>
+
+
+<script type="text/javascript">
   import Vue from "vue";
   import md5 from "js-md5";
   import API from "../config.js"
   import {Login, DoLogin} from "../api/api_auth";
   import copyright from '../components/copyright.vue'
+  import {mapState, mapActions} from 'vuex';
 
-  import {mapState,mapActions} from 'vuex';
   module.exports = {
-
     data: function () {
       return {
         username: '',
@@ -129,15 +129,15 @@
         errText: '',
       }
     },
-    computed:{
-         ...mapState({
-            isLogin: 'isLogin',
-        }),
+    computed: {
+      ...mapState({
+        isLogin: 'isLogin',
+      }),
     },
     methods: {
-    ...mapActions({
-            setLoginState: 'setLoginState',
-        }),
+      ...mapActions({
+        setLoginState: 'setLoginState',
+      }),
       loginBtn: function () {
         const scope = this;
 
@@ -181,7 +181,7 @@
             Vue.http.headers.common['authorization'] = "token " + response.token;
 
 
-//            console.log('login-success')
+            console.log('login-success')
 
             /**
              * start tooltip
@@ -190,9 +190,9 @@
             scope.setLoginState(true);//设置全局登录状态
 
 
-            scope.$router.go({//跳转
-              name: 'index'
-            });
+            //scope.$router.go({//跳转
+            //name: 'index'
+            //});
 
           }, (err)=> {
             switch (parseInt(err)) {
@@ -213,8 +213,6 @@
       }
     },
     mounted: function () {
-
-
     },
     destroyed: function () {
     },

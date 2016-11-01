@@ -466,7 +466,6 @@
   } from '../vuex/actions'
 
   import {secondsConvert} from "../utils/filters.js";
-
   Vue.filter('secondsConvert', secondsConvert);
   import {mapState,mapActions} from 'vuex';
   export default{

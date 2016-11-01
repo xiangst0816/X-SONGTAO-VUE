@@ -52,7 +52,6 @@
     Vue.filter('addImgPrefix', addImgPrefix);
 
 
-
   /**
    * vue-resource 配置
    * */

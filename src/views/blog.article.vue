@@ -11,8 +11,12 @@
           <div class="paper" :class="{'loading':isLoading}">
             <section class="paper__header">
               <ol class="breadcrumb  hidden-xs">
-                <li><a v-link="{ name: 'index'}">首页</a></li>
-                <li><a v-link="{ name: 'blog'}">博客</a></li>
+                <li>
+                  <router-link :to="{ name: 'index'}" tag="a">首页</router-link>
+                </li>
+                <li>
+                  <router-link :to="{ name: 'blog'}" tag="a">博客</router-link>
+                </li>
                 <li class="active">文章</li>
               </ol>
               <h1>{{article.title}}</h1>
@@ -20,7 +24,7 @@
             <section class="paper__info">
               <div class="paper__info--span">
                 <i class="fa fa-calendar"></i>
-                <span>{{article.publish_time   | moment "from" "now"}}</span>
+                <span>{{article.publish_time  | moment("from","now")}}</span>
               </div>
               <div class="paper__info--span">
                 <i class="fa fa-book"></i>
@@ -37,8 +41,8 @@
               </div>
             </section>
             <section class="paper__content">
-              <div class="paper__content--inner markdown-body hljs" ng-bind-html="article.content | toTrusted">
-                {{{article.content}}}
+              <div class="paper__content--inner markdown-body hljs" v-html="article.content">
+                <!--{{{article.content}}}-->
               </div>
               <!--page-->
             </section>
@@ -66,11 +70,9 @@
                 <div class="comments__ask">
                   <div class="comments__ask__header">
                     <!--<span class="name" ng-bind="comment.name"></span>&ensp;·&ensp;<span am-time-ago="comment.time" ></span>&ensp;·&ensp;<span class="reply" ng-click="commentToComemntBtn($event)">回复</span>-->
-                    <span
-                      class="name">{{comment.name}}</span>&ensp;·&ensp;<span>{{comment.time | moment "from" "now"}}</span><span
-                    class="hidden-xs">&ensp;·&ensp;<span
-                    class="reply"
-                    @click="replyBtn(comment._id)">回复</span></span>
+                    <span class="name">{{comment.name}}</span>&ensp;·&ensp;
+                    <span>{{comment.time | moment("from","now")}}</span>
+                    <span class="hidden-xs">&ensp;·&ensp;<span class="reply" @click="replyBtn(comment._id)">回复</span></span>
                   </div>
                   <div class="comments__ask__content">
                     <span>{{comment.content}}</span>
@@ -84,7 +86,8 @@
                   <div class="comments__reply__each" v-for="reply of comment.next_id">
                     <div class="comments__reply__header">
                       <span
-                        class="name">{{reply.name}}</span>&ensp;·&ensp;<span>{{reply.time | moment "from" "now"}}</span>
+                        class="name">{{reply.name}}</span>&ensp;·&ensp;
+                      <span>{{reply.time | moment("from","now")}}</span>
                     </div>
                     <div class="comments__reply__content">
                       <span ng-bind="reply.content">{{reply.content}}</span>
@@ -121,7 +124,7 @@
               </div>
               <li v-show="articleTop.latest.length>0" class="topArticle--li animated fadeIn"
                   v-for="article of articleTop.latest">
-                <a target="_blank" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">{{article.title}}</a>
+                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active" tag="a">{{article.title}}</router-link>
                 <span>({{article.read_num}})</span>
               </li>
             </ul>
@@ -147,8 +150,8 @@
               </div>
               <li v-show="articleTop.read.length>0" class="topArticle--li animated fadeIn"
                   v-for="article of articleTop.read">
-                <a target="_blank" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}"
-                   href="#">{{article.title}}</a> <span>({{article.read_num}})</span>
+                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active" tag="a">{{article.title}}</router-link>
+                <span>({{article.read_num}})</span>
               </li>
             </ul>
           </div>
@@ -172,8 +175,9 @@
                 <div></div>
               </div>
               <li v-show="articleTop.tag.length>0" class="topTag--li  animated fadeIn" v-for="tag of articleTop.tag">
-                <a v-link="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}">{{tag.name}}
-                  ({{tag.used_num}})</a>
+                <router-link :to="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id }}" activeClass="active" tag="a">
+                  {{tag.name}}({{tag.used_num}})
+                </router-link>
               </li>
             </ul>
           </div>
@@ -671,14 +675,14 @@
   }
 
   @include media("<=phone") {
-    .article{
-      padding-left:6px;
-      padding-right:6px;
+    .article {
+      padding-left: 6px;
+      padding-right: 6px;
       padding-top: 51px;
-      .row{
-        margin:0;
-        #article{
-          padding:0;
+      .row {
+        margin: 0;
+        #article {
+          padding: 0;
         }
       }
       .article-detail {
@@ -731,7 +735,6 @@
   import "../theme/markdown.scss";
   import "bootstrap/scss/bootstrap/_breadcrumbs.scss";
 
-
   import copyright from '../components/copyright.vue';
 
   import { Toast } from 'mint-ui';
@@ -751,7 +754,6 @@
         hasNickName: false,
         username: '',//评论人的昵称
         email: '',//评论人的email
-
         topNum: 5,//top 榜单
       }
     },
@@ -941,4 +943,5 @@
       }
     }
   }
+
 </script>

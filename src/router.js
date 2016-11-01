@@ -79,6 +79,13 @@ const routes = [
       },
     ]
   },
+  {
+    path: '/article/:articleId',
+    name: 'article',
+    component: function (resolve) {
+      require(['./views/blog.article.vue'], resolve)
+    },
+  },
 ];
 const router = new VueRouter({
   mode: 'history', //  hash 模式  history 模式
@@ -88,13 +95,7 @@ const router = new VueRouter({
 module.exports = router;
 
 
-// {
-//   path: '/article/:articleId',
-//   name: 'article',
-//   component: function (resolve) {
-//     require(['./views/blog.article.vue'], resolve)
-//   },
-// },
+
 // {
 //   path: '/login',
 //   name: 'login',

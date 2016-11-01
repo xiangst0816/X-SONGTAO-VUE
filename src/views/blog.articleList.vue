@@ -20,8 +20,7 @@
           <div class="article__info">
             <div class="article__info--each">
               <i class="fa fa-calendar"></i>
-              <span>{{article.publish_time}}</span>
-              <!--<span>{{article.publish_time  | moment "from" "now"}}</span>-->
+              <span>{{article.publish_time  | moment("from","now")}}</span>
             </div>
             <div class="article__info--each">
               <i class="fa fa-book"></i>

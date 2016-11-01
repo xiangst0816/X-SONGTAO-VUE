@@ -9,7 +9,7 @@
       <section class="detail__1">
         <section class="detail__imgBox" @click="setMyWordStatus">
           <div class="imgBox">
-            <img class="img-circle" :src="myinfo.img_url" >
+            <img class="img-circle" :src="imgPrefix(myinfo.img_url)" >
             <!--<img class="img-circle" :src="myinfo.img_url | addImgPrefix" v-err-src.literal="">-->
           </div>
         </section>
@@ -529,9 +529,8 @@
 
   import Vue from "vue";
   import {setMyWordStatus, setSocialImgUrl} from '../vuex/actions'
-  //import {addImgPrefix} from "../utils/filters.js";
+  import {addImgPrefix} from "../utils/filters.js";
   import {GetMyInfo} from '../api/api_myinfo'
-  //Vue.filter('addImgPrefix', addImgPrefix);
 
   Vue.directive('err-src', {
     bind: function () {
@@ -584,6 +583,9 @@
       //addImgPrefix,
     },
     methods: {
+      imgPrefix:function(val){
+        return addImgPrefix(val)
+      },
       showSocialImg: function (url) {
         this.setSocialImgUrl(url)
       },
@@ -599,6 +601,9 @@
         scope.myinfo = data;
       });
     },
+    mounted:function(){
+
+    }
   }
 
 

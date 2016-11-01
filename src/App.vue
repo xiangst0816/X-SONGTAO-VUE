@@ -34,7 +34,6 @@
     storageKeyPrefix: 'xst-'
   });
 
-
   /**
    * 时间格式化插件-过滤器
    * */
@@ -42,6 +41,17 @@
   var moment = require('moment');
   moment.locale('zh-cn')
   Vue.use(vueMoment);
+
+
+    /**
+     * filter全局注册
+     * */
+    import {num2MMM,uppercase,addImgPrefix} from "./utils/filters.js";
+    Vue.filter('num2MMM', num2MMM);
+    Vue.filter('uppercase', uppercase);
+    Vue.filter('addImgPrefix', addImgPrefix);
+
+
 
   /**
    * vue-resource 配置
@@ -277,6 +287,7 @@
       doLogout,
     },
   }
+
 
 
 

@@ -14,14 +14,14 @@
             <div class="cataBox__content">
                 <div class="itemBox" v-for="monthBox in cataBox.data">
                     <div class="itemBox__name">
-                        <p ng-bind="itemBox.month | toEnMonth | uppercase">{{monthBox.month | num2MMM | uppercase}}</p>
+                        <p>{{monthBox.month | num2MMM | uppercase}}</p>
                     </div>
                     <ul class="itemBox__content">
-                        <li class="itemBox__content__item" v-for="article in monthBox.data" v-link="{ name: 'article',params: { articleId: article._id },activeClass: 'active'}">
-                            <span class="itemBox__content__item-title" ng-bind="article.title">{{article.title}}</span>&ensp;
-                            <span class="hidden-xs"> <span>(阅读数:</span><span ng-bind="article.read_num">{{article.read_num}}</span>
-                           <span> ,评论数:</span><span ng-bind="article.comment_num">{{article.comment_num}}</span><span>)</span></span>
-                        </li>
+                        <router-link class="itemBox__content__item" v-for="article in monthBox.data" :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active" tag="li">
+                            <span class="itemBox__content__item-title">{{article.title}}</span>&ensp;
+                            <span class="hidden-xs"> <span>(阅读数:</span><span>{{article.read_num}}</span>
+                           <span> ,评论数:</span><span>{{article.comment_num}}</span><span>)</span></span>
+                        </router-link>
                     </ul>
                 </div>
             </div>

@@ -3,7 +3,8 @@
 * Description:
 */
 <template>
-    <div class="tagList" transition="blogTrans">
+    <!--<div class="tagList" transition="blogTrans">-->
+    <div class="tagList" >
         <div class="cataBox card-shadow animated fadeIn" v-if="tagList.length>0">
             <h3 class="cataBox__title">
                 <span class="main">Tags</span>
@@ -17,9 +18,9 @@
                     </div>
                     <ul class="itemBox__content">
                         <li class="itemBox__content__item" v-for="tag in cata.data">
-                            <a v-if="tag.used_num>0" v-link="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id },activeClass: 'active'}" class="ui tag label">
+                            <router-link v-if="tag.used_num>0" :to="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id }}" activeClass="active" class="ui tag label">
                                 <span class="tagName">{{tag.name}}</span>
-                                <span class="badge">{{tag.used_num}}</span></a>
+                                <span class="badge">{{tag.used_num}}</span></router-link>
                             <a v-if="tag.used_num==0" class="ui tag label"><span class="tagName">{{tag.name}}</span></a>
                         </li>
                     </ul>

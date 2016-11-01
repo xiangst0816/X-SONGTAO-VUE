@@ -16,8 +16,8 @@
                 <div class="text-center cat">一个记录时光的博客</div>
             </div>
             <section class="index-btnBox">
-                <div class="index-btnBox-each text-center" :to="{ name: 'blog',params: { listType: 'latest' },activeClass: 'active'}">我的博客</div>
-                <div class="index-btnBox-each text-center" :to="{ name: 'music',activeClass: 'active'}">我的音乐</div>
+                <router-link class="index-btnBox-each text-center" :to="{ name: 'blog',query: { listType: 'latest' }}" activeClass="active" tag="div">我的博客</router-link>
+                <router-link class="index-btnBox-each text-center" :to="{ name: 'music'}" activeClass="active">我的音乐</router-link>
             </section>
             <section class="index-copyright">
                 <copyright></copyright>

@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/',
     name: 'index', //命名路由
-    component:  require('./views/blog.index.vue'),
+    component: require('./views/blog.index.vue'),
   },
   {
     path: '/music',
@@ -25,49 +25,51 @@ const routes = [
     component: require('./views/blog.music.vue')
   },
   {
-  path: '/login',
-  name: 'login',
-  component: function (resolve) {
-    require(['./views/blog.login.vue'], resolve)
-  }
-},
+    path: '/login',
+    name: 'login',
+    component: function (resolve) {
+      require(['./views/blog.login.vue'], resolve)
+    }
+  },
   {
     path: '/blog',
     name: 'blog',
-    redirect: '/blog/art-list?listType=latest',
+    // 跳转到文章列表并携带参数
+    redirect: {
+      name: 'artList',
+      query:{
+        listType:'latest'
+      }
+    },
     component: require('./views/blog.vue'),
     children: [
       {
-        // path: '/art-list?listType=latest',
-        path: '/art-list',
+        path: 'art-list',
         name: 'artList',
         component: require('./views/blog.articleList.vue'),
-        //   function (resolve) {
-        //   require(['./views/blog.articleList.vue'], resolve)
-        // }
       },
       {
-        path: '/his-list',
+        path: 'his-list',
         name: 'historyList',
         component: function (resolve) {
           require(['./views/blog.historyList.vue'], resolve)
         }
       },
       {
-        path: '/tag-list',
+        path: 'tag-list',
         name: 'tagList',
-        redirect: '/tag-list/classify',
+        redirect: '/blog/tag-list/classify',
         component: {
           template: '<router-view></router-view>'
         },
         children: [
           {
-            path: '/classify',
+            path: 'classify',
             name: 'tagListClassify',
             component: require('./views/blog.tagList.vue')
           },
           {
-            path: '/find-by-tag-id',
+            path: 'find-by-tag-id',
             name: 'tagListFindByTagId',
             component: function (resolve) {
               require(['./views/blog.articleList.vue'], resolve)
@@ -78,15 +80,12 @@ const routes = [
     ]
   },
 ];
-const router =  new VueRouter({
+const router = new VueRouter({
   mode: 'history', //  hash 模式  history 模式
   base: '/',//默认值: "/",应用的基路径。例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"。
   routes: routes // （缩写）相当于 routes: routes
 });
 module.exports = router;
-
-
-
 
 
 // {

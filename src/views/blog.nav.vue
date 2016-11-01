@@ -10,6 +10,7 @@
                    title="首页">
         <i class="fa fa-home fa-fw fa-lg"></i>
       </router-link>
+      <!--<router-link class="nav__item" :to="{ name: 'blog'}" activeClass="active"-->
       <router-link class="nav__item" :to="{ name: 'blog'}" activeClass="active"
                    data-toggle="tooltip" data-placement="right" title="博客">
         <i class="fa fa-map-signs fa-fw fa-lg"></i>

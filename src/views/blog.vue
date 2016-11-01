@@ -8,7 +8,8 @@
   <div class="blog animated fadeIn">
     <my-info></my-info>
     <!-- 路由外链 -->
-    <div class="blog__content" v-show="!isShowMyWords" transition="isShowMyWords">
+    <!--<div class="blog__content" v-show="!isShowMyWords" transition="isShowMyWords">-->
+    <div class="blog__content" v-show="!isShowMyWords">
       <div class="blog__content--inner">
         <router-view></router-view>
       </div>

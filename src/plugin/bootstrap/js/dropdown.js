@@ -23,8 +23,6 @@
 
   function getParent($this) {
     var selector = $this.attr('data-target')
-    console.log('selector')
-    console.log(selector)
 
     if (!selector) {
       selector = $this.attr('href')

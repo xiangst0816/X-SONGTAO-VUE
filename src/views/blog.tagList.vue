@@ -5,7 +5,7 @@
 <template>
     <!--<div class="tagList" transition="blogTrans">-->
     <div class="tagList" >
-        <div class="cataBox card-shadow animated fadeIn" v-if="tagList.length>0">
+        <div class="cataBox card-shadow" v-if="tagList.length>0">
             <h3 class="cataBox__title">
                 <span class="main">Tags</span>
                 <span class="tag">标签库</span>

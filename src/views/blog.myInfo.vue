@@ -25,7 +25,7 @@
         </section>
       </section>
       <section class="detail__2">
-        <section class="detail__nav">
+        <section class="detail__nav"  :class="{'active':isShowMyWords}">
           <ul class="tabs text-shadow">
             <li><router-link :to="{ name: 'artList',query: { listType: 'latest' }}" activeClass="active" tag="a">最新列表</router-link></li>
             <li><router-link :to="{ name: 'historyList'}" activeClass="active" tag="a">时光机</router-link></li>
@@ -52,9 +52,7 @@
     </section>
     <!--我的称述-->
     <section class="mywords visuallyhidden">
-      <article>
-        <!--{{{myinfo.personal_state || '这里主要记录我的感想感言。'}}}-->
-      </article>
+      <article v-html="myinfo.personal_state || '这里主要记录我的感想感言。'"></article>
     </section>
   </div>
 </template>
@@ -153,22 +151,21 @@
       }
       .detail__2 {
         .detail__nav {
+          &.active{
+            // 这里确定，展开我的信息的时候是否显示导航条，暂时不撤处理
+            /*visibility: hidden;*/
+          }
           .tabs {
-
             padding: 0;
             list-style: none;
             display: flex;
             justify-content: center;
             align-items: center;
             & > li {
-
               margin: 0 3px;
-
               width: 68px;
               position: relative;
-
               cursor: pointer;
-
               box-sizing: border-box;
               a {
                 display: block;
@@ -322,6 +319,9 @@
       }
     }
   }
+
+  // transition 动画类
+
 
   /*响应式处理*/
   @include media(">desktop") {
@@ -523,12 +523,10 @@
     }
   }
 
-
 </style>
 <script>
 
   import Vue from "vue";
-  import {setMyWordStatus, setSocialImgUrl} from '../vuex/actions'
   import {addImgPrefix} from "../utils/filters.js";
   import {GetMyInfo} from '../api/api_myinfo'
 
@@ -589,7 +587,7 @@
       showSocialImg: function (url) {
         this.setSocialImgUrl(url)
       },
-      ...mapState({
+      ...mapActions({
        // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
         setMyWordStatus: 'setMyWordStatus',//toggle我的个人称述显影状态,因为其他组件可能需要这个信息
         setSocialImgUrl: 'setSocialImgUrl',//更改社交的二维码图片
@@ -602,6 +600,7 @@
       });
     },
     mounted:function(){
+
 
     }
   }

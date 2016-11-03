@@ -154,20 +154,20 @@
         this.changedValue = value;
       },
       f_getTotal: function (cb) {
-        const scope = this;
+        const _this = this;
         GetTotal().then((data)=> {
-          scope.total = data;
+          _this.total = data;
           cb && cb();
         })
       },
       f_getChart: function (cb) {
-        const scope = this;
+        const _this = this;
         GetChart().then((data)=> {
           cb && cb(data);
         })
       },
       f_getMap: function (cb) {
-        const scope = this;
+        const _this = this;
         GetMap().then((data)=> {
           cb && cb(data);
         })
@@ -175,11 +175,11 @@
 
     },
     mounted: function () {
-      const scope = this;
+      const _this = this;
       // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById('chart'));
-      scope.f_getTotal();
-      scope.f_getChart(function (data) {
+      _this.f_getTotal();
+      _this.f_getChart(function (data) {
         // 绘制图表
         myChart.setOption({
           color: ['#ff0000'],
@@ -238,7 +238,7 @@
           ]
         });
       });
-      scope.f_getMap(function (data) {
+      _this.f_getMap(function (data) {
         var myMap = echarts.init(document.getElementById('map'));
         myMap.setOption({
           backgroundColor: '#fff',

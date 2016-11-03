@@ -54,9 +54,9 @@
           <th>操作</th>
         </tr>
         </thead>
+        <!--<tbody>-->
         <tbody>
-        <!--<tr v-for="article in articleLists | orderBy predicate reverse " track-by="$index" class="animated fadeIn">-->
-        <tr v-for="(article,index) in orderedArticleLists" :key="index" class="animated fadeIn">
+          <tr  v-for="(article,index) in orderedArticleLists" :key="article._id">
           <td>{{index+1}}</td>
           <td>{{article.title}}</td>
           <td>{{article.publish_time | moment('YYYY/MM/DD')}}</td>
@@ -75,8 +75,9 @@
             <button data-toggle="modal" data-target="#delArticle" @click="delArtBtn(article)"
                     class="btn btn-danger btn-sm"><i class="fa fa-bitbucket"></i></button>
           </td>
-        </tr>
+          </tr>
         </tbody>
+        <!--</tbody>-->
       </table>
     </div>
     <!--弹出层-删除-->
@@ -133,10 +134,11 @@
         vertical-align: middle !important;
         //cursor: pointer;
         max-width: 190px;
+        border-top-color:transparent;
+        border-bottom:1px solid #8e8e8e;
       }
     }
   }
-
 </style>
 <script type="text/javascript">
   import Vue from "vue";
@@ -186,10 +188,10 @@
       }
     },
     created: function () {
-      const scope = this;
+      const _this = this;
       //获取文章列表
       GetArticleList().then((data)=> {
-        scope.articleLists = data;
+        _this.articleLists = data;
       })
     },
     components: {

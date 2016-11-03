@@ -508,18 +508,18 @@
         this.selected = value;
       },
       getArticle(id){
-        const scope = this;
+        const _this = this;
         let $TextArea = document.getElementById('textarea');
         GetRawArticleById(id).then((data)=> {
-          scope.article = data;
-          scope.content_raw = data.content;
+          _this.article = data;
+          _this.content_raw = data.content;
           //预先确定已选择的标签
-          scope.selected = scope.article.tags;
+          _this.selected = _this.article.tags;
           //记录原始编辑内容
           //原始记录翻译一份到预览区
-          scope.content_marked = marked(scope.content_raw);
+          _this.content_marked = marked(_this.content_raw);
           //时间
-          scope.publishTime = moment(new Date(scope.article.publish_time)).format('YYYY/MM/DD HH:mm:ss');
+          _this.publishTime = moment(new Date(_this.article.publish_time)).format('YYYY/MM/DD HH:mm:ss');
           //textarea尺寸计算
           setTimeout(function () {
             autoTextarea($TextArea, 10);
@@ -530,62 +530,62 @@
       },
       //获取书写的文章信息
       collectEditedArtInfo(){
-        const scope = this;
+        const _this = this;
         let tagsArr = [];
-        for (let tag of scope.selected) {
+        for (let tag of _this.selected) {
           tagsArr.push(tag._id);
         }
         let params = {
-          "_id": scope.article._id,
-          "title": scope.article.title,
-          "publish_time": new Date(scope.publishTime),
+          "_id": _this.article._id,
+          "title": _this.article.title,
+          "publish_time": new Date(_this.publishTime),
           "tags": tagsArr,
-          "state": scope.article.state,
-          "content": scope.content_raw,
+          "state": _this.article.state,
+          "content": _this.content_raw,
         };
 
         return params;
       },
       // 点击发布按钮
       publishBtn(){
-        const scope = this;
-        scope.article.state = true;
-        scope.isPublishing = true;
+        const _this = this;
+        _this.article.state = true;
+        _this.isPublishing = true;
 
-        scope._save().then(function () {
+        _this._save().then(function () {
           setTimeout(function () {
             history.back();
-            scope.isPublishing = false;
+            _this.isPublishing = false;
           }, 500)
         });
       },
       // 点击草稿按钮
       draftBtn(){
-        const scope = this;
-        scope.article.state = false;
-        scope.isDrafting = true;
+        const _this = this;
+        _this.article.state = false;
+        _this.isDrafting = true;
 
-        scope._save().then(function () {
+        _this._save().then(function () {
           setTimeout(function () {
-            scope.isDrafting = false;
+            _this.isDrafting = false;
           }, 500)
         });
 
       },
       // 设置是否显示预览
       previewBtn(){
-        const scope = this;
-        scope.setShowBigAdminStatus(!scope.isShowBigAdmin)
+        const _this = this;
+        _this.setShowBigAdminStatus(!_this.isShowBigAdmin)
       },
       _save(){
-        const scope = this;
-        let params = scope.collectEditedArtInfo();
+        const _this = this;
+        let params = _this.collectEditedArtInfo();
         return SaveArticle(params).then(function (data) {
           // 针对新建的情况
           if (!params._id) {
             let _id = data._id;
-            scope.article._id = _id;
-            scope.$router.replace({//跳转
+            _this.article._id = _id;
+            _this.$router.replace({//跳转
               name: 'admin-article',
               params: {articleId: _id}
             });
@@ -593,24 +593,24 @@
         })
       },
       _autoSave(){
-        const scope = this;
-        if (!scope.article.title) {
+        const _this = this;
+        if (!_this.article.title) {
           return false
         }
-        if (!scope.content_raw) {
+        if (!_this.content_raw) {
           return false
         }
-        if (scope.article.state) {
-          scope.isPublishing = true;
+        if (_this.article.state) {
+          _this.isPublishing = true;
         } else {
-          scope.isDrafting = true;
+          _this.isDrafting = true;
         }
-        scope._save().then(function () {
+        _this._save().then(function () {
           setTimeout(function () {
-            if (scope.article.state) {
-              scope.isPublishing = false;
+            if (_this.article.state) {
+              _this.isPublishing = false;
             } else {
-              scope.isDrafting = false;
+              _this.isDrafting = false;
             }
           }, 500)
         });
@@ -622,26 +622,26 @@
     },
     watch: {
       'content_raw': function () {
-        const scope = this;
+        const _this = this;
         let $TextArea = document.getElementById('textarea');
         autoTextarea($TextArea, 10);
-        this.content_marked = marked(scope.content_raw);
+        this.content_marked = marked(_this.content_raw);
 
         //自动保存
-        scope._autoSave();
+        _this._autoSave();
       }
     },
     created: function () {
       /**
        * 获取标签列表
        * */
-      const scope = this;
+      const _this = this;
       GetTagsList().then((data)=> {
-        scope.options = data
+        _this.options = data
       });
     },
     mounted: function () {
-      const scope = this;
+      const _this = this;
 
       /**
        * 初始化时间选择器
@@ -655,9 +655,9 @@
        * */
       let articleId = this.$route.params.articleId.toString();
       if (articleId !== '0') {
-        scope.getArticle(articleId)
+        _this.getArticle(articleId)
       } else {
-        scope.article = {
+        _this.article = {
           "_id": null,
           "title": '',
           "publish_time": new Date(),
@@ -666,7 +666,7 @@
           "content": '',
         };
         //时间
-        scope.publishTime = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
+        _this.publishTime = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
       }
 
       /**
@@ -688,13 +688,13 @@
         if (!file.type.match('image.*')) {
           return null;
         }
-        scope.isImgLoading = true;
+        _this.isImgLoading = true;
         ImageUpload(file).then(function (imageName) {
-          scope.uploadImgUrl = addImgPrefix(imageName);
+          _this.uploadImgUrl = addImgPrefix(imageName);
         }, function () {
           alert("upload error");
         }).then(function () {
-          scope.isImgLoading = false;
+          _this.isImgLoading = false;
         })
       })
 

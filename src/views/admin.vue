@@ -37,6 +37,7 @@
       margin-bottom: 15px;
       margin-right: auto;
       user-select: none;
+      min-height:90vh;
       /*-webkit-user-select: none;*/
       /*-webkit-user-select: none;*/
       .adminBox-content-header h1 {

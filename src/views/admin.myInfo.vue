@@ -384,7 +384,6 @@
         myInfo: {},
         textState: 'Submit',
         isSuccess: false,
-
       }
     },
     computed:{
@@ -399,8 +398,6 @@
     watch: {
       myInfo: {
         handler: function (val) {
-          console.log('value 改变 ')
-          console.log(val)
           this.save();
         },
         deep: true,
@@ -414,79 +411,74 @@
         return addImgPrefix(val)
       },
       save: function () {
-        const scope = this;
+        const _this = this;
         let params = {
-          _id: scope.myInfo._id,
-          full_name: scope.myInfo.full_name,
-          position: scope.myInfo.position,
-          address: scope.myInfo.address,
-          motto: scope.myInfo.motto,
-          personal_state: scope.myInfo.personal_state,
-          img_url: scope.myInfo.img_url
+          _id: _this.myInfo._id,
+          full_name: _this.myInfo.full_name,
+          position: _this.myInfo.position,
+          address: _this.myInfo.address,
+          motto: _this.myInfo.motto,
+          personal_state: _this.myInfo.personal_state,
+          img_url: _this.myInfo.img_url
         };
         PostMyInfo(params).then((data)=> {
-          scope.isSuccess = true;
-          console.log('PostMyInfo data')
-          console.log(data)
+          _this.isSuccess = true;
           setTimeout(function () {
-            scope.isSuccess = false;
+            _this.isSuccess = false;
           }, 1000);
         })
       },
       //修改登录信息
       changeAuthorizationInfo: function () {
-        const scope = this;
-        if (!scope.myInfo.username) {
+        const _this = this;
+        if (!_this.myInfo.username) {
           alert('用户名无效');
           return false;
         }
-        if (!scope.myInfo.password) {
+        if (!_this.myInfo.password) {
           alert('旧密码无效');
           return false;
         }
-        if (!scope.myInfo.new_password) {
+        if (!_this.myInfo.new_password) {
           alert('新密码无效');
           return false;
         }
-
         let params = {
-          _id: scope.myInfo._id,
-          username: scope.myInfo.username,
-          password: scope.myInfo.password,
-          new_password: scope.myInfo.new_password,
+          _id: _this.myInfo._id,
+          username: _this.myInfo.username,
+          password: _this.myInfo.password,
+          new_password: _this.myInfo.new_password,
         };
         ChangePassword(params).then((data)=> {
-          scope.textState = '成功!';
+          _this.textState = '成功!';
           //密码修改成功,需要提示用户重新登录,自动退出!
           alert("给出提示,xxs后请从新登陆")
           setTimeout(function () {
-            scope.$localStorage.$reset();
-            scope.setLoginState(false);//设置全局登录状态
-            scope.$router.go({
+            _this.$localStorage.$reset();
+            _this.setLoginState(false);//设置全局登录状态
+            _this.$router.go({
               name: 'login'
             });//跳转
 
           }, 1200, true);
         }, ()=> {
-          scope.textState = '失败!';
+          _this.textState = '失败!';
         })
       },
     },
     created: function () {
-      const scope = this;
+      const _this = this;
       /**
        * 获取原始个人信息
        * */
       GetMyInfoWithOriginal().then((data)=> {
-        scope.myInfo = data;
-        console.log('data')
-        console.log(data)
+        _this.myInfo = data;
       }, (code)=> {
         console.log("code:" + code)
       })
     },
     mounted: function () {
-      const scope = this;
+      const _this = this;
       /**
        * 1. 选择图片,获得filer信息
        * */
@@ -498,7 +490,7 @@
           return null;
         }
         ImageUpload(file).then(function (imageName) {
-          scope.myInfo.img_url = imageName;
+          _this.myInfo.img_url = imageName;
         }, function () {
           alert("upload error");
         })

@@ -71,7 +71,8 @@
     </div>
 
     <!--弹出层-增加-->
-    <div class="modal fade" id="addTag" tabindex="-1" role="dialog">
+    <div class="modal fade" id="addTag" tabindex="-1" role="dialog"
+         v-on:keyup.enter="!!newTag.name&&!!newTag.catalogue_name&&confirmSaveNewTagBtn()">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -95,7 +96,6 @@
           <div class="modal-footer">
             <span class="submitText">{{submitText}}</span>
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            {{!newTag.name||!newTag.catalogue_name}}
             <button v-bind:disabled="!newTag.name||!newTag.catalogue_name" @click="confirmSaveNewTagBtn()"
                     type="button" class="btn btn-success">保存
             </button>
@@ -105,7 +105,8 @@
     </div>
 
     <!--弹出层-修改-->
-    <div class="modal fade" id="editTag" tabindex="-1" role="dialog">
+    <div class="modal fade" id="editTag" tabindex="-1" role="dialog"
+         v-on:keyup.enter="!!editTag.name&&!!editTag.catalogue_name&&confirmEditTagBtn()">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -136,7 +137,7 @@
     </div>
 
     <!--弹出层-删除-->
-    <div class="modal fade" id="delTag" tabindex="-1" role="dialog">
+    <div class="modal fade" id="delTag" tabindex="-1" role="dialog" v-on:keyup.enter="confirmDelTagBtn()">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -149,7 +150,7 @@
           <div class="modal-footer">
             <span class="submitText">{{submitText}}</span>
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" @keyup.enter="confirmDelTagBtn()" @click="confirmDelTagBtn()" class="btn btn-danger">删除</button>
+            <button type="button" @click="confirmDelTagBtn()" class="btn btn-danger">删除</button>
           </div>
         </div>
       </div>

@@ -3,8 +3,9 @@
 * Description:
 */
 <template>
-  <div class="historyList" transition="blogTrans">
-    <div class="cataBox card-shadow  animated fadeIn" v-for="cataBox of historyList">
+  <div class="historyList">
+    <!--  animated fadeIn-->
+    <div class="cataBox card-shadow" v-for="cataBox of historyList">
       <h3 class="cataBox__title">
         <!--<i class="fa fa-calendar"></i>-->
         <!--&ensp;-->

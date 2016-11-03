@@ -4,11 +4,12 @@
 */
 <template>
   <div class="main">
-    <div class="aritcleList" transition="blogTrans"
+    <!-- transition="blogTrans"-->
+    <div class="aritcleList"
          v-infinite-scroll="loadMore"
          infinite-scroll-disabled="infiniteDisabled"
          infinite-scroll-distance="10">
-      <router-link class="article animated fadeIn" v-for="article of articleList" :key="article._id"
+      <router-link class="article" v-for="article of articleList" :key="article._id"
                :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active"  tag="article">
         <div class="article__header">
           <h2 class="article__header--title">{{article.title}}</h2>
@@ -45,6 +46,9 @@
       <!--<no-data v-if="!hasData && !isLoading"></no-data>-->
       <is-loading v-if="isLoading"></is-loading>
     </div>
+
+
+
     <section class="copyright animated fadeIn" v-if="articleList.length!==0">
       <copyright></copyright>
     </section>
@@ -55,7 +59,7 @@
 
   /*内容区*/
   .aritcleList {
-    /*width: 780px;*/
+    width: 780px;
     margin: 0 auto;
     /*position: relative;*/
 

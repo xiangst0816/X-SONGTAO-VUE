@@ -58,8 +58,7 @@
             </div>
             <!--提问题-->
             <div class="commentBox__question" @click="replyBtn('')">
-              <comment-box :has-nick-name.sync="hasNickName" :article-id="article._id"  :event-hub="eventHub"
-                           :pre-id="article._id"></comment-box>
+              <comment-box :article-id="article._id" :pre-id="article._id"></comment-box>
             </div>
 
             <!--问题盒子-->
@@ -80,8 +79,7 @@
                 </div>
                 <div class="comments__reply" :class="{'active':(comment._id==selectId && toggle)}">
                   <div class="commentBox__question">
-                    <comment-box :has-nick-name.sync="hasNickName" :article-id="comment.article_id" :event-hub="eventHub"
-                                 :pre-id="comment._id" @xxx="ddd"></comment-box>
+                    <comment-box :article-id="comment.article_id" :pre-id="comment._id"></comment-box>
                   </div>
                   <div class="comments__reply__each" v-for="reply of comment.next_id">
                     <div class="comments__reply__header">
@@ -760,10 +758,10 @@
         selectId: '',
         isLoading: true,
         hasNickName: false,
-        username: '',//评论人的昵称
+        name: '',//评论人的昵称
         email: '',//评论人的email
         topNum: 5,//top 榜单
-        eventHub:'',
+        eventHub: '',
       }
     },
     methods: {
@@ -777,97 +775,65 @@
       },
       scrollTop: ()=> {
         $(window).scrollTop(0);// 滚到顶部
-      }
-    },
-    computed: {},
-    created: function () {
-      let _this = this;
-      _this.eventHub = _this;
-      _this.$on('replyThisComment', function (data) {
-        console.log('$on replyThisComment')
-        let params;
-        if (!!this.hasNickName) {
-          params = {
-            article_id: data.article_id,
-            pre_id: data.pre_id,
-            next_id: [],
-            name: this.name,
-            email: this.email,
-            time: new Date(),
-            content: data.content,
-            state: false,
-            isIReplied: false
-          }
-
-        } else {
-          if (!data.name) {
+      },
+      /**
+       * 获取数据
+       * @param articleId 文章id
+       * */
+      getArticleById: function (articleId) {
+        const _this = this;
+        //获取文章详情
+        GetArticleById(articleId).then(function (data) {
+          _this.article = data
+          _this.isLoading = false;
+        }, function (error) {
+          if (error == 2) {
             Toast({
-              message: '请输入昵称', iconClass: 'fa fa-warning',
+              message: '访问的文章不存在！', iconClass: 'fa fa-warning',
               position: 'center',
               duration: 3000
             });
-            return
-          }
-          if (!data.email) {
-            Toast({
-              message: '请输入邮箱', iconClass: 'fa fa-warning',
-              position: 'center',
-              duration: 3000
-            });
-            return
-          }
-          if (!/^\w+@[1-9a-z]+(\.[a-z]+){1,3}$/.test(data.email)) {
-            Toast({
-              message: '邮箱格式输入错误',
-              iconClass: 'fa fa-warning',
-              position: 'center',
-              duration: 3000
-            });
-            return
-          }
 
-          this.$localStorage.$set({
-            commentInfo: {
-              name: data.name,
-              email: data.email
-            }
-          });
-
-          this.hasNickName = true;
-          params = {
-            article_id: data.article_id,
-            pre_id: data.pre_id,
-            next_id: [],
-            name: data.name,
-            email: data.email,
-            time: new Date(),
-            content: data.content,
-            state: false,
-            isIReplied: false
+            setTimeout(function () {
+              _this.$router.replace({
+                name: 'historyList'
+              })
+            }, 3000)
           }
-        }
-
-        // 发送评论请求,并且向组件发送事件
-        this.$emit('Submitting');
-        SendComment(params).then(()=> {
-          Toast({
-            message: '评论成功，正在审核！',
-            iconClass: 'fa fa-check',
-            position: 'center',
-            duration: 3000
-          });
-          this.toggle = !this.toggle;
-          this.$emit('SubmitSuccess');
-        }, (error)=> {
           console.log(error)
-          this.$emit('SubmitFailure');
         });
-      });
-    },
-    mounted: function () {
-      const scope = this;
-      // To Top
-      $(document).on('scroll', function () {
+      },
+
+      /**
+       * 获取文章评论
+       * @param articleId 文章id
+       * */
+      getArticleCommentsById: function (articleId) {
+        const _this = this;
+        GetArticleComments(articleId).then(function (data) {
+          _this.commentList = data;
+        }, function (error) {
+          console.log(error)
+        });
+      },
+
+      /**
+       * 获取文章排行榜，榜单
+       * @param topNum 排行榜个数
+       * */
+      getArticleTop: function (topNum) {
+        const _this = this;
+        GetArticleTop(topNum).then(function (data) {
+          _this.articleTop = data;
+        }, function (error) {
+          console.log(error)
+        });
+      },
+
+      /**
+       * 返回顶部的时间handler
+       * */
+      backToTopHandler: function () {
         let _width = $(document).width()
         if (_width >= 1200) {
           if ($(this).scrollTop() > 0) {
@@ -892,53 +858,29 @@
             });
           }
         }
-      }).on('click', '#toTop', function () {
-        $(window).scrollTop(0);
-//                $('body, html').animate({scrollTop: 0}, 600);
-      });
-
-
-      /**
-       * 初始化
-       * */
-      $(window).scrollTop(0);// 滚到顶部
-      let articleId = this.$route.params.articleId;
-
-
-      /**
-       * 获取数据
-       * */
-      //获取文章详情
-      GetArticleById(articleId).then(function (data) {
-        scope.article = data
-        scope.isLoading = false;
-      }, function (error) {
-        console.log(error)
-      });
-      //获取文章评论
-      GetArticleComments(articleId).then(function (data) {
-        scope.commentList = data;
-      }, function (error) {
-        console.log(error)
-      });
-      // 获取文章top榜单
-      GetArticleTop(scope.topNum).then(function (data) {
-        scope.articleTop = data;
-      }, function (error) {
-        console.log(error)
-      });
-
-      /**
-       * 获取游客昵称及邮箱,并设置input显示与否
-       * */
-      let commentInfo = scope.$localStorage.commentInfo;
-      if (!!commentInfo && !!commentInfo.name && !!commentInfo.email) {
-        scope.hasNickName = true;
-        scope.name = commentInfo.name;
-        scope.email = commentInfo.email;
-      } else {
-        scope.hasNickName = false;
       }
+    },
+    computed: {},
+    created: function () {
+      const _this = this;
+      $(window).scrollTop(0);// 滚到顶部
+      // To Top
+      $(document)
+      .on('scroll', _this.backToTopHandler)
+      .on('click', '#toTop', function () {
+        $(window).scrollTop(0);
+        //$('body, html').animate({scrollTop: 0}, 600);
+      });
+    },
+    mounted: function () {
+      const _this = this;
+      let articleId = this.$route.params.articleId;
+      // 获取文章
+      _this.getArticleById(articleId);
+      // 获取文章评论
+      _this.getArticleCommentsById(articleId)
+      // 获取文章top榜单
+      _this.getArticleTop(_this.topNum);
     },
     destroyed: function () {
       $(document).off('scroll')
@@ -947,11 +889,6 @@
       'comment-box': commentReplyBox,
       copyright
     },
-    // events: {
-    //   'replyThisComment': function (data) {
-    //
-    //   }
-    // }
   }
 
 </script>

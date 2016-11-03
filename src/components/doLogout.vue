@@ -20,9 +20,9 @@
 <style>
 
 </style>
-<script>
+<script type="text/javascript">
   //    import 'bootstrap/js/modal.js'
-  import {setLoginState} from '../vuex/actions'
+  import {mapActions} from 'vuex';
   export default{
     data(){
       return {
@@ -30,10 +30,12 @@
       }
     },
     methods: {
+      ...mapActions({
+        setLoginState: 'setLoginState',
+      }),
       confirmLogout: function () {
 //                alert('confirmLogout')
         const scope = this;
-
         setTimeout(function () {
           scope.$localStorage.$delete('authorization');
           scope.setLoginState(false);
@@ -45,18 +47,9 @@
         }, 200);
       },
     },
-    components: {},
     created: function () {
-
       this.$root.doLogout = this.confirmLogout;
-
-
-    },
-    vuex: {
-      actions: {
-        // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
-        setLoginState,//设置登录否
-      }
     },
   }
+
 </script>

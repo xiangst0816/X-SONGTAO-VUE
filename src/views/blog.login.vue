@@ -189,10 +189,9 @@
             window.tooltip();
             scope.setLoginState(true);//设置全局登录状态
 
-
-            //scope.$router.go({//跳转
-            //name: 'index'
-            //});
+            scope.$router.replace({//跳转
+              name: 'index'
+            });
 
           }, (err)=> {
             switch (parseInt(err)) {

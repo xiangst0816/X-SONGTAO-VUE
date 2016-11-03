@@ -8,17 +8,51 @@
   <div class="blog animated fadeIn">
     <my-info></my-info>
     <!-- 路由外链 -->
-    <!--<div class="blog__content" v-show="!isShowMyWords" transition="isShowMyWords">-->
-    <div class="blog__content" v-show="!isShowMyWords">
-      <div class="blog__content--inner">
-        <router-view></router-view>
+    <transition name="fade">
+      <div class="blog__content" v-show="!isShowMyWords">
+        <div class="blog__content--inner">
+          <transition name="blogTrans">
+            <router-view></router-view>
+          </transition>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 <style scoped lang="scss">
   //base
   @import "../theme/theme.scss";
+
+  /*slide-right' : 'slide-left*/
+  // transition 动画类
+  .fade-enter-active, .fade-leave-active {
+    transition: all .5s ease;
+    opacity: 1;
+  }
+
+  .fade-enter, .fade-leave-active {
+    opacity: 0;
+  }
+
+  // 路由切换动画
+  .blogTrans-enter-active,.blogTrans-leave-active {
+    transition: transform .5s ease,opacity .5s ease;
+    opacity:1;
+    position: relative;
+  }
+  .blogTrans-enter{
+    opacity:0;
+    position: absolute;
+    transform: translate(10%,0);
+    z-index:999;
+  }
+  .blogTrans-leave-active {
+    opacity:0;
+    transform: translate(-10%,0);
+    position: absolute;
+    z-index:0;
+  }
+
 
   .blog {
     position: relative;
@@ -49,6 +83,8 @@
       }
     }
   }
+
+
   @include media(">desktop") {
     .blog {
       width: 100%;
@@ -59,15 +95,8 @@
         position: relative;
       }
     }
-
-    .isShowMyWords-transition {
-      transition: all .5s ease;
-      opacity: 1;
-    }
-    .isShowMyWords-enter, .isShowMyWords-leave {
-      opacity: 0;
-    }
   }
+
   @include media(">desktop_small", "<=desktop") {
     .blog {
       .blog__content {
@@ -77,14 +106,8 @@
         }
       }
     }
-    .isShowMyWords-transition {
-      transition: all .5s ease;
-      opacity: 1;
-    }
-    .isShowMyWords-enter, .isShowMyWords-leave {
-      opacity: 0;
-    }
   }
+
   @include media("<=desktop_small") {
     .blog {
       /*padding-top: 45px;*/
@@ -94,14 +117,8 @@
         }
       }
     }
-    .isShowMyWords-transition {
-      transition: all .5s ease;
-      opacity: 1;
-    }
-    .isShowMyWords-enter, .isShowMyWords-leave {
-      opacity: 0;
-    }
   }
+
   @include media("<=tablet") {
     .blog {
       .blog__content {
@@ -114,6 +131,7 @@
       }
     }
   }
+
   @include media("<=phone") {
     .blog {
       .blog__content {
@@ -127,15 +145,16 @@
     }
   }
 </style>
-<script>
+<script type="text/javascript">
   import Vue from "vue";
   import myInfo from './blog.myInfo.vue'
   import {mapState} from 'vuex';
   module.exports = {
     data: function () {
-      return {}
+      return {
+      }
     },
-      computed:{
+    computed: {
       ...mapState({
         isShowMyWords: 'isShowMyWords',
       }),
@@ -144,4 +163,6 @@
       myInfo
     },
   }
+
+
 </script>

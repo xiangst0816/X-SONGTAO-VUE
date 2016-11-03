@@ -60,17 +60,6 @@
   Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
   Vue.http.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
-  import {
-    setLoginState,
-    setPlayingStatus,
-    setMusicDuration,
-    setMusicRightNow,
-    setCurrentMusic,
-    setLoadingStatus,
-    setCanAutoPlay,
-  } from './vuex/actions'
-
-
   import {Sign} from "./api/api_statistic";
   import {mapState,mapActions} from 'vuex';
   export default {
@@ -142,14 +131,14 @@
         scope._ended();
         scope.setCurrentMusic(scope.musicList[index]);
         scope._beforeStart();
-        scope._Start();
+        scope._start();
         scope.setPlayingStatus(true);
       },
       _init(){
         let scope = this;
         scope.setCurrentMusic(scope.musicList[0]);
         scope._beforeStart();
-        scope._Start();
+        //scope._start();
       },
       //start之前的准备工作,比如清除上一个的播放数据
       _beforeStart(){
@@ -177,7 +166,7 @@
           scope.setLoadingStatus(false);
         });
       },
-      _Start(){
+      _start(){
         let scope = this;
         scope.clear = setInterval(function () {
           scope.setMusicRightNow(scope.MusicHandle.currentTime);

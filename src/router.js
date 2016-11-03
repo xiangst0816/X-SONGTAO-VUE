@@ -86,6 +86,72 @@ const routes = [
       require(['./views/blog.article.vue'], resolve)
     },
   },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: function (resolve) {
+      require(['./views/admin.vue'], resolve)
+    },
+    children: [
+      {
+        path: 'admin-dashboard',
+        name: 'admin-dashboard',
+        component: function (resolve) {
+          require(['./views/admin.dashboard.vue'], resolve)
+        },
+      },
+      {
+        path: 'admin-myinfo',
+        name: 'admin-myinfo',
+        component: function (resolve) {
+          require(['./views/admin.myInfo.vue'], resolve)
+        },
+      },
+      {
+        path: 'admin-tag',
+        name: 'admin-tag',
+        component: function (resolve) {
+          require(['./views/admin.tagList.vue'], resolve)
+        },
+
+      },
+      {
+        path: 'admin-articleManager',
+        name: 'admin-articleManager',
+        redirect: {
+          name:'admin-articleList'
+        },
+        component: {
+          template: '<router-view></router-view>'
+        },
+        children: [
+          {
+            path: 'admin-articleList',
+            name: 'admin-articleList',
+            component: function (resolve) {
+              require(['./views/admin.articleList.vue'], resolve)
+            },
+
+          },
+          {
+            path: 'admin-article/:articleId',
+            name: 'admin-article',
+            component: function (resolve) {
+              require(['./views/admin.article.vue'], resolve)
+            },
+          },
+        ]
+      },
+      {
+        path: 'admin-commentList',
+        name: 'admin-commentList',
+        component: function (resolve) {
+          require(['./views/admin.commentList.vue'], resolve)
+        },
+      },
+    ]
+  }
+
 ];
 const router = new VueRouter({
   mode: 'history', //  hash 模式  history 模式
@@ -96,81 +162,8 @@ module.exports = router;
 
 
 
-// {
-//   path: '/login',
-//   name: 'login',
-//   component: function (resolve) {
-//     require(['./views/blog.login.vue'], resolve)
-//   }
-// },
-// {
-//   path: '/admin',
-//   name: 'admin',
-//   component: function (resolve) {
-//     require(['./views/admin.vue'], resolve)
-//   },
-//
-//   children: [
-//     {
-//       path: '/admin-dashboard',
-//       name: 'admin-dashboard',
-//       component: function (resolve) {
-//         require(['./views/admin.dashboard.vue'], resolve)
-//       },
-//     },
-//     {
-//       path: '/admin-myinfo',
-//       name: 'admin-myinfo',
-//       component: function (resolve) {
-//         require(['./views/admin.myInfo.vue'], resolve)
-//       },
-//
-//     },
-//     {
-//       path: '/admin-tag',
-//       name: 'admin-tag',
-//       component: function (resolve) {
-//         require(['./views/admin.tagList.vue'], resolve)
-//       },
-//
-//     },
-//     {
-//       path: '/admin-articleManager',
-//       name: 'admin-articleManager',
-//       redirect: '/admin-articleList',
-//       component: {
-//         template: '<router-view></router-view>'
-//       },
-//
-//       children: [
-//         {
-//           path: '/admin-articleList',
-//           name: 'admin-articleList',
-//           component: function (resolve) {
-//             require(['./views/admin.articleList.vue'], resolve)
-//           },
-//
-//         },
-//         {
-//           path: '/admin-article/:articleId',
-//           name: 'admin-article',
-//           component: function (resolve) {
-//             require(['./views/admin.article.vue'], resolve)
-//           },
-//
-//         },
-//       ]
-//     },
-//     {
-//       path: '/admin-commentList',
-//       name: 'admin-commentList',
-//       component: function (resolve) {
-//         require(['./views/admin.commentList.vue'], resolve)
-//       },
-//
-//     },
-//   ]
-// },
+
+
 
 // window.router = router;
 // import store from "./vuex/store"

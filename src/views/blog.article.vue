@@ -58,12 +58,11 @@
             </div>
             <!--提问题-->
             <div class="commentBox__question" @click="replyBtn('')">
-              <comment-box :has-nick-name.sync="hasNickName" :article-id="article._id"
+              <comment-box :has-nick-name.sync="hasNickName" :article-id="article._id"  :event-hub="eventHub"
                            :pre-id="article._id"></comment-box>
             </div>
 
             <!--问题盒子-->
-
             <div class="commentbox__inner">
               <div class="comments" v-for="comment of commentList">
                 <!--{{comment._id}}{{'&#45;&#45;'}}{{chain.selectId ==comment._id}}{{'&#45;&#45;'}}{{toggle}}{{'&#45;&#45;'}}{{chain.selectId}}-->
@@ -72,7 +71,8 @@
                     <!--<span class="name" ng-bind="comment.name"></span>&ensp;·&ensp;<span am-time-ago="comment.time" ></span>&ensp;·&ensp;<span class="reply" ng-click="commentToComemntBtn($event)">回复</span>-->
                     <span class="name">{{comment.name}}</span>&ensp;·&ensp;
                     <span>{{comment.time | moment("from","now")}}</span>
-                    <span class="hidden-xs">&ensp;·&ensp;<span class="reply" @click="replyBtn(comment._id)">回复</span></span>
+                    <span class="hidden-xs">&ensp;·&ensp;<span class="reply"
+                                                               @click="replyBtn(comment._id)">回复</span></span>
                   </div>
                   <div class="comments__ask__content">
                     <span>{{comment.content}}</span>
@@ -80,8 +80,8 @@
                 </div>
                 <div class="comments__reply" :class="{'active':(comment._id==selectId && toggle)}">
                   <div class="commentBox__question">
-                    <comment-box :has-nick-name.sync="hasNickName" :article-id="comment.article_id"
-                                 :pre-id="comment._id"></comment-box>
+                    <comment-box :has-nick-name.sync="hasNickName" :article-id="comment.article_id" :event-hub="eventHub"
+                                 :pre-id="comment._id" @xxx="ddd"></comment-box>
                   </div>
                   <div class="comments__reply__each" v-for="reply of comment.next_id">
                     <div class="comments__reply__header">
@@ -124,7 +124,9 @@
               </div>
               <li v-show="articleTop.latest.length>0" class="topArticle--li animated fadeIn"
                   v-for="article of articleTop.latest">
-                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active" tag="a">{{article.title}}</router-link>
+                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}"
+                             activeClass="active" tag="a">{{article.title}}
+                </router-link>
                 <span>({{article.read_num}})</span>
               </li>
             </ul>
@@ -150,7 +152,9 @@
               </div>
               <li v-show="articleTop.read.length>0" class="topArticle--li animated fadeIn"
                   v-for="article of articleTop.read">
-                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active" tag="a">{{article.title}}</router-link>
+                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}"
+                             activeClass="active" tag="a">{{article.title}}
+                </router-link>
                 <span>({{article.read_num}})</span>
               </li>
             </ul>
@@ -175,7 +179,8 @@
                 <div></div>
               </div>
               <li v-show="articleTop.tag.length>0" class="topTag--li  animated fadeIn" v-for="tag of articleTop.tag">
-                <router-link :to="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id }}" activeClass="active" tag="a">
+                <router-link :to="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id }}"
+                             activeClass="active" tag="a">
                   {{tag.name}}({{tag.used_num}})
                 </router-link>
               </li>
@@ -723,7 +728,7 @@
 
 
 </style>
-<script>
+<script type="text/javascript">
   //"57826e945c21c1dd04b4ad4d"
   import API from "../config.js"
   import {GetArticleById, GetArticleTop} from "../api/api_article"
@@ -737,8 +742,11 @@
 
   import copyright from '../components/copyright.vue';
 
-  import { Toast } from 'mint-ui';
+  import {Toast} from 'mint-ui';
   import  'mint-ui/lib/toast/style.css';
+
+  import Vue from 'vue';
+  var eventHub = new Vue()
 
 
   module.exports = {
@@ -755,6 +763,7 @@
         username: '',//评论人的昵称
         email: '',//评论人的email
         topNum: 5,//top 榜单
+        eventHub:'',
       }
     },
     methods: {
@@ -771,6 +780,90 @@
       }
     },
     computed: {},
+    created: function () {
+      let _this = this;
+      _this.eventHub = _this;
+      _this.$on('replyThisComment', function (data) {
+        console.log('$on replyThisComment')
+        let params;
+        if (!!this.hasNickName) {
+          params = {
+            article_id: data.article_id,
+            pre_id: data.pre_id,
+            next_id: [],
+            name: this.name,
+            email: this.email,
+            time: new Date(),
+            content: data.content,
+            state: false,
+            isIReplied: false
+          }
+
+        } else {
+          if (!data.name) {
+            Toast({
+              message: '请输入昵称', iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
+            return
+          }
+          if (!data.email) {
+            Toast({
+              message: '请输入邮箱', iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
+            return
+          }
+          if (!/^\w+@[1-9a-z]+(\.[a-z]+){1,3}$/.test(data.email)) {
+            Toast({
+              message: '邮箱格式输入错误',
+              iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
+            return
+          }
+
+          this.$localStorage.$set({
+            commentInfo: {
+              name: data.name,
+              email: data.email
+            }
+          });
+
+          this.hasNickName = true;
+          params = {
+            article_id: data.article_id,
+            pre_id: data.pre_id,
+            next_id: [],
+            name: data.name,
+            email: data.email,
+            time: new Date(),
+            content: data.content,
+            state: false,
+            isIReplied: false
+          }
+        }
+
+        // 发送评论请求,并且向组件发送事件
+        this.$emit('Submitting');
+        SendComment(params).then(()=> {
+          Toast({
+            message: '评论成功，正在审核！',
+            iconClass: 'fa fa-check',
+            position: 'center',
+            duration: 3000
+          });
+          this.toggle = !this.toggle;
+          this.$emit('SubmitSuccess');
+        }, (error)=> {
+          console.log(error)
+          this.$emit('SubmitFailure');
+        });
+      });
+    },
     mounted: function () {
       const scope = this;
       // To Top
@@ -835,7 +928,6 @@
         console.log(error)
       });
 
-
       /**
        * 获取游客昵称及邮箱,并设置input显示与否
        * */
@@ -847,11 +939,6 @@
       } else {
         scope.hasNickName = false;
       }
-
-
-
-
-
     },
     destroyed: function () {
       $(document).off('scroll')
@@ -860,88 +947,11 @@
       'comment-box': commentReplyBox,
       copyright
     },
-    events: {
-      'replyThisComment': function (data) {
-        let params;
-        if (!!this.hasNickName) {
-          params = {
-            article_id: data.article_id,
-            pre_id: data.pre_id,
-            next_id: [],
-            name: this.name,
-            email: this.email,
-            time: new Date(),
-            content: data.content,
-            state: false,
-            isIReplied: false
-          }
-
-        } else {
-          if (!data.name) {
-            Toast({
-              message: '请输入昵称',iconClass: 'fa fa-warning',
-              position: 'center',
-              duration: 3000
-            });
-            return
-          }
-          if (!data.email) {
-            Toast({
-              message: '请输入邮箱',iconClass: 'fa fa-warning',
-              position: 'center',
-              duration: 3000
-            });
-            return
-          }
-          if (!/^\w+@[1-9a-z]+(\.[a-z]+){1,3}$/.test(data.email)) {
-            Toast({
-              message: '邮箱格式输入错误',
-              iconClass: 'fa fa-warning',
-              position: 'center',
-              duration: 3000
-            });
-            return
-          }
-
-          this.$localStorage.$set({
-            commentInfo: {
-              name: data.name,
-              email: data.email
-            }
-          });
-
-          this.hasNickName = true;
-          params = {
-            article_id: data.article_id,
-            pre_id: data.pre_id,
-            next_id: [],
-            name: data.name,
-            email: data.email,
-            time: new Date(),
-            content: data.content,
-            state: false,
-            isIReplied: false
-          }
-        }
-
-        // 发送评论请求,并且向组件发送事件
-        this.$broadcast('Submitting');
-        SendComment(params).then(()=> {
-          Toast({
-            message: '评论成功，正在审核！',
-            iconClass: 'fa fa-check',
-            position: 'center',
-            duration: 3000
-          });
-          this.toggle = !this.toggle;
-          this.$broadcast('SubmitSuccess');
-        }, (error)=> {
-          console.log(error)
-          this.$broadcast('SubmitFailure');
-        });
-
-      }
-    }
+    // events: {
+    //   'replyThisComment': function (data) {
+    //
+    //   }
+    // }
   }
 
 </script>

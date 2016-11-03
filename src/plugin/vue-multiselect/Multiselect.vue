@@ -9,56 +9,37 @@
     @keydown.enter.stop.prevent.self="addPointerElement()"
     @keyup.esc="deactivate()"
     class="multiselect">
-      <div @mousedown.prevent="toggle()" class="multiselect__select"></div>
-      <div v-el:tags class="multiselect__tags">
-        <span
-          v-if="multiple"
-          v-for="option in visibleValue"
-          track-by="$index"
-          onmousedown="event.preventDefault()"
-          class="multiselect__tag">
+    <div @mousedown.prevent="toggle()" class="multiselect__select"></div>
+    <!--<div v-el:tags class="multiselect__tags">-->
+    <div ref="tags" class="multiselect__tags">
+        <span v-if="multiple" v-for="(option,index) in visibleValue" :key="index" onmousedown="event.preventDefault()"
+              class="multiselect__tag">
             <span v-text="getOptionLabel(option)"></span>
-            <i
-              aria-hidden="true"
-              tabindex="1"
-              @keydown.enter.prevent="removeElement(option)"
-              @mousedown.prevent="removeElement(option)"
-              class="multiselect__tag-icon">
-            </i>
+            <i aria-hidden="true" tabindex="1" @keydown.enter.prevent="removeElement(option)"
+               @mousedown.prevent="removeElement(option)" class="multiselect__tag-icon"></i>
         </span>
-        <template v-if="value && value.length > limit">
-          <strong v-text="limitText(value.length - limit)"></strong>
-        </template>
-        <div v-show="loading" transition="multiselect__loading" class="multiselect__spinner"></div>
-        <input
-          name="search"
-          type="text"
-          autocomplete="off"
-          :placeholder="placeholder"
-          v-el:search
-          v-if="searchable"
-          v-model="search"
-          :disabled="disabled"
-          @focus.prevent="activate()"
-          @blur.prevent="deactivate()"
-          @keyup.esc="deactivate()"
-          @keyup.down="pointerForward()"
-          @keyup.up="pointerBackward()"
-          @keydown.enter.stop.prevent.self="addPointerElement()"
-          @keydown.delete="removeLastElement()"
-          class="multiselect__input"/>
-          <span
-            v-if="!searchable && !multiple"
-            class="multiselect__single"
-            v-text="currentOptionLabel || placeholder">
+      <template v-if="value && value.length > limit">
+        <strong v-text="limitText(value.length - limit)"></strong>
+      </template>
+      <div v-show="loading" transition="multiselect__loading" class="multiselect__spinner"></div>
+      <input name="search" type="text" autocomplete="off" :placeholder="placeholder" ref="search" v-if="searchable"
+             v-model="search" :disabled="disabled"
+             @focus.prevent="activate()"
+             @blur.prevent="deactivate()"
+             @keyup.esc="deactivate()"
+             @keyup.down="pointerForward()"
+             @keyup.up="pointerBackward()"
+             @keydown.enter.stop.prevent.self="addPointerElement()"
+             @keydown.delete="removeLastElement()"
+             class="multiselect__input"/>
+      <span
+        v-if="!searchable && !multiple"
+        class="multiselect__single"
+        v-text="currentOptionLabel || placeholder">
           </span>
-      </div>
-      <ul
-        transition="multiselect"
-        :style="{ maxHeight: maxHeight + 'px' }"
-        v-el:list
-        v-show="isOpen"
-        class="multiselect__content">
+    </div>
+    <transition name="multiselect">
+      <ul :style="{ maxHeight: maxHeight + 'px' }" v-show="isOpen" ref="list" class="multiselect__content">
         <slot name="beforeList"></slot>
         <li v-if="multiple && max === value.length">
           <span class="multiselect__option">
@@ -66,12 +47,12 @@
           </span>
         </li>
         <template v-if="!max || value.length < max">
-          <li v-for="option in filteredOptions" track-by="$index">
+          <li  v-for="(option,index) in filteredOptions" :key="index">
             <span
               tabindex="0"
-              :class="{ 'multiselect__option--highlight': $index === pointer && this.showPointer, 'multiselect__option--selected': !isNotSelected(option) }"
+              :class="{ 'multiselect__option--highlight': index === pointer && showPointer, 'multiselect__option--selected': !isNotSelected(option) }"
               @mousedown.prevent="select(option)"
-              @mouseenter="pointerSet($index)"
+              @mouseenter="pointerSet(index)"
               :data-select="option.isTag ? tagPlaceholder : selectLabel"
               :data-selected="selectedLabel"
               :data-deselect="deselectLabel"
@@ -82,14 +63,14 @@
         </template>
         <li v-show="filteredOptions.length === 0 && search">
           <span class="multiselect__option">
-            <slot name="noResult">No elements found. Consider changing the search query.</slot>
+            <slot name="noResult">没有找到该元素，请调整搜索词！</slot>
           </span>
         </li>
         <slot name="afterList"></slot>
-    </ul>
+      </ul>
+    </transition>
   </div>
 </template>
-
 <script>
   /*!
    * Multiselect  vue-multiselect
@@ -182,13 +163,14 @@
           : this.value
       }
     },
-    ready () {
+    mounted () {
       /* istanbul ignore else */
       if (!this.showLabels) {
         this.deselectLabel = this.selectedLabel = this.selectLabel = ''
       }
     }
   }
+
 </script>
 
 <style>
@@ -289,8 +271,8 @@ fieldset[disabled] .multiselect {
 .multiselect__single {
   position: relative;
   display: inline-block;
-  min-height: 20px;
-  line-height: 20px;
+  min-height: 21px;
+  line-height: 21px;
   border: none;
   border-radius: 5px;
   background: #fff;
@@ -298,7 +280,7 @@ fieldset[disabled] .multiselect {
   width: calc(100%);
   transition: border 0.1s ease;
   box-sizing: border-box;
-  margin-bottom: 8px;
+  //margin-bottom: 8px;
 }
 
 .multiselect__tag ~ .multiselect__input {
@@ -365,8 +347,9 @@ fieldset[disabled] .multiselect {
 
 .multiselect__tag-icon:after {
   content: "×";
-  color: #2a90b5;
+  color: #1780a7;
   font-size: 14px;
+  transition: all ease 300ms;
 }
 
 .multiselect__tag-icon:focus,
@@ -553,18 +536,18 @@ fieldset[disabled] .multiselect {
   background: #38b7ea;
 }
 
-.multiselect-transition {
-  transition: all 0.3s ease;
+.multiselect-enter-active, .multiselect-leave-active {
+  transition: opacity .3s ease;
 }
-
-.multiselect-enter,
-.multiselect-leave {
+.multiselect-enter, .multiselect-leave-active {
   opacity: 0;
   max-height: 0 !important;
 }
+
 
 @keyframes spinning {
   from { transform:rotate(0) }
   to { transform:rotate(2turn) }
 }
+
 </style>

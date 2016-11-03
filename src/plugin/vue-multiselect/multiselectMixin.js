@@ -41,18 +41,18 @@ module.exports = {
      * @default 'id'
      * @type {String}
      */
-    key: {
+    optionKey: {
       type: String,
-      default: false
+      default: ''
     },
     /**
      * Label to look for in option Object
      * @default 'label'
      * @type {String}
      */
-    label: {
+    optionLabel: {
       type: String,
-      default: false
+      default: ''
     },
     /**
      * Enable/disable search in options
@@ -135,7 +135,7 @@ module.exports = {
      */
     customLabel: {
       type: Function,
-      default: false
+      default: null
     },
     /**
      * Disable / Enable tagging
@@ -150,7 +150,7 @@ module.exports = {
      * String to show when highlighting a potential tag
      * @default 'Press enter to create a tag'
      * @type {String}
-    */
+     */
     tagPlaceholder: {
       type: String,
       default: 'Press enter to create a tag'
@@ -159,17 +159,17 @@ module.exports = {
      * Number of allowed selected options. No limit if false.
      * @default False
      * @type {Number}
-    */
+     */
     max: {
       type: Number,
-      default: false
+      default: null
     },
     /**
      * Will be passed with all events as second param.
      * Useful for identifying events origin.
      * @default null
      * @type {String|Integer}
-    */
+     */
     id: {
       default: null
     }
@@ -179,28 +179,50 @@ module.exports = {
   },
   computed: {
     filteredOptions () {
+      var _this = this;
+      if (this.options.length === 0) {
+        return []
+      }
       let search = this.search || ''
       let options = this.hideSelected
         ? this.options.filter(this.isNotSelected)
-        : this.options
-      options = this.$options.filters.filterBy(options, this.search)
-      if (this.taggable && search.length && !this.isExistingOption(search)) {
-        options.unshift({ isTag: true, label: search })
+        : this.options;
+
+      // 搜索调整
+      if (!!_this.search) {
+        options = options.filter(function (option) {
+          if (typeof option == 'string') {
+            return option === _this.search;
+          } else if (typeof option == 'number') {
+            return option == parseFloat(_this.search);
+          } else if (typeof option == 'boolean') {
+            return option ===!!(_this.search);
+          } else if (!!option && typeof option === 'object') {
+            return option[_this.optionLabel].indexOf(_this.search) > -1
+          } else {
+            return false
+          }
+        });
       }
+
+      if (this.taggable && search.length && !this.isExistingOption(search)) {
+        options.unshift({isTag: true, label: search})
+      }
+
       return options
     },
     valueKeys () {
-      if (this.key) {
+      if (this.optionKey) {
         return this.multiple
-          ? this.value.map(element => element[this.key])
-          : this.value[this.key]
+          ? this.value.map(element => element[this.optionKey])
+          : this.value[this.optionKey]
       } else {
         return this.value
       }
     },
     optionKeys () {
-      return this.label
-        ? this.options.map(element => element[this.label])
+      return this.optionLabel
+        ? this.options.map(element => element[this.optionLabel])
         : this.options
     },
     currentOptionLabel () {
@@ -247,10 +269,9 @@ module.exports = {
     isSelected (option) {
       /* istanbul ignore else */
       if (!this.value) return false
-      const opt = this.key
-        ? option[this.key]
-        : option
-
+      const opt = this.optionKey
+        ? option[this.optionKey]
+        : option;
       if (this.multiple) {
         return this.valueKeys.indexOf(opt) > -1
       } else {
@@ -267,7 +288,7 @@ module.exports = {
       return !this.isSelected(option)
     },
     /**
-     * Returns the option[this.label]
+     * Returns the option[this.optionLabel]
      * if option is Object. Otherwise check for option.label.
      * If non is found, return entrie option.
      *
@@ -279,8 +300,8 @@ module.exports = {
         if (this.customLabel) {
           return this.customLabel(option)
         } else {
-          if (this.label && option[this.label]) {
-            return option[this.label]
+          if (this.optionLabel && option[this.optionLabel]) {
+            return option[this.optionLabel]
           } else if (option.label) {
             return option.label
           }
@@ -339,7 +360,7 @@ module.exports = {
       if (!this.allowEmpty && this.value.length <= 1) return
 
       if (this.multiple && typeof option === 'object') {
-        const index = this.valueKeys.indexOf(option[this.key])
+        const index = this.valueKeys.indexOf(option[this.optionKey])
         this.value.splice(index, 1)
       } else {
         this.value.$remove(option)
@@ -371,7 +392,7 @@ module.exports = {
       /* istanbul ignore else  */
       if (this.searchable) {
         this.search = ''
-        this.$els.search.focus()
+        this.$refs.search.focus()
       } else {
         this.$el.focus()
       }
@@ -388,7 +409,7 @@ module.exports = {
       this.isOpen = false
       /* istanbul ignore else  */
       if (this.searchable) {
-        this.$els.search.blur()
+        this.$refs.search.blur()
         this.adjustSearch()
       } else {
         this.$el.blur()

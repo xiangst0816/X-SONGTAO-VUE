@@ -48,16 +48,20 @@
               </div>
 
             </div>
-            <div class="form-inline other_form_2" name="titleBox">
+            <div class="form-inline other_form_2">
               <div class="form-group tagsBox">
                 <label>添加标签</label>
-                <Multiselect key="_id" label="name" id="tags" :searchable="false" :close-on-select="false" :limit="3"
+                <Multiselect class="form-control multiselect other_form--input small" placeholder="请选择" id="tags"
+                             :searchable="true"
+                             :close-on-select="false"
+                             :limit="3"
                              :multiple="true"
-                             class="form-control multiselect other_form--input small" placeholder="请选择" :max="3"
+                             :max="3"
                              :max-height="500"
-                             deselect-label="点击移除" select-label="点击选择" selected-label="当前选择"
-                             @update="updateValuePrimitive"
-                             :selected="selected" :options="options"></Multiselect>
+                             :selected="selected"
+                             :options="options"
+                             deselect-label="点击移除" select-label="点击选择" selected-label="当前选择" option-key="_id" option-label="name"
+                             @update="updateValuePrimitive"></Multiselect>
               </div>
               <div class="btn-group" role="group">
                 <button class="btn btn-info" @click="publishBtn()" v-bind:disabled="!article.title || !content_raw">
@@ -101,7 +105,7 @@
         <div class="previewTextarea">
           <label for="textarea">文章预览(实时)</label>
           <div class="textaresBox textaresBox_preview">
-            <div class="textarea markdown-body" id="textareaPreview">{{{content_marked}}}</div>
+            <div class="textarea markdown-body" id="textareaPreview" v-html="content_marked"></div>
           </div>
         </div>
 
@@ -433,289 +437,288 @@
 
 
 </style>
-<script>
-    import Vue from "vue";
-    import marked from "marked";
+<script type="text/javascript">
+  import Vue from "vue";
+  import marked from "marked";
 
-    import "../theme/codeHighLight.css";
-    import "../theme/markdown.scss";
+  import "../theme/codeHighLight.css";
+  import "../theme/markdown.scss";
 
-    marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        sanitize: true,
-        smartLists: true,
-        smartypants: false,
-        highlight: function (code) {
-            return hljs.highlightAuto(code).value;
-        }
-    });
-    import hljs from "highlight.js";
-    import moment from "moment";
-    import Multiselect from 'vue-multiselect'
-    import API from "../config"
-    import Clipboard from "clipboard"
-    import "bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build.scss"
-    import "bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
-    import {
-            GetRawArticleById,
-            SaveArticle,
-    } from "../api/api_article";
-    import {GetTagsList} from "../api/api_tag"
-    import {addImgPrefix} from "../utils/filters"
-    import {autoTextarea} from "../utils/autoTextarea";
-    import {setShowBigAdminStatus} from "../vuex/actions"
-    import copyright from '../components/copyright.vue'
-
-
-    import {ImageUpload} from "../api/api_upload";
-
-    import "bootstrap/scss/bootstrap/_button-groups.scss";
-    import "bootstrap/scss/bootstrap/_input-groups.scss";
-    import "bootstrap/scss/bootstrap/_dropdowns.scss";
-    import "bootstrap/js/dropdown.js";//放到它出现的位置
-  import {mapState,mapActions} from 'vuex';
-    module.exports = {
-        data: function () {
-            return {
-                article: {},
-                publishTime: '',
-                selected: [],
-                options: [],
-                content_raw: '',
-                content_marked: '',
-                uploadImgUrl: '',
-                isPublishing: false,
-                isDrafting: false,
-                isImgLoading: false,
-            }
-        },
-        computed: {
-             ...mapState({
-                    isShowBigAdmin: 'isShowBigAdmin',
-                 }),
-        },
-        methods: {
-            // 标签多选更新
-            updateValuePrimitive(value) {
-                this.selected = value;
-            },
-            getArticle(id){
-                const scope = this;
-                let $TextArea = document.getElementById('textarea');
-                GetRawArticleById(id).then((data)=> {
-                    scope.article = data;
-                    scope.content_raw = data.content;
-                    //预先确定已选择的标签
-                    scope.selected = scope.article.tags;
-                    //记录原始编辑内容
-                    //原始记录翻译一份到预览区
-                    scope.content_marked = marked(scope.content_raw);
-                    //时间
-                    scope.publishTime = moment(new Date(scope.article.publish_time)).format('YYYY/MM/DD HH:mm:ss');
-                    //textarea尺寸计算
-                    setTimeout(function () {
-                        autoTextarea($TextArea, 10);
-                    }, 0);
-                }, (err)=> {
-                    alert(JSON.stringify(err))
-                })
-            },
-            //获取书写的文章信息
-            collectEditedArtInfo(){
-                const scope = this;
-                let tagsArr = [];
-                for (let tag of scope.selected) {
-                    tagsArr.push(tag._id);
-                }
-                let params = {
-                    "_id": scope.article._id,
-                    "title": scope.article.title,
-                    "publish_time": new Date(scope.publishTime),
-                    "tags": tagsArr,
-                    "state": scope.article.state,
-                    "content": scope.content_raw,
-                };
-
-                return params;
-            },
-            // 点击发布按钮
-            publishBtn(){
-                const scope = this;
-                scope.article.state = true;
-                scope.isPublishing = true;
-
-                scope._save().then(function () {
-                    setTimeout(function () {
-                        history.back();
-                        scope.isPublishing = false;
-                    }, 500)
-                });
-            },
-            // 点击草稿按钮
-            draftBtn(){
-                const scope = this;
-                scope.article.state = false;
-                scope.isDrafting = true;
-
-                scope._save().then(function () {
-                    setTimeout(function () {
-                        scope.isDrafting = false;
-                    }, 500)
-                });
-
-            },
-            // 设置是否显示预览
-            previewBtn(){
-                const scope = this;
-                scope.setShowBigAdminStatus(!scope.isShowBigAdmin)
-            },
-            _save(){
-                const scope = this;
-                let params = scope.collectEditedArtInfo();
-                return SaveArticle(params).then(function (data) {
-                    // 针对新建的情况
-                    if (!params._id) {
-                        let _id = data._id;
-                        scope.article._id = _id;
-                        scope.$router.replace({//跳转
-                            name: 'admin-article',
-                            params: {articleId: _id}
-                        });
-                    }
-                })
-            },
-            _autoSave(){
-                const scope = this;
-                if (!scope.article.title) {
-                    return false
-                }
-                if (!scope.content_raw) {
-                    return false
-                }
-                if (scope.article.state) {
-                    scope.isPublishing = true;
-                } else {
-                    scope.isDrafting = true;
-                }
-                scope._save().then(function () {
-                    setTimeout(function () {
-                        if (scope.article.state) {
-                            scope.isPublishing = false;
-                        } else {
-                            scope.isDrafting = false;
-                        }
-                    }, 500)
-                });
-            },
-            // vuex
-            ...mapActions({
-                    setShowBigAdminStatus: 'setShowBigAdminStatus',
-                 }),
-        },
-        watch: {
-            'content_raw': function () {
-                const scope = this;
-                let $TextArea = document.getElementById('textarea');
-                autoTextarea($TextArea, 10);
-                this.content_marked = marked(scope.content_raw);
-
-                //自动保存
-                scope._autoSave();
-            }
-        },
-        created: function () {
-        },
-        mounted: function () {
-            const scope = this;
-
-            /**
-             * 获取标签列表
-             * */
-            GetTagsList().then((data)=> {
-                scope.options = data
-
-            });
-
-            /**
-             * 初始化时间选择器
-             * */
-            $('#datetimepicker').datetimepicker({
-                format: 'YYYY/MM/DD HH:mm:ss'
-            });
-
-            /**
-             * 获取文章信息,如果有id的话
-             * */
-            let articleId = this.$route.params.articleId;
-            if (articleId.length !== 1) {
-                scope.getArticle(articleId)
-            } else {
-                scope.article = {
-                    "_id": null,
-                    "title": '',
-                    "publish_time": new Date(),
-                    "tags": [],
-                    "state": '',
-                    "content": '',
-                };
-                //时间
-                scope.publishTime = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
-            }
-
-            /**
-             * 点击复制到剪贴板按钮的操作
-             * */
-            let clipboard = new Clipboard('#copyImgUrl2Clipboard');
-            clipboard.on('success', function (e) {
-
-            });
-
-
-            /**
-             * 1. 选择图片,获得filer信息
-             * */
-            $("#imgUpload").change(function (e) {
-                // 文件句柄
-                var file = e.target.files[0];
-                // 只处理图片
-                if (!file.type.match('image.*')) {
-                    return null;
-                }
-                scope.isImgLoading = true;
-                ImageUpload(file).then(function (imageName) {
-                    scope.uploadImgUrl = addImgPrefix(imageName);
-                }, function () {
-                    alert("upload error");
-                }).then(function () {
-                    scope.isImgLoading = false;
-                })
-            })
-
-
-        },
-        destroyed: function () {
-            /**
-             * 推出前改变预览状态
-             * */
-            this.setShowBigAdminStatus(false)
-        },
-        components: {
-            copyright,
-            Multiselect,
-        },
-        //vuex: {
-            //getters: {
-                //isShowBigAdmin: state=>state.isShowBigAdmin,
-            //},
-            //actions: {
-                //setShowBigAdminStatus
-            //}
-        }
+  marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false,
+    highlight: function (code) {
+      return hljs.highlightAuto(code).value;
     }
+  });
+  import hljs from "highlight.js";
+  import moment from "moment";
+  import Multiselect from 'vue-multiselect'
+  import API from "../config"
+  import Clipboard from "clipboard"
+  import "bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build.scss"
+  import "bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
+  import {
+    GetRawArticleById,
+    SaveArticle,
+  } from "../api/api_article";
+  import {GetTagsList} from "../api/api_tag"
+  import {addImgPrefix} from "../utils/filters"
+  import {autoTextarea} from "../utils/autoTextarea";
+  import {setShowBigAdminStatus} from "../vuex/actions"
+  import copyright from '../components/copyright.vue'
+
+
+  import {ImageUpload} from "../api/api_upload";
+
+  import "bootstrap/scss/bootstrap/_button-groups.scss";
+  import "bootstrap/scss/bootstrap/_input-groups.scss";
+  import "bootstrap/scss/bootstrap/_dropdowns.scss";
+  import "bootstrap/js/dropdown.js";//放到它出现的位置
+  import {mapState, mapActions} from 'vuex';
+  module.exports = {
+    data: function () {
+      return {
+        article: {},
+        publishTime: '',
+        selected: [],
+        options: [],
+        content_raw: '',
+        content_marked: '',
+        uploadImgUrl: '',
+        isPublishing: false,
+        isDrafting: false,
+        isImgLoading: false,
+      }
+    },
+    computed: {
+      ...mapState({
+        isShowBigAdmin: 'isShowBigAdmin',
+      }),
+    },
+    methods: {
+      // 标签多选更新
+      updateValuePrimitive(value) {
+        this.selected = value;
+      },
+      getArticle(id){
+        const scope = this;
+        let $TextArea = document.getElementById('textarea');
+        GetRawArticleById(id).then((data)=> {
+          scope.article = data;
+          scope.content_raw = data.content;
+          //预先确定已选择的标签
+          scope.selected = scope.article.tags;
+          //记录原始编辑内容
+          //原始记录翻译一份到预览区
+          scope.content_marked = marked(scope.content_raw);
+          //时间
+          scope.publishTime = moment(new Date(scope.article.publish_time)).format('YYYY/MM/DD HH:mm:ss');
+          //textarea尺寸计算
+          setTimeout(function () {
+            autoTextarea($TextArea, 10);
+          }, 0);
+        }, (err)=> {
+          alert(JSON.stringify(err))
+        })
+      },
+      //获取书写的文章信息
+      collectEditedArtInfo(){
+        const scope = this;
+        let tagsArr = [];
+        for (let tag of scope.selected) {
+          tagsArr.push(tag._id);
+        }
+        let params = {
+          "_id": scope.article._id,
+          "title": scope.article.title,
+          "publish_time": new Date(scope.publishTime),
+          "tags": tagsArr,
+          "state": scope.article.state,
+          "content": scope.content_raw,
+        };
+
+        return params;
+      },
+      // 点击发布按钮
+      publishBtn(){
+        const scope = this;
+        scope.article.state = true;
+        scope.isPublishing = true;
+
+        scope._save().then(function () {
+          setTimeout(function () {
+            history.back();
+            scope.isPublishing = false;
+          }, 500)
+        });
+      },
+      // 点击草稿按钮
+      draftBtn(){
+        const scope = this;
+        scope.article.state = false;
+        scope.isDrafting = true;
+
+        scope._save().then(function () {
+          setTimeout(function () {
+            scope.isDrafting = false;
+          }, 500)
+        });
+
+      },
+      // 设置是否显示预览
+      previewBtn(){
+        const scope = this;
+        scope.setShowBigAdminStatus(!scope.isShowBigAdmin)
+      },
+      _save(){
+        const scope = this;
+        let params = scope.collectEditedArtInfo();
+        return SaveArticle(params).then(function (data) {
+          // 针对新建的情况
+          if (!params._id) {
+            let _id = data._id;
+            scope.article._id = _id;
+            scope.$router.replace({//跳转
+              name: 'admin-article',
+              params: {articleId: _id}
+            });
+          }
+        })
+      },
+      _autoSave(){
+        const scope = this;
+        if (!scope.article.title) {
+          return false
+        }
+        if (!scope.content_raw) {
+          return false
+        }
+        if (scope.article.state) {
+          scope.isPublishing = true;
+        } else {
+          scope.isDrafting = true;
+        }
+        scope._save().then(function () {
+          setTimeout(function () {
+            if (scope.article.state) {
+              scope.isPublishing = false;
+            } else {
+              scope.isDrafting = false;
+            }
+          }, 500)
+        });
+      },
+      // vuex
+      ...mapActions({
+        setShowBigAdminStatus: 'setShowBigAdminStatus',
+      }),
+    },
+    watch: {
+      'content_raw': function () {
+        const scope = this;
+        let $TextArea = document.getElementById('textarea');
+        autoTextarea($TextArea, 10);
+        this.content_marked = marked(scope.content_raw);
+
+        //自动保存
+        scope._autoSave();
+      }
+    },
+    created: function () {
+      /**
+       * 获取标签列表
+       * */
+      const scope = this;
+      GetTagsList().then((data)=> {
+        scope.options = data
+      });
+    },
+    mounted: function () {
+      const scope = this;
+
+      /**
+       * 初始化时间选择器
+       * */
+      $('#datetimepicker').datetimepicker({
+        format: 'YYYY/MM/DD HH:mm:ss'
+      });
+
+      /**
+       * 获取文章信息,如果有id的话
+       * */
+      let articleId = this.$route.params.articleId.toString();
+      if (articleId !== '0') {
+        scope.getArticle(articleId)
+      } else {
+        scope.article = {
+          "_id": null,
+          "title": '',
+          "publish_time": new Date(),
+          "tags": [],
+          "state": '',
+          "content": '',
+        };
+        //时间
+        scope.publishTime = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
+      }
+
+      /**
+       * 点击复制到剪贴板按钮的操作
+       * */
+      let clipboard = new Clipboard('#copyImgUrl2Clipboard');
+      clipboard.on('success', function (e) {
+        alert('复制成功！')
+      });
+
+
+      /**
+       * 1. 选择图片,获得filer信息
+       * */
+      $("#imgUpload").change(function (e) {
+        // 文件句柄
+        var file = e.target.files[0];
+        // 只处理图片
+        if (!file.type.match('image.*')) {
+          return null;
+        }
+        scope.isImgLoading = true;
+        ImageUpload(file).then(function (imageName) {
+          scope.uploadImgUrl = addImgPrefix(imageName);
+        }, function () {
+          alert("upload error");
+        }).then(function () {
+          scope.isImgLoading = false;
+        })
+      })
+
+
+    },
+    destroyed: function () {
+      /**
+       * 推出前改变预览状态
+       * */
+      this.setShowBigAdminStatus(false)
+    },
+    components: {
+      copyright,
+      Multiselect,
+    },
+    //vuex: {
+    //getters: {
+    //isShowBigAdmin: state=>state.isShowBigAdmin,
+    //},
+    //actions: {
+    //setShowBigAdminStatus
+    //}
+    // }
+  }
 
 
 </script>

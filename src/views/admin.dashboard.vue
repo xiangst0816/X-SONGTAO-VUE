@@ -8,7 +8,7 @@
   <div class="dashboard animated fadeIn">
     <!--我的信息title-->
     <h3 class="title">
-      <i class="fa fa-fw fa-lg fa-dashboard"></i> 控制台 / <span class="blue">DASHBOARD</span>
+      <i class="fa fa-fw fa-lg fa-dashboard"></i> 控制台 / <span class="">DASHBOARD</span>
     </h3>
 
     <div class="main">
@@ -122,13 +122,12 @@
   }
 
 </style>
-<script>
+<script type="text/javascript">
   import Vue from "vue";
 
   import copyright from '../components/copyright.vue'
 
   import {GetTotal, GetChart, GetMap} from "../api/api_statistic";
-
 
   // 引入 ECharts 主模块
   var echarts = require('echarts/lib/echarts');
@@ -183,11 +182,11 @@
       scope.f_getChart(function (data) {
         // 绘制图表
         myChart.setOption({
-          color:['#ff0000'],
+          color: ['#ff0000'],
           title: {
             text: '过去24小时访问数变化',
             subtext: '实时统计',
-            textAlign:'left'
+            textAlign: 'left'
           },
           tooltip: {
             trigger: 'axis'
@@ -264,7 +263,7 @@
               }
             },
             roam: true,
-            scaleLimit:{max:4, min:1.2},
+            scaleLimit: {max: 4, min: 1.2},
             itemStyle: {
               normal: {
 //                areaColor: '#38b7ea',
@@ -284,7 +283,7 @@
               symbolSize: function (val) {
                 let count = val[2];
                 // 最大在8附近，count=24时，约等于8
-                return Math.atan(count/3)*5.2
+                return Math.atan(count / 3) * 5.2
               },
               label: {
                 normal: {
@@ -310,32 +309,6 @@
       copyright
     },
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </script>

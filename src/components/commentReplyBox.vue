@@ -209,15 +209,6 @@
           console.log(error)
           console.log("SubmitFailure")
         });
-        // _this.eventHub.$emit('replyThisComment', {
-        //   content: this.content,
-        //   name: this.name,
-        //   email: this.email,
-        //   article_id: this.articleId,
-        //   pre_id: this.preId,
-        // })
-
-
       }
     },
     created: function () {
@@ -233,18 +224,6 @@
       } else {
         _this.hasNickName = false;
       }
-
-
-      // _this.eventHub.$on('Submitting', function () {
-      //   console.log("Submitting")
-      // });
-      // _this.eventHub.$on('SubmitSuccess', function () {
-      //   _this.content = '';
-      //   console.log("SubmitSuccess")
-      // });
-      // _this.eventHub.$on('SubmitFailure', function () {
-      //   console.log("SubmitFailure")
-      // });
     },
     mounted: function () {
 

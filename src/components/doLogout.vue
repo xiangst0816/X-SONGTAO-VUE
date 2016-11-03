@@ -38,6 +38,7 @@
         const scope = this;
         setTimeout(function () {
           scope.$localStorage.$delete('authorization');
+          scope.$localStorage.$delete('commentInfo');
           scope.setLoginState(false);
           scope.$router.go({
             name: 'index'

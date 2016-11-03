@@ -64,10 +64,10 @@
                              @update="updateValuePrimitive"></Multiselect>
               </div>
               <div class="btn-group" role="group">
-                <button class="btn btn-info" @click="publishBtn()" v-bind:disabled="!article.title || !content_raw">
+                <button class="btn btn-info" @click="publishBtn()" v-bind:disabled="!article.title || !content_raw || isPublishing">
                   <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-rocket'}[isPublishing]"></i> 发布
                 </button>
-                <button class="btn btn-default" @click="draftBtn()" v-bind:disabled="!article.title || !content_raw">
+                <button class="btn btn-default" @click="draftBtn()" v-bind:disabled="!article.title || !content_raw || isPublishing">
                   <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-save'}[isDrafting]"></i> 草稿
                 </button>
                 <button @click="previewBtn()" class="btn btn-default showPreview">
@@ -81,7 +81,7 @@
         <div class="articleEdit">
           <label for="textarea">文章详情(MarkDown编辑)</label>
           <div class="textaresBox textaresBox_input">
-            <textarea id="textarea" v-model="content_raw" debounce="500" class="form-control textarea"></textarea>
+            <textarea id="textarea" v-model="content_raw" class="form-control textarea"></textarea>
           </div>
         </div>
 
@@ -439,6 +439,7 @@
 </style>
 <script type="text/javascript">
   import Vue from "vue";
+  import _ from "lodash";
   import marked from "marked";
 
   import "../theme/codeHighLight.css";
@@ -502,6 +503,7 @@
         isShowBigAdmin: 'isShowBigAdmin',
       }),
     },
+
     methods: {
       // 标签多选更新
       updateValuePrimitive(value) {
@@ -619,18 +621,22 @@
       ...mapActions({
         setShowBigAdminStatus: 'setShowBigAdminStatus',
       }),
-    },
-    watch: {
-      'content_raw': function () {
+      watchContentRawFn:_.debounce(function () {
         const _this = this;
         let $TextArea = document.getElementById('textarea');
         autoTextarea($TextArea, 10);
         this.content_marked = marked(_this.content_raw);
-
         //自动保存
         _this._autoSave();
+      }, 500)
+    },
+    watch: {
+      'content_raw': function () {
+        const _this = this;
+        _this.watchContentRawFn();
       }
     },
+
     created: function () {
       /**
        * 获取标签列表

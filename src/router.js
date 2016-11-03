@@ -27,9 +27,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: function (resolve) {
-      require(['./views/blog.login.vue'], resolve)
-    }
+    component: require('./views/blog.login.vue')
   },
   {
     path: '/blog',
@@ -51,9 +49,7 @@ const routes = [
       {
         path: 'his-list',
         name: 'historyList',
-        component: function (resolve) {
-          require(['./views/blog.historyList.vue'], resolve)
-        }
+        component: require('./views/blog.historyList.vue'),
       },
       {
         path: 'tag-list',
@@ -71,9 +67,7 @@ const routes = [
           {
             path: 'find-by-tag-id',
             name: 'tagListFindByTagId',
-            component: function (resolve) {
-              require(['./views/blog.articleList.vue'], resolve)
-            },
+            component: require('./views/blog.articleList.vue')
           },
         ]
       },
@@ -160,139 +154,6 @@ const router = new VueRouter({
 });
 module.exports = router;
 
-
-
-
-
-
-// window.router = router;
-// import store from "./vuex/store"
-
-
-// 路由配置参数
-// var router = new VueRouter({
-//   mode: 'hash',
-//   routes: routes,
-// });
-
-// export default function () {
-//定义路由规则
-// router.map({
-//   '/': {
-//     name: 'index',
-//     component: require('./views/blog.index.vue')
-//   },
-//   '/login': {
-//     name: 'login',
-//     component: function (resolve) {
-//       require(['./views/blog.login.vue'], resolve)
-//     },
-//   },
-//   '/music': {
-//     name: 'music',
-//     component: require('./views/blog.music.vue')
-//   },
-//   '/blog': {
-//     name: 'blog',
-//     component: require('./views/blog.vue'),
-//     subRoutes: {
-//       '/art-list': {
-//         name: 'artList',
-//         component: function (resolve) {
-//           require(['./views/blog.articleList.vue'], resolve)
-//         },
-//       },
-//       '/his-list': {
-//         name: 'historyList',
-//         component: require('./views/blog.historyList.vue'),
-//       },
-//       '/tag-list': {
-//         name: 'tagList',
-//         component: {
-//           template: '<router-view></router-view>'
-//         },
-//         subRoutes: {
-//           '/classify': {
-//             name: 'tagListClassify',
-//             component: require('./views/blog.tagList.vue'),
-//           },
-//           '/find-by-tag-id': {
-//             name: 'tagListFindByTagId',
-//             component: function (resolve) {
-//               require(['./views/blog.articleList.vue'], resolve)
-//             },
-//           },
-//         }
-//       },
-//     }
-//   },
-//   '/article/:articleId': {
-//     name: 'article',
-//     component: function (resolve) {
-//       require(['./views/blog.article.vue'], resolve)
-//     },
-//   },
-//   '/admin': {
-//     name: 'admin',
-//     component: function (resolve) {
-//       require(['./views/admin.vue'], resolve)
-//     },
-//
-//     subRoutes: {
-//       '/admin-dashboard': {
-//         name: 'admin-dashboard',
-//         component: function (resolve) {
-//           require(['./views/admin.dashboard.vue'], resolve)
-//         },
-//       },
-//
-//       '/admin-myinfo': {
-//         name: 'admin-myinfo',
-//         component: function (resolve) {
-//           require(['./views/admin.myInfo.vue'], resolve)
-//         },
-//
-//       },
-//       '/admin-tag': {
-//         name: 'admin-tag',
-//         component: function (resolve) {
-//           require(['./views/admin.tagList.vue'], resolve)
-//         },
-//
-//       },
-//       '/admin-articleManager': {
-//         name: 'admin-articleManager',
-//         component: {
-//           template: '<router-view></router-view>'
-//         },
-//
-//         subRoutes: {
-//           '/admin-articleList': {
-//             name: 'admin-articleList',
-//             component: function (resolve) {
-//               require(['./views/admin.articleList.vue'], resolve)
-//             },
-//
-//           },
-//           '/admin-article/:articleId': {
-//             name: 'admin-article',
-//             component: function (resolve) {
-//               require(['./views/admin.article.vue'], resolve)
-//             },
-//
-//           },
-//         }
-//       },
-//       '/admin-commentList': {
-//         name: 'admin-commentList',
-//         component: function (resolve) {
-//           require(['./views/admin.commentList.vue'], resolve)
-//         },
-//
-//       },
-//     }
-//   },
-// });
 //路由重定向
 // router.redirect({
 //   '/blog': '/blog/art-list/?listType=latest',

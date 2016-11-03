@@ -135,7 +135,7 @@
       </div>
     </div>
     <!--删除评论 modal-->
-    <div class="modal fade" id="delComm" tabindex="-1" role="dialog">
+    <div class="modal fade" id="delComm" tabindex="-1" role="dialog" v-on:keyup.enter="confirmDelCommBtn(delBox)">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -284,7 +284,6 @@
   }
 
   .comment--replyBox {
-
     font-size: 14px;
     .comment--replyBox-body {
       .comment--replyBox--textarea {
@@ -461,6 +460,7 @@
             },
             confirmDelCommBtn: function (item) {
                 const scope = this;
+                $('#delComm').modal('hide');
                 DeleteComment(item._id).then((data)=> {
                 }).then(function () {
                     //刷新文章列表

@@ -4,7 +4,6 @@
     <div class="commentBox__questionBox">
       <input ng-focus="chain.selectId=''" class="commentBox__questionBox--input" type="text" placeholder="我要说几句"
              v-model="content">
-
       <button v-bind:disabled="!content" class="btn commentBox__questionBox--reply" @click="submit()">
         <span>提交</span>
       </button>
@@ -131,50 +130,121 @@
 <script type="text/javascript">
 
   import Vue from 'vue';
-  var eventHub = new Vue()
-  console.log('eventHub')
-  console.log(eventHub)
-
+  import {Toast} from 'mint-ui';
+  import {GetArticleComments, SendComment} from "../api/api_comment"
   export default{
     data(){
       return {
-        content: '',
-        name: '',
-        email: '',
+        hasNickName: false,
+        content: '',//评论信息
+        name: '',//评论人名称
+        email: '',//评论人邮箱
       }
     },
     props: [
-      'hasNickName',
-      'articleId',
-      'preId',
-      'eventHub',
+      'articleId',//文章id
+      'preId',//前置id，如果是根评论则是文章id，如果是子评论则为父评论的id
     ],
     methods: {
       submit: function () {
         let _this = this;
-        // console.log('replyThisComment')
-        // console.log(_this.eventHub)
-        _this.eventHub.$emit('replyThisComment', {
-          content: this.content,
-          name: this.name,
-          email: this.email,
-          article_id: this.articleId,
-          pre_id: this.preId,
-        })
+        if (!_this.hasNickName) {
+          if (!_this.name) {
+            Toast({
+              message: '请输入昵称', iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
+            return
+          }
+          if (!_this.email) {
+            Toast({
+              message: '请输入邮箱', iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
+            return
+          }
+          if (!/^\w+@[1-9a-z]+(\.[a-z]+){1,3}$/.test(_this.email)) {
+            Toast({
+              message: '邮箱格式输入错误',
+              iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
+            return
+          }
+          _this.$localStorage.$set({
+            commentInfo: {
+              name: _this.name,
+              email: _this.email
+            }
+          });
+          this.hasNickName = true;
+        }
+
+        let params = {
+          article_id: _this.articleId,
+          pre_id: _this.preId,
+          next_id: [],
+          name: _this.name,
+          email: _this.email,
+          time: new Date(),
+          content: _this.content,
+          state: false,
+          isIReplied: false
+        }
+
+        SendComment(params).then(()=> {
+          Toast({
+            message: '评论成功，正在审核！',
+            iconClass: 'fa fa-check',
+            position: 'center',
+            duration: 3000
+          });
+          this.toggle = !this.toggle;
+          _this.content = '';
+          console.log("SubmitSuccess")
+        }, (error)=> {
+          console.log(error)
+          console.log("SubmitFailure")
+        });
+        // _this.eventHub.$emit('replyThisComment', {
+        //   content: this.content,
+        //   name: this.name,
+        //   email: this.email,
+        //   article_id: this.articleId,
+        //   pre_id: this.preId,
+        // })
+
+
       }
     },
-    created:function () {
+    created: function () {
       let _this = this;
-      _this.eventHub.$on('Submitting',function () {
-        console.log("Submitting")
-      });
-      _this.eventHub.$on('SubmitSuccess',function () {
-        _this.content = '';
-        console.log("SubmitSuccess")
-      });
-      _this.eventHub.$on('SubmitFailure',function () {
-        console.log("SubmitFailure")
-      });
+      /**
+       * 获取游客昵称及邮箱,并设置input显示与否
+       * */
+      let commentInfo = _this.$localStorage.commentInfo
+      if (!!commentInfo && !!commentInfo.name && !!commentInfo.email) {
+        _this.hasNickName = true;
+        _this.name = commentInfo.name;
+        _this.email = commentInfo.email;
+      } else {
+        _this.hasNickName = false;
+      }
+
+
+      // _this.eventHub.$on('Submitting', function () {
+      //   console.log("Submitting")
+      // });
+      // _this.eventHub.$on('SubmitSuccess', function () {
+      //   _this.content = '';
+      //   console.log("SubmitSuccess")
+      // });
+      // _this.eventHub.$on('SubmitFailure', function () {
+      //   console.log("SubmitFailure")
+      // });
     },
     mounted: function () {
 

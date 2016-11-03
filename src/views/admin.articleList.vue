@@ -21,31 +21,31 @@
         <thead>
         <tr class="text-center">
           <th>#</th>
-          <th @click="order('title')">文章题目
+          <th @click="order('title')">文章题目/Title
             <span v-if="predicate == 'title'">
                     <i v-if="reverse==='asc'" class="fa fa-caret-up"></i>
                     <i v-if="reverse==='desc'" class="fa fa-caret-down"></i>
                 </span>
           </th>
-          <th @click="order('publish_time')">发布时间
+          <th @click="order('publish_time')">发布时间/Time
             <span v-if="predicate == 'publish_time'">
                     <i v-if="reverse==='asc'" class="fa fa-caret-up"></i>
                     <i v-if="reverse==='desc'" class="fa fa-caret-down"></i>
                 </span>
           </th>
-          <th @click="order('read_num')">阅读数
+          <th @click="order('read_num')">阅读数/Co.
             <span v-if="predicate == 'read_num'">
                     <i v-if="reverse==='asc'" class="fa fa-caret-up"></i>
                     <i v-if="reverse==='desc'" class="fa fa-caret-down"></i>
                 </span>
           </th>
-          <th @click="order('comment_num')">评论数
+          <th @click="order('comment_num')">评论数/Co.
             <span v-if="predicate == 'comment_num'">
                     <i v-if="reverse==='asc'" class="fa fa-caret-up"></i>
                     <i v-if="reverse==='desc'" class="fa fa-caret-down"></i>
                 </span>
           </th>
-          <th @click="order('state')">状态
+          <th @click="order('state')">状态/State
             <span v-if="predicate == 'state'">
                     <i v-if="reverse==='asc'" class="fa fa-caret-up"></i>
                     <i v-if="reverse==='desc'" class="fa fa-caret-down"></i>
@@ -135,7 +135,7 @@
         //cursor: pointer;
         max-width: 190px;
         border-top-color:transparent;
-        border-bottom:1px solid #8e8e8e;
+        border-bottom:1px solid $border-bottom-dark;
       }
     }
   }

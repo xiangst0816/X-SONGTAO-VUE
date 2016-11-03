@@ -215,7 +215,7 @@
         box-sizing: content-box;
         padding: 10px;
         margin-bottom: 5px;
-        border-bottom: 1px solid #6f6f6f;
+        border-bottom: 1px solid $border-bottom-dark;
         position: relative;
         &:nth-last-child(1) {
           border-bottom: 1px solid transparent;

@@ -201,6 +201,8 @@
         vertical-align: middle !important;
         font-size: 14px;
         text-align: center;
+        border-top-color:transparent;
+        border-bottom:1px solid $border-bottom-dark;
       }
     }
   }

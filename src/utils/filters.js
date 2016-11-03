@@ -64,9 +64,14 @@ export const num2MMM = function (value) {
   return output.toUpperCase();
 }
 
+/**
+ * 大写
+ * */
 export const uppercase = function (value) {
   return value.toUpperCase();
 }
+
+
 
 
 /**

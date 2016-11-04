@@ -1,9 +1,3 @@
-/**
-* Created by xiangsongtao on 16/7/24.
-* Description:
-*/
-
-<!--内容区-->
 <template>
   <div class="blog animated fadeIn">
     <my-info></my-info>

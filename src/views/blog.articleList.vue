@@ -1,7 +1,3 @@
-/**
-* Created by xiangsongtao on 16/7/24.
-* Description: 文章列表
-*/
 <template>
   <div class="main">
     <!-- transition="blogTrans"-->
@@ -10,7 +6,7 @@
          infinite-scroll-disabled="infiniteDisabled"
          infinite-scroll-distance="10">
       <router-link class="article" v-for="article of articleList" :key="article._id"
-               :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active"  tag="article">
+                   :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active" tag="article">
         <div class="article__header">
           <h2 class="article__header--title">{{article.title}}</h2>
           <div class="article__header--content">
@@ -44,11 +40,8 @@
 
       <no-data v-if="!hasData && !isLoading"></no-data>
       <!--<no-data v-if="!hasData && !isLoading"></no-data>-->
-      <is-loading v-if="isLoading"></is-loading>
+      <loading v-if="!!isLoading" class="loading" :number=9></loading>
     </div>
-
-
-
     <section class="copyright animated fadeIn" v-if="articleList.length!==0">
       <copyright></copyright>
     </section>
@@ -56,6 +49,15 @@
 </template>
 <style scoped lang="scss">
   @import "../theme/theme.scss";
+
+  .loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%!important;
+    height: 50px;
+    margin:0 auto;
+  }
 
   /*内容区*/
   .aritcleList {
@@ -189,7 +191,7 @@
           }
         }
         &:hover .article__infobox .arrticle__readmore span {
-          background-color:inherit;
+          background-color: inherit;
         }
         .article__header {
           padding: 30px 10px 10px;
@@ -220,87 +222,84 @@
   }
 
 </style>
-<script>
+<script type="text/javascript">
   import API from "../config.js"
   import noData from "../components/nodata.vue"
-  import isLoading from "../components/isLoading.vue"
+  import loading from "../components/loading.vue"
   import copyright from '../components/copyright.vue'
   import {GetArticleListForFrontEnd} from "../api/api_article"
   import Vue from 'vue'
   import {InfiniteScroll} from 'mint-ui';
   Vue.use(InfiniteScroll);
 
-  console.log('blog.articleList.vue');
-
   export default{
-    replace: true,
     data: function () {
       return {
         isLoading: true,//loading提示
         articleList: [],
         hasData: true,//hasData提示
         pageNow: 0,
-        infiniteDisabled:false,//是否禁用无限加载
+        infiniteDisabled: false,//是否禁用无限加载
       }
     },
     methods: {
       loadMore() {
-        let scope = this;
-        scope.isLoading = true;
+        let _this = this;
+        _this.isLoading = true;
         console.log('loading')
-        scope.getArticleList();
+        _this.getArticleList();
       },
       getArticleList: function () {
-        let scope = this;
+        let _this = this;
+
         /**
          * 文章列表会根据
          * "最新-latest"、"标签筛选-tagList"进行区分,
          * 不同的type进行不同的url搜索
          * */
-         console.log('get article list');
-        let listType = scope.$route.query.listType;
+        console.log('get article list');
+        let listType = _this.$route.query.listType;
         let url;
         switch (listType) {
           case 'latest':
-            url = API.newUpdateArticle.replace("from", parseInt(scope.pageNow)).replace("to", parseInt(API.ArticleNum));
+            url = API.newUpdateArticle.replace("from", parseInt(_this.pageNow)).replace("to", parseInt(API.ArticleNum));
             break;
           case 'tagList':
-            url = API.getArticlesWithTagId.replace("from", parseInt(scope.pageNow)).replace("to", parseInt(API.ArticleNum)).replace('id', scope.$route.query.tagId);
+            url = API.getArticlesWithTagId.replace("from", parseInt(_this.pageNow)).replace("to", parseInt(API.ArticleNum)).replace('id', _this.$route.query.tagId);
             break;
         }
         // 数据请求根据url参数会发生改变,故get时传入url
         GetArticleListForFrontEnd(url).then(function (data) {
           if (data.length > 0) {
-            scope.articleList = scope.articleList.concat(data);
-            scope.pageNow += parseInt(API.ArticleNum);
-
+            _this.articleList = _this.articleList.concat(data);
+            _this.pageNow += parseInt(API.ArticleNum);
             if (data.length == API.ArticleNum) {
-              scope.infiniteDisabled = false;
-            }else{
-              scope.infiniteDisabled = true;
-              scope.isLoading = false;
+              _this.infiniteDisabled = false;
+            } else {
+              _this.infiniteDisabled = true;
+              _this.isLoading = false;
             }
-
           } else {
-            scope.infiniteDisabled = true;
-            scope.isLoading = false;
+            _this.infiniteDisabled = true;
+            _this.isLoading = false;
           }
         }, function () {
-          scope.hasData = false;
+          _this.hasData = false;
         }).then(function () {
-          scope.articleList.length === 0 ? (scope.hasData = false,scope.isLoading = false) : ('');
+          _this.articleList.length === 0 ? (_this.hasData = false, _this.isLoading = false) : ('');
+          // Indicator.close();
         })
       },
     },
-    mounted: function () {
-      const scope = this;
-      $(window).scrollTop(0);// 滚到顶部
-      //scope.getArticleList();
+    created: function () {
+      const _this = this;
+      // $(window).scrollTop(0);// 滚到顶部
+      //_this.getArticleList();
     },
     destroyed: function () {
     },
     components: {
-      noData, copyright, isLoading,
+      noData, copyright, loading,
     },
   }
 </script>

@@ -4,11 +4,8 @@
 */
 <template>
   <div class="historyList">
-    <!--  animated fadeIn-->
     <div class="cataBox card-shadow" v-for="cataBox of historyList">
       <h3 class="cataBox__title">
-        <!--<i class="fa fa-calendar"></i>-->
-        <!--&ensp;-->
         <span class="main">{{cataBox.year}}</span>
         <span class="tag">时光机</span>
       </h3>
@@ -32,12 +29,21 @@
       <copyright></copyright>
     </section>
     <no-data v-if="!hasData && !isLoading"></no-data>
-    <is-loading v-if="isLoading"></is-loading>
+    <loading v-if="!!isLoading" class="loading" :number=9></loading>
   </div>
 </template>
 <style scoped lang="scss">
   //base
   @import "../theme/theme.scss";
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30% !important;
+    height: 50px;
+    margin: 0 auto;
+  }
 
   .historyList {
     @import "../theme/cataBox.scss";
@@ -167,38 +173,42 @@
 
   }
 </style>
-<script>
-    import Vue from "vue"
-    import noData from "../components/nodata.vue"
-    import {GetHistoryList} from "../api/api_article"
-    import copyright from '../components/copyright.vue'
-    import isLoading from "../components/isLoading.vue"
-    export default{
-        replace: true,
-        data: function () {
-            return {
-                historyList: [],
-                isLoading: true,
-                hasData: true,
-            }
-        },
-        methods: {},
-        mounted: function () {
-            const scope = this;
-            $(window).scrollTop(0);// 滚到顶部
-            // 获取文章历史列表
-            GetHistoryList().then((data)=> {
-                scope.historyList = data;
-            }, ()=> {
-                scope.hasData = false;
-            }).then(function () {
-                scope.historyList.length === 0 ? (scope.hasData = false) : (scope.hasData = true);
-                scope.isLoading = false;
-            });
-        },
-        components: {
-            noData, copyright, isLoading
-        }
+<script type="text/javascript">
+  import Vue from "vue"
+  import noData from "../components/nodata.vue"
+  import {GetHistoryList} from "../api/api_article"
+  import copyright from '../components/copyright.vue'
+  import loading from "../components/loading.vue"
+  export default{
+    data: function () {
+      return {
+        historyList: [],
+        isLoading: true,
+        hasData: true,
+      }
+    },
+    methods: {
+      // 获取文章历史列表
+      getHistoryList:function () {
+        const _this = this;
+        GetHistoryList().then((data)=> {
+          _this.historyList = data;
+        }, ()=> {
+          _this.hasData = false;
+        }).then(function () {
+          _this.historyList.length === 0 ? (_this.hasData = false) : (_this.hasData = true);
+          _this.isLoading = false;
+        });
+      }
+    },
+    created: function () {
+      const _this = this;
+      $(window).scrollTop(0);// 滚到顶部
+      _this.getHistoryList()
+    },
+    components: {
+      noData, copyright, loading
     }
+  }
 
 </script>

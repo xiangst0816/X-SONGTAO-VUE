@@ -6,7 +6,7 @@
       <div class="blog__content" v-show="!isShowMyWords">
         <div class="blog__content--inner">
           <transition name="blogTrans">
-            <router-view></router-view>
+              <router-view></router-view>
           </transition>
         </div>
       </div>
@@ -14,10 +14,9 @@
   </div>
 </template>
 <style scoped lang="scss">
+
   //base
   @import "../theme/theme.scss";
-
-  /*slide-right' : 'slide-left*/
   // transition 动画类
   .fade-enter-active, .fade-leave-active {
     transition: all .5s ease;

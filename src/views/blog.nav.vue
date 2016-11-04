@@ -229,7 +229,7 @@
 
 
 </style>
-<script>
+<script type="text/javascript">
   //    import 'bootstrap/js/tooltip.js'
   import API from '../config'
   import {mapState} from 'vuex';
@@ -322,13 +322,6 @@
             'background-image: ' + `url(${imgUrl});` +
             '}';
 
-//          $body.css({
-//            'background-image': `url(${imgUrl})`,
-//            'background-repeat': 'no-repeat',
-//            'background-size': 'cover',
-//            'background-attachment': 'fixed',
-//          });
-
           // 保存用户切换的壁纸信息,下次直接自动切换
           scope.$localStorage.$set('userBackground', imgUrl);
           css(cssRules);
@@ -347,13 +340,11 @@
       if (!!scope.$localStorage.userBackground) {
         setTimeout(function () {
           scope.changeBG(scope.$localStorage.userBackground)
-        }, 1500)
+        }, 3000)
       }
     },
     mounted: function () {
       const scope = this;
-      console.log('nav')
-
       /**
        * start tooltip
        * */

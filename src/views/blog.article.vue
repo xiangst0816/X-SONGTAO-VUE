@@ -108,7 +108,7 @@
               <loading :number="3" color="#38b7ea" class="topBar--loading" v-if="!articleTop.latest"></loading>
               <li v-show="articleTop.latest.length>0" class="topArticle--li animated fadeIn"
                   v-for="article of articleTop.latest">
-                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}" exact
+                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}"
                              activeClass="active" tag="a">{{article.title}}
                 </router-link>
                 <span>({{article.read_num}})</span>
@@ -693,27 +693,17 @@
 
 </style>
 <script type="text/javascript">
-  //"57826e945c21c1dd04b4ad4d"
   import API from "../config.js"
   import {GetArticleById, GetArticleTop} from "../api/api_article"
   import {GetArticleComments, SendComment} from "../api/api_comment"
-
   import commentReplyBox from '../components/commentReplyBox.vue'
   import loading from '../components/loading.vue'
-
   import "../theme/codeHighLight.css";
   import "../theme/markdown.scss";
   import "bootstrap/scss/bootstrap/_breadcrumbs.scss";
-
   import copyright from '../components/copyright.vue';
-
   import {Toast} from 'mint-ui';
   import  'mint-ui/lib/toast/style.css';
-
-  import Vue from 'vue';
-  var eventHub = new Vue()
-
-
   module.exports = {
     replace: true,
     data: function () {
@@ -728,7 +718,6 @@
         name: '',//评论人的昵称
         email: '',//评论人的email
         topNum: 5,//top 榜单
-        eventHub: '',
       }
     },
     watch:{

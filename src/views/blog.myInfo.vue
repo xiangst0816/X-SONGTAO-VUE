@@ -524,7 +524,7 @@
   }
 
 </style>
-<script>
+<script type="text/javascript">
 
   import Vue from "vue";
   import {addImgPrefix} from "../utils/filters.js";

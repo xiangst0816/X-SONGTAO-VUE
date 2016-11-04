@@ -1,7 +1,3 @@
-/**
-* Created by xiangsongtao on 16/7/24.
-* Description:
-*/
 <template>
   <div class="article animated fadeIn container">
     <div class="row">
@@ -109,20 +105,10 @@
               </h3>
             </div>
             <ul class="topBar--ul">
-              <div v-if="!articleTop.latest" class="topBar--loading ball-grid-pulse-loading">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+              <loading :number="3" color="#38b7ea" class="topBar--loading" v-if="!articleTop.latest"></loading>
               <li v-show="articleTop.latest.length>0" class="topArticle--li animated fadeIn"
                   v-for="article of articleTop.latest">
-                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}"
+                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}" exact
                              activeClass="active" tag="a">{{article.title}}
                 </router-link>
                 <span>({{article.read_num}})</span>
@@ -137,17 +123,7 @@
               </h3>
             </div>
             <ul class="topBar--ul">
-              <div v-if="!articleTop.read" class="topBar--loading ball-grid-pulse-loading">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+              <loading :number="3" color="#38b7ea" class="topBar--loading" v-if="!articleTop.latest"></loading>
               <li v-show="articleTop.read.length>0" class="topArticle--li animated fadeIn"
                   v-for="article of articleTop.read">
                 <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}"
@@ -165,17 +141,7 @@
               </h3>
             </div>
             <ul class="topBar--ul">
-              <div v-if="!articleTop.tag" class="topBar--loading ball-grid-pulse-loading">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+              <loading :number="3" color="#38b7ea" class="topBar--loading" v-if="!articleTop.latest"></loading>
               <li v-show="articleTop.tag.length>0" class="topTag--li  animated fadeIn" v-for="tag of articleTop.tag">
                 <router-link :to="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id }}"
                              activeClass="active" tag="a">
@@ -733,6 +699,7 @@
   import {GetArticleComments, SendComment} from "../api/api_comment"
 
   import commentReplyBox from '../components/commentReplyBox.vue'
+  import loading from '../components/loading.vue'
 
   import "../theme/codeHighLight.css";
   import "../theme/markdown.scss";
@@ -762,6 +729,12 @@
         email: '',//评论人的email
         topNum: 5,//top 榜单
         eventHub: '',
+      }
+    },
+    watch:{
+      '$route':function (val) {
+        // 获取文章
+        this.getArticleById(val.params.articleId);
       }
     },
     methods: {
@@ -802,14 +775,8 @@
           }
           console.log(error)
         });
-      },
 
-      /**
-       * 获取文章评论
-       * @param articleId 文章id
-       * */
-      getArticleCommentsById: function (articleId) {
-        const _this = this;
+        //获取文章评论
         GetArticleComments(articleId).then(function (data) {
           _this.commentList = data;
         }, function (error) {
@@ -863,6 +830,8 @@
     computed: {},
     created: function () {
       const _this = this;
+      let articleId = this.$route.params.articleId;
+
       $(window).scrollTop(0);// 滚到顶部
       // To Top
       $(document)
@@ -871,14 +840,9 @@
         $(window).scrollTop(0);
         //$('body, html').animate({scrollTop: 0}, 600);
       });
-    },
-    mounted: function () {
-      const _this = this;
-      let articleId = this.$route.params.articleId;
+
       // 获取文章
       _this.getArticleById(articleId);
-      // 获取文章评论
-      _this.getArticleCommentsById(articleId)
       // 获取文章top榜单
       _this.getArticleTop(_this.topNum);
     },
@@ -887,7 +851,8 @@
     },
     components: {
       'comment-box': commentReplyBox,
-      copyright
+      copyright,
+      loading
     },
   }
 

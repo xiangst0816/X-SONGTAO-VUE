@@ -9,11 +9,8 @@
         -webkit-user-select: none;
         position: relative;
         width: auto;
-        /*bottom: 1%;*/
-        /*left: 50%;*/
         color: #eee;
         font-size: 12px;
-        //transform: translate3d(-50%, 0, 0);
         p {
             overflow: hidden;
         }

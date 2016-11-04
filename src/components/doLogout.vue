@@ -34,13 +34,12 @@
         setLoginState: 'setLoginState',
       }),
       confirmLogout: function () {
-//                alert('confirmLogout')
-        const scope = this;
+        const _this = this;
         setTimeout(function () {
-          scope.$localStorage.$delete('authorization');
-          scope.$localStorage.$delete('commentInfo');
-          scope.setLoginState(false);
-          scope.$router.go({
+          _this.$localStorage.$delete('authorization');
+          _this.$localStorage.$delete('commentInfo');
+          _this.setLoginState(false);
+          _this.$router.push({
             name: 'index'
           });
           //开启tooltip

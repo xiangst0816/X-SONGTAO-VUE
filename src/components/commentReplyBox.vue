@@ -131,20 +131,30 @@
 
   import Vue from 'vue';
   import {Toast} from 'mint-ui';
+  import  'mint-ui/lib/toast/style.css';
   import {GetArticleComments, SendComment} from "../api/api_comment"
   export default{
     data(){
       return {
         hasNickName: false,
-        content: '',//评论信息
-        name: '',//评论人名称
-        email: '',//评论人邮箱
+        content: null,//评论信息
+        name: null,//评论人名称
+        email: null,//评论人邮箱
       }
     },
-    props: [
-      'articleId',//文章id
-      'preId',//前置id，如果是根评论则是文章id，如果是子评论则为父评论的id
-    ],
+    props:{
+      //文章id
+      articleId: {
+        type: String,
+        require: true,
+      },
+      //前置id，如果是根评论则是文章id，如果是子评论则为父评论的id
+      preId: {
+        type: String,
+        require: true,
+      },
+    },
+
     methods: {
       submit: function () {
         let _this = this;

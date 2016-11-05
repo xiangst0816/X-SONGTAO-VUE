@@ -5,28 +5,49 @@
  * 其余由api自己处理: 2~5-失败；
  */
 import Vue from "vue";
+import store from '../vuex/store';
+import {Toast} from 'mint-ui';
+import  'mint-ui/lib/toast/style.css';
+
 export const doError = function (code) {
-    code = parseInt(code);
-    switch (code) {
-        case 8:
-            history.back();
-            console.log('数据库查找错误');
-            break;
-        case 9:
-            alert("您没有操作权限!")
-            console.log('非admin用户');
-            break;
-        case 10:
-            console.log('token错误或超时,再登陆');
-            //清空本地数据
-            Vue.$localStorage.$reset();
-            //修改登录状态
-            $(document).trigger("ChangeLoginStatus",false);
-            location.replace('/#');
-            return 10;
-            break;
-        default:
-            return code;
-            break;
-    }
+  code = parseInt(code);
+  switch (code) {
+    case 8:
+      window.$router.back();
+      Toast({
+        message: '数据库查找错误!', iconClass: 'fa fa-warning',
+        position: 'center',
+        duration: 3000
+      });
+      break;
+    case 9:
+      Toast({
+        message: '您没有操作权限!', iconClass: 'fa fa-warning',
+        position: 'center',
+        duration: 3000
+      });
+      break;
+    case 10:
+      Toast({
+        message: 'Token超时,请再登陆!', iconClass: 'fa fa-warning',
+        position: 'center',
+        duration: 3000
+      });
+      //清空本地数据
+      Vue.$localStorage.$delete('authorization');
+      Vue.$localStorage.$delete('commentInfo');
+      //修改登录状态
+      store.dispatch('setLoginState', false);
+      // 跳转
+      window.$router.replace({
+        name:'login'
+      });
+      //开启tooltip
+      window.tooltip();
+      return 10;
+      break;
+    default:
+      return code;
+      break;
+  }
 };

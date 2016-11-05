@@ -13,23 +13,23 @@
     </div>
   </div>
 </template>
-
-<script>
+<script type="text/javascript">
   import Vue from "vue";
   import API from "./config";
   import blogNav from "./views/blog.nav";
   import socialInfo from "./components/socialInfo.vue";
   import doLogout from "./components/doLogout.vue";
-
   import store from './vuex/store'
-
-  console.log('store')
-  console.log(store)
-
+  import vStorage from './utils/vStorage.js'
+  import vueMoment from 'vue-moment';
+  import moment from 'moment';
+  import VueResource from 'vue-resource';
+  import {num2MMM, uppercase, addImgPrefix} from "./utils/filters.js";
+  import {Sign} from "./api/api_statistic";
+  import {mapState, mapActions} from 'vuex';
   /**
    * 设置本地存储
    * */
-  import vStorage from './utils/vStorage.js'
   Vue.use(vStorage, {
     storageKeyPrefix: 'xst-'
   });
@@ -37,42 +37,32 @@
   /**
    * 时间格式化插件-过滤器
    * */
-  var vueMoment = require('vue-moment');
-  var moment = require('moment');
   moment.locale('zh-cn')
   Vue.use(vueMoment);
 
-
-    /**
-     * filter全局注册
-     * */
-    import {num2MMM,uppercase,addImgPrefix} from "./utils/filters.js";
-    Vue.filter('num2MMM', num2MMM);
-    Vue.filter('uppercase', uppercase);
-    Vue.filter('addImgPrefix', addImgPrefix);
-
+  /**
+   * filter全局注册
+   * */
+  Vue.filter('num2MMM', num2MMM);
+  Vue.filter('uppercase', uppercase);
+  Vue.filter('addImgPrefix', addImgPrefix);
 
   /**
    * vue-resource 配置
    * */
-  var VueResource = require('vue-resource');
   Vue.use(VueResource);
   Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
   Vue.http.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
-  import {Sign} from "./api/api_statistic";
-  import {mapState,mapActions} from 'vuex';
   export default {
-    // name: 'app',
     store,
-    replace: false,
     data: function () {
       return {
         clear: '',
         musicList: API.musicList,
       }
     },
-    computed:{
+    computed: {
       ...mapState({
         isPlaying: 'isPlaying',
         isLoading: 'isLoading',
@@ -85,109 +75,110 @@
       }),
     },
     methods: {
-       //vuex
+      //vuex
       ...mapActions({
-        setLoginState:'setLoginState',
-        setPlayingStatus:'setPlayingStatus',
-        setMusicDuration:'setMusicDuration',
-        setMusicRightNow:'setMusicRightNow',
-        setCurrentMusic:'setCurrentMusic',
-        setLoadingStatus:'setLoadingStatus',
-        setCanAutoPlay:'setCanAutoPlay',
+        setLoginState: 'setLoginState',
+        setPlayingStatus: 'setPlayingStatus',
+        setMusicDuration: 'setMusicDuration',
+        setMusicRightNow: 'setMusicRightNow',
+        setCurrentMusic: 'setCurrentMusic',
+        setLoadingStatus: 'setLoadingStatus',
+        setCanAutoPlay: 'setCanAutoPlay',
       }),
       /**
        * music的控制在App.vue中,方便全局管理
        * 只是展示与事件触发,通过vuex操作
        * */
       playCtrl(){
-        let scope = this;
-        scope.setPlayingStatus(!scope.isPlaying);
+        let _this = this;
+        _this.setPlayingStatus(!_this.isPlaying);
       },
       preCtrl(){
-        let scope = this;
-        let currentid = scope.musicList.indexOf(scope.currentMusicInfo);
+        let _this = this;
+        let currentid = _this.musicList.indexOf(_this.currentMusicInfo);
         let index;
         if (currentid !== 0) {
           index = currentid - 1;
         } else {
-          index = scope.musicList.length - 1;
+          index = _this.musicList.length - 1;
         }
-        scope.indexCtrl(index);
+        _this.indexCtrl(index);
       },
       nextCtrl(){
-        let scope = this;
-        let currentid = scope.musicList.indexOf(scope.currentMusicInfo);
+        let _this = this;
+        let currentid = _this.musicList.indexOf(_this.currentMusicInfo);
         let index;
-        if (currentid !== (scope.musicList.length - 1)) {
+        if (currentid !== (_this.musicList.length - 1)) {
           index = currentid + 1;
         } else {
           index = 0;
         }
-        scope.indexCtrl(index);
+        _this.indexCtrl(index);
       },
       // 从第几个开始
       indexCtrl(index){
-        let scope = this;
-        scope._ended();
-        scope.setCurrentMusic(scope.musicList[index]);
-        scope._beforeStart();
-        scope._start();
-        scope.setPlayingStatus(true);
+        let _this = this;
+        _this._ended();
+        _this.setCurrentMusic(_this.musicList[index]);
+        _this._beforeStart();
+        _this._start();
+        _this.setPlayingStatus(true);
       },
       _init(){
-        let scope = this;
-        scope.setCurrentMusic(scope.musicList[0]);
-        scope._beforeStart();
-        //scope._start();
+        let _this = this;
+        _this.setCurrentMusic(_this.musicList[0]);
+        _this._beforeStart();
+        //_this._start();
       },
       //start之前的准备工作,比如清除上一个的播放数据
       _beforeStart(){
-        let scope = this;
+        let _this = this;
         //监听播放完毕状态
-        scope.MusicHandle.addEventListener('ended', function () {
-          scope._ended();
-          scope.nextCtrl();
+        _this.MusicHandle.addEventListener('ended', function () {
+          _this._ended();
+          _this.nextCtrl();
           //console.log("ended")
         });
         //监听加载状态
-        scope.MusicHandle.addEventListener('canplay', function () {
-          console.log("canplay")
-          scope.setLoadingStatus(false);
-          scope.setMusicDuration(scope.MusicHandle.duration)
+        _this.MusicHandle.addEventListener('canplay', function () {
+          console.log("music-canplay")
+          _this.setLoadingStatus(false);
+          _this.setMusicDuration(_this.MusicHandle.duration)
         });
         //开始请求数据
-        scope.MusicHandle.addEventListener('loadstart', function () {
-          console.log("loadstart")
-          scope.setLoadingStatus(true);
+        _this.MusicHandle.addEventListener('loadstart', function () {
+          console.log("music-loadstart")
+          _this.setLoadingStatus(true);
         });
         //开始请求数据
-        scope.MusicHandle.addEventListener('canplaythrough', function () {
-          console.log("canplaythrough")
-          scope.setLoadingStatus(false);
+        _this.MusicHandle.addEventListener('canplaythrough', function () {
+          console.log("music-canplaythrough")
+          _this.setLoadingStatus(false);
         });
       },
       _start(){
-        let scope = this;
-        scope.clear = setInterval(function () {
-          scope.setMusicRightNow(scope.MusicHandle.currentTime);
+        let _this = this;
+        _this.clear = setInterval(function () {
+          _this.setMusicRightNow(_this.MusicHandle.currentTime);
         }, 500)
       },
       _ended(){
-        let scope = this;
-        clearInterval(scope.clear);
-        scope.setPlayingStatus(false);
-        scope.setMusicRightNow(0);
+        let _this = this;
+        clearInterval(_this.clear);
+        _this.setPlayingStatus(false);
+        _this.setMusicRightNow(0);
       },
       setAutoPlay(){
-        let scope = this;
-        scope.setCanAutoPlay(!scope.canAutoPlay)
-        scope.$localStorage.$set('canAutoPlay', {
-          autoPlay: scope.canAutoPlay
+        let _this = this;
+        _this.setCanAutoPlay(!_this.canAutoPlay)
+        _this.$localStorage.$set('canAutoPlay', {
+          autoPlay: _this.canAutoPlay
         });
       },
 
     },
     created: function () {
+      const _this = this;
       /**
        * 签到
        * */
@@ -199,62 +190,54 @@
           Vue.$localStorage.$set('sign', (new Date().getTime()));
         });
       } else {
-       console.log('you have already sign!');
+        console.log('you have already sign!');
       }
 
       /**
        * 设定创窗口最小高度，写在body中
        * 我的信息展开的时候用到
        * */
-        var docEl = document.documentElement;
-        var clientHeight = docEl.clientHeight;
-        document.body.style.minHeight = clientHeight + 'px';
-    },
-    mounted: function () {
-      //更改loading状态
-      window.hideLoadingPage();
+      var docEl = document.documentElement;
+      var clientHeight = docEl.clientHeight;
+      document.body.style.minHeight = clientHeight + 'px';
 
-      const scope = this;
-      /**
-       * 进入检查是否有token,是否能直接登录
-       * */
-      if (!!scope.$localStorage.authorization) {
-        let authorization = scope.$localStorage.authorization;
-        let time = parseInt(authorization.time);
-        if ((new Date().getTime() - time) < 1000 * 60 * 60 * 2) {
-          //token有效,能进入
-          scope.setLoginState(true);
-          // 设置请求的token
-          Vue.http.headers.common['authorization'] = "token " + authorization.token;
-        }
-      }
-      //建立监听,如果有修改state中登录状态,则进行处理
-      $(document).on("ChangeLoginStatus", function (event, params) {
-        console.log('登录状态修改')
-        scope.setLoginState(!!params);
-      });
 
       /**
        * music 初始化
        * */
-      if (!scope.MusicHandle) {
-        scope._init()
+      if (!_this.MusicHandle) {
+        _this._init()
       }
+
+      /**
+       * 进入检查是否有token,是否能直接登录
+       * */
+      if (!!_this.$localStorage.authorization) {
+        let authorization = _this.$localStorage.authorization;
+        let time = parseInt(authorization.time);
+        if ((new Date().getTime() - time) < 1000 * 60 * 60 * 2) {
+          //token有效,能进入
+          _this.setLoginState(true);
+          // 设置请求的token
+          Vue.http.headers.common['authorization'] = "token " + authorization.token;
+        }
+      }
+
 
       /**
        * music 播放的控制区
        * */
       $(document).on("Music_PlayCtrl", function (event, params) {
-        scope.playCtrl();
+        _this.playCtrl();
       });
       $(document).on("Music_PreCtrl", function (event, params) {
-        scope.preCtrl();
+        _this.preCtrl();
       });
       $(document).on("Music_NextCtrl", function (event, params) {
-        scope.nextCtrl();
+        _this.nextCtrl();
       });
       $(document).on("Music_SetAutoPlay", function (event, params) {
-        scope.setAutoPlay();
+        _this.setAutoPlay();
       });
 
       /**
@@ -262,11 +245,15 @@
        * 是否自动播放
        * 进入初始化
        * */
-      if (!!scope.$localStorage.canAutoPlay && !scope.isPlaying) {
-        scope.setCanAutoPlay(scope.$localStorage.canAutoPlay.autoPlay);
-        scope.setPlayingStatus(scope.$localStorage.canAutoPlay.autoPlay);
+      if (!!_this.$localStorage.canAutoPlay && !_this.isPlaying) {
+        _this.setCanAutoPlay(_this.$localStorage.canAutoPlay.autoPlay);
+        _this.setPlayingStatus(_this.$localStorage.canAutoPlay.autoPlay);
       }
 
+    },
+    mounted: function () {
+      //更改loading状态,，隐藏index中的loading画面
+      window.hideLoadingPage();
     },
     components: {
       //小组件挂载集中挂载
@@ -275,8 +262,6 @@
       doLogout,
     },
   }
-
-
 
 
 </script>

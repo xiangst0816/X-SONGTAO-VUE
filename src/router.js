@@ -11,6 +11,7 @@
  */
 'use strict';
 import Vue from 'vue';
+import store from './vuex/store'
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 const routes = [
@@ -35,8 +36,8 @@ const routes = [
     // 跳转到文章列表并携带参数
     redirect: {
       name: 'artList',
-      query:{
-        listType:'latest'
+      query: {
+        listType: 'latest'
       }
     },
     component: require('./views/blog.vue'),
@@ -86,6 +87,7 @@ const routes = [
     component: function (resolve) {
       require(['./views/admin.vue'], resolve)
     },
+    meta: {requiresAuth: true},
     children: [
       {
         path: 'admin-dashboard',
@@ -93,6 +95,7 @@ const routes = [
         component: function (resolve) {
           require(['./views/admin.dashboard.vue'], resolve)
         },
+        meta: {requiresAuth: true},
       },
       {
         path: 'admin-myinfo',
@@ -100,6 +103,7 @@ const routes = [
         component: function (resolve) {
           require(['./views/admin.myInfo.vue'], resolve)
         },
+        meta: {requiresAuth: true},
       },
       {
         path: 'admin-tag',
@@ -107,17 +111,18 @@ const routes = [
         component: function (resolve) {
           require(['./views/admin.tagList.vue'], resolve)
         },
-
+        meta: {requiresAuth: true},
       },
       {
         path: 'admin-articleManager',
         name: 'admin-articleManager',
         redirect: {
-          name:'admin-articleList'
+          name: 'admin-articleList'
         },
         component: {
           template: '<router-view></router-view>'
         },
+        meta: {requiresAuth: true},
         children: [
           {
             path: 'admin-articleList',
@@ -125,7 +130,7 @@ const routes = [
             component: function (resolve) {
               require(['./views/admin.articleList.vue'], resolve)
             },
-
+            meta: {requiresAuth: true},
           },
           {
             path: 'admin-article/:articleId',
@@ -133,6 +138,7 @@ const routes = [
             component: function (resolve) {
               require(['./views/admin.article.vue'], resolve)
             },
+            meta: {requiresAuth: true},
           },
         ]
       },
@@ -142,6 +148,7 @@ const routes = [
         component: function (resolve) {
           require(['./views/admin.commentList.vue'], resolve)
         },
+        meta: {requiresAuth: true},
       },
     ]
   }
@@ -152,28 +159,67 @@ const router = new VueRouter({
   base: '/',//默认值: "/",应用的基路径。例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"。
   routes: routes // （缩写）相当于 routes: routes
 });
-module.exports = router;
 
-//路由重定向
-// router.redirect({
-//   '/blog': '/blog/art-list/?listType=latest',
-//   '/blog/tag-list': '/blog/tag-list/classify',
-//   '/admin/admin-articleManager': '/admin/admin-articleManager/admin-articleList',
-// });
-//路由切换前
-// router.beforeEach(({to, from, next}) => {
-//   if (to.auth && !store.state.isLogin) {
-//     router.go({
-//       name: 'login'
-//     })
-//   }
-//   next()
-// })
-//路由切换后
-// router.afterEach(function ({to}) {
-//   // console.log(`成功浏览到: ${to.path}`)
-//   // $.refreshScroller()
-// });
-//在根组件上启动路由,挂载点位为body上
-// router.start(App, '#app');
-// }
+/**
+ * 登录状态检查
+ * */
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    // 未登录状态
+    if (!store.state.isLogin) {
+      //存在authorization信息，则验证下。
+      if (!!Vue.$localStorage.authorization) {
+        _checkAuth().then(function () {
+          next();
+        },function () {
+          next({
+            name: 'login',
+          })
+        });
+      } else {
+        next({
+          name: 'login',
+        })
+      }
+    } else {
+      _checkAuth().then(function () {
+        next();
+      },function () {
+        next({
+          name: 'login',
+        })
+      });
+    }
+  } else {
+    next(); // 确保一定要调用 next()
+  }
+});
+
+
+/**
+ * Token验证，只是对时间验证过期否
+ * */
+function _checkAuth() {
+  return new Promise(function (resolve, reject) {
+    let authorization = Vue.$localStorage.authorization;
+    let time = parseInt(authorization.time);
+    if ((new Date().getTime() - time) < 1000 * 60 * 60 * 2) {
+      //token有效,能进入
+      store.dispatch('setLoginState',true);
+      // 设置请求的token
+      Vue.http.headers.common['authorization'] = "token " + authorization.token;
+      resolve();
+    } else {
+      Vue.$localStorage.$delete('authorization');
+      Vue.$localStorage.$delete('commentInfo');
+      store.dispatch('setLoginState',false);
+      //开启tooltip
+      window.tooltip();
+      reject();
+    }
+  })
+}
+
+module.exports = router;

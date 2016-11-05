@@ -32,7 +32,7 @@
     </section>
   </div>
 </template>
-<style scoped lang="scss">
+<style _thisd lang="scss">
   //base
   @import "../theme/theme.scss";
   //登录页面
@@ -134,14 +134,14 @@
         setLoginState: 'setLoginState',
       }),
       loginBtn: function () {
-        const scope = this;
+        const _this = this;
 
-        if (!scope.username) {
-          scope.errText = "请输入用户名!";
+        if (!_this.username) {
+          _this.errText = "请输入用户名!";
           return;
         }
-        if (!scope.password) {
-          scope.errText = "请输入密码!";
+        if (!_this.password) {
+          _this.errText = "请输入密码!";
           return;
         }
 
@@ -149,25 +149,25 @@
           let arr = data.token.split('|');
           let _salt_left = arr[0];
           let _salt_right = arr[1];
-          let _salt_mid = md5(scope.password);
+          let _salt_mid = md5(_this.password);
 
           Login({
-            username: scope.username,
+            username: _this.username,
             password: md5(`${_salt_left}|${_salt_mid}|${_salt_right}`) + '|' + _salt_right
           }).then(function (response) {
             //权限信息
-            scope.$localStorage.$set('authorization', {
+            _this.$localStorage.$set('authorization', {
               token: response.token,
               time: new Date().getTime()
             });
             //我进行评论的信息
-            if (scope.username.indexOf("visitor") !== -1) {
-              scope.$localStorage.$set('commentInfo', {
+            if (_this.username.indexOf("visitor") !== -1) {
+              _this.$localStorage.$set('commentInfo', {
                 "name": "Visitor",
                 "email": "visitor@email.com"
               });
             } else {
-              scope.$localStorage.$set('commentInfo', {
+              _this.$localStorage.$set('commentInfo', {
                 "name": API.MY,
                 "email": API.EMAIL
               });
@@ -182,19 +182,19 @@
              * start tooltip
              * */
             window.tooltip();
-            scope.setLoginState(true);//设置全局登录状态
+            _this.setLoginState(true);//设置全局登录状态
 
-            scope.$router.replace({//跳转
+            _this.$router.replace({//跳转
               name: 'index'
             });
 
           }, (err)=> {
             switch (parseInt(err)) {
               case 2:
-                scope.errText = "用户名或密码错误,请再检查!";
+                _this.errText = "用户名或密码错误,请再检查!";
                 break;
               default:
-                scope.errText = "系统错误!";
+                _this.errText = "系统错误!";
                 break;
             }
             console.log('err:' + err)

@@ -215,8 +215,6 @@ function _checkAuth() {
       Vue.$localStorage.$delete('authorization');
       Vue.$localStorage.$delete('commentInfo');
       store.dispatch('setLoginState',false);
-      //开启tooltip
-      window.tooltip();
       reject();
     }
   })

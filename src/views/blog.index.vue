@@ -6,11 +6,12 @@
             <div class="head-wrap">
                 <h3 class="text-center services">前端工程师 - Nodejs工程师</h3>
                 <div id="headlines">
-                    <h1 :class="{'current': now==1}" class="text-center textItem">我是<span class="blue">Songtao</span></h1>
+                    <h1 :class="{'current': now==1}" class="text-center textItem">Hello <span class="blue">Vue2.0</span></h1>
+                    <h1 :class="{'current': now==2}" class="text-center textItem">我是<span class="blue">Songtao</span></h1>
                     <!--<h1 :class="{'current': now==2}" class="text-center textItem">这条路是<span class="blue">正道</span>吗？</h1>-->
-                    <h1 :class="{'current': now==2}" class="text-center textItem">不忘<span class="blue">初心</span> 方得<span class="blue">始终</span></h1>
-                    <h1 :class="{'current': now==3}" class="text-center textItem"><span class="blue">坚持</span>才是捷径!</h1>
-                    <h1 :class="{'current': now==4}" class="text-center textItem">开始<span class="blue">行动</span>吧!</h1>
+                    <h1 :class="{'current': now==3}" class="text-center textItem">不忘<span class="blue">初心</span> 方得<span class="blue">始终</span></h1>
+                    <h1 :class="{'current': now==4}" class="text-center textItem"><span class="blue">坚持</span>才是捷径!</h1>
+                    <h1 :class="{'current': now==5}" class="text-center textItem">开始<span class="blue">行动</span>吧!</h1>
                     <!--<h1 :class="{'current': now==6}" class="text-center textItem">我还在上道的<span class="blue">路上</span>,求带!</h1>-->
                 </div>
                 <div class="text-center cat">一个记录时光的博客</div>

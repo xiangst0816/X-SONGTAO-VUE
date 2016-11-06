@@ -753,8 +753,7 @@
   import "../theme/markdown.scss";
   import "bootstrap/scss/bootstrap/_breadcrumbs.scss";
   import copyright from '../components/copyright.vue';
-  import {Toast} from 'mint-ui';
-  import  'mint-ui/lib/toast/style.css';
+  import Toast from 'Toast';
   module.exports = {
     replace: true,
     data: function () {

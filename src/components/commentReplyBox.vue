@@ -178,8 +178,7 @@
 <script type="text/javascript">
 
   import Vue from 'vue';
-  import {Toast} from 'mint-ui';
-  import  'mint-ui/lib/toast/style.css';
+  import Toast from 'Toast';
   import {GetArticleComments, SendComment} from "../api/api_comment"
   import {mapState,mapActions} from 'vuex';
 

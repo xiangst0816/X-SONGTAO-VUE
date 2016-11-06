@@ -6,8 +6,7 @@
  */
 import Vue from "vue";
 import store from '../vuex/store';
-import {Toast} from 'mint-ui';
-import  'mint-ui/lib/toast/style.css';
+import Toast from 'Toast';
 
 export const doError = function (code) {
   code = parseInt(code);

@@ -1,13 +1,8 @@
-/**
-* Created by xiangsongtao on 16/7/24.
-* Description: 后台 标签管理
-*/
-<!--内容区-->
 <template>
   <div>
     <div class="animated fadeIn tags">
       <h3 class="title">
-        <i class="fa fa-fw fa-lg fa-tag"></i> 标签管理 / <span class="blue">TAGS</span>
+        <i class="fa fa-fw fa-lg fa-tag"></i> 标签管理 / <span class="">TAGS</span>
       </h3>
       <!--增加-->
       <div class="btnBox text-right">

@@ -3,13 +3,15 @@
 * Description: 博客页, 我的信息
 */
 <template>
-  <div class="myinfo" :class="{ 'active': isShowMyWords}">
+
+  <!--<div class="myinfo" :class="{ 'showMyWords': isShowMyWords}">-->
+  <div id="myinfo" class="myinfo">
     <!--我的信息列表-->
     <section class="detail text-center">
       <section class="detail__1">
         <section class="detail__imgBox" @click="setMyWordStatus">
           <div class="imgBox">
-            <img class="img-circle" :src="imgPrefix(myinfo.img_url)" >
+            <img class="img-circle" :src="imgPrefix(myinfo.img_url)">
             <!--<img class="img-circle" :src="myinfo.img_url | addImgPrefix" v-err-src.literal="">-->
           </div>
         </section>
@@ -25,11 +27,18 @@
         </section>
       </section>
       <section class="detail__2">
-        <section class="detail__nav"  :class="{'active':isShowMyWords}">
+        <section class="detail__nav" :class="{'active':isShowMyWords}">
           <ul class="tabs text-shadow">
-            <li><router-link :to="{ name: 'artList',query: { listType: 'latest' }}" activeClass="active" tag="a">最新列表</router-link></li>
-            <li><router-link :to="{ name: 'historyList'}" activeClass="active" tag="a">时光机</router-link></li>
-            <li><router-link :to="{ name: 'tagList'}" activeClass="active" tag="a">标签库</router-link></li>
+            <li>
+              <router-link :to="{ name: 'artList',query: { listType: 'latest' }}" activeClass="active" tag="a">最新列表
+              </router-link>
+            </li>
+            <li>
+              <router-link :to="{ name: 'historyList'}" activeClass="active" tag="a">时光机</router-link>
+            </li>
+            <li>
+              <router-link :to="{ name: 'tagList'}" activeClass="active" tag="a">标签库</router-link>
+            </li>
           </ul>
         </section>
         <section class="detail__sns hidden-xs">
@@ -61,13 +70,69 @@
 
   $animationTime_1: 500ms;
   $animationTime_2: 200ms;
+  .showMyWords {
+    position: fixed!important;
+  }
+  .showMyWords-active {
+    @include media(">desktop") {
+      width: 100% !important;
+      .mywords {
+        width: 720px !important;
+        opacity: 1 !important;
+        overflow: inherit !important;
+        transition: width $animationTime_1 ease, opacity $animationTime_2 ease $animationTime_1 !important;
+      }
+    }
+    @include media("<=desktop") {
+      width: 100%!important;
+      height: 100%!important;
+      position: fixed!important;
+      .mywords {
+        /*height: 230px!important;*/
+        height: 230px!important;
+        width: 100%!important;
+        overflow: inherit!important;
+        opacity: 1!important;
+        transition: all $animationTime_1 ease!important;
+      }
+    }
+    @include media("<=desktop_small") {
+      padding-right: 0!important;
+      .detail {
+        padding-top: 45px!important;
+      }
+      .mywords {
+
+      }
+    }
+    @include media("<=phone") {
+      /*width: 100%!important;*/
+      /*height: 100%!important;*/
+      .detail{
+        height: 105px!important;;
+        padding-top:0!important;
+        .detail__2 {
+          margin-top: 0!important;;
+          height: 0!important;;overflow: hidden;
+        }
+      }
+      .mywords{
+        article{
+          text-align: center;
+
+          p{
+            margin:0!important;
+          }
+        }
+      }
+    }
+  }
   .myinfo {
     z-index: 99;
-
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
-
     .detail {
+      box-sizing: content-box;
       .detail__1 {
         .detail__imgBox {
           width: 160px;
@@ -151,7 +216,7 @@
       }
       .detail__2 {
         .detail__nav {
-          &.active{
+          &.active {
             // 这里确定，展开我的信息的时候是否显示导航条，暂时不撤处理
             /*visibility: hidden;*/
           }
@@ -260,68 +325,7 @@
       position: relative;
       box-sizing: border-box;
     }
-    &.active {
-      @include media(">desktop") {
-        width: 100%;
-        .mywords {
-          width: 720px;
-          opacity: 1;
-          overflow: inherit;
-          transition: width $animationTime_1 ease, opacity $animationTime_2 ease $animationTime_1;
-        }
-      }
-      @include media("<=desktop") {
-
-        position: fixed;
-        max-height: 983px;
-        width: 100%;
-        height: 100%;
-        /*padding-right: 45px;*/
-        transition: all $animationTime_1 ease;
-        .mywords {
-          height: 230px;
-          width: 100%;
-          overflow: inherit;
-          opacity: 1;
-          transition: all $animationTime_1 ease;
-        }
-      }
-      @include media("<=desktop_small") {
-        padding-right: 0;
-        .detail {
-          padding-top: 0;
-        }
-        .mywords {
-          padding: 0px 40px;
-        }
-      }
-      @include media("<=phone") {
-        /*height: auto;*/
-        /*position: relative;*/
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        transition: none;
-        .mywords {
-          text-align: center;
-          padding: 5px 20px;
-          height: auto;
-          font-size: 12px;
-          width: 100%;
-          overflow: inherit;
-          opacity: 1;
-          transition: none;
-          p {
-            margin: 0 !important;
-          }
-        }
-
-      }
-    }
   }
-
-  // transition 动画类
-
 
   /*响应式处理*/
   @include media(">desktop") {
@@ -395,7 +399,6 @@
     .myinfo {
       width: 100%;
       height: 100%;
-      max-height: 983px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -459,7 +462,6 @@
         overflow: hidden;
         width: 720px;
         opacity: 0;
-
         transition: height $animationTime_1 ease, opacity $animationTime_2 ease;
       }
     }
@@ -477,22 +479,31 @@
     .myinfo {
       height: 315px;
       .detail {
-        padding-top: 45px;
+        padding: 45px 0 0 0 ;
+        transition: padding ease 500ms;
+      }
+      .mywords{
+        padding: 0px 40px!important;
       }
     }
   }
 
   @include media("<=phone") {
     .myinfo {
-      justify-content: flex-start;
-      height: 245px;
+      justify-content: center;
+
+      height: 190px;
       .detail {
-        width: 100%;
-        flex-wrap: nowrap;
-        height: 100%;
+        /*width: 100%;*/
+        /*flex-wrap: nowrap;*/
+        /*height: 100%;*/
+        height: 195px;
+        min-height:inherit;
         .detail__1 {
-          flex-direction: column;
+          margin:5px 0;
+          flex-direction: row;
           .detail__imgBox {
+            margin:0 10px;
             .imgBox {
               width: 80px;
               height: 80px;
@@ -506,6 +517,8 @@
             height: 80px;
           }
           .detail__info {
+            margin:0 10px;
+            width: auto;
             .name {
               margin: 10px 0;
               font-size: 26px;
@@ -517,7 +530,24 @@
           }
         }
         .detail__2 {
-          margin-top: 0;
+          margin:5px 0;
+          transition: height ease 500ms;
+        }
+      }
+      .mywords{
+        width: 100%;
+        font-size: 12px;
+        padding:0 20px!important;
+        article{
+          margin:10px 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 7; //显示的行数
+          -webkit-box-orient: vertical;
+          p{
+            margin:0!important;
+          }
         }
       }
     }
@@ -529,7 +559,7 @@
   import Vue from "vue";
   import {addImgPrefix} from "../utils/filters.js";
   import {GetMyInfo} from '../api/api_myinfo'
-
+  import {mapState, mapActions} from 'vuex';
   Vue.directive('err-src', {
     bind: function () {
       let scope = this;
@@ -563,32 +593,49 @@
       // 例如，删除 bind() 添加的事件监听器
     }
   });
-
-
-  import {mapState,mapActions} from 'vuex';
   export default {
     //replace: true,
     data: function () {
       return {
         myinfo: {},
         socialImg: '',
+        clear:'',//清除setTimeout
       }
     },
-    computed:{
+    watch: {
+      // 类添加策略，用于显示我的信息
+      isShowMyWords: function (val) {
+        var _this = this;
+        var $myinfo = $("#myinfo")
+        if (val) {
+          //true
+          clearTimeout(_this.clear);
+          $myinfo.addClass('showMyWords showMyWords-active')
+        } else {
+          //false
+          $myinfo.removeClass('showMyWords-active');
+          clearTimeout(_this.clear);
+          _this.clear = setTimeout(function () {
+            $myinfo.removeClass('showMyWords');
+          }, 500);
+        }
+      }
+    },
+    computed: {
       ...mapState({
         isShowMyWords: 'isShowMyWords',
       }),
       //addImgPrefix,
     },
     methods: {
-      imgPrefix:function(val){
+      imgPrefix: function (val) {
         return addImgPrefix(val)
       },
       showSocialImg: function (url) {
         this.setSocialImgUrl(url)
       },
       ...mapActions({
-       // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
+        // 注意在这里你需要 `getMyInfo` 函数本身而不是它的执行结果 'getMyInfo()'
         setMyWordStatus: 'setMyWordStatus',//toggle我的个人称述显影状态,因为其他组件可能需要这个信息
         setSocialImgUrl: 'setSocialImgUrl',//更改社交的二维码图片
       }),
@@ -599,7 +646,7 @@
         scope.myinfo = data;
       });
     },
-    mounted:function(){
+    mounted: function () {
 
 
     }

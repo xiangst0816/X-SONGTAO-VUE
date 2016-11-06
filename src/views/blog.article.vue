@@ -751,7 +751,7 @@
         }, function (error) {
           if (error == 2) {
             Toast({
-              message: '访问的文章不存在！', iconClass: 'fa fa-warning',
+              message: '无法获取文章', iconClass: 'fa fa-warning',
               position: 'center',
               duration: 3000
             });
@@ -769,7 +769,7 @@
           _this.commentList = data;
         }, function (error) {
           Toast({
-            message: '获取文章评论错误！', iconClass: 'fa fa-warning',
+            message: '无法获取评论', iconClass: 'fa fa-warning',
             position: 'center',
             duration: 3000
           });
@@ -782,15 +782,20 @@
        * */
       getArticleTop: function (topNum) {
         const _this = this;
-        GetArticleTop(topNum).then(function (data) {
-          _this.articleTop = data;
-        }, function (error) {
-          Toast({
-            message: '获取文章榜单错误！', iconClass: 'fa fa-warning',
-            position: 'center',
-            duration: 3000
+        /**
+         * 使用环境判断 userAgent 如果不是mobile则搜索top榜单
+         * */
+        if (!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
+          GetArticleTop(topNum).then(function (data) {
+            _this.articleTop = data;
+          }, function (error) {
+            Toast({
+              message: '无法获取榜单', iconClass: 'fa fa-warning',
+              position: 'center',
+              duration: 3000
+            });
           });
-        });
+        }
       },
 
       /**

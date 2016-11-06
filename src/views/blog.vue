@@ -130,7 +130,7 @@
       .blog__content {
         padding-left: 6px;
         padding-right: 6px;
-        padding-top: 245px;
+        padding-top: 190px;
         .blog__content--inner {
           padding-top: 6px;
         }

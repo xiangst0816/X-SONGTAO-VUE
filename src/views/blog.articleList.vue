@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    <!-- transition="blogTrans"-->
     <div class="aritcleList"
          v-infinite-scroll="loadMore"
          infinite-scroll-disabled="infiniteDisabled"
@@ -10,7 +9,7 @@
         <div class="article__header">
           <h2 class="article__header--title">{{article.title}}</h2>
           <div class="article__header--content">
-            {{article.content}}
+            {{article.abstract}}
           </div>
         </div>
         <div class="article__infobox">

@@ -195,7 +195,7 @@
         .article__header {
           padding: 30px 10px 10px;
           .article__header--title {
-            font-size: 20px;
+            font-size: 28px;
           }
           .article__header--content {
             font-size: 14px;

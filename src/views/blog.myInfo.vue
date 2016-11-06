@@ -71,8 +71,11 @@
   $animationTime_1: 500ms;
   $animationTime_2: 200ms;
   .showMyWords {
-    position: fixed!important;
+    position: fixed !important;
+    top:0!important;
+    right:0!important;
   }
+
   .showMyWords-active {
     @include media(">desktop") {
       width: 100% !important;
@@ -84,49 +87,48 @@
       }
     }
     @include media("<=desktop") {
-      width: 100%!important;
-      height: 100%!important;
-      position: fixed!important;
+      width: 100% !important;
+      height: 100% !important;
+      position: fixed !important;
       .mywords {
         /*height: 230px!important;*/
-        height: 230px!important;
-        width: 100%!important;
-        overflow: inherit!important;
-        opacity: 1!important;
-        transition: all $animationTime_1 ease!important;
+        height: 230px !important;
+        width: 100% !important;
+        overflow: inherit !important;
+        opacity: 1 !important;
+        transition: all $animationTime_1 ease !important;
       }
     }
     @include media("<=desktop_small") {
-      padding-right: 0!important;
+      padding-right: 0 !important;
       .detail {
-        padding-top: 45px!important;
+        padding-top: 45px !important;
       }
       .mywords {
 
       }
     }
     @include media("<=phone") {
-      /*width: 100%!important;*/
-      /*height: 100%!important;*/
-      .detail{
-        height: 105px!important;;
-        padding-top:0!important;
+      .detail {
+        height: 105px !important;
+        padding-top: 0 !important;
         .detail__2 {
-          margin-top: 0!important;;
-          height: 0!important;;overflow: hidden;
+          margin-top: 0 !important;
+          height: 0 !important;
+          overflow: hidden;
         }
       }
-      .mywords{
-        article{
+      .mywords {
+        article {
           text-align: center;
-
-          p{
-            margin:0!important;
+          p {
+            margin: 0 !important;
           }
         }
       }
     }
   }
+
   .myinfo {
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.6);
@@ -479,11 +481,11 @@
     .myinfo {
       height: 315px;
       .detail {
-        padding: 45px 0 0 0 ;
+        padding: 45px 0 0 0;
         transition: padding ease 500ms;
       }
-      .mywords{
-        padding: 0px 40px!important;
+      .mywords {
+        padding: 0px 40px !important;
       }
     }
   }
@@ -491,19 +493,15 @@
   @include media("<=phone") {
     .myinfo {
       justify-content: center;
-
       height: 190px;
       .detail {
-        /*width: 100%;*/
-        /*flex-wrap: nowrap;*/
-        /*height: 100%;*/
         height: 195px;
-        min-height:inherit;
+        min-height: inherit;
         .detail__1 {
-          margin:5px 0;
+          margin: 5px 0;
           flex-direction: row;
           .detail__imgBox {
-            margin:0 10px;
+            margin: 0 10px;
             .imgBox {
               width: 80px;
               height: 80px;
@@ -517,7 +515,7 @@
             height: 80px;
           }
           .detail__info {
-            margin:0 10px;
+            margin: 0 10px;
             width: auto;
             .name {
               margin: 10px 0;
@@ -530,23 +528,23 @@
           }
         }
         .detail__2 {
-          margin:5px 0;
+          margin: 5px 0;
           transition: height ease 500ms;
         }
       }
-      .mywords{
+      .mywords {
         width: 100%;
         font-size: 12px;
-        padding:0 20px!important;
-        article{
-          margin:10px 0;
+        padding: 0 20px !important;
+        article {
+          margin: 10px 0;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
           -webkit-line-clamp: 7; //显示的行数
           -webkit-box-orient: vertical;
-          p{
-            margin:0!important;
+          p {
+            margin: 0 !important;
           }
         }
       }
@@ -599,7 +597,7 @@
       return {
         myinfo: {},
         socialImg: '',
-        clear:'',//清除setTimeout
+        clear: '',//清除setTimeout
       }
     },
     watch: {

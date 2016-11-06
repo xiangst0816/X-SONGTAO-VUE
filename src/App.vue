@@ -13,6 +13,7 @@
     </div>
   </div>
 </template>
+
 <script type="text/javascript">
   import Vue from "vue";
   import API from "./config";
@@ -201,6 +202,12 @@
       var clientHeight = docEl.clientHeight;
       document.body.style.minHeight = clientHeight + 'px';
 
+      //建立监听,如果有修改state中登录状态,则进行处理
+      $(document).on("ChangeLoginStatus", function (event, params) {
+        console.log('登录状态修改')
+        _this.setLoginState(!!params);
+      });
+
 
       /**
        * music 初始化
@@ -254,6 +261,7 @@
     mounted: function () {
       //更改loading状态,，隐藏index中的loading画面
       window.hideLoadingPage();
+
     },
     components: {
       //小组件挂载集中挂载

@@ -229,6 +229,7 @@ fieldset[disabled] .multiselect {
 .multiselect__single {
   font-family: inherit;
   font-size: 14px;
+  min-width:5px;
 }
 
 .multiselect {
@@ -314,6 +315,7 @@ fieldset[disabled] .multiselect {
   display: flex;
   justify-content:flex-start;
   align-items: center;
+  overflow:hidden;
 }
 
 .multiselect__tag {

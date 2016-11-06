@@ -194,19 +194,9 @@
         console.log('you have already sign!');
       }
 
-      /**
-       * 设定创窗口最小高度，写在body中
-       * 我的信息展开的时候用到
-       * */
-      var docEl = document.documentElement;
-      var clientHeight = docEl.clientHeight;
-      document.body.style.minHeight = clientHeight + 'px';
 
-      //建立监听,如果有修改state中登录状态,则进行处理
-      $(document).on("ChangeLoginStatus", function (event, params) {
-        console.log('登录状态修改')
-        _this.setLoginState(!!params);
-      });
+
+
 
 
       /**

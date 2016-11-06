@@ -246,18 +246,20 @@
               width: 40px;
               font-size: 18px;
               margin: 0 18px;
+              box-sizing: border-box;
             }
             .main {
               height: 50px;
               width: 50px;
               font-size: 25px;
+              box-sizing: border-box;
               .play-center {
                 position: relative;
                 left: 3px;
               }
               .pause-center {
                 position: relative;
-                left: 1px;
+                left: 0px;
               }
             }
             .circle {
@@ -458,7 +460,7 @@
     }
   }
 </style>
-<script>
+<script type="text/javascript">
   import Vue from 'vue'
   import copyright from '../components/copyright.vue'
   import {
@@ -508,20 +510,21 @@
     mounted: function () {
       let scope = this;
 
-      /**
-       * 工具提示栏
-       * */
-      let clientWidth = parseInt(document.documentElement.clientWidth);
-      if (clientWidth > 769) {
-        // 工具提示
-        $('[data-toggle="tooltip"]').tooltip({
-          trigger: 'hover',
-          placement: 'right'
-        });
-      }
+      // /**
+      //  * 工具提示栏
+      //  * */
+      // let clientWidth = parseInt(document.documentElement.clientWidth);
+      // if (clientWidth > 769) {
+      //   // 工具提示
+      //   $('[data-toggle="tooltip"]').tooltip({
+      //     trigger: 'hover',
+      //     placement: 'right'
+      //   });
+      // }
 
 
     },
   }
+
 
 </script>

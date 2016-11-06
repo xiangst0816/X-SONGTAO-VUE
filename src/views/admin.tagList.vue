@@ -222,8 +222,8 @@
   module.exports = {
     data: function () {
       return {
-        reverse: 'asc',
-        predicate: 'create_time',
+        reverse: 'desc',
+        predicate: 'used_num',
         tagLists: [],
 
         newTag: {

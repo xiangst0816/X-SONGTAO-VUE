@@ -152,7 +152,7 @@
   module.exports = {
     data: function () {
       return {
-        reverse: 'asc',
+        reverse: 'desc',
         predicate: 'publish_time',
         articleLists: [],
         deleteArticle: {},

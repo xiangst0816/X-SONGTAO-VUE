@@ -52,7 +52,7 @@
         <i class="fa fa-comments fa-lg"></i>
       </router-link>
       <!--切换背景-->
-      <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景"
+      <a class="nav__item fa-stack fa-lg hidden-xs" data-toggle="tooltip" data-placement="right" title="切换背景"
          @click="changeBG()">
         <i class="fa fa-photo fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
@@ -358,17 +358,22 @@
       /**
        * 背景初始化
        * */
-      if (!!_this.$localStorage.userBackground) {
-        setTimeout(function () {
-          _this.changeBG(_this.$localStorage.userBackground)
-        }, 3000)
+      if (!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
+        if (!!_this.$localStorage.userBackground) {
+          setTimeout(function () {
+            _this.changeBG(_this.$localStorage.userBackground)
+          }, 3000)
+        }
       }
 
+    },
+    mounted:function () {
+      const _this = this;
       /**
        * 初始化工具提示栏
        * */
       _this.tooltip();
-    },
+    }
   }
 
 

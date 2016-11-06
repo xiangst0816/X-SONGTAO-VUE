@@ -1,14 +1,9 @@
-/**
-* Created by xiangsongtao on 16/7/24.
-* Description:
-*/
-<!--内容区-->
 <template>
   <article>
     <div class="comments animated fadeIn">
       <!--column title-->
       <h3 class="title">
-        <i class="fa fa-fw fa-lg fa-comments"></i> 评论管理 / <span class="blue">COMMENTS</span>
+        <i class="fa fa-fw fa-lg fa-comments"></i> 评论管理 / <span class="">COMMENTS</span>
       </h3>
       <!--增加-->
       <section class="commentList">
@@ -306,10 +301,10 @@
     ChangeCommentAuthState,
     DeleteComment,
     ChangeCommentReplyState,
+    SendComment,
   } from "../api/api_comment";
 
   import copyright from '../components/copyright.vue'
-  import {SendComment} from '../api/api_comment'
   import noData from "../components/nodata.vue"
 
   import "bootstrap/js/dropdown.js";//放到它出现的位置

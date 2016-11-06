@@ -25,46 +25,46 @@
       </router-link>
     </nav>
     <nav class="nav__bottom">
-      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+      <router-link v-show="isLogin" class="nav__item animated fadeIn hidden-xs"
                    :to="{ name: 'admin-dashboard'}" activeClass="active" data-toggle="tooltip" data-placement="right"
                    title="控制台">
         <i class="fa fa-dashboard fa-lg"></i>
       </router-link>
-      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+      <router-link v-show="isLogin" class="nav__item animated fadeIn hidden-xs"
                    :to="{ name: 'admin-myinfo'}" activeClass="active" data-toggle="tooltip" data-placement="right"
                    title="我的资料">
         <i class="fa fa-user fa-lg"></i>
       </router-link>
-      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+      <router-link v-show="isLogin" class="nav__item animated fadeIn hidden-xs"
                    :to="{ name: 'admin-tag'}" activeClass="active"
                    data-toggle="tooltip" data-placement="right" title="标签管理">
         <i class="fa fa-tag fa-lg"></i>
       </router-link>
-      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+      <router-link v-show="isLogin" class="nav__item animated fadeIn hidden-xs"
                    :to="{ name: 'admin-articleManager'}" activeClass="active" data-toggle="tooltip"
                    data-placement="right"
                    title="文章管理">
         <i class="fa fa-list fa-lg"></i>
       </router-link>
-      <router-link v-if="isLogin" class="nav__item animated fadeIn hidden-xs"
+      <router-link v-show="isLogin" class="nav__item animated fadeIn hidden-xs"
                    :to="{ name: 'admin-commentList'}" activeClass="active" data-toggle="tooltip" data-placement="right"
                    title="文章评论">
         <i class="fa fa-comments fa-lg"></i>
       </router-link>
       <!--切换背景-->
       <a class="nav__item fa-stack fa-lg" data-toggle="tooltip" data-placement="right" title="切换背景"
-                   @click="changeBG()">
+         @click="changeBG()">
         <i class="fa fa-photo fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
           <i class="fa fa-lg fa-refresh" :class="{true:'',false:'fa-spin'}[!isChangeBG]"></i>
         </section>
       </a>
-      <a v-if="isLogin" class="nav__item animated fadeIn hidden-xs" data-toggle="tooltip"
-                   data-placement="right"
-                   title="退出" @click="doLoginout()">
+      <a v-show="isLogin" class="nav__item animated fadeIn hidden-xs" data-toggle="tooltip"
+         data-placement="right"
+         title="退出" @click="doLoginout()">
         <i class="fa fa-sign-out fa-lg"></i>
       </a>
-      <router-link v-if="!isLogin" class="nav__item hidden-xs" :to="{ name: 'login'}" activeClass="active"
+      <router-link v-show="!isLogin" class="nav__item hidden-xs" :to="{ name: 'login'}" activeClass="active"
                    data-toggle="tooltip" data-placement="right" title="登录">
         <i class="fa fa-sign-in fa-lg"></i>
       </router-link>
@@ -240,7 +240,7 @@
         bgIndexNow: '',
       }
     },
-    computed:{
+    computed: {
       ...mapState({
         isLogin: 'isLogin',
         isPlaying: 'isPlaying',
@@ -265,19 +265,19 @@
       },
       //随机返回列表中的地址
       _randomImage() {
-        const scope = this;
+        const _this = this;
         let imageList = API.imageList;//图片列表
         let imageCount = imageList.length;
         //返回 v_from 和 v_to 之间的随机整数
         function _selectFrom(v_from, v_to) {
           let range = v_to - v_from + 1;
           let selected = Math.floor(Math.random() * range + v_from);
-          if (selected === parseInt(scope.bgIndexNow)) {
+          if (selected === parseInt(_this.bgIndexNow)) {
             // console.log('和上一个相同,再去随机取值')
             return _selectFrom(v_from, v_to);
           } else {
             // console.log("当前取值为:" + (selected+1))
-            scope.bgIndexNow = selected;
+            _this.bgIndexNow = selected;
             return selected
           }
         }
@@ -288,18 +288,18 @@
        * 更换背景
        * */
       changeBG(imgUrl){
-        const scope = this;
-        if (scope.isChangeBG) {
+        const _this = this;
+        if (_this.isChangeBG) {
           return false;
         }
         if (!imgUrl) {
-          imgUrl = scope._randomImage();
+          imgUrl = _this._randomImage();
         }
-        scope.isChangeBG = true;
+        _this.isChangeBG = true;
 
 //        let $body = $('html');
         // 检查是否有用户自己保存过背景图片,如果保存过,则自动切换
-        scope._loadImg(imgUrl, function () {
+        _this._loadImg(imgUrl, function () {
 
           var css = function (t, s) {
             s = document.createElement('style');
@@ -323,36 +323,53 @@
             '}';
 
           // 保存用户切换的壁纸信息,下次直接自动切换
-          scope.$localStorage.$set('userBackground', imgUrl);
+          _this.$localStorage.$set('userBackground', imgUrl);
           css(cssRules);
           // 动画是500ms
           setTimeout(function () {
-            scope.isChangeBG = false;
+            _this.isChangeBG = false;
           }, 1000);
         });
       },
+      /**
+       * 工具提示栏 Tooltip类，需要jQuery
+       * */
+      tooltip:function tooltip() {
+        // 使用v-show显示隐藏按钮
+        let $tooltips = $('[data-toggle="tooltip"]');
+        let _clientWidth = parseInt(document.documentElement.clientWidth);
+        let _params = null;
+        if (_clientWidth <= 768) {
+        } else if (_clientWidth > 769 && _clientWidth < 991) {
+          $tooltips.tooltip({
+            trigger: 'hover',
+            placement: 'bottom'
+          })
+        } else if (_clientWidth > 991) {
+          $tooltips.tooltip({
+            trigger: 'hover',
+            placement: 'right'
+          })
+        }
+      }
     },
     created: function () {
-      const scope = this;
+      const _this = this;
       /**
        * 背景初始化
        * */
-      if (!!scope.$localStorage.userBackground) {
+      if (!!_this.$localStorage.userBackground) {
         setTimeout(function () {
-          scope.changeBG(scope.$localStorage.userBackground)
+          _this.changeBG(_this.$localStorage.userBackground)
         }, 3000)
       }
-    },
-    mounted: function () {
-      const scope = this;
+
       /**
-       * start tooltip
+       * 初始化工具提示栏
        * */
-      window.tooltip()
+      _this.tooltip();
     },
   }
-
-
 
 
 </script>

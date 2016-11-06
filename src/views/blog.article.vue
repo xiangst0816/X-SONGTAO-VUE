@@ -37,7 +37,7 @@
               </div>
             </section>
             <section class="paper__content">
-              <div class="paper__content--inner markdown-body hljs" v-html="article.content">
+              <div class="paper__content--inner markdown-body hljs" v-html="article.html">
                 <!--{{{article.content}}}-->
               </div>
               <!--page-->
@@ -762,14 +762,17 @@
               })
             }, 3000)
           }
-          console.log(error)
         });
 
         //获取文章评论
         GetArticleComments(articleId).then(function (data) {
           _this.commentList = data;
         }, function (error) {
-          console.log(error)
+          Toast({
+            message: '获取文章评论错误！', iconClass: 'fa fa-warning',
+            position: 'center',
+            duration: 3000
+          });
         });
       },
 
@@ -782,12 +785,16 @@
         GetArticleTop(topNum).then(function (data) {
           _this.articleTop = data;
         }, function (error) {
-          console.log(error)
+          Toast({
+            message: '获取文章榜单错误！', iconClass: 'fa fa-warning',
+            position: 'center',
+            duration: 3000
+          });
         });
       },
 
       /**
-       * 返回顶部的时间handler
+       * 返回顶部的事件handler
        * */
       backToTopHandler: function () {
         let _width = $(document).width()
@@ -819,7 +826,7 @@
     computed: {},
     created: function () {
       const _this = this;
-      let articleId = this.$route.params.articleId;
+      let articleId = _this.$route.params.articleId;
 
       $(window).scrollTop(0);// 滚到顶部
       // To Top

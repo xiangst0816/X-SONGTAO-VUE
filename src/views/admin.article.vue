@@ -628,7 +628,7 @@
         this.content_marked = marked(_this.content_raw);
         //自动保存
         _this._autoSave();
-      }, 500)
+      }, 5000)
     },
     watch: {
       'content_raw': function () {
@@ -716,14 +716,6 @@
       copyright,
       Multiselect,
     },
-    //vuex: {
-    //getters: {
-    //isShowBigAdmin: state=>state.isShowBigAdmin,
-    //},
-    //actions: {
-    //setShowBigAdminStatus
-    //}
-    // }
   }
 
 

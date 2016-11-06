@@ -135,7 +135,6 @@
       }),
       loginBtn: function () {
         const _this = this;
-
         if (!_this.username) {
           _this.errText = "请输入用户名!";
           return;
@@ -174,16 +173,7 @@
             }
             // 设置请求的token
             Vue.http.headers.common['authorization'] = "token " + response.token;
-
-
-            console.log('login-success')
-
-            /**
-             * start tooltip
-             * */
-            window.tooltip();
             _this.setLoginState(true);//设置全局登录状态
-
             _this.$router.replace({//跳转
               name: 'index'
             });
@@ -199,11 +189,7 @@
             }
             console.log('err:' + err)
           })
-
-
         })
-
-
       }
     },
     mounted: function () {

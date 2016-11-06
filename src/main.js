@@ -17,28 +17,8 @@ import attachFastClick from "fastclick";
  * $router全局化，便于外部js调用
  * */
 window.$router = router;
-/**
- * 工具提示栏 tooltip 初始化方法
- * */
-window.tooltip = function tooltip() {
-  // 异步是为了等待页面加载完毕
-  setTimeout(function () {
-    let clientWidth = parseInt(document.documentElement.clientWidth);
-    let $tooltips = $('[data-toggle="tooltip"]');
-    if (clientWidth <= 768) {
-    } else if (clientWidth > 769 && clientWidth < 991) {
-      $tooltips.tooltip({
-        trigger: 'hover',
-        placement: 'bottom'
-      });
-    } else if (clientWidth > 991) {
-      $tooltips.tooltip({
-        trigger: 'hover',
-        placement: 'right'
-      });
-    }
-  }, 50)
-};
+
+
 /**
  * 触摸配置
  * */
@@ -57,5 +37,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App },
+  components: {App},
 })

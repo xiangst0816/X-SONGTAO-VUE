@@ -1,9 +1,3 @@
-/**
-* Created by xiangsongtao on 16/7/24.
-* Description: 后台 - 我的信息修改
-*/
-
-<!--内容区-->
 <template>
   <div class="dashboard animated fadeIn">
     <!--我的信息title-->
@@ -124,9 +118,7 @@
 </style>
 <script type="text/javascript">
   import Vue from "vue";
-
   import copyright from '../components/copyright.vue'
-
   import {GetTotal, GetChart, GetMap} from "../api/api_statistic";
 
   // 引入 ECharts 主模块

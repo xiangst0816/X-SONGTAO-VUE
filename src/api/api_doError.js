@@ -42,8 +42,6 @@ export const doError = function (code) {
       window.$router.replace({
         name:'login'
       });
-      //开启tooltip
-      window.tooltip();
       return 10;
       break;
     default:

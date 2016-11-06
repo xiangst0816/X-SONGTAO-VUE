@@ -42,8 +42,6 @@
           _this.$router.push({
             name: 'index'
           });
-          //开启tooltip
-          window.tooltip()
         }, 200);
       },
     },

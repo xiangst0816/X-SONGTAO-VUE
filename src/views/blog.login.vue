@@ -132,6 +132,7 @@
     methods: {
       ...mapActions({
         setLoginState: 'setLoginState',
+        setCommentInfoStatus: 'setCommentInfoStatus',
       }),
       loginBtn: function () {
         const _this = this;
@@ -160,17 +161,14 @@
               time: new Date().getTime()
             });
             //我进行评论的信息
-            if (_this.username.indexOf("visitor") !== -1) {
-              _this.$localStorage.$set('commentInfo', {
-                "name": "Visitor",
-                "email": "visitor@email.com"
-              });
-            } else {
+            if (_this.username.indexOf("visitor") === -1) {
               _this.$localStorage.$set('commentInfo', {
                 "name": API.MY,
                 "email": API.EMAIL
               });
+              _this.setCommentInfoStatus(true);
             }
+
             // 设置请求的token
             Vue.http.headers.common['authorization'] = "token " + response.token;
             _this.setLoginState(true);//设置全局登录状态

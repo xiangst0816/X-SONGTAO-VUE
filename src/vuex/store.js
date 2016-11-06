@@ -10,6 +10,7 @@ import {
   SET_SOCIALIMG,
   SET_LOGIN_STATUS,
   SET_SHOW_BIGADMIN_STATUS,
+  SET_COMMENT_INFO_STATUS,
   SET_PLAYING_STATUS,
   SET_MUSIC_DURATION,
   SET_MUSIC_RIGHTNOW,
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     isLogin: false,//是否登录
     socialImgUrl: '',//显示社交图片
     isShowBigAdmin: false,//是否展开后台页面->用于文章编辑预览
+    hasCommentInfo:false,//设置-文章评论是否设置了昵称和邮箱，全局性质
 
     //音乐相关
     isPlaying: false,//是否播放
@@ -64,6 +66,12 @@ export default new Vuex.Store({
     [SET_SHOW_BIGADMIN_STATUS] (state, status) {
       state.isShowBigAdmin = !!status;
     },
+    //设置-文章评论是否设置了昵称和邮箱，全局性质
+    [SET_COMMENT_INFO_STATUS] (state, status) {
+      state.hasCommentInfo = !!status;
+    },
+
+
 
     // music
     // 设置播放状态,是否播放

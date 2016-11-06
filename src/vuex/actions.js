@@ -32,6 +32,13 @@ export const setShowBigAdminStatus = function ({commit}, status) {
   commit(types.SET_SHOW_BIGADMIN_STATUS, status)
 };
 
+/**
+ * 设置-文章评论是否设置了昵称和邮箱，全局性质
+ * */
+export const setCommentInfoStatus = function ({commit}, status) {
+  commit(types.SET_COMMENT_INFO_STATUS, status)
+};
+
 //-------------------------Music---------------------------
 /**
  * 更改播放状态

@@ -1,8 +1,8 @@
 <template>
-  <div class="commentBox" :class="{'active':!hasNickName}">
+  <div class="commentBox" :class="{'active':!hasCommentInfo}">
     <!--问题盒子-->
     <div class="commentBox__questionBox">
-      <input ng-focus="chain.selectId=''" class="commentBox__questionBox--input" type="text" placeholder="我要说几句"
+      <input class="commentBox__questionBox--input" type="text" placeholder="我要说几句"
              v-model="content">
       <button v-bind:disabled="!content" class="btn commentBox__questionBox--reply" @click="submit()">
         <span>提交</span>
@@ -34,11 +34,16 @@
     transition: all ease 200ms;
     z-index: 1;
     margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
     /*padding: 0 35px;*/
     .commentBox__questionBox {
       position: relative;
       height: 50px;
       z-index: 10;
+      width: 100%;
       .commentBox__questionBox--input {
         width: 100%;
         border-radius: 5px;
@@ -55,7 +60,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        height: 50px;
+        height: 100%;
         box-sizing: border-box;
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
@@ -77,9 +82,11 @@
       }
     }
     .commentBox__info {
-      @include display-flex;
-      @include justify-content(center);
-      @include align-items(center);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+
       height: 50px;
       position: absolute;
       top: 0;
@@ -126,6 +133,47 @@
     }
   }
 
+  @include media("<=phone") {
+    .commentBox {
+      overflow: hidden;
+      height: 40px;
+      &.active {
+        height: 130px;
+        .commentBox__info {
+          transform: translateY(50px);
+          opacity: 1;
+        }
+      }
+      .commentBox__questionBox {
+        height: 40px;
+        .commentBox__questionBox--input {
+          padding-left: 10px;
+          padding-right: 50px;
+          -webkit-appearance: none;
+        }
+        .commentBox__questionBox--reply {
+          padding: 0 10px;
+        }
+      }
+      .commentBox__info {
+        flex-direction: column;
+        height: 80px;
+        justify-content: space-around;
+        align-items: flex-end;
+        margin: 0;
+        .commentBox__info--input {
+          margin: 0;
+          input {
+            width: 180px;
+            min-width: 100px;
+            -webkit-appearance: none;
+          }
+        }
+      }
+    }
+
+  }
+
 </style>
 <script type="text/javascript">
 
@@ -133,16 +181,22 @@
   import {Toast} from 'mint-ui';
   import  'mint-ui/lib/toast/style.css';
   import {GetArticleComments, SendComment} from "../api/api_comment"
+  import {mapState,mapActions} from 'vuex';
+
   export default{
     data(){
       return {
-        hasNickName: false,
         content: null,//评论信息
         name: null,//评论人名称
         email: null,//评论人邮箱
       }
     },
-    props:{
+    computed:{
+      ...mapState({
+        hasCommentInfo: 'hasCommentInfo',
+      }),
+    },
+    props: {
       //文章id
       articleId: {
         type: String,
@@ -154,11 +208,13 @@
         require: true,
       },
     },
-
     methods: {
+      ...mapActions({
+        setCommentInfoStatus: 'setCommentInfoStatus'
+      }),
       submit: function () {
         let _this = this;
-        if (!_this.hasNickName) {
+        if (!_this.hasCommentInfo) {
           if (!_this.name) {
             Toast({
               message: '请输入昵称', iconClass: 'fa fa-warning',
@@ -190,15 +246,15 @@
               email: _this.email
             }
           });
-          this.hasNickName = true;
+          _this.setCommentInfoStatus(true);
         }
-
+        let commentInfo = _this.$localStorage.commentInfo
         let params = {
           article_id: _this.articleId,
           pre_id: _this.preId,
           next_id: [],
-          name: _this.name,
-          email: _this.email,
+          name: commentInfo.name,
+          email: commentInfo.email,
           time: new Date(),
           content: _this.content,
           state: false,
@@ -207,36 +263,36 @@
 
         SendComment(params).then(()=> {
           Toast({
-            message: '评论成功，正在审核！',
+            message: '评论成功，正在审核',
             iconClass: 'fa fa-check',
             position: 'center',
             duration: 3000
           });
           this.toggle = !this.toggle;
           _this.content = '';
-          console.log("SubmitSuccess")
         }, (error)=> {
-          console.log(error)
-          console.log("SubmitFailure")
+          Toast({
+            message: '评论失败',
+            iconClass: 'fa fa-check',
+            position: 'center',
+            duration: 3000
+          });
         });
       }
     },
     created: function () {
-      let _this = this;
-      /**
-       * 获取游客昵称及邮箱,并设置input显示与否
-       * */
-      let commentInfo = _this.$localStorage.commentInfo
-      if (!!commentInfo && !!commentInfo.name && !!commentInfo.email) {
-        _this.hasNickName = true;
-        _this.name = commentInfo.name;
-        _this.email = commentInfo.email;
-      } else {
-        _this.hasNickName = false;
+      var _this = this;
+      if(!_this.hasCommentInfo){
+        /**
+         * 获取游客昵称及邮箱,并设置input显示与否
+         * */
+        let commentInfo = _this.$localStorage.commentInfo
+        if (!!commentInfo && !!commentInfo.name && !!commentInfo.email) {
+          _this.setCommentInfoStatus(true);
+          _this.name = commentInfo.name;
+          _this.email = commentInfo.email;
+        }
       }
-    },
-    mounted: function () {
-
     },
   }
 

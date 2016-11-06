@@ -32,13 +32,16 @@
     methods: {
       ...mapActions({
         setLoginState: 'setLoginState',
+        setCommentInfoStatus: 'setCommentInfoStatus',
       }),
       confirmLogout: function () {
         const _this = this;
         setTimeout(function () {
           _this.$localStorage.$delete('authorization');
           _this.$localStorage.$delete('commentInfo');
-          _this.setLoginState(false);
+          _this.setLoginState(false);// 登录状态
+          _this.setCommentInfoStatus(false);// 评论信息状态
+
           _this.$router.push({
             name: 'index'
           });

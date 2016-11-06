@@ -25,13 +25,14 @@
               <div class="paper__info--span">
                 <i class="fa fa-book"></i>
                 阅读数
-                <span ng-bind="article.read_num">{{article.read_num}}</span>
+                <span>{{article.read_num}}</span>
               </div>
               <a href="#comment" class="paper__info--span">
                 <i class="fa fa-comments"></i>
                 评论数
-                <span ng-bind="article.comment_num">{{article.comment_num}}</span>
+                <span>{{article.comment_num}}</span>
               </a>
+              <!--hidden-xs-->
               <div class="paper__info--span hidden-xs" v-for="tag of article.tags">
                 <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
               </div>
@@ -46,14 +47,15 @@
             <!--the end-->
           </div>
           <!--评论-->
-          <section id="comment" class="commentbox hidden-xs">
+          <section id="comment" class="commentbox">
             <!--标题-->
             <div class="commentbox__header">
               <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{article.comment_num}}</span>
               </h3>
             </div>
             <!--提问题-->
-            <div class="commentBox__question" @click="replyBtn('')">
+            <!--hidden-xs-->
+            <div class="commentBox__question " @click="replyBtn('')">
               <comment-box :article-id="article._id" :pre-id="article._id"></comment-box>
             </div>
 
@@ -63,11 +65,11 @@
                 <!--{{comment._id}}{{'&#45;&#45;'}}{{chain.selectId ==comment._id}}{{'&#45;&#45;'}}{{toggle}}{{'&#45;&#45;'}}{{chain.selectId}}-->
                 <div class="comments__ask">
                   <div class="comments__ask__header">
-                    <!--<span class="name" ng-bind="comment.name"></span>&ensp;·&ensp;<span am-time-ago="comment.time" ></span>&ensp;·&ensp;<span class="reply" ng-click="commentToComemntBtn($event)">回复</span>-->
                     <span class="name">{{comment.name}}</span>&ensp;·&ensp;
                     <span>{{comment.time | moment("from","now")}}</span>
-                    <span class="hidden-xs">&ensp;·&ensp;<span class="reply"
-                                                               @click="replyBtn(comment._id)">回复</span></span>
+                    <!--hidden-xs-->
+                    <span class="">&ensp;·&ensp;<span class="reply"
+                                                      @click="replyBtn(comment._id)">回复</span></span>
                   </div>
                   <div class="comments__ask__content">
                     <span>{{comment.content}}</span>
@@ -84,7 +86,7 @@
                       <span>{{reply.time | moment("from","now")}}</span>
                     </div>
                     <div class="comments__reply__content">
-                      <span ng-bind="reply.content">{{reply.content}}</span>
+                      <span>{{reply.content}}</span>
                     </div>
                   </div>
                 </div>
@@ -509,11 +511,11 @@
 
             }
 
-            &:hover {
-              .reply {
-                color: $base-theme-color-o;
-              }
-            }
+            /*&:hover {*/
+            /*.reply {*/
+            /*<!--color: $base-theme-color-o;-->*/
+            /*}*/
+            /*}*/
             .comments__ask__header {
               font-size: 14px;
               line-height: 130%;
@@ -525,6 +527,7 @@
               }
               .reply {
                 transition: all ease 200ms;
+                color: $base-theme-color-o;
               }
 
             }
@@ -656,11 +659,11 @@
       }
       .article-detail {
         .paper {
-
+          margin-bottom: 10px;
           .paper__header {
             padding: 30px 10px 10px;
             h1 {
-              font-size: 20px;
+              font-size: 28px;
               font-weight: 500;
               line-height: 120%;
               margin: 0;
@@ -684,6 +687,54 @@
               font-size: 14px !important;
             }
           }
+        }
+        .commentbox {
+          margin-bottom: 10px;
+          .commentbox__header {
+            h3 {
+              .commentbox__header--Comments {
+                font-size: 30px;
+                margin-right: 8px;
+              }
+              .commentbox__header--count {
+                font-size: 16px;
+                min-width: 26px;
+                min-height: 26px;
+              }
+            }
+          }
+          .commentBox__question {
+            padding: 0 10px;
+          }
+
+          .commentbox__inner {
+            padding: 0 10px 20px 10px;
+            .comments {
+              .comments__ask {
+                .comments__ask__header {
+                  padding: 5px 0 0 0;
+                }
+                .comments__ask__content {
+                  padding: 5px 0 0 0;
+                  font-size: 14px;
+                }
+              }
+              .comments__reply {
+                padding-left: 30px;
+                .comments__reply__each {
+                  padding: 5px 0 0 0;
+                  .comments__reply__header {
+                    /*padding: 3px 0 0 0;*/
+                  }
+                  .comments__reply__content {
+                    /*padding: 3px 0 0 0;*/
+                    font-size: 14px;
+                  }
+                }
+              }
+            }
+          }
+
         }
       }
     }
@@ -720,8 +771,8 @@
         topNum: 5,//top 榜单
       }
     },
-    watch:{
-      '$route':function (val) {
+    watch: {
+      '$route': function (val) {
         // 获取文章
         this.getArticleById(val.params.articleId);
       }
@@ -846,6 +897,9 @@
       _this.getArticleById(articleId);
       // 获取文章top榜单
       _this.getArticleTop(_this.topNum);
+    },
+    mounted:function () {
+      this.$emit('notice')
     },
     destroyed: function () {
       $(document).off('scroll')

@@ -30,7 +30,7 @@
               <a href="#comment" class="paper__info--span">
                 <i class="fa fa-comments"></i>
                 评论数
-                <span>{{article.comment_num}}</span>
+                <span>{{recountCommentNum}}</span>
               </a>
               <!--hidden-xs-->
               <div class="paper__info--span hidden-xs" v-for="tag of article.tags">
@@ -50,7 +50,7 @@
           <section id="comment" class="commentbox">
             <!--标题-->
             <div class="commentbox__header">
-              <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{article.comment_num}}</span>
+              <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{recountCommentNum}}</span>
               </h3>
             </div>
             <!--提问题-->
@@ -775,6 +775,18 @@
       '$route': function (val) {
         // 获取文章
         this.getArticleById(val.params.articleId);
+      },
+    },
+    computed: {
+      //文章是有评论计数的，但是文章缓存后此信息并不准确，但commentList是不缓存的。
+      recountCommentNum: function () {
+        let _this = this;
+        let _count = 0;
+        _count = _this.commentList.length;
+        for (let i = 0, len = _this.commentList.length; len > i; i++) {
+          _count +=_this.commentList[i].next_id.length
+        }
+        return _count
       }
     },
     methods: {
@@ -879,7 +891,6 @@
         }
       }
     },
-    computed: {},
     created: function () {
       const _this = this;
       let articleId = _this.$route.params.articleId;
@@ -898,7 +909,7 @@
       // 获取文章top榜单
       _this.getArticleTop(_this.topNum);
     },
-    mounted:function () {
+    mounted: function () {
       this.$emit('notice')
     },
     destroyed: function () {

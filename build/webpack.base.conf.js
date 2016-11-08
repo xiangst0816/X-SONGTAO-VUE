@@ -34,6 +34,9 @@ module.exports = {
       "moment": path.resolve(__dirname, '../src/plugin/moment-with-locales.js'),
       "fastclick": path.resolve(__dirname, '../src/plugin/fastclick.js'),
       "vue-multiselect": path.resolve(__dirname, '../src/plugin/vue-multiselect/Multiselect.vue'),
+      //mint-ui
+      "Toast": path.resolve(__dirname, '../src/plugin/mint-ui/packages/toast'),
+      "InfiniteScroll": path.resolve(__dirname, '../src/plugin/mint-ui/packages/infinite-scroll'),
     }
   },
   resolveLoader: {

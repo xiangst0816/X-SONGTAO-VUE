@@ -463,10 +463,6 @@
 <script type="text/javascript">
   import Vue from 'vue'
   import copyright from '../components/copyright.vue'
-  import {
-    setCanAutoPlay,
-  } from '../vuex/actions'
-
   import {secondsConvert} from "../utils/filters.js";
   Vue.filter('secondsConvert', secondsConvert);
   import {mapState,mapActions} from 'vuex';
@@ -509,20 +505,6 @@
     components: {copyright},
     mounted: function () {
       let scope = this;
-
-      // /**
-      //  * 工具提示栏
-      //  * */
-      // let clientWidth = parseInt(document.documentElement.clientWidth);
-      // if (clientWidth > 769) {
-      //   // 工具提示
-      //   $('[data-toggle="tooltip"]').tooltip({
-      //     trigger: 'hover',
-      //     placement: 'right'
-      //   });
-      // }
-
-
     },
   }
 

@@ -131,6 +131,9 @@
         padding-left: 6px;
         padding-right: 6px;
         padding-top: 190px;
+        width: 100%;
+        /*overflow: hidden;*/
+        box-sizing: border-box;
         .blog__content--inner {
           padding-top: 6px;
         }

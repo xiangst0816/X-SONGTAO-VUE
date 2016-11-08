@@ -1,6 +1,4 @@
 <template>
-
-
     <div id="indexBox" class="indexBox animated fadeIn">
         <div class="index-content">
             <div class="head-wrap">
@@ -18,7 +16,7 @@
             </div>
             <section class="index-btnBox">
                 <router-link class="index-btnBox-each text-center" :to="{ name: 'blog',query: { listType: 'latest' }}" activeClass="active" tag="div">我的博客</router-link>
-                <router-link class="index-btnBox-each text-center" :to="{ name: 'music'}" activeClass="active">我的音乐</router-link>
+                <router-link class="index-btnBox-each text-center" :to="{ name: 'music'}" activeClass="active" tag="div">我的音乐</router-link>
             </section>
             <section class="index-copyright">
                 <copyright></copyright>
@@ -179,11 +177,9 @@
             let self = this;
             self.clearInterval = setInterval(function () {
                 self.now >= 4 ? self.now = 1 : self.now++;
-//                console.log(self.now)
             }, 4000);
         },
         destroyed: function () {
-//            console.log('destroyed')
             clearInterval(this.clearInterval)
         },
         components: {

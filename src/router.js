@@ -28,7 +28,9 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: require('./views/blog.login.vue')
+    component: function (resolve) {
+      require(['./views/blog.login.vue'], resolve)
+    },
   },
   {
     path: '/blog',
@@ -46,11 +48,17 @@ const routes = [
         path: 'art-list',
         name: 'artList',
         component: require('./views/blog.articleList.vue'),
+        // component: function (resolve) {
+        //   require(['./views/blog.articleList.vue'], resolve)
+        // },
       },
       {
         path: 'his-list',
         name: 'historyList',
         component: require('./views/blog.historyList.vue'),
+        // component: function (resolve) {
+        //   require(['./views/blog.historyList.vue'], resolve)
+        // },
       },
       {
         path: 'tag-list',
@@ -63,12 +71,18 @@ const routes = [
           {
             path: 'classify',
             name: 'tagListClassify',
-            component: require('./views/blog.tagList.vue')
+            component: require('./views/blog.tagList.vue'),
+            // component: function (resolve) {
+            //   require(['./views/blog.tagList.vue'], resolve)
+            // },
           },
           {
             path: 'find-by-tag-id',
             name: 'tagListFindByTagId',
-            component: require('./views/blog.articleList.vue')
+            component: require('./views/blog.articleList.vue'),
+            // component: function (resolve) {
+            //   require(['./views/blog.articleList.vue'], resolve)
+            // },
           },
         ]
       },

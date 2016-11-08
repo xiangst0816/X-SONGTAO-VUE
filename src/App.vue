@@ -55,6 +55,7 @@
   Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
   Vue.http.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
+  // import Toast from 'Toast';
   export default {
     store,
     data: function () {
@@ -251,6 +252,11 @@
     mounted: function () {
       //更改loading状态,，隐藏index中的loading画面
       window.hideLoadingPage();
+      // Toast({
+      //   message: 'demo-yes', iconClass: 'fa fa-warning',
+      //   position: 'center',
+      //   duration: 2223000
+      // });
 
     },
     components: {

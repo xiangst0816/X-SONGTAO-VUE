@@ -228,7 +228,7 @@
   import copyright from '../components/copyright.vue'
   import {GetArticleListForFrontEnd} from "../api/api_article"
   import Vue from 'vue'
-  import {InfiniteScroll} from 'mint-ui';
+  import InfiniteScroll from 'InfiniteScroll';
   Vue.use(InfiniteScroll);
 
   export default{

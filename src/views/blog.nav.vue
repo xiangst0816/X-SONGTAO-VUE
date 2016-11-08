@@ -2,7 +2,10 @@
 <template>
   <div class="blogNav ">
     <nav class="nav__top">
-      <a class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
+      <a v-if="isMobile && this.$route.name=='article'" @click="navBack" class="nav__item" title="后退">
+        <i class="fa fa-arrow-left  fa-fw fa-lg blue blackBG"></i>
+      </a>
+      <a v-else class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
         <span class="siteLogo"></span>
       </a>
       <router-link class="nav__item" :to="{ name: 'index'}" exact data-toggle="tooltip" activeClass="active"
@@ -75,6 +78,9 @@
   //base
   @import "../theme/theme.scss";
 
+  .blackBG{
+    background:#000;
+  }
   //default for desktop
   .blogNav {
     display: flex;
@@ -238,6 +244,7 @@
       return {
         isChangeBG: false,
         bgIndexNow: '',
+        isMobile:window.ua.mobile,
       }
     },
     computed: {
@@ -247,6 +254,9 @@
       }),
     },
     methods: {
+      navBack:function () {
+        this.$router.back();
+      },
       doLoginout: function () {
         $('#logout').modal()
       },

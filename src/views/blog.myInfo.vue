@@ -1,7 +1,3 @@
-/**
-* Created by xiangsongtao on 16/7/24.
-* Description: 博客页, 我的信息
-*/
 <template>
 
   <!--<div class="myinfo" :class="{ 'showMyWords': isShowMyWords}">-->
@@ -68,12 +64,16 @@
 <style scoped lang="scss">
   @import "../theme/theme.scss";
 
+  * {
+    /*outline: 1px solid #eee;*/
+  }
+
   $animationTime_1: 500ms;
   $animationTime_2: 200ms;
   .showMyWords {
     position: fixed !important;
-    top:0!important;
-    right:0!important;
+    top: 0 !important;
+    left: 0 !important;
   }
 
   .showMyWords-active {
@@ -110,20 +110,19 @@
     }
     @include media("<=phone") {
       .detail {
-        height: 105px !important;
+        height: 109px !important; //109
         padding-top: 0 !important;
+        .detail__1 {
+
+        }
         .detail__2 {
-          margin-top: 0 !important;
           height: 0 !important;
+          opacity: 0;
           overflow: hidden;
         }
       }
       .mywords {
         article {
-          text-align: center;
-          p {
-            margin: 0 !important;
-          }
         }
       }
     }
@@ -221,6 +220,9 @@
           &.active {
             // 这里确定，展开我的信息的时候是否显示导航条，暂时不撤处理
             /*visibility: hidden;*/
+            height:0;
+            opacity: 0;
+            overflow: hidden;
           }
           .tabs {
             padding: 0;
@@ -412,7 +414,7 @@
         min-height: 270px;
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: center;
         align-items: center;
         .detail__1 {
@@ -482,7 +484,7 @@
       height: 315px;
       .detail {
         padding: 45px 0 0 0;
-        transition: padding ease 500ms;
+        transition: all ease 500ms;
       }
       .mywords {
         padding: 0px 40px !important;
@@ -495,16 +497,21 @@
       justify-content: center;
       height: 190px;
       .detail {
-        height: 195px;
+        height: 145px;
+        width:100%;
         min-height: inherit;
+        transition: all ease 500ms;
         .detail__1 {
           margin: 5px 0;
           flex-direction: row;
           .detail__imgBox {
-            margin: 0 10px;
+            margin: 0 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             .imgBox {
-              width: 80px;
-              height: 80px;
+              width: 70px;
+              height: 70px;
               &:hover {
                 &:after {
                   opacity: 0;
@@ -515,37 +522,35 @@
             height: 80px;
           }
           .detail__info {
-            margin: 0 10px;
+            margin: 0 5px;
             width: auto;
             .name {
               margin: 10px 0;
-              font-size: 26px;
+              font-size: 24px;
             }
             .job {
               margin: 10px 0;
-              font-size: 16px;
+              font-size: 12px;
             }
           }
         }
         .detail__2 {
+          height: 26px;
           margin: 5px 0;
-          transition: height ease 500ms;
+          transition: all ease 500ms;
+
         }
       }
       .mywords {
         width: 100%;
         font-size: 12px;
         padding: 0 20px !important;
+        text-align: center;
+        p {
+          margin: 0 !important;
+        }
         article {
           margin: 10px 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 7; //显示的行数
-          -webkit-box-orient: vertical;
-          p {
-            margin: 0 !important;
-          }
         }
       }
     }
@@ -558,39 +563,39 @@
   import {addImgPrefix} from "../utils/filters.js";
   import {GetMyInfo} from '../api/api_myinfo'
   import {mapState, mapActions} from 'vuex';
-  Vue.directive('err-src', {
-    bind: function () {
-      let scope = this;
-      let element = $(scope.el);
-      let errSrc = scope.expression;
-      element.css({"opacity": 0});
-      var emptyTransparent = "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==";
-      //如果失败
-      element.on('error', function () {
-        if (!!errSrc) {
-          element.attr('src', errSrc);
-        } else {
-          element.attr('src', emptyTransparent);
-        }
-        element.css({"opacity": 1, "transition": "opacity ease 300ms"});
-        element.off()
-      });
-      //如果成功
-      element.on('load', function () {
-        element.css({"opacity": 1, "transition": "opacity ease 300ms"});
-      });
-      // 准备工作
-      // 例如，添加事件处理器或只需要运行一次的高耗任务
-    },
-    update: function (newValue, oldValue) {
-      // 值更新时的工作
-      // 也会以初始值为参数调用一次
-    },
-    unbind: function () {
-      // 清理工作
-      // 例如，删除 bind() 添加的事件监听器
-    }
-  });
+  // Vue.directive('err-src', {
+  //   bind: function () {
+  //     let scope = this;
+  //     let element = $(scope.el);
+  //     let errSrc = scope.expression;
+  //     element.css({"opacity": 0});
+  //     var emptyTransparent = "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==";
+  //     //如果失败
+  //     element.on('error', function () {
+  //       if (!!errSrc) {
+  //         element.attr('src', errSrc);
+  //       } else {
+  //         element.attr('src', emptyTransparent);
+  //       }
+  //       element.css({"opacity": 1, "transition": "opacity ease 300ms"});
+  //       element.off()
+  //     });
+  //     //如果成功
+  //     element.on('load', function () {
+  //       element.css({"opacity": 1, "transition": "opacity ease 300ms"});
+  //     });
+  //     // 准备工作
+  //     // 例如，添加事件处理器或只需要运行一次的高耗任务
+  //   },
+  //   update: function (newValue, oldValue) {
+  //     // 值更新时的工作
+  //     // 也会以初始值为参数调用一次
+  //   },
+  //   unbind: function () {
+  //     // 清理工作
+  //     // 例如，删除 bind() 添加的事件监听器
+  //   }
+  // });
   export default {
     //replace: true,
     data: function () {
@@ -615,7 +620,7 @@
           clearTimeout(_this.clear);
           _this.clear = setTimeout(function () {
             $myinfo.removeClass('showMyWords');
-          }, 500);
+          }, 580);//应该是500，但在手机上会跳帧，故设为600
         }
       }
     },

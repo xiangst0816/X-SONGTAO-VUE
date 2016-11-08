@@ -18,6 +18,7 @@ export const doError = function (code) {
         position: 'center',
         duration: 3000
       });
+      return code;
       break;
     case 9:
       Toast({
@@ -25,6 +26,7 @@ export const doError = function (code) {
         position: 'center',
         duration: 3000
       });
+      return code;
       break;
     case 10:
       Toast({

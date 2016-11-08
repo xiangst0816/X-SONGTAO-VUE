@@ -164,7 +164,7 @@
         .commentBox__info--input {
           margin: 0;
           input {
-            width: 180px;
+            /*width: 180px;*/
             min-width: 100px;
             -webkit-appearance: none;
           }

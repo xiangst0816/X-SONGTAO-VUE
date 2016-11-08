@@ -294,8 +294,19 @@
           setTimeout(function () {
             scope.submitText = null;
           }, 2000);
-        }, ()=> {
-          scope.submitText = '新增失败, 标签名称已存在!';
+        }, (code)=> {
+          //操作提示
+          switch (parseInt(code)) {
+            case 2:
+              scope.submitText = '新增失败, 标签名称已存在!';
+              break;
+            case 9:
+              scope.submitText = '您没有修改权限!';
+              break;
+            default:
+              scope.submitText = '修改失败!';
+              break;
+          }
           setTimeout(function () {
             scope.submitText = null;
           }, 2000);
@@ -332,6 +343,9 @@
               break;
             case 3:
               scope.submitText = '修改失败, 标签名称重复!';
+              break;
+            case 9:
+              scope.submitText = '您没有修改权限!';
               break;
             default:
               scope.submitText = '修改失败!';

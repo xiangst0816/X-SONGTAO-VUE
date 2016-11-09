@@ -23,8 +23,8 @@
         </section>
       </section>
       <section class="detail__2">
-        <section class="detail__nav" :class="{'active':isShowMyWords}">
-          <ul class="tabs text-shadow">
+        <section class="detail__nav">
+          <ul class="tabs text-shadow" :class="{'active':isShowMyWords}">
             <li>
               <router-link :to="{ name: 'artList',query: { listType: 'latest' }}" activeClass="active" tag="a">最新列表
               </router-link>
@@ -64,9 +64,6 @@
 <style scoped lang="scss">
   @import "../theme/theme.scss";
 
-  * {
-    /*outline: 1px solid #eee;*/
-  }
 
   $animationTime_1: 500ms;
   $animationTime_2: 200ms;
@@ -104,22 +101,11 @@
       .detail {
         padding-top: 45px !important;
       }
-      .mywords {
-
-      }
     }
     @include media("<=phone") {
       .detail {
         height: 109px !important; //109
         padding-top: 0 !important;
-        .detail__1 {
-
-        }
-        .detail__2 {
-          height: 0 !important;
-          opacity: 0;
-          overflow: hidden;
-        }
       }
       .mywords {
         article {
@@ -217,19 +203,21 @@
       }
       .detail__2 {
         .detail__nav {
-          &.active {
-            // 这里确定，展开我的信息的时候是否显示导航条，暂时不撤处理
-            /*visibility: hidden;*/
-            height:0;
-            opacity: 0;
-            overflow: hidden;
-          }
           .tabs {
             padding: 0;
             list-style: none;
             display: flex;
             justify-content: center;
             align-items: center;
+            opacity: 1;
+            height: 26px;
+            transition: all ease 500ms;
+            &.active {
+              opacity: 0;
+              height: 0;
+              overflow: hidden;
+              padding: 0;
+            }
             & > li {
               margin: 0 3px;
               width: 68px;
@@ -354,6 +342,7 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          margin-bottom:15px;
           .detail__imgBox {
             width: 100%;
           }
@@ -367,15 +356,17 @@
           justify-content: center;
           align-items: center;
           .detail__nav {
-            width: 100%;
             .tabs {
-              margin: 15px 0 25px;
+              width: 100%;
+
+              box-sizing: content-box;
+              padding: 0 0 15px;
+              margin-bottom:0;
             }
           }
           .detail__sns {
             width: 265px;
-          }
-          .detail__sns {
+            margin-top:10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -535,10 +526,7 @@
           }
         }
         .detail__2 {
-          height: 26px;
           margin: 5px 0;
-          transition: all ease 500ms;
-
         }
       }
       .mywords {
@@ -602,25 +590,18 @@
       return {
         myinfo: {},
         socialImg: '',
-        clear: '',//清除setTimeout
       }
     },
     watch: {
       // 类添加策略，用于显示我的信息
       isShowMyWords: function (val) {
-        var _this = this;
         var $myinfo = $("#myinfo")
         if (val) {
           //true
-          clearTimeout(_this.clear);
           $myinfo.addClass('showMyWords showMyWords-active')
         } else {
           //false
           $myinfo.removeClass('showMyWords-active');
-          clearTimeout(_this.clear);
-          _this.clear = setTimeout(function () {
-            $myinfo.removeClass('showMyWords');
-          }, 580);//应该是500，但在手机上会跳帧，故设为600
         }
       }
     },
@@ -650,10 +631,14 @@
       });
     },
     mounted: function () {
-
-
+      var $myinfo = $("#myinfo")
+      var _this = this;
+      $myinfo.on('transitionend',function (event) {
+        if(event.target.id === 'myinfo' && !_this.isShowMyWords){
+          $myinfo.removeClass('showMyWords');
+        }
+      })
     }
   }
-
 
 </script>

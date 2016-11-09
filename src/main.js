@@ -30,14 +30,6 @@ window.ua = ua;
 new attachFastClick(document.body);
 
 /**
- * 设定创窗口最小高度，写在body中
- * 我的信息展开的时候用到
- * */
-var docEl = document.documentElement;
-var clientHeight = docEl.clientHeight;
-document.body.style.minHeight = clientHeight + 'px';
-
-/**
  * 发布模式禁用console.log()
  * */
 if (process.env.NODE_ENV === 'production') {
@@ -46,13 +38,6 @@ if (process.env.NODE_ENV === 'production') {
   console.warn = function () {
   }
 }
-
-
-
-
-
-
-
 
 new Vue({
   el: '#app',

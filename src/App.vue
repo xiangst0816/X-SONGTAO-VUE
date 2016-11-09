@@ -27,7 +27,7 @@
   import VueResource from 'vue-resource';
   import {num2MMM, uppercase, addImgPrefix} from "./utils/filters.js";
   import {Sign} from "./api/api_statistic";
-  import {mapState, mapActions} from 'vuex';
+  import {mapActions} from 'vuex';
   /**
    * 设置本地存储
    * */
@@ -58,132 +58,20 @@
   export default {
     store,
     data: function () {
-      return {
-        clear: '',
-        musicList: API.musicList,
-      }
-    },
-    computed: {
-      ...mapState({
-        isPlaying: 'isPlaying',
-        isLoading: 'isLoading',
-        currentMusicInfo: 'currentMusicInfo',
-        MusicHandle: 'handle',
-        duration: 'duration',
-        rightNow: 'rightNow',
-        rightPercent: 'rightPercent',
-        canAutoPlay: 'canAutoPlay',
-      }),
+      return {}
     },
     methods: {
       //vuex
       ...mapActions({
         setLoginState: 'setLoginState',
-        setPlayingStatus: 'setPlayingStatus',
-        setMusicDuration: 'setMusicDuration',
-        setMusicRightNow: 'setMusicRightNow',
-        setCurrentMusic: 'setCurrentMusic',
-        setLoadingStatus: 'setLoadingStatus',
-        setCanAutoPlay: 'setCanAutoPlay',
       }),
-      /**
-       * music的控制在App.vue中,方便全局管理
-       * 只是展示与事件触发,通过vuex操作
-       * */
-      playCtrl(){
-        let _this = this;
-        _this.setPlayingStatus(!_this.isPlaying);
-      },
-      preCtrl(){
-        let _this = this;
-        let currentid = _this.musicList.indexOf(_this.currentMusicInfo);
-        let index;
-        if (currentid !== 0) {
-          index = currentid - 1;
-        } else {
-          index = _this.musicList.length - 1;
-        }
-        _this.indexCtrl(index);
-      },
-      nextCtrl(){
-        let _this = this;
-        let currentid = _this.musicList.indexOf(_this.currentMusicInfo);
-        let index;
-        if (currentid !== (_this.musicList.length - 1)) {
-          index = currentid + 1;
-        } else {
-          index = 0;
-        }
-        _this.indexCtrl(index);
-      },
-      // 从第几个开始
-      indexCtrl(index){
-        let _this = this;
-        _this._ended();
-        _this.setCurrentMusic(_this.musicList[index]);
-        _this._beforeStart();
-        _this._start();
-        _this.setPlayingStatus(true);
-      },
-      _init(){
-        let _this = this;
-        _this.setCurrentMusic(_this.musicList[0]);
-        _this._beforeStart();
-        //_this._start();
-      },
-      //start之前的准备工作,比如清除上一个的播放数据
-      _beforeStart(){
-        let _this = this;
-        //监听播放完毕状态
-        _this.MusicHandle.addEventListener('ended', function () {
-          _this._ended();
-          _this.nextCtrl();
-          //console.log("ended")
-        });
-        //监听加载状态
-        _this.MusicHandle.addEventListener('canplay', function () {
-          console.log("music-canplay")
-          _this.setLoadingStatus(false);
-          _this.setMusicDuration(_this.MusicHandle.duration)
-        });
-        //开始请求数据
-        _this.MusicHandle.addEventListener('loadstart', function () {
-          console.log("music-loadstart")
-          _this.setLoadingStatus(true);
-        });
-        //开始请求数据
-        _this.MusicHandle.addEventListener('canplaythrough', function () {
-          console.log("music-canplaythrough")
-          _this.setLoadingStatus(false);
-        });
-      },
-      _start(){
-        let _this = this;
-        _this.clear = setInterval(function () {
-          _this.setMusicRightNow(_this.MusicHandle.currentTime);
-        }, 500)
-      },
-      _ended(){
-        let _this = this;
-        clearInterval(_this.clear);
-        _this.setPlayingStatus(false);
-        _this.setMusicRightNow(0);
-      },
-      setAutoPlay(){
-        let _this = this;
-        _this.setCanAutoPlay(!_this.canAutoPlay)
-        _this.$localStorage.$set('canAutoPlay', {
-          autoPlay: _this.canAutoPlay
-        });
-      },
-
     },
     created: function () {
       const _this = this;
       /**
        * 签到
+       * sign 是一个13位时间戳，填写当前签到的时间
        * */
-        // sign 是一个13位时间戳，填写当前签到的时间
       let sign = parseInt(Vue.$localStorage['sign']);
       let dayStart = parseInt(moment().startOf('day').format('x'));
       if (!sign || sign < dayStart) {
@@ -194,17 +82,6 @@
         console.log('you have already sign!');
       }
 
-
-
-
-
-
-      /**
-       * music 初始化
-       * */
-      if (!_this.MusicHandle) {
-        _this._init()
-      }
 
       /**
        * 进入检查是否有token,是否能直接登录
@@ -218,33 +95,6 @@
           // 设置请求的token
           Vue.http.headers.common['authorization'] = "token " + authorization.token;
         }
-      }
-
-
-      /**
-       * music 播放的控制区
-       * */
-      $(document).on("Music_PlayCtrl", function (event, params) {
-        _this.playCtrl();
-      });
-      $(document).on("Music_PreCtrl", function (event, params) {
-        _this.preCtrl();
-      });
-      $(document).on("Music_NextCtrl", function (event, params) {
-        _this.nextCtrl();
-      });
-      $(document).on("Music_SetAutoPlay", function (event, params) {
-        _this.setAutoPlay();
-      });
-
-      /**
-       * music 播放的控制区
-       * 是否自动播放
-       * 进入初始化
-       * */
-      if (!!_this.$localStorage.canAutoPlay && !_this.isPlaying) {
-        _this.setCanAutoPlay(_this.$localStorage.canAutoPlay.autoPlay);
-        _this.setPlayingStatus(_this.$localStorage.canAutoPlay.autoPlay);
       }
 
     },

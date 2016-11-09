@@ -16,7 +16,7 @@ import {
   SET_MUSIC_RIGHTNOW,
   SET_CURRENT_MUSIC,
   SET_LOADING_STATUS,
-  SET_CAN_AUTOPLAY
+  // SET_CAN_AUTOPLAY
 } from "./mutation-types";
 //vuex模块
 // 告诉 vue “使用” vuex
@@ -46,7 +46,6 @@ export default new Vuex.Store({
     rightNow: 0,//当前音乐进行时
     rightPercent: 0,//当前音乐进行时百分比
     currentMusicInfo: {},//当前音乐信息
-    canAutoPlay: false,//是否能自动播放
   },
   //全局突变事件处理
   mutations: {
@@ -107,9 +106,6 @@ export default new Vuex.Store({
     },
     [SET_LOADING_STATUS] (state, status) {
       state.isLoading = status;
-    },
-    [SET_CAN_AUTOPLAY] (state, status) {
-      state.canAutoPlay = status;
     },
   },
 })

@@ -497,7 +497,7 @@
         let _this = this;
         _this.setPlayingStatus(!_this.isPlaying);
         let currentid = _this.musicList.indexOf(_this.currentMusicInfo);
-        _this.indexCtrl(currentid);
+        // _this.indexCtrl(currentid);
       },
       preCtrl(){
         let _this = this;
@@ -509,6 +509,7 @@
           index = _this.musicList.length - 1;
         }
         _this.indexCtrl(index);
+        _this.setPlayingStatus(true);
       },
       nextCtrl(){
         let _this = this;
@@ -520,6 +521,7 @@
           index = 0;
         }
         _this.indexCtrl(index);
+        _this.setPlayingStatus(true);
       },
       // 从第几个开始
       indexCtrl(index){
@@ -528,7 +530,6 @@
         _this.setCurrentMusic(_this.musicList[index]);
         _this._beforeStart();
         _this._start();
-        _this.setPlayingStatus(true);
       },
       _init(){
         let _this = this;

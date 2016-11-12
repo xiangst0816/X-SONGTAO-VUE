@@ -44,9 +44,9 @@
           <ul class="SNS">
             <li class="hidden-lg"><a title="GitHub" target="_blank" href="https://github.com/xiangsongtao"><i
               class="fa fa-github"></i></a></li>
-            <li @click="showSocialImg('http://xiangsongtao.com/uploads/qq-addme.jpg')" data-toggle="modal"
+            <li @click="showSocialImg('../../static/qq-addme.jpg')" data-toggle="modal"
                 data-target="#socialContact"><i class="fa fa-qq"></i></li>
-            <li @click="showSocialImg('http://xiangsongtao.com/uploads/weixin-addme.jpg')" data-toggle="modal"
+            <li @click="showSocialImg('../../static/weixin-addme.jpg')" data-toggle="modal"
                 data-target="#socialContact"><i class="fa fa-weixin"></i></li>
             <li><a title="新浪微博" target="_blank" href="http://weibo.com"><i class="fa fa-weibo"></i></a></li>
             <li><a title="腾讯微博" target="_blank" href="http://t.qq.com/hsiang-sootao"><i class="fa fa-tencent-weibo"></i></a>

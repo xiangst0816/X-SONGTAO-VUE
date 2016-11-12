@@ -17,34 +17,6 @@
 
   //base
   @import "../theme/theme.scss";
-  // transition 动画类
-  .fade-enter-active, .fade-leave-active {
-    transition: all .5s ease;
-    opacity: 1;
-  }
-
-  .fade-enter, .fade-leave-active {
-    opacity: 0;
-  }
-
-  // 路由切换动画
-  .blogTrans-enter-active,.blogTrans-leave-active {
-    transition: transform .5s ease,opacity .5s ease;
-    opacity:1;
-    position: relative;
-  }
-  .blogTrans-enter{
-    opacity:0;
-    position: absolute;
-    transform: translate(10%,0);
-    z-index:999;
-  }
-  .blogTrans-leave-active {
-    opacity:0;
-    transform: translate(-10%,0);
-    position: absolute;
-    z-index:0;
-  }
 
 
   .blog {

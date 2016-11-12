@@ -3,25 +3,22 @@
     <div class="music">
 
       <!--<div class="heart" @click="setAutoPlay" data-toggle="tooltip" data-placement="right" title="希望能自动播放">-->
-        <!--<i class="fa" :class="{true:'fa-heart text-danger',false:'fa-heart-o'}[canAutoPlay]"></i>-->
+      <!--<i class="fa" :class="{true:'fa-heart text-danger',false:'fa-heart-o'}[canAutoPlay]"></i>-->
       <!--</div>-->
-
 
       <div class="music--img">
         <img :src="currentMusicInfo.coverUrl">
       </div>
       <div class="music--infoBox">
         <div class="music--info">
-
           <h1 class="nameBox">
             <span class="name">{{currentMusicInfo.name}}</span>
-
           </h1>
           <p class="detail">
-                    <span class="left">
-                         <span class="player">{{currentMusicInfo.player}}</span>&ensp;<span
-                      class="blue">@</span>&ensp;<span class="album">{{currentMusicInfo.album}}</span>
-                    </span>
+           <span class="left">
+             <span class="player">{{currentMusicInfo.player}}</span>&ensp;
+             <span class="blue">@</span>&ensp;<span class="album">{{currentMusicInfo.album}}</span>
+           </span>
           </p>
           <div class="indicator">
             <div class="loadingBar">
@@ -29,11 +26,11 @@
               <div class="bar" :style="{left:rightPercent+'%'}"></div>
             </div>
             <div class="loadingTime">
-                            <span class="musicLoading" v-show="isLoading&&isPlaying">
-                                <i class="fa fa-spin fa-spinner"></i>
-                            </span>
-              <span><span class="blue">{{rightNow | secondsConvert}}</span>/<span>{{duration | secondsConvert}}</span></span>
-
+              <span class="musicLoading" v-show="isLoading&&isPlaying">
+                 <i class="fa fa-spin fa-spinner"></i>
+              </span>
+              <span><span
+                class="blue">{{rightNow | secondsConvert}}</span>/<span>{{duration | secondsConvert}}</span></span>
             </div>
           </div>
           <div class="controller">
@@ -498,6 +495,7 @@
         _this.setPlayingStatus(!_this.isPlaying);
         let currentid = _this.musicList.indexOf(_this.currentMusicInfo);
         // _this.indexCtrl(currentid);
+        _this._start();
       },
       preCtrl(){
         let _this = this;
@@ -565,6 +563,7 @@
       },
       _start(){
         let _this = this;
+        // 播放时间设置
         _this.clear = setInterval(function () {
           _this.setMusicRightNow(_this.MusicHandle.currentTime);
         }, 500)
@@ -579,7 +578,7 @@
     components: {
       copyright
     },
-    created:function () {
+    created: function () {
       let _this = this;
       /**
        * music 初始化

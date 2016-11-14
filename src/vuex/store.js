@@ -80,6 +80,7 @@ export default new Vuex.Store({
         console.log('state.handle=null')
         return;
       }
+      console.log(status)
       if (status) {
         state.handle.play()
       } else {

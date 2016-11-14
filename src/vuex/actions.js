@@ -70,9 +70,3 @@ export const setCurrentMusic = function ({commit}, currentMusicInfo) {
 export const setLoadingStatus = function ({commit}, status) {
   commit(types.SET_LOADING_STATUS, status)
 };
-/**
- * 设置是否能自动播放
- * */
-export const setCanAutoPlay = function ({commit}, status) {
-  commit(types.SET_CAN_AUTOPLAY, status)
-};

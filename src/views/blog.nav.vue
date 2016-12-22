@@ -75,12 +75,13 @@
   </div>
 </template>
 <style scoped lang="scss">
-  //base
+  // base
   @import "../theme/theme.scss";
 
-  .blackBG{
-    background:#000;
+  .blackBG {
+    background: #000;
   }
+
   //default for desktop
   .blogNav {
     display: flex;
@@ -244,7 +245,7 @@
       return {
         isChangeBG: false,
         bgIndexNow: '',
-        isMobile:window.ua.mobile,
+        isMobile: window.ua.mobile,
       }
     },
     computed: {
@@ -254,7 +255,7 @@
       }),
     },
     methods: {
-      navBack:function () {
+      navBack: function () {
         this.$router.back();
       },
       doLoginout: function () {
@@ -344,7 +345,7 @@
       /**
        * 工具提示栏 Tooltip类，需要jQuery
        * */
-      tooltip:function tooltip() {
+      tooltip: function tooltip() {
         // 使用v-show显示隐藏按钮
         let $tooltips = $('[data-toggle="tooltip"]');
         let _clientWidth = parseInt(document.documentElement.clientWidth);
@@ -377,7 +378,7 @@
       }
 
     },
-    mounted:function () {
+    mounted: function () {
       const _this = this;
       /**
        * 初始化工具提示栏

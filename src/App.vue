@@ -96,7 +96,6 @@
           Vue.http.headers.common['authorization'] = "token " + authorization.token;
         }
       }
-
     },
     mounted: function () {
       //更改loading状态,，隐藏index中的loading画面

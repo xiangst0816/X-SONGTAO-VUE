@@ -147,20 +147,20 @@
       },
       f_getTotal: function (cb) {
         const _this = this;
-        GetTotal().then((data)=> {
+        GetTotal().then((data) => {
           _this.total = data;
           cb && cb();
         })
       },
       f_getChart: function (cb) {
         const _this = this;
-        GetChart().then((data)=> {
+        GetChart().then((data) => {
           cb && cb(data);
         })
       },
       f_getMap: function (cb) {
         const _this = this;
-        GetMap().then((data)=> {
+        GetMap().then((data) => {
           cb && cb(data);
         })
       },
@@ -231,7 +231,7 @@
         });
       });
       _this.f_getMap(function (data) {
-        var myMap = echarts.init(document.getElementById('map'));
+        let myMap = echarts.init(document.getElementById('map'));
         myMap.setOption({
           backgroundColor: '#fff',
           title: {

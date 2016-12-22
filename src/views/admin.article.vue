@@ -1,8 +1,3 @@
-/**
-* Created by xiangsongtao on 16/7/24.
-* Description:
-*/
-<!--内容区-->
 <template>
   <div class="articleEdit animated fadeIn">
     <!--column title-->
@@ -60,14 +55,17 @@
                              :max-height="500"
                              :selected="selected"
                              :options="options"
-                             deselect-label="点击移除" select-label="点击选择" selected-label="当前选择" option-key="_id" option-label="name"
+                             deselect-label="点击移除" select-label="点击选择" selected-label="当前选择" option-key="_id"
+                             option-label="name"
                              @update="updateValuePrimitive"></Multiselect>
               </div>
               <div class="btn-group" role="group">
-                <button class="btn btn-info" @click="publishBtn()" v-bind:disabled="!article.title || !content_raw || isPublishing">
+                <button class="btn btn-info" @click="publishBtn()"
+                        v-bind:disabled="!article.title || !content_raw || isPublishing">
                   <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-rocket'}[isPublishing]"></i> 发布
                 </button>
-                <button class="btn btn-default" @click="draftBtn()" v-bind:disabled="!article.title || !content_raw || isPublishing">
+                <button class="btn btn-default" @click="draftBtn()"
+                        v-bind:disabled="!article.title || !content_raw || isPublishing">
                   <i class="fa fa-fw" :class="{true:'fa-spinner fa-spin',false:'fa-save'}[isDrafting]"></i> 草稿
                 </button>
                 <button @click="previewBtn()" class="btn btn-default showPreview">
@@ -437,14 +435,13 @@
 
 
 </style>
-<script type="text/javascript">
-  import Vue from "vue";
+<script type="text/ecmascript-6">
   import _ from "lodash";
   import marked from "marked";
-
   import "../theme/codeHighLight.css";
   import "../theme/markdown.scss";
 
+  // mark编辑设置
   marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true,
@@ -512,7 +509,7 @@
       getArticle(id){
         const _this = this;
         let $TextArea = document.getElementById('textarea');
-        GetRawArticleById(id).then((data)=> {
+        GetRawArticleById(id).then((data) => {
           _this.article = data;
           _this.content_raw = data.content;
           //预先确定已选择的标签
@@ -526,7 +523,7 @@
           setTimeout(function () {
             autoTextarea($TextArea, 10);
           }, 0);
-        }, (err)=> {
+        }, (err) => {
           alert(JSON.stringify(err))
         })
       },
@@ -621,7 +618,7 @@
       ...mapActions({
         setShowBigAdminStatus: 'setShowBigAdminStatus',
       }),
-      watchContentRawFn:_.debounce(function () {
+      watchContentRawFn: _.debounce(function () {
         const _this = this;
         let $TextArea = document.getElementById('textarea');
         autoTextarea($TextArea, 10);
@@ -642,7 +639,7 @@
        * 获取标签列表
        * */
       const _this = this;
-      GetTagsList().then((data)=> {
+      GetTagsList().then((data) => {
         _this.options = data
       });
     },

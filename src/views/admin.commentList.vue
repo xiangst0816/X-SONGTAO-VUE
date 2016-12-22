@@ -400,14 +400,14 @@
 
         _tmp.length === 0 ? (scope.hasData = false) : (scope.hasData = true);
 
-        return  _.orderBy(_tmp, ['time'], ['desc']);
+        return _.orderBy(_tmp, ['time'], ['desc']);
       }
     },
     methods: {
       //获得列表
       getList: function () {
         const scope = this;
-        GetCommentToArticleList().then((data)=> {
+        GetCommentToArticleList().then((data) => {
           scope.commentList = data;
         });
       },
@@ -444,7 +444,7 @@
         ChangeCommentReplyState({
           _id: item._id
         }).then(function () {
-          SendComment(params).then((data)=> {
+          SendComment(params).then((data) => {
             scope.replyContent = '';
           }).then(function () {
             scope.getList()
@@ -458,7 +458,7 @@
       confirmDelCommBtn: function (item) {
         const scope = this;
         $('#delComm').modal('hide');
-        DeleteComment(item._id).then((data)=> {
+        DeleteComment(item._id).then((data) => {
         }).then(function () {
           //刷新文章列表
           scope.getList()

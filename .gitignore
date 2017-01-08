@@ -7,3 +7,5 @@ backup
 .DS_Store
 .svn
 dist
+*.log
+/src/config.js

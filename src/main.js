@@ -8,9 +8,9 @@ import App from './App';
 import router from './router.js'
 import "./theme/util.scss";
 import "bootstrap/scss/bootstrap.slim.scss";
-import "bootstrap/js/tooltip.js";
-import "bootstrap/js/modal.js";
-import "bootstrap/js/transition.js";
+// import "bootstrap/js/tooltip.js";
+// import "bootstrap/js/modal.js";
+// import "bootstrap/js/transition.js";
 import attachFastClick from "fastclick";
 import ua from './plugin/parseUA'
 

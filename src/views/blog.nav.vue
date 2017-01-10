@@ -345,24 +345,24 @@
       /**
        * 工具提示栏 Tooltip类，需要jQuery
        * */
-      tooltip: function tooltip() {
-        // 使用v-show显示隐藏按钮
-        let $tooltips = $('[data-toggle="tooltip"]');
-        let _clientWidth = parseInt(document.documentElement.clientWidth);
-        let _params = null;
-        if (_clientWidth <= 768) {
-        } else if (_clientWidth > 769 && _clientWidth < 991) {
-          $tooltips.tooltip({
-            trigger: 'hover',
-            placement: 'bottom'
-          })
-        } else if (_clientWidth > 991) {
-          $tooltips.tooltip({
-            trigger: 'hover',
-            placement: 'right'
-          })
-        }
-      }
+      // tooltip: function tooltip() {
+      //   // 使用v-show显示隐藏按钮
+      //   let $tooltips = $('[data-toggle="tooltip"]');
+      //   let _clientWidth = parseInt(document.documentElement.clientWidth);
+      //   let _params = null;
+      //   if (_clientWidth <= 768) {
+      //   } else if (_clientWidth > 769 && _clientWidth < 991) {
+      //     $tooltips.tooltip({
+      //       trigger: 'hover',
+      //       placement: 'bottom'
+      //     })
+      //   } else if (_clientWidth > 991) {
+      //     $tooltips.tooltip({
+      //       trigger: 'hover',
+      //       placement: 'right'
+      //     })
+      //   }
+      // }
     },
     created: function () {
       const _this = this;
@@ -383,7 +383,7 @@
       /**
        * 初始化工具提示栏
        * */
-      _this.tooltip();
+      // _this.tooltip();
     }
   }
 

@@ -9,3 +9,4 @@ backup
 dist
 *.log
 /src/config.js
+config.js

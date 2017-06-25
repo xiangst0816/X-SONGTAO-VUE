@@ -90,8 +90,8 @@
                      <a :href="'mailto:'+item.email">{{item.email}}</a>
                 </span>
             &ensp;·&ensp;
-            <span v-if="item.article_id._id.toString() === item.pre_id.toString()" class="alreadyReplied">主评论</span>
-            <span v-if="item.article_id._id.toString() !== item.pre_id.toString()" class="alreadyReplied">子评论</span>
+            <span v-if="item.article_id._id === item.pre_id" class="alreadyReplied">主评论</span>
+            <span v-if="item.article_id._id !== item.pre_id" class="alreadyReplied">子评论</span>
             <span v-if="!item.isIReplied">&ensp;·&ensp; <span class="reply">未回复</span></span>
             <span v-if="!!item.isIReplied">&ensp;·&ensp; <span class="alreadyReplied">已回复</span></span>
             &ensp;·&ensp;
@@ -346,11 +346,11 @@
               break;
             //主评论
             case 1:
-              return data.article_id._id.toString() === data.pre_id.toString();
+              return data.article_id._id === data.pre_id;
               break;
             //子评论
             case 2:
-              return data.article_id._id.toString() !== data.pre_id.toString();
+              return data.article_id._id !== data.pre_id;
               break;
             default:
               return true;

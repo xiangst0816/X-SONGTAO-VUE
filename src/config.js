@@ -4,8 +4,8 @@
  */
 //线上配置
 let CONFIG;
-// if (process.env.NODE_ENV === 'development') {
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'production') {
   CONFIG = {
     url: "http://xiangsongtao.com",
     MY_INFO_ID: '578251be1cd6c37a04a4d50b',

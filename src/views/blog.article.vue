@@ -337,7 +337,7 @@
         }
         .paper__content {
           .paper__content--inner {
-            background-image: url(../assets/pleasehole-img.png);
+            background-image: url(../assets/body_placeholder.png);
             background-repeat: no-repeat;
             background-size: 100% auto;
             background-position: center top;

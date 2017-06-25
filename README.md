@@ -1,6 +1,6 @@
 # X-SONGTAO@VUE
 
-> 目前项目正在改写, fork后可能无法运行, 请注意!
+> 目前这个项目已不在维护，fork后可能无法运行, 请注意!
 
 > 这是一个从Angular改写到Vue版本的博客项目，博客已全部开发完毕，点击访问线上地址是[xiangsongtao.com](http://xiangsongtao.com "X-SONGTAO")。总体来说，使用Vue还是很愉快的，因为有Angualr的基础，所以整个过程很顺利。Vue值得拥有！
 
